@@ -51,6 +51,21 @@
     text-decoration: none;
 }
 .lime-button-solo {
+     color: #ffffff;
+     font-size: 20px;
+     background: #8FC800;
+     padding: 10px 20px 10px 20px;
+     border: solid #000000 2px;
+     text-decoration: none;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+ }
+.lime-button-solo:hover {
+    background: #75a300;
+    text-decoration: none;
+}
+.lime-button-left {
     color: #ffffff;
     font-size: 20px;
     background: #8FC800;
@@ -58,10 +73,10 @@
     border: solid #000000 2px;
     text-decoration: none;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px;
+    width: fit-content;
 }
-.lime-button-solo:hover {
+.lime-button-left:hover {
     background: #75a300;
     text-decoration: none;
 }
