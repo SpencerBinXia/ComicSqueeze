@@ -34,6 +34,7 @@ html * {
 /*nav bar (on top)*/
 .navBar {
     height: 60px;
+    min-height: 60px;
     display: inline-block;
     font-size: 1em;
 }
