@@ -52,7 +52,7 @@ html * {
 .sidebar {
     width: 15%;
     background: #b9bec5;
-    padding: 20px;
+    padding: 15px;
 }
 .sidebarLeft{
     order: 1;
