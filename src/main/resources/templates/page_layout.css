@@ -12,7 +12,7 @@
     flex-direction: row;
 }
 .fullHeight {
-    height: 100vh;
+    height: 100%;
 }
 
 /*main color backgrounds, for ease of access*/

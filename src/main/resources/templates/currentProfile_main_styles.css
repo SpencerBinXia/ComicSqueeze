@@ -3,6 +3,31 @@ img {
     height: auto;
 }
 
+.column-left {
+    float: left;
+    width: 60%;
+}
+.column-right {
+    float: left;
+    width: 40%;
+    padding-left: 30px;
+}
+input {
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing : border-box;
+    font-size:20px;
+}
+
+.upload-icon {
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: solid #000000 2px;
+}
+
 .series {
     border: solid black 2px;
     align-items: center;

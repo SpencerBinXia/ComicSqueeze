@@ -10,6 +10,7 @@
     <link href="buttons.css" rel="stylesheet">
     <link href="frontPage_main_styles.css" rel="stylesheet">
     <link href="currentProfile_main_styles.css" rel="stylesheet">
+    <link href="modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -20,7 +21,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
             <a href="CurrentUserProfile.html" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
-            <a href="#" class="navButton" style="float: left; display: inline-block">
+            <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -30,7 +31,7 @@
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
             <a href="Register.html" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a href="#" class="navButton" style="float: right;">SIGN IN</a>
+            <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
         </div>
     </nav>
 
@@ -100,13 +101,124 @@
                         et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
                     <h3 style="text-align: center"># Followers</h3>
                     <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
-                    <button class="lime-button-solo">CREATE SERIES</button>
+                    <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
+                        <button class="lime-button-solo">CREATE SERIES</button>
+                    </a>
                 </div>
             </div>
-            <button class="grey-button-left">EDIT</button>
+            <a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">
+                <button class="grey-button-left">EDIT</button>
+            </a>
         </aside>
         <aside class="sidebar sidebarRight"></aside>
 
+    </div>
+
+    <!--Notifications Popup-->
+    <div id="notifications-modal-container">
+        <div id="notifications-modal" class="reveal-modal-notifications">
+            <div class="flexContainer flexColumn">
+                <p class="notification-item">USERNAME has released a new comic series</p>
+                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                <p class="notification-item">New Follower: USERNAME</p>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
+                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create Series Popup-->
+    <div id="edit-profile-modal-container">
+        <div id="edit-profile-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <div class="flexContainer flexRow">
+                    <div class="column-left">
+                        <form>
+                            Username: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Example45<br><br>
+                            Email: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>example45@email.com<br><br>
+                            Password: <input type="text" name="Password" placeholder="Input new password here"><br><br>
+                            First Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>John<br><br>
+                            Last Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Smith
+                        </form>
+                        <br>
+                    </div>
+                    <div class="column-right">
+                        <div class="flexContainer flexColumn right-content">
+                            <img src="images/icons/default_pro_icon.png" class="upload-icon">
+                            <!--When successful, routes back to FrontPage-->
+                            <button class="lime-button-solo" style="margin-top: 30px">UPLOAD</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SAVE</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create Series Popup-->
+    <div id="create-series-modal-container">
+        <div id="create-series-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <h2 style="margin-top: 0">Create Series</h2>
+                <form>
+                    Title: <input class="input-small" type="text" name="Title"><br><br>
+                    Description: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                    Tags: <textarea class="input-mid" type="text" name="Tags"></textarea><br><br>
+                </form>
+                <h3 style="margin: 0">Series Mode</h3>
+                <select id="seriesMode" name="seriesMode">
+                    <option value="recent">Individual</option>
+                    <option value="popular">Group Collaboration</option>
+                </select>
+                <div class="flexContainer flexRow" style="align-items: center; margin-top: 10px">
+                    <h3 style="margin: 0; padding-right: 20px;">Invite</h3>
+                    <form style="padding-top: 15px; padding-right: 20px;">
+                        <input class="input-small" type="text" name="invite"><br><br>
+                    </form>
+                    <a style="margin: 0">
+                        <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
+                    </a>
+                </div>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">CREATE</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Sign In Popup-->
+    <div id="signIn-modal-container">
+        <div id="signIn-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Username: <input class="input-small" type="text" name="userName"><br><br>
+                    Password: <input class="input-small" type="text" name="userName">
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SIGN IN</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>

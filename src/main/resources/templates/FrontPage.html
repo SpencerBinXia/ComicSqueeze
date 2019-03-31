@@ -9,6 +9,8 @@
     <link href="page_layout.css" rel="stylesheet">
     <link href="buttons.css" rel="stylesheet">
     <link href="frontPage_main_styles.css" rel="stylesheet">
+    <link href="modal_styles.css" rel="stylesheet">
+    <link href="series_main_styles.css" rel="stylesheet">
 
 </head>
 
@@ -19,7 +21,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
             <a href="CurrentUserProfile.html" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
-            <a href="#" class="navButton" style="float: left; display: inline-block">
+            <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -29,7 +31,7 @@
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
             <a href="Register.html" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a href="#" class="navButton" style="float: right;">SIGN IN</a>
+            <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
         </div>
     </nav>
 
@@ -50,8 +52,12 @@
                             She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
                         <h4>Vote on, or submit, a page to continue the story.</h4>
                         <div class="flexContainer flexRow" style="justify-content: space-evenly; padding-top: 20px;">
-                            <button class="lime-button">PAST COMICS</button>
-                            <button class="lime-button">VOTE ON PAGE</button>
+                            <a class="button-as-link" href="#past-comics-modal-container" data-reveal-id="exampleModal">
+                                <button class="lime-button">PAST COMICS</button>
+                            </a>
+                            <a class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">
+                                <button class="lime-button">VOTE ON PAGE</button>
+                            </a>
                             <button class="lime-button">CREATE PAGE</button>
                         </div>
                     </div>
@@ -162,6 +168,121 @@
         <aside class="sidebar sidebarLeft"></aside>
         <aside class="sidebar sidebarRight"></aside>
 
+    </div>
+
+    <!--Notifications Popup-->
+    <div id="notifications-modal-container">
+        <div id="notifications-modal" class="reveal-modal-notifications">
+            <div class="flexContainer flexColumn">
+                <p class="notification-item">USERNAME has released a new comic series</p>
+                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                <p class="notification-item">New Follower: USERNAME</p>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
+                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Past Comics Popup-->
+    <div id="past-comics-modal-container">
+        <div id="past-comics-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <h2 style="margin: 0">Past Comics</h2><br><br>
+                <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
+                    <div class="flexContainer flexColumn issue" style="align-items: center;">
+                        <a href="IssuePage.html"><img src="images/EXAMPLE_3.jpg"></a>
+                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
+                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
+                    </div>
+                    <div class="flexContainer flexColumn issue" style="align-items: center;">
+                        <a href="IssuePage.html"><img src="images/EXAMPLE_3.jpg"></a>
+                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
+                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
+                    </div>
+                    <div class="flexContainer flexColumn issue" style="align-items: center;">
+                        <a href="IssuePage.html"><img src="images/EXAMPLE_3.jpg"></a>
+                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
+                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
+                    </div>
+                    <div class="flexContainer flexColumn issue" style="align-items: center;">
+                        <a href="IssuePage.html"><img src="images/EXAMPLE_3.jpg"></a>
+                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
+                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
+                    </div>
+                    <div class="flexContainer flexColumn issue" style="align-items: center;">
+                        <a href="IssuePage.html"><img src="images/EXAMPLE_3.jpg"></a>
+                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
+                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
+                    </div>
+                </div>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Vote on Page Popup-->
+    <div id="vote-modal-container">
+        <div id="vote-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <h2 style="margin: 0">Vote</h2><br>
+                <div class="flexContainer flexRow series">
+                    <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
+                    <div class="flexContainer flexColumn">
+                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Username</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Username</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Username</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Username</p>
+                    </div>
+                    <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
+                </div>
+                <br>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">CAST VOTE</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Sign In Popup-->
+    <div id="signIn-modal-container">
+        <div id="signIn-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Username: <input class="input-small" type="text" name="userName"><br><br>
+                    Password: <input class="input-small" type="text" name="userName">
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SIGN IN</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>

@@ -10,6 +10,7 @@
     <link href="buttons.css" rel="stylesheet">
     <link href="frontPage_main_styles.css" rel="stylesheet">
     <link href="issue_main_styles.css" rel="stylesheet">
+    <link href="modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -20,7 +21,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
             <a href="CurrentUserProfile.html" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
-            <a href="#" class="navButton" style="float: left; display: inline-block">
+            <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -30,7 +31,7 @@
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
             <a href="Register.html" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a href="#" class="navButton" style="float: right;">SIGN IN</a>
+            <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
         </div>
     </nav>
 
@@ -109,11 +110,11 @@
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; margin-bottom: 5px">Comments</h1>
-                <a href="#" class="page-option"><img src="images/icons/edit_icon.png"></a>
+                <a href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png"></a>
             </div>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
                 <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
+                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png"></a>
                 <p class="upvote-text">3</p>
@@ -123,7 +124,7 @@
             <p style="margin-top: -5px">Lorem ipsum dolor sit amet.</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">
                 <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
+                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png"></a>
                 <p class="upvote-text">1</p>
@@ -133,7 +134,7 @@
             <p style="margin-top: -5px; margin-left: 60px">Ut enim ad minim</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
                 <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
+                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_NONE_icon.png"></a>
                 <p class="no-upvote-text">0</p>
@@ -149,6 +150,80 @@
         <aside class="sidebar sidebarLeft"></aside>
         <aside class="sidebar sidebarRight"></aside>
 
+    </div>
+
+    <!--Notifications Popup-->
+    <div id="notifications-modal-container">
+        <div id="notifications-modal" class="reveal-modal-notifications">
+            <div class="flexContainer flexColumn">
+                <p class="notification-item">USERNAME has released a new comic series</p>
+                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                <p class="notification-item">New Follower: USERNAME</p>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
+                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Write Comment Popup-->
+    <div id="write-comment-modal-container">
+        <div id="write-comment-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Write Comment: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SUBMIT</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Write Reply Popup-->
+    <div id="write-reply-modal-container">
+        <div id="write-reply-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Write Reply: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SUBMIT</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Sign In Popup-->
+    <div id="signIn-modal-container">
+        <div id="signIn-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Username: <input class="input-small" type="text" name="userName"><br><br>
+                    Password: <input class="input-small" type="text" name="userName">
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SIGN IN</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>

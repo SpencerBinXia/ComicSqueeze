@@ -37,6 +37,15 @@
     background: url(images/Comic_Squeeze_108x90.png) no-repeat;
 }
 
+.button-as-link {
+    text-decoration: none;
+}
+
+.arrow {
+    height: 50px;
+    width: 50px;
+}
+
 /*other buttons*/
 .lime-button {
     color: #ffffff;
@@ -78,5 +87,21 @@
 }
 .lime-button-left:hover {
     background: #75a300;
+    text-decoration: none;
+}
+
+.grey-button-left {
+    color: #ffffff;
+    font-size: 20px;
+    background: #9a9a9a;
+    padding: 10px 20px 10px 20px;
+    border: solid #000000 2px;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    width: fit-content;
+}
+.grey-button-left:hover {
+    background: #707070;
     text-decoration: none;
 }
