@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <title>IssuePage</title>
 
-    <link href="page_layout.css" rel="stylesheet">
-    <link href="buttons.css" rel="stylesheet">
-    <link href="frontPage_main_styles.css" rel="stylesheet">
-    <link href="issue_main_styles.css" rel="stylesheet">
-    <link href="modal_styles.css" rel="stylesheet">
+    <link href="css/page_layout.css" rel="stylesheet">
+    <link href="css/buttons.css" rel="stylesheet">
+    <link href="css/frontPage_main_styles.css" rel="stylesheet">
+    <link href="css/issue_main_styles.css" rel="stylesheet">
+    <link href="css/modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -21,17 +21,17 @@
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a href="CurrentUserProfile.html" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
+            <a th:href="@{/currentprof}" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
             <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
-        <a href="FrontPage.html" class="navLogo"></a>
+        <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
-            <a href="Search.html" style="float: right; display: inline-block">
+            <a th:href="@{/search}" style="float: right; display: inline-block">
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
-            <a href="Register.html" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
+            <a th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
         </div>
     </nav>
@@ -49,7 +49,7 @@
                         <br>
                         <h1 style="margin: 0">Issue #</h1>
                         <h3 class="subtext" style="margin: 0">Series Name</h3>
-                        <a href="OtherUserProfile.html" class="subtext"><h4 class="subtext" style="margin: 0">By Username</h4></a>
+                        <a th:href="@{/otherprof}" class="subtext"><h4 class="subtext" style="margin: 0">By Username</h4></a>
                         <br>
                         <h2>Description</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 20px;">
-                <a class="button-as-link" href="CreatePage.html">
+                <a class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
                 <button class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
@@ -116,7 +116,7 @@
                 <a href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png"></a>
             </div>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
-                <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
+                <a th:href="@{/otherprof}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
                 <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png"></a>
@@ -126,7 +126,7 @@
             </div>
             <p style="margin-top: -5px">Lorem ipsum dolor sit amet.</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">
-                <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
+                <a th:href="@{/otherprof}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
                 <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png"></a>
@@ -136,7 +136,7 @@
             </div>
             <p style="margin-top: -5px; margin-left: 60px">Ut enim ad minim</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
-                <a href="OtherUserProfile.html" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
+                <a th:href="@{/otherprof}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
                 <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_NONE_icon.png"></a>

@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <title>OtherUserProfile</title>
 
-    <link href="page_layout.css" rel="stylesheet">
-    <link href="buttons.css" rel="stylesheet">
-    <link href="frontPage_main_styles.css" rel="stylesheet">
-    <link href="currentProfile_main_styles.css" rel="stylesheet">
-    <link href="modal_styles.css" rel="stylesheet">
+    <link href="css/page_layout.css" rel="stylesheet">
+    <link href="css/buttons.css" rel="stylesheet">
+    <link href="css/frontPage_main_styles.css" rel="stylesheet">
+    <link href="css/currentProfile_main_styles.css" rel="stylesheet">
+    <link href="css/modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -21,17 +21,17 @@
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a href="CurrentUserProfile.html" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
+            <a th:href="@{/currentprof}" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
             <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
-        <a href="FrontPage.html" class="navLogo"></a>
+        <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
-            <a href="Search.html" style="float: right; display: inline-block">
+            <a th:href="@{/search}" style="float: right; display: inline-block">
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
-            <a href="Register.html" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
+            <a th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
         </div>
     </nav>
@@ -40,26 +40,26 @@
 
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow" style="align-items: center">
-                <a href="SeriesPage.html" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
@@ -68,26 +68,26 @@
             <br><br>
 
             <div class="flexContainer flexRow" style="align-items: center">
-                <a href="SeriesPage.html" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a href="IssuePage.html"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue #</p>
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>

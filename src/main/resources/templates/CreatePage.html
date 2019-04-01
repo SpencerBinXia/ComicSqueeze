@@ -7,9 +7,9 @@
     <meta charset="UTF-8">
     <title>CreatePage</title>
 
-    <link href="page_layout.css" rel="stylesheet">
-    <link href="buttons.css" rel="stylesheet">
-    <link href="register_main_styles.css" rel="stylesheet">
+    <link href="css/page_layout.css" rel="stylesheet">
+    <link href="css/buttons.css" rel="stylesheet">
+    <link href="css/register_main_styles.css" rel="stylesheet">
 
 </head>
 
@@ -17,7 +17,7 @@
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
-        <a href="FrontPage.html" class="navLogo"></a>
+        <a th:href="@{/}" class="navLogo"></a>
     </nav>
 
     <div class="flexContainer flexItem">
@@ -31,7 +31,7 @@
                 <a class="button-as-link" style="width: fit-content; margin: 0">
                     <button class="lime-button-left">CREATE</button>
                 </a>
-                <a href="FrontPage.html" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                <a th:href="@{/}" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                     <button class="grey-button-left">CANCEL</button>
                 </a>
             </div>
