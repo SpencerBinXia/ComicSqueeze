@@ -26,18 +26,22 @@
             <h1>Register</h1>
             <h3>Enter Your Info Below:</h3>
             <p>(*) mandatory field</p>
+            <p th:text="${err}"></p>
+            <p th:text="${err2}"></p>
+            <p th:text="${err3}"></p>
             <br><br>
             <div class="flexContainer flexRow">
                 <div class="column-left">
-                    <form>
+                    <form method="get" action="/registerUser">
                         *Username: <input type="text" name="Username"><br><br>
                         *Password: <input type="text" name="Password"><br><br>
                         *Email: <input type="text" name="Email"><br><br>
                         First Name: <input type="text" name="First"><br><br>
                         Last Name: <input type="text" name="Last">
+                        <input type="submit" name="submit" class="lime-button-left">REGISTER</input>
                     </form>
                     <br><br>
-                <button class="lime-button-left">REGISTER</button>
+
                 </div>
                 <div class="column-right">
                     <div class="flexContainer flexColumn right-content">
