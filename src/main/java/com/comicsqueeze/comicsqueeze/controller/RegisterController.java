@@ -18,6 +18,7 @@ public class RegisterController {
     public String home(Model model) {
         return "Register";
     }
+    
 
     @RequestMapping("/registerUser")
     public String registerUser(Model m,@RequestParam String Username, @RequestParam String Password, @RequestParam String Email, @RequestParam String First, @RequestParam String Last) {
