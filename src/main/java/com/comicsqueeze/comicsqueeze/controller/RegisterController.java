@@ -18,6 +18,7 @@ public class RegisterController {
     public String home(Model model) {
         return "Register";
     }
+
     
 
     @RequestMapping("/registerUser")
@@ -57,9 +58,6 @@ public class RegisterController {
             m.addAttribute(("err3"),"registration unsuccessful make sure all fields are valid");
             return "Register";
         }
-
-
-
 
     }
 }
