@@ -21,7 +21,7 @@ public class ComicsqueezeApplication {
         SpringApplication.run(ComicsqueezeApplication.class, args);
         FileInputStream serviceAccount = null;
         try {
-            serviceAccount = new FileInputStream("C:/Users/Varun/cse308/comicsqueeze/ComicSqueeze/src/main/resources/comicsqueeze-firebase-adminsdk-cgyos-49457802ed.json");
+            serviceAccount = new FileInputStream("src/main/resources/comicsqueeze-firebase-adminsdk-cgyos-49457802ed.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://comicsqueeze.firebaseio.com/")
