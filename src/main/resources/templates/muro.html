@@ -4,6 +4,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>embedded deviantART muro sandbox</title>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
+            authDomain: "comicsqueeze.firebaseapp.com",
+            databaseURL: "https://comicsqueeze.firebaseio.com",
+            projectId: "comicsqueeze",
+            storageBucket: "comicsqueeze.appspot.com",
+            messagingSenderId: "213405157042"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src =js/signIn.js></script>
     <style>
         body { margin: 0; }
     </style>

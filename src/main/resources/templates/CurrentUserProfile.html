@@ -6,7 +6,21 @@
 
     <meta charset="UTF-8">
     <title>CurrentUserProfile</title>
-
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
+            authDomain: "comicsqueeze.firebaseapp.com",
+            databaseURL: "https://comicsqueeze.firebaseio.com",
+            projectId: "comicsqueeze",
+            storageBucket: "comicsqueeze.appspot.com",
+            messagingSenderId: "213405157042"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src =js/signIn.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
@@ -206,16 +220,18 @@
     <div id="signIn-modal-container">
         <div id="signIn-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
-                <form>
-                    Username: <input class="input-small" type="text" name="userName"><br><br>
-                    Password: <input class="input-small" type="text" name="userName">
-                </form>
+
+                Email: <input id = "email"class="input-small" type="text" name="email"><br><br>
+                <label id ="passLbl">Password:</label> <input id = "passWord" class="input-small" type="text" name="passWord">
+
+
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SIGN IN</button>
+                        <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
                     </a>
+                    <a id ="forgot" href="javascript:forgotPassword();">Forgot Password?</a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
+                        <button  class="grey-button-left">CLOSE</button>
                     </a>
                 </div>
             </div>

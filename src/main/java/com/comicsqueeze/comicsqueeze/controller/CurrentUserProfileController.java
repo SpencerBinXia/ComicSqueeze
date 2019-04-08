@@ -16,7 +16,7 @@ import java.awt.*;
 
 public class CurrentUserProfileController {
     @RequestMapping(value ="/currentprof",method = RequestMethod.GET)
-    public String home(Model model, @RequestParam("userName") String userName)
+    public String home(Model model, @RequestParam(value ="userName", defaultValue = "Username") String userName )
     {
         model.addAttribute("userName",userName);
         return "CurrentUserProfile";

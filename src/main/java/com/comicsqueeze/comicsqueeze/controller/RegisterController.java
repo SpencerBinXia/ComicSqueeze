@@ -33,6 +33,7 @@ public class RegisterController {
             UserRecord userRecord = null;
             userRecord = FirebaseAuth.getInstance().createUser(request);
             System.out.println("Successfully created new user: " + userRecord.getUid());
+            m.addAttribute("userName",userRecord.getDisplayName());
             return "CurrentUserProfile";
         } catch (FirebaseAuthException e) {
             String message;
