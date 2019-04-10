@@ -16,9 +16,16 @@ import java.awt.*;
 
 public class CurrentUserProfileController {
     @RequestMapping(value ="/currentprof",method = RequestMethod.GET)
-    public String home(Model model, @RequestParam(value ="userName", defaultValue = "Username") String userName )
+    public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName )
     {
+        boolean isAnon;
+        if(userName == "USERNAME"){
+            isAnon = true;
+        } else {
+            isAnon = false;
+        }
         model.addAttribute("userName",userName);
+        model.addAttribute("isAnon", isAnon);
         return "CurrentUserProfile";
     }
 
