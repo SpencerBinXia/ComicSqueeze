@@ -1,48 +1,50 @@
-//package com.comicsqueeze.comicsqueeze.repository;
-//
-//import com.comicsqueeze.comicsqueeze.object.User;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.jdbc.core.RowMapper;
-//import org.springframework.stereotype.Repository;
-//import org.springframework.stereotype.Repository;
-//
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//
-//@Repository
-//public class ProfileRepo {
-//    @Autowired
-//    JdbcTemplate jdbc;
-//
-//    //Might need to change the table name, depending on the table name for user
-//    public User findByName(String username)
-//    {
-//        String findUser ="SELECT * FROM user WHERE user_name='" + username + "';";
-//        User tempuser = new User();
-//        try
-//        {
-//            jdbc.queryForObject(findUser, new RowMapper<User>() {
-//                public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                    tempuser.setUsername(rs.getString("user_name"));
-//                    return tempuser;
-//                }
-//            });
-//        }
-//        catch (Exception e)
-//        {
-//            return null;
-//        }
-//        return tempuser;
-//    }
-//
-//    //Might need to change the table name, depending on the table name for user
-//    public void regUser(User newUser)
-//    {
-//        jdbc.update("INSERT INTO user(user_name)" + "VALUES(?,?)", newUser.getUsername());
-//
-//    }
-//
-//
-//}
+package com.comicsqueeze.comicsqueeze.repository;
+
+import com.comicsqueeze.comicsqueeze.object.Member;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+@Repository
+public class ProfileRepo {
+    @Autowired
+    JdbcTemplate jdbc;
+
+    //Might need to change the table name, depending on the table name for user
+    public Member findByName(String username)
+    {
+        System.out.println("findbyName repo reached");
+        String findMember ="SELECT * FROM \"Member\" WHERE username='" + username + "';";
+        Member tempuser = new Member();
+        try
+        {
+            jdbc.queryForObject(findMember, new RowMapper<Member>() {
+                public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    tempuser.setUsername(rs.getString("username"));
+                    return tempuser;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return tempuser;
+    }
+
+    //Might need to change the table name, depending on the table name for user
+    public void regMember(Member newMember)
+    {
+        System.out.println("regMember reached");
+        jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio)" + "VALUES(?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false, "");
+
+    }
+
+
+}
