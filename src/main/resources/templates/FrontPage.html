@@ -49,9 +49,9 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${isAnon}==false" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a th:if="${isAnon}==false" th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${isAnon}==false" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
+            <a th:if="${session.username}!=null" th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
+            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -60,9 +60,9 @@
             <a th:href="@{/search}" style="float: right; display: inline-block">
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
-            <a th:if="${isAnon}==true" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a th:if="${isAnon}==true" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
-            <a th:if="${isAnon}==false" th:href="@{/}" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
+            <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
+            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}!=null" th:href="@{/}" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
                 <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
             </a>
         </div>
@@ -83,16 +83,16 @@
                         <p>Story so far:</p>
                         <p>Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
                             She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
-                        <p th:if="${isAnon}==true">Log in to:</p>
+                        <p th:if="${session.username}==null">Log in to:</p>
                         <h4 style="margin-top: 0">Vote on, or submit, a page to continue the story.</h4>
                         <div class="flexContainer flexRow" style="justify-content: space-evenly; padding-top: 20px;">
                             <a class="button-as-link" href="#past-comics-modal-container" data-reveal-id="exampleModal">
                                 <button class="lime-button">PAST COMICS</button>
                             </a>
-                            <a th:if="${isAnon}==false" class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">
+                            <a th:if="${session.username}!=null" class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">
                                 <button class="lime-button">VOTE ON PAGE</button>
                             </a>
-                            <a th:if="${isAnon}==false" class="button-as-link" th:href="@{/createpage}">
+                            <a th:if="${session.username}!=null" class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
                         </div>

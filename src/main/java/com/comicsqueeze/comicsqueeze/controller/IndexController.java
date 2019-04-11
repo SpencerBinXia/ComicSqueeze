@@ -15,14 +15,7 @@ public class IndexController {
     @RequestMapping(value ="/",method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, HttpSession session)
     {
-        boolean isAnon;
-        if(userName.equals("USERNAME")){
-            isAnon = true;
-        } else {
-            isAnon = false;
-        }
         model.addAttribute("userName",userName);
-        model.addAttribute("isAnon", isAnon);
         return "FrontPage";
     }
 

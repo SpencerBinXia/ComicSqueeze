@@ -20,15 +20,8 @@ public class CurrentUserProfileController {
     public String home(Model model, HttpSession session, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, @RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
     {
         System.out.println("currentprof func called");
-        boolean isAnon;
-        if(userName.equals("USERNAME")){
-            isAnon = true;
-        } else {
-            isAnon = false;
-        }
         model.addAttribute("userName",userName);
         model.addAttribute("img",imgURL);
-        model.addAttribute("isAnon", isAnon);
         session.setAttribute("username", userName);
         return "CurrentUserProfile";
     }
