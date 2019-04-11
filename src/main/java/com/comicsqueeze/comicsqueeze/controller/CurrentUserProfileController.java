@@ -19,7 +19,7 @@ public class CurrentUserProfileController {
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName )
     {
         boolean isAnon;
-        if(userName == "USERNAME"){
+        if(userName.equals("USERNAME")){
             isAnon = true;
         } else {
             isAnon = false;
