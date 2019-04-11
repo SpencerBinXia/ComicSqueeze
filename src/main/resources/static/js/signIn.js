@@ -46,16 +46,21 @@ function sendResetEmail() {
 }
 function signOut() {
     firebase.auth().signOut().then(function() {
-
+        redirectToIndex();
     }).catch(function(error) {
         // An error happened.
     });
 }
+
+function redirectToIndex() {
+    window.location.href = "/logout"
+}
+
 // function to sign in
 function signIn() {
 
     //Sign out any user signed in already
-    signOut();
+    // signOut(); not needed as no sign in button once logged in so must log out first anyway
     // get the credentials
     var email = document.getElementById("email").value;
     var password = document.getElementById("passWord").value;
