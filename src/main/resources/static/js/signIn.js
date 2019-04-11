@@ -1,3 +1,4 @@
+
 // this function is used even though it says its not
 // this function resets the sign in form if the user wants to
 // changing comment to push again
@@ -87,13 +88,30 @@ function redirectToProfile(user) {
 
     return $.ajax({
         type: "GET",
-        url: "/currentprof?userName="+user.displayName,
+        url: "/signin?userName="+user.displayName,
         cache: false,
         success: function (response) {
-            window.location.assign("currentprof?userName="+user.displayName);
+            window.location.assign("currentprof");
 
         },
         error: function (e) {
             console.log("Failure", e);
         }
 });}
+
+function updateProfilePic() {
+    var reader  = new FileReader();
+    var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+    reader.onloadend = function () {
+        console.log(reader.result);
+    }
+    // var user = firebase.auth().currentUser;
+    // user.updateProfile({
+    //     photoURL: "https://example.com/jane-q-user/profile.jpg"
+    // }).then(function() {
+    //     // Update successful.
+    // }).catch(function(error) {
+    //     // An error happened.
+    // });
+}
+
