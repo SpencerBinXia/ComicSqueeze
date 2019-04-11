@@ -83,15 +83,16 @@
                         <p>Story so far:</p>
                         <p>Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
                             She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
-                        <h4>Vote on, or submit, a page to continue the story.</h4>
+                        <p th:if="${isAnon}==true">Log in to:</p>
+                        <h4 style="margin-top: 0">Vote on, or submit, a page to continue the story.</h4>
                         <div class="flexContainer flexRow" style="justify-content: space-evenly; padding-top: 20px;">
                             <a class="button-as-link" href="#past-comics-modal-container" data-reveal-id="exampleModal">
                                 <button class="lime-button">PAST COMICS</button>
                             </a>
-                            <a class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">
+                            <a th:if="${isAnon}==false" class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">
                                 <button class="lime-button">VOTE ON PAGE</button>
                             </a>
-                            <a class="button-as-link" th:href="@{/createpage}">
+                            <a th:if="${isAnon}==false" class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
                         </div>
