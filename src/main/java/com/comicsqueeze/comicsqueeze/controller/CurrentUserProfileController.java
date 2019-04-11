@@ -16,11 +16,13 @@ import java.awt.*;
 
 public class CurrentUserProfileController {
     @RequestMapping(value ="/currentprof",method = RequestMethod.GET)
-    public String home(Model model, @RequestParam(value ="userName", defaultValue = "Username") String userName )
+    public String home(Model model, @RequestParam(value ="userName", defaultValue = "Username") String userName,@RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
     {
         model.addAttribute("userName",userName);
+        model.addAttribute("img",imgURL);
         return "CurrentUserProfile";
     }
+
 
 
 }

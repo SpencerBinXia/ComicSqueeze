@@ -162,9 +162,9 @@
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
-                            <img src="images/icons/default_pro_icon.png" class="upload-icon">
+                            <img th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
-                            <button class="lime-button-solo" style="margin-top: 30px">UPLOAD</button>
+                            <input type="file" value="UPLOAD" onclick="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
                         </div>
                     </div>
                 </div>
