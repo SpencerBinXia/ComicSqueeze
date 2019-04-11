@@ -88,10 +88,11 @@ function redirectToProfile(user) {
 
     return $.ajax({
         type: "GET",
-        url: "/currentprof?userName="+user.displayName,
+        url: "/currentprof?username="+user.displayName,
         cache: false,
         success: function (response) {
-            window.location.assign("currentprof?userName="+user.displayName);
+            console.log("Success");
+            //window.location.assign("currentprof?userName="+user.displayName);
 
         },
         error: function (e) {
@@ -204,11 +205,10 @@ function redirectToProfile(user) {
 
     return $.ajax({
         type: "GET",
-        url: "/currentprof?userName="+user.displayName,
+        url: "/signin?userName="+user.displayName,
         cache: false,
         success: function (response) {
-            window.location.assign("currentprof?userName="+user.displayName);
-
+                window.location.assign("currentprof");
         },
         error: function (e) {
             console.log("Failure", e);
