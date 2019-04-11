@@ -1,28 +1,30 @@
-//package com.comicsqueeze.comicsqueeze.service;
-//
-//import javax.servlet.http.HttpSession;
-//import com.comicsqueeze.comicsqueeze.repository.ProfileRepo;
-//import com.comicsqueeze.comicsqueeze.object.User;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class loginRegisterService {
-//
-//    @Autowired
-//    private ProfileRepo userrepo;
-//
-//    // someUser represents the registration info stored in a User object
-//    public boolean registerUser(User someUser, HttpSession session) {
-//        User existing = userrepo.findByName(someUser.getUsername());
-//        if (existing == null) {
-//            User newUser = new User();
-//            newUser.setUsername(someUser.getUsername());
-//            userrepo.regUser(newUser);
-//            return true;
-//        }
-//        return false;
-//    }
-//}
+package com.comicsqueeze.comicsqueeze.service;
+
+import com.comicsqueeze.comicsqueeze.object.Member;
+
+import javax.servlet.http.HttpSession;
+import com.comicsqueeze.comicsqueeze.repository.ProfileRepo;
+import com.comicsqueeze.comicsqueeze.object.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class loginRegisterService {
+
+    @Autowired
+    private ProfileRepo userrepo;
+
+    // someMember represents the registration info stored in a Member object
+    public boolean registerMember(Member newMember) {
+        System.out.println("register member reached");
+        Member existing = userrepo.findByName(newMember.getUsername());
+        if (existing == null) {
+            System.out.println("null existing reached");
+            userrepo.regMember(newMember);
+            return true;
+        }
+        return false;
+    }
+}
