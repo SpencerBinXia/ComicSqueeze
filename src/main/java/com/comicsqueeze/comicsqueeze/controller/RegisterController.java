@@ -1,8 +1,12 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
+import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class RegisterController {
 
+    @Autowired
+    private loginRegisterService service;
+
     @RequestMapping("/register")
     public String home(Model model) {
         return "Register";
@@ -23,6 +30,11 @@ public class RegisterController {
 
     @RequestMapping("/registerUser")
     public String registerUser(Model m,@RequestParam String Username, @RequestParam String Password, @RequestParam String Email, @RequestParam String First, @RequestParam String Last) {
+
+        Member newMember = new Member();
+        newMember.setUsername(Username);
+        newMember.setEmail(Email);
+        service.registerMember(newMember);
         try {
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                     .setEmail(Email)

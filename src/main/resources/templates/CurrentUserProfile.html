@@ -35,7 +35,7 @@
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a th:href="@{/currentprof}" class="navButton" style="float: left; margin-left: 15px; display: inline-block">USERNAME</a>
+            <a th:href="@{/currentprof}" th:text="${userName}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
@@ -45,8 +45,9 @@
             <a th:href="@{/search}" style="float: right; display: inline-block">
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
-            <a th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:href="@{/}" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
+                <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
+            </a>
         </div>
     </nav>
 
