@@ -85,13 +85,14 @@ function signIn() {
 }
 
 function redirectToProfile(user) {
+    console.log(user.photoURL);
 
     return $.ajax({
         type: "GET",
-        url: "/currentprof?userName="+user.displayName,
+        url: "/currentprof?userName="+user.displayName+"&"+"img="+user.photoURL,
         cache: false,
         success: function (response) {
-            window.location.assign("currentprof?userName="+user.displayName);
+            window.location.assign("currentprof?userName="+user.displayName+"&"+"img="+user.photoURL);
 
         },
         error: function (e) {
@@ -102,16 +103,25 @@ function redirectToProfile(user) {
 function updateProfilePic() {
     var reader  = new FileReader();
     var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+    var user = firebase.auth().currentUser;
+
     reader.onloadend = function () {
-        console.log(reader.result);
+
+        user.updateProfile({
+            photoURL: reader.result.toSource
+        }).then(function() {
+            console.log("success");
+        }).catch(function(error) {
+            console.log(error);
+        });
+        document.getElementById("profPic").src = reader.result;
+        console.log(user.photoURL);
+        console.log(reader.result.toSource);
     }
-    // var user = firebase.auth().currentUser;
-    // user.updateProfile({
-    //     photoURL: "https://example.com/jane-q-user/profile.jpg"
-    // }).then(function() {
-    //     // Update successful.
-    // }).catch(function(error) {
-    //     // An error happened.
-    // });
+    reader.readAsDataURL(file);
+
+
+
+
 }
 

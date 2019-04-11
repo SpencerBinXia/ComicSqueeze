@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 
 @Controller
 
 public class CurrentUserProfileController {
     @RequestMapping(value ="/currentprof",method = RequestMethod.GET)
-    public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName,@RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
+    public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName,@RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL, HttpServletRequest request )
     {
         boolean isAnon;
         if(userName.equals("USERNAME")){
@@ -24,6 +25,7 @@ public class CurrentUserProfileController {
         } else {
             isAnon = false;
         }
+        request.getSession().setAttribute("username",userName);
         model.addAttribute("userName",userName);
         model.addAttribute("img",imgURL);
         model.addAttribute("isAnon", isAnon);

@@ -35,7 +35,7 @@
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a th:href="@{/currentprof}" th:text="${userName}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
+            <a th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
@@ -163,9 +163,9 @@
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
-                            <img th:src="${img}" class="upload-icon">
+                            <img id ="profPic" th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
-                            <input type="file" value="UPLOAD" onclick="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
+                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
                         </div>
                     </div>
                 </div>
