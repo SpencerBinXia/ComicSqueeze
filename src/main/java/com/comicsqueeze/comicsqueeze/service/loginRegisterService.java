@@ -27,4 +27,16 @@ public class loginRegisterService {
         }
         return false;
     }
+
+    public boolean findMember(String name){
+        Member existing = userrepo.findByName(name);
+        if (existing == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
