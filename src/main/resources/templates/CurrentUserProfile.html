@@ -35,7 +35,7 @@
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a th:if="${session.username}!=null" th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
+            <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
@@ -115,7 +115,7 @@
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img src="images/icons/default_pro_icon.png" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
-                    <p id="bioID" style="margin-top: -15; overflow-wrap: break-word;">Sample Bio.</p>
+                    <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word;">Sample Bio.</p>
                     <h3 style="text-align: center"># Followers</h3>
                     <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
