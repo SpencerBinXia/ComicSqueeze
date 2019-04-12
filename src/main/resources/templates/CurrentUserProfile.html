@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title>CurrentUserProfile</title>
+    <title th:text="${session.username} + ' - Your Profile'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
     // Initialize Firebase

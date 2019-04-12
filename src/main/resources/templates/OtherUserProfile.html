@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title>OtherUserProfile</title>
+    <title th:text="${viewMember.getUsername()} + 's Profile'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
