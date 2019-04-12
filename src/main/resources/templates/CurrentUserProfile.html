@@ -4,10 +4,10 @@
 
 <link>
 
-<meta charset="UTF-8">
-<title>CurrentUserProfile</title>
-<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
-<script>
+    <meta charset="UTF-8">
+    <title>CurrentUserProfile</title>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
@@ -18,14 +18,15 @@
         messagingSenderId: "213405157042"
     };
     firebase.initializeApp(config);
-</script>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src =js/signIn.js></script>
-<link href="css/page_layout.css" rel="stylesheet">
-<link href="css/buttons.css" rel="stylesheet">
-<link href="css/frontPage_main_styles.css" rel="stylesheet">
-<link href="css/currentProfile_main_styles.css" rel="stylesheet">
-<link href="css/modal_styles.css" rel="stylesheet">
+    </script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src =js/signIn.js></script>
+    <script src =js/editInfo.js"></script>
+    <link href="css/page_layout.css" rel="stylesheet">
+    <link href="css/buttons.css" rel="stylesheet">
+    <link href="css/frontPage_main_styles.css" rel="stylesheet">
+    <link href="css/currentProfile_main_styles.css" rel="stylesheet">
+    <link href="css/modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -115,8 +116,7 @@
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img src="images/icons/default_pro_icon.png" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
-                    <p style="margin-top: -15px">Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+                    <p style="margin-top: -15px">Bio</p>
                     <h3 style="text-align: center"># Followers</h3>
                     <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <!--Create Series Popup-->
+    <!--Edit Profile Popup-->
     <div id="edit-profile-modal-container">
         <div id="edit-profile-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
@@ -156,8 +156,10 @@
                     <div class="column-left">
                         <form>
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
-                            First Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>John<br><br>
-                            Last Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Smith
+                            BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
+                            <br>
+                            <textarea class="input-large"></textarea>
+                            <br><br>
                         </form>
                         <br>
                     </div>
