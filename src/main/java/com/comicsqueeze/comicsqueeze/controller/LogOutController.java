@@ -21,7 +21,7 @@ public class LogOutController {
         return "FrontPage";
     }
 //
-//    @RequestMapping(value="/currentprof", method=RequestMethod.GET)
+//    @RequestMapping(value="/yourprofile", method=RequestMethod.GET)
 //    public String currentProf(Model model, HttpSession session)
 //    {
 //        return "CurrentUserProfile";
