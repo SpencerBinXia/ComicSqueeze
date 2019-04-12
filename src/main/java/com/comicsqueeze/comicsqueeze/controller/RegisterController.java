@@ -38,7 +38,7 @@ public class RegisterController {
         newMember.setEmail(Email);
         service.registerMember(newMember);
         try {
-            UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+            UserRecord.CreateRequest request =  new UserRecord.CreateRequest()
                     .setEmail(Email)
                     .setEmailVerified(false)
                     .setPassword(Password)
@@ -48,6 +48,7 @@ public class RegisterController {
             userRecord = FirebaseAuth.getInstance().createUser(request);
             System.out.println("Successfully created new user: " + userRecord.getUid());
             m.addAttribute("userName",userRecord.getDisplayName());
+            session.setAttribute("username", Username);
             return "CurrentUserProfile";
         } catch (FirebaseAuthException e) {
             String message;
@@ -62,16 +63,15 @@ public class RegisterController {
             m.addAttribute(("err3"),"registration unsuccessful make sure all fields are valid");
             return "Register";
         } catch (IllegalArgumentException e) {
-            String message;
-            if (e.getMessage().equals("User management service responded with an error")){
-                message= "Email already in use";
-            }
-            else{
-                message = e.getMessage();
-            }
-            m.addAttribute("err2",message);
+//            String message;
+//            if (e.getMessage().equals("User management service responded with an error")){
+//                message= "Email already in use";
+//            }
+//            else{
+//                message = e.getMessage();
+//            }
+//            m.addAttribute("err2",message);
             m.addAttribute(("err3"),"registration unsuccessful make sure all fields are valid");
-            session.setAttribute("username", Username);
             return "Register";
         }
 

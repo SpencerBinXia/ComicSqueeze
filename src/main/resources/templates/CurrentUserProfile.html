@@ -21,7 +21,6 @@
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
-    <script src =js/editInfo.js"></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
@@ -116,7 +115,7 @@
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img src="images/icons/default_pro_icon.png" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
-                    <p style="margin-top: -15px">Bio</p>
+                    <p id="bioID" style="margin-top: -15px">Sample Bio.</p>
                     <h3 style="text-align: center"># Followers</h3>
                     <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
@@ -158,7 +157,7 @@
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
                             <br>
-                            <textarea class="input-large"></textarea>
+                            <textarea id="bioField" class="input-large"></textarea>
                             <br><br>
                         </form>
                         <br>
@@ -167,13 +166,13 @@
                         <div class="flexContainer flexColumn right-content">
                             <img id = "profPic" th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
-                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
+                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom">
                         </div>
                     </div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SAVE</button>
+                        <button class="lime-button-left" onclick=updateBio()>SAVE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>

@@ -42,7 +42,7 @@ public class ProfileRepo {
     public void regMember(Member newMember)
     {
         System.out.println("regMember reached");
-        jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio)" + "VALUES(?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false, "");
+        jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio, imgurl)" + "VALUES(?,?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false, "", "");
 
     }
 

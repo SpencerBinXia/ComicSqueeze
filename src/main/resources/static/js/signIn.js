@@ -110,5 +110,46 @@ function redirectToProfile(user) {
         error: function (e) {
             console.log("Failure", e);
         }
-    });
+    });}
+
+function updateProfilePic() {
+    // get a new file reader
+    var reader  = new FileReader();
+    //get the file picked
+    var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+    var user = firebase.auth().currentUser;
+
+    reader.onload = function () {
+        var dataURL = reader.result;
+        // when done loading file as url send to firebase
+        /*
+        reader.readAsDataURL(file);
+        console.log(reader.readAsDataURL(file));
+        user.updateProfile({
+            //Reader.result is the img url
+            // if we store this in our db and get it back when coming to profle it should work
+            photoURL: reader.readAsDataURL(file)
+        }).then(function() {
+            console.log(reader.result);
+            console.log("success");
+        }).catch(function(error) {
+            console.log(reader.result);
+            console.log(error);
+        });
+        // set the img container src to url of img file
+        document.getElementById("profPic").src = reader.result;
+        console.log(user.photoURL);
+        console.log(reader.result.toSource);
+        */
+    };
+    reader.readAsDataURL(file);
+    console.log(reader.readAsDataURL(file));
+
 }
+
+function updateBio(){
+    val = document.getElementById("bioField").value;
+    console.log(val);
+    $('#bioID').text(val);
+}
+
