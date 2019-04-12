@@ -20,6 +20,7 @@ public class APIController {
     @RequestMapping(value ="/updateBio", method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
         {
+            System.out.println("updateBio reached");
             service.setBio((String)session.getAttribute("username"), bio);
             return "redirect:/yourprofile";
         }

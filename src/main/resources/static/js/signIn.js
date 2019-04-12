@@ -142,7 +142,6 @@ function updateProfilePic() {
 function updateBio(){
     val = document.getElementById("bioField").value;
     console.log(val);
-    var bioJSON = {username: sessionID, bio: JSON.stringify(val)};
     $('#bioID').text(val);
     return $.ajax({
         type: "GET",
