@@ -162,16 +162,14 @@
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
                             <br>
-                            <textarea id="bioField" class="input-large"></textarea>
-                            <br><br>
+                            <textarea id="bioField" class="input-large" style="height: 220px"></textarea>
                         </form>
-                        <br>
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
                             <img id = "profPic" th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
-                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom">
+                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px">
                         </div>
                     </div>
                 </div>

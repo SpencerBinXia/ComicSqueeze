@@ -24,7 +24,9 @@ input {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
     border: solid #000000 2px;
 }
 
