@@ -27,6 +27,7 @@ public class ProfileRepo {
             jdbc.queryForObject(findMember, new RowMapper<Member>() {
                 public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempuser.setUsername(rs.getString("username"));
+                    tempuser.setBio(rs.getString("bio"));
                     return tempuser;
                 }
             });
@@ -42,12 +43,12 @@ public class ProfileRepo {
     public void regMember(Member newMember)
     {
         System.out.println("regMember reached");
-        jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio, imgurl)" + "VALUES(?,?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false, "", "");
-
+        jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio, imgurl)" + "VALUES(?,?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false,
+                "Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboreet dolore magna aliqua. Ut enim ad minim veniam, quis nostrud", "");
     }
-    public void setMemberBio(Member member)
+    public void setMemberBio(Member member, String bio)
     {
-        jdbc.update("UPDATE \"Member\" WHERE username='" + member.getUsername() + "' SET bio='" + member.getBio() +"';");
+        jdbc.update("UPDATE \"Member\" SET bio = '" + bio +"' WHERE username = '" + member.getUsername() + "';");
         System.out.println("Updated User's Bio in DB");
     }
 

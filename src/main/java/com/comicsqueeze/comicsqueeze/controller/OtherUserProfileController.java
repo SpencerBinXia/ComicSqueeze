@@ -1,5 +1,6 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
+import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,15 @@ public class OtherUserProfileController {
         {
             return "redirect:/yourprofile";
         }
-        else if (service.findMember(profileID) == false)
+        else if (service.findMember(profileID) == null)
         {
             return "redirect:/";
         }
         else
         {
             model.addAttribute("profileID", profileID);
+            Member viewMember = service.findMember(profileID);
+            model.addAttribute("viewMember", viewMember);
             return "OtherUserProfile";
         }
     }

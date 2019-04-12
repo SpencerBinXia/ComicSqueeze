@@ -20,6 +20,10 @@
     firebase.initializeApp(config);
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script>
+        <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
+        var sessionID = "[[${session.username}]]";
+    </script>
     <script src =js/signIn.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
@@ -115,7 +119,7 @@
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img src="images/icons/default_pro_icon.png" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
-                    <p id="bioID" style="margin-top: -15px">Sample Bio.</p>
+                    <p id="bioID" style="margin-top: -15px" th:text="${curMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
                     <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">

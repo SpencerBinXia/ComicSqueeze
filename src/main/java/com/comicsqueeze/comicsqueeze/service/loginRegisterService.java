@@ -28,15 +28,21 @@ public class loginRegisterService {
         return false;
     }
 
-    public boolean findMember(String name){
+    public boolean setBio(String name, String bio)
+    {
+        userrepo.setMemberBio(userrepo.findByName(name), bio);
+        return true;
+    }
+
+    public Member findMember(String name){
         Member existing = userrepo.findByName(name);
         if (existing == null)
         {
-            return false;
+            return null;
         }
         else
         {
-            return true;
+            return existing;
         }
     }
 }
