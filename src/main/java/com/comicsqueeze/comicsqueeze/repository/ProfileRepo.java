@@ -47,7 +47,7 @@ public class ProfileRepo {
     }
     public void setMemberBio(Member member)
     {
-        jdbc.update("UPDATE MEMBER SET bio = " + member.getBio());
+        jdbc.update("UPDATE MEMBER WHERE username = " + member.getUsername() + "SET bio = " + member.getBio());
         System.out.println("Updated User's Bio in DB");
     }
 
