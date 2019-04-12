@@ -1,4 +1,3 @@
-
 // this function is used even though it says its not
 // this function resets the sign in form if the user wants to
 // changing comment to push again
@@ -30,6 +29,15 @@ function forgotPassword() {
 
 }
 
+function sendPasswordResetFromLink(){
+    var user = firebase.auth().currentUser;
+    var auth = firebase.auth();
+    auth.sendPasswordResetEmail(user.email).then(function () {
+        // Email sent.
+    }).catch(function (error) {
+        // An error happened.
+    });
+}
 function sendResetEmail() {
     //send reset email and change form back
     var email = document.getElementById("email").value;
@@ -66,7 +74,7 @@ function signIn() {
     var password = document.getElementById("passWord").value;
     // sign in
     firebase.auth().signInWithEmailAndPassword(email, password)
-     // catch errors
+    // catch errors
         .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -86,7 +94,7 @@ function signIn() {
             // No user is signed in.
         }
     });
-    
+
 }
 
 function redirectToProfile(user) {
@@ -102,21 +110,32 @@ function redirectToProfile(user) {
         error: function (e) {
             console.log("Failure", e);
         }
-});}
+    });}
 
 function updateProfilePic() {
+    // get a new file reader
     var reader  = new FileReader();
+    //get the file picked
     var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+    var user = firebase.auth().currentUser;
+
     reader.onloadend = function () {
-        console.log(reader.result);
+        // when done loading file as url send to firebase
+        user.updateProfile({
+            //Reader.result is the img url
+            // if we store this in our db and get it back when coming to profle it should work
+            photoURL: reader.result
+        }).then(function() {
+            console.log("success");
+        }).catch(function(error) {
+            console.log(error);
+        });
+        // set the img container src to url of img file
+        document.getElementById("profPic").src = reader.result;
+        console.log(user.photoURL);
+        console.log(reader.result.toSource);
     }
-    // var user = firebase.auth().currentUser;
-    // user.updateProfile({
-    //     photoURL: "https://example.com/jane-q-user/profile.jpg"
-    // }).then(function() {
-    //     // Update successful.
-    // }).catch(function(error) {
-    //     // An error happened.
-    // });
+    reader.readAsDataURL(file);
+
 }
 

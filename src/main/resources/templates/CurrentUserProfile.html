@@ -4,28 +4,28 @@
 
 <link>
 
-    <meta charset="UTF-8">
-    <title>CurrentUserProfile</title>
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
-            authDomain: "comicsqueeze.firebaseapp.com",
-            databaseURL: "https://comicsqueeze.firebaseio.com",
-            projectId: "comicsqueeze",
-            storageBucket: "comicsqueeze.appspot.com",
-            messagingSenderId: "213405157042"
-        };
-        firebase.initializeApp(config);
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src =js/signIn.js></script>
-    <link href="css/page_layout.css" rel="stylesheet">
-    <link href="css/buttons.css" rel="stylesheet">
-    <link href="css/frontPage_main_styles.css" rel="stylesheet">
-    <link href="css/currentProfile_main_styles.css" rel="stylesheet">
-    <link href="css/modal_styles.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>CurrentUserProfile</title>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
+        authDomain: "comicsqueeze.firebaseapp.com",
+        databaseURL: "https://comicsqueeze.firebaseio.com",
+        projectId: "comicsqueeze",
+        storageBucket: "comicsqueeze.appspot.com",
+        messagingSenderId: "213405157042"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src =js/signIn.js></script>
+<link href="css/page_layout.css" rel="stylesheet">
+<link href="css/buttons.css" rel="stylesheet">
+<link href="css/frontPage_main_styles.css" rel="stylesheet">
+<link href="css/currentProfile_main_styles.css" rel="stylesheet">
+<link href="css/modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -155,9 +155,7 @@
                 <div class="flexContainer flexRow">
                     <div class="column-left">
                         <form>
-                            Username: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Example45<br><br>
-                            Email: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>example45@email.com<br><br>
-                            Password: <input type="text" name="Password" placeholder="Input new password here"><br><br>
+                            <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             First Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>John<br><br>
                             Last Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Smith
                         </form>
@@ -165,9 +163,9 @@
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
-                            <img th:src="${img}" class="upload-icon">
+                            <img id = "profPic" th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
-                            <input type="file" value="UPLOAD" onclick="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
+                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
                         </div>
                     </div>
                 </div>
