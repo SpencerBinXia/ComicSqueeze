@@ -45,6 +45,10 @@ public class ProfileRepo {
         jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio, imgurl)" + "VALUES(?,?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false, "", "");
 
     }
-
+    public void setMemberBio(Member member)
+    {
+        jdbc.update("UPDATE MEMBER WHERE username = " + member.getUsername() + "SET bio = " + member.getBio());
+        System.out.println("Updated User's Bio in DB");
+    }
 
 }
