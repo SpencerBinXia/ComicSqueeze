@@ -15,6 +15,7 @@ public class OtherUserProfileController {
     @GetMapping
     public String displayProfile(@PathVariable("profileID") String profileID, Model model, HttpSession session)
     {
+        model.addAttribute("profileID", profileID);
         System.out.println(profileID);
         return "OtherUserProfile";
     }
