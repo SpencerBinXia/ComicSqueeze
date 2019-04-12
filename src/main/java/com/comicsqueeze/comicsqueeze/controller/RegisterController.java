@@ -33,10 +33,6 @@ public class RegisterController {
     @RequestMapping("/registerUser")
     public String registerUser(Model m,@RequestParam String Username, @RequestParam String Password, @RequestParam String Email, @RequestParam String First, @RequestParam String Last, HttpSession session) {
 
-        Member newMember = new Member();
-        newMember.setUsername(Username);
-        newMember.setEmail(Email);
-        service.registerMember(newMember);
         try {
             UserRecord.CreateRequest request =  new UserRecord.CreateRequest()
                     .setEmail(Email)
@@ -49,7 +45,11 @@ public class RegisterController {
             System.out.println("Successfully created new user: " + userRecord.getUid());
             m.addAttribute("userName",userRecord.getDisplayName());
             session.setAttribute("username", Username);
-            return "CurrentUserProfile";
+            Member newMember = new Member();
+            newMember.setUsername(Username);
+            newMember.setEmail(Email);
+            service.registerMember(newMember);
+            return "redirect:/yourprofile";
         } catch (FirebaseAuthException e) {
             String message;
             if (e.getMessage().equals("User management service responded with an error")){
