@@ -4,28 +4,28 @@
 
 <link>
 
-    <meta charset="UTF-8">
-    <title>CurrentUserProfile</title>
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
-            authDomain: "comicsqueeze.firebaseapp.com",
-            databaseURL: "https://comicsqueeze.firebaseio.com",
-            projectId: "comicsqueeze",
-            storageBucket: "comicsqueeze.appspot.com",
-            messagingSenderId: "213405157042"
-        };
-        firebase.initializeApp(config);
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src =js/signIn.js></script>
-    <link href="css/page_layout.css" rel="stylesheet">
-    <link href="css/buttons.css" rel="stylesheet">
-    <link href="css/frontPage_main_styles.css" rel="stylesheet">
-    <link href="css/currentProfile_main_styles.css" rel="stylesheet">
-    <link href="css/modal_styles.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>CurrentUserProfile</title>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyC_4-Dhm35VlOSAcoRktC8dMIC8y8oSuYA",
+        authDomain: "comicsqueeze.firebaseapp.com",
+        databaseURL: "https://comicsqueeze.firebaseio.com",
+        projectId: "comicsqueeze",
+        storageBucket: "comicsqueeze.appspot.com",
+        messagingSenderId: "213405157042"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src =js/signIn.js></script>
+<link href="css/page_layout.css" rel="stylesheet">
+<link href="css/buttons.css" rel="stylesheet">
+<link href="css/frontPage_main_styles.css" rel="stylesheet">
+<link href="css/currentProfile_main_styles.css" rel="stylesheet">
+<link href="css/modal_styles.css" rel="stylesheet">
 
 </head>
 
@@ -34,9 +34,9 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
-            <a th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
+            <a th:if="${session.username}!=null" th:href="@{/currentprof}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
+            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -45,7 +45,9 @@
             <a th:href="@{/search}" style="float: right; display: inline-block">
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
-            <a th:href="@{/}" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
+            <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
+            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}!=null" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
                 <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
             </a>
         </div>
@@ -112,7 +114,7 @@
             <div class="profile-info-container">
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img src="images/icons/default_pro_icon.png" class="profile_img">
-                    <h2 th:text="${userName}" style="text-align: center"></h2>
+                    <h2 th:text="${session.username}" style="text-align: center"></h2>
                     <p style="margin-top: -15px">Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                         et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
                     <h3 style="text-align: center"># Followers</h3>
@@ -153,9 +155,7 @@
                 <div class="flexContainer flexRow">
                     <div class="column-left">
                         <form>
-                            Username: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Example45<br><br>
-                            Email: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>example45@email.com<br><br>
-                            Password: <input type="text" name="Password" placeholder="Input new password here"><br><br>
+                            <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             First Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>John<br><br>
                             Last Name: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px"><br>Smith
                         </form>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
-                            <img id ="profPic" th:src="${img}" class="upload-icon">
+                            <img id = "profPic" th:src="${img}" class="upload-icon">
                             <!--When successful, routes back to FrontPage-->
                             <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px"></input>
                         </div>

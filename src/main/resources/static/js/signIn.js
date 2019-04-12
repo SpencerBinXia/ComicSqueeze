@@ -1,4 +1,3 @@
-
 // this function is used even though it says its not
 // this function resets the sign in form if the user wants to
 // changing comment to push again
@@ -30,6 +29,15 @@ function forgotPassword() {
 
 }
 
+function sendPasswordResetFromLink(){
+    var user = firebase.auth().currentUser;
+    var auth = firebase.auth();
+    auth.sendPasswordResetEmail(user.email).then(function () {
+        // Email sent.
+    }).catch(function (error) {
+        // An error happened.
+    });
+}
 function sendResetEmail() {
     //send reset email and change form back
     var email = document.getElementById("email").value;
@@ -46,22 +54,27 @@ function sendResetEmail() {
 }
 function signOut() {
     firebase.auth().signOut().then(function() {
-
+        redirectToIndex();
     }).catch(function(error) {
         // An error happened.
     });
 }
+
+function redirectToIndex() {
+    window.location.href = "/logout"
+}
+
 // function to sign in
 function signIn() {
 
     //Sign out any user signed in already
-    signOut();
+    // signOut(); not needed as no sign in button once logged in so must log out first anyway
     // get the credentials
     var email = document.getElementById("email").value;
     var password = document.getElementById("passWord").value;
     // sign in
     firebase.auth().signInWithEmailAndPassword(email, password)
-     // catch errors
+    // catch errors
         .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -81,24 +94,23 @@ function signIn() {
             // No user is signed in.
         }
     });
-    
+
 }
 
 function redirectToProfile(user) {
-    console.log(user.photoURL);
 
     return $.ajax({
         type: "GET",
-        url: "/currentprof?userName="+user.displayName+"&"+"img="+user.photoURL,
+        url: "/signin?userName="+user.displayName,
         cache: false,
         success: function (response) {
-            window.location.assign("currentprof?userName="+user.displayName+"&"+"img="+user.photoURL);
+            window.location.assign("currentprof");
 
         },
         error: function (e) {
             console.log("Failure", e);
         }
-});}
+    });}
 
 function updateProfilePic() {
     var reader  = new FileReader();
@@ -119,9 +131,6 @@ function updateProfilePic() {
         console.log(reader.result.toSource);
     }
     reader.readAsDataURL(file);
-
-
-
 
 }
 
