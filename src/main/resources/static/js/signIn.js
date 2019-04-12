@@ -139,3 +139,9 @@ function updateProfilePic() {
 
 }
 
+function updateBio(){
+    val = document.getElementById("bioField").value;
+    console.log(val);
+    $('#bioID').text(val);
+}
+

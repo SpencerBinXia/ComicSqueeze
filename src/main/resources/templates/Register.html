@@ -44,26 +44,28 @@
             <p th:bgcolor="red" th:text="${err}"></p>
             <p th:bgcolor="red" th:text="${err2}"></p>
             <p th:bgcolor="red"th:text="${err3}"></p>
-            <br><br>
+            <br>
             <div class="flexContainer flexRow">
                 <div class="column-left">
                     <form method="get" action="/registerUser">
                         *Username: <input type="text" name="Username"><br><br>
-                        *Password: <input type="text" name="Password"><br><br>
+                        *Password (Must be at least 6 characters): <input type="text" name="Password"><br><br>
                         *Email: <input type="text" name="Email"><br><br>
                         First Name: <input type="text" name="First"><br><br>
                         Last Name: <input type="text" name="Last">
-                        <input type="submit" name="submit" class="lime-button-left">REGISTER</input>
+                        <br><br><br>
+                        <input type="submit" name="submit" class="lime-button-left">
                     </form>
                     <br><br>
 
                 </div>
                 <div class="column-right">
-                    <div class="flexContainer flexColumn right-content">
-                        <img src="images/icons/default_pro_icon.png" class="upload-icon">
-                        <!--When successful, routes back to FrontPage-->
-                        <button class="lime-button-solo" style="margin-top: 30px">UPLOAD</button>
-                    </div>
+                    <!-- Just change pic (and bio) when you edit account info -->
+                    <!--<div class="flexContainer flexColumn right-content">-->
+                        <!--<img src="images/icons/default_pro_icon.png" class="upload-icon">-->
+                        <!--&lt;!&ndash;When successful, routes back to FrontPage&ndash;&gt;-->
+                        <!--<button class="lime-button-solo" style="margin-top: 30px">UPLOAD</button>-->
+                    <!--</div>-->
                 </div>
             </div>
 

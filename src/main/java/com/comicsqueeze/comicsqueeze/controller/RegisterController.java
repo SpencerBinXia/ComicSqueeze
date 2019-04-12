@@ -63,14 +63,14 @@ public class RegisterController {
             m.addAttribute(("err3"),"registration unsuccessful make sure all fields are valid");
             return "Register";
         } catch (IllegalArgumentException e) {
-            String message;
-            if (e.getMessage().equals("User management service responded with an error")){
-                message= "Email already in use";
-            }
-            else{
-                message = e.getMessage();
-            }
-            m.addAttribute("err2",message);
+//            String message;
+//            if (e.getMessage().equals("User management service responded with an error")){
+//                message= "Email already in use";
+//            }
+//            else{
+//                message = e.getMessage();
+//            }
+//            m.addAttribute("err2",message);
             m.addAttribute(("err3"),"registration unsuccessful make sure all fields are valid");
             return "Register";
         }
