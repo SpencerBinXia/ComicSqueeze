@@ -9,9 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.awt.*;
+import java.io.File;
 
 @Controller
 
@@ -38,6 +40,15 @@ public class CurrentUserProfileController {
         return "CurrentUserProfile";
     }
 
+    @RequestMapping(value="/updateImg", method=RequestMethod.GET)
+    public String currentProf(Model model, HttpSession session,@RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL)
+    {
+        Member curMember = service.findMember((String)session.getAttribute("username"));
+        service.setImgURl(curMember,imgURL);
+        curMember.setImgUrl(imgURL);
+        model.addAttribute("curMember", curMember);
+        return "CurrentUserProfile";
+    }
 
 
 }

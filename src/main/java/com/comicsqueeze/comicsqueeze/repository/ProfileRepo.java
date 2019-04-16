@@ -28,6 +28,7 @@ public class ProfileRepo {
                 public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempuser.setUsername(rs.getString("username"));
                     tempuser.setBio(rs.getString("bio"));
+                    tempuser.setImgUrl(rs.getString("imgurl"));
                     return tempuser;
                 }
             });
@@ -44,12 +45,16 @@ public class ProfileRepo {
     {
         System.out.println("regMember reached");
         jdbc.update("INSERT INTO \"Member\"(username, email, admin, bio, imgurl)" + "VALUES(?,?,?,?,?)", newMember.getUsername(), newMember.getEmail(), false,
-                "Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboreet dolore magna aliqua. Ut enim ad minim veniam, quis nostrud", "");
+                "Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboreet dolore magna aliqua. Ut enim ad minim veniam, quis nostrud", "images/icons/default_pro_icon.png");
     }
     public void setMemberBio(Member member, String bio)
     {
         jdbc.update("UPDATE \"Member\" SET bio = '" + bio +"' WHERE username = '" + member.getUsername() + "';");
         System.out.println("Updated User's Bio in DB");
+    }
+    public void setImgUrl(Member member, String url){
+        jdbc.update("UPDATE \"Member\" SET imgurl = '" + url+"' WHERE username = '" + member.getUsername() + "';");
+        System.out.println("Updated User's img in DB");
     }
 
 }

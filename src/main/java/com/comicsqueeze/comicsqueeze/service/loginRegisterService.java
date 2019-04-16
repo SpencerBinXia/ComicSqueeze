@@ -46,4 +46,7 @@ public class loginRegisterService {
             return existing;
         }
     }
+    public void setImgURl(Member member, String url){
+        userrepo.setImgUrl(member,url);
+    }
 }
