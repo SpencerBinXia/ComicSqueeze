@@ -58,7 +58,7 @@
 
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
@@ -84,7 +84,7 @@
             <br><br>
 
             <div class="flexContainer flexRow">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>

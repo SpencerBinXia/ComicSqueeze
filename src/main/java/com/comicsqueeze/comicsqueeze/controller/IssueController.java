@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/issue")
+@RequestMapping("/series/{profileID}/{seriesTitle}/{issueTitle}")
 public class IssueController {
     @Autowired
     private loginRegisterService service;
     @GetMapping
-    public String displayProfile(@PathVariable("profileID") String profileID, Model model, HttpSession session)
+    public String displayProfile(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("curMember", curMember);
+        model.addAttribute("profileID", profileID);
+        model.addAttribute("seriesTitle", seriesTitle);
+        model.addAttribute("issueTitle", issueTitle);
         return "IssuePage";
     }
 
