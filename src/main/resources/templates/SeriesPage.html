@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title>SeriesPage</title>
+    <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -19,13 +19,13 @@
         };
         firebase.initializeApp(config);
     </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src =js/signIn.js></script>
-    <link href="css/page_layout.css" rel="stylesheet">
-    <link href="css/buttons.css" rel="stylesheet">
-    <link href="css/frontPage_main_styles.css" rel="stylesheet">
-    <link href="css/series_main_styles.css" rel="stylesheet">
-    <link href="css/modal_styles.css" rel="stylesheet">
+    <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
+    <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
+    <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
+    <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
+    <link href="css/series_main_styles.css" th:href="@{/css/series_main_styles.css}" rel="stylesheet">
+    <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
 
 </head>
 
@@ -34,16 +34,16 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" class="navIcon">
+                <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" class="navIcon">
+                <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
@@ -56,35 +56,35 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-            <h1 style="margin-bottom: 0">Series Name</h1>
-            <h2 class="subtext" style="margin: 0">By Username</h2>
+            <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
+            <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
             <div class="flexContainer flexRow limes">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime">
-                <img src="images/icons/lime_BW_icon.png" class="lime">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
             </div>
             <br>
             <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
+                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 1</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 2')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 2</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 3')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 3</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 4</p>
                 </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
+                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
             </div>
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p class="subtext">#action, #funny, #long, #horror</p>
@@ -108,11 +108,11 @@
             <h1>Reviews</h1>
             <p>Username</p>
             <div class="flexContainer flexRow limes">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime-small">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime-small">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime-small">
-                <img src="images/icons/lime_COLOR_icon.png" class="lime-small">
-                <img src="images/icons/lime_BW_icon.png" class="lime-small">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
+                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
+                <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime-small">
             </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure

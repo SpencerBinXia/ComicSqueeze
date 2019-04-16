@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title th:text="${viewMember.getUsername()} + 's Profile'"></title>
+    <title th:text="${viewMember.getUsername()} + 's Profile - ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -34,7 +34,7 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" th:src="@{/images/icons/default_pro_icon.png}" class="navIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" th:src="${curMember.getImgUrl()}" class="navIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
@@ -57,7 +57,7 @@
 
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow" style="align-items: center">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
@@ -85,7 +85,7 @@
             <br><br>
 
             <div class="flexContainer flexRow" style="align-items: center">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{seriesTitle}(profileID=${profileID}, seriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>

@@ -18,10 +18,18 @@ public class APIController {
     private loginRegisterService service;
 
     @RequestMapping(value ="/updateBio", method = RequestMethod.GET)
-    public String home(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
+    public String updateBio(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
         {
             System.out.println("updateBio reached");
             service.setBio((String)session.getAttribute("username"), bio);
             return "redirect:/yourprofile";
         }
+
+    @RequestMapping(value ="/createSeries", method = RequestMethod.GET)
+    public String createSeries(Model model, @RequestParam(value ="title") String title, @RequestParam(value ="desc") String desc, @RequestParam(value ="tags") String tags, HttpSession session)
+    {
+        System.out.println("createSeries reached");
+        //service.setBio((String)session.getAttribute("username"), bio);
+        return "redirect:/yourprofile";
+    }
 }

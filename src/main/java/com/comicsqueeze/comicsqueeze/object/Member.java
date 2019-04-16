@@ -6,6 +6,7 @@ public class Member {
     private String email;
     private String bio;
     private boolean admin;
+    private String imgUrl;
 
     public String getUsername() {return username;}
     public Boolean getAdminStatus() {return admin;}
@@ -15,6 +16,7 @@ public class Member {
     public String getBio() {
         return bio;
     }
+    public String getImgUrl(){return imgUrl;}
 
     public void setUsername(String name){this.username = name;}
     public void setAdminStatus(boolean admin) {this.admin = admin;}
@@ -24,4 +26,5 @@ public class Member {
     public void setBio(String bio) {
         this.bio = bio;
     }
+    public void setImgUrl(String imgUrl){this.imgUrl = imgUrl;}
 }

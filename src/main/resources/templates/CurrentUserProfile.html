@@ -20,7 +20,9 @@
     firebase.initializeApp(config);
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src =js/loadImage.js></script>
     <script src =js/signIn.js></script>
+    <script src =js/ownProfile.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
@@ -34,7 +36,7 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" src="images/icons/default_pro_icon.png" class="navIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
@@ -57,7 +59,7 @@
 
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
@@ -83,7 +85,7 @@
             <br><br>
 
             <div class="flexContainer flexRow">
-                <a th:href="@{/series}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
@@ -113,7 +115,7 @@
         <aside class="sidebar sidebarLeft">
             <div class="profile-info-container">
                 <div class="flexContainer flexColumn" style="justify-content: center">
-                    <img src="images/icons/default_pro_icon.png" class="profile_img">
+                    <img th:src="${curMember.getImgUrl()}" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
                     <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word;" th:text="${curMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
@@ -169,9 +171,16 @@
                     </div>
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
-                            <img id = "profPic" th:src="${img}" class="upload-icon">
+                            <img id = "profPic" th:src="${curMember.getImgUrl()}" class="upload-icon">
+                            <progress value="0" max="100" id="uploader" style="
+                                -webkit-appearance: none;
+                                width: 100%;
+                                margin-top: 3%;
+                            ">0%</progress>
                             <!--When successful, routes back to FrontPage-->
-                            <input type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom">
+
+                            <input id = "file" name = "file" type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom">
+
                         </div>
                     </div>
                 </div>
@@ -193,9 +202,9 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
                 <form>
-                    Title: <input class="input-small" type="text" name="Title"><br><br>
-                    Description: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
-                    Tags: <textarea class="input-mid" type="text" name="Tags"></textarea><br><br>
+                    Title: <input id="titleField" class="input-small" type="text" name="Title"><br><br>
+                    Description: <textarea id="descField" class="input-large" type="text" name="Description"></textarea><br><br>
+                    Tags: <textarea id="tagField" class="input-mid" type="text" name="Tags"></textarea><br><br>
                 </form>
                 <h3 style="margin: 0">Series Mode</h3>
                 <select id="seriesMode" name="seriesMode">
@@ -213,7 +222,7 @@
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">CREATE</button>
+                        <button class="lime-button-left" onclick=createSeries()>CREATE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>
