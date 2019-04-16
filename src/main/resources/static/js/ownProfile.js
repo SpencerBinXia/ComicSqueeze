@@ -19,7 +19,13 @@ function createSeries(){
     titleVal = document.getElementById("titleField").value;
     descVal = document.getElementById("descField").value;
     tagVal = document.getElementById("tagField").value;
-    $('#bioID').text(val);
+    $('#titleVal').text(titleVal);
+    $('#descVal').text(descVal);
+    $('#tagVal').text(tagVal);
+    console.log(titleVal);
+    console.log(descVal);
+    console.log(tagVal);
+    /*
     return $.ajax({
         type: "GET",
         url: "/updateBio?bio=" + val,
@@ -31,4 +37,5 @@ function createSeries(){
             alert("Update bio failed!");
         }
     });
+    */
 }
