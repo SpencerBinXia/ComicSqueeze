@@ -1,6 +1,7 @@
 img {
     max-width: 100%;
     height: auto;
+    padding-right: 3px;
 }
 
 .series {
