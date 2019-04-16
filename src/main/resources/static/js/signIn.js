@@ -154,5 +154,6 @@ function updateBio(){
             alert("Update bio failed!");
         }
     });
+
 }
 
