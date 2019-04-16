@@ -39,10 +39,13 @@ public class CurrentUserProfileController {
         model.addAttribute("curMember", curMember);
         return "CurrentUserProfile";
     }
-
+    /*
+        function to update image
+     */
     @RequestMapping(value="/updateImg", method=RequestMethod.GET)
     public String currentProf(Model model, HttpSession session,@RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL)
     {
+        // get the cur member and update image then use thymleafe to access image
         Member curMember = service.findMember((String)session.getAttribute("username"));
         service.setImgURl(curMember,imgURL);
         curMember.setImgUrl(imgURL);
