@@ -105,9 +105,8 @@ function redirectToProfile(user) {
         url: "/signin?userName="+user.displayName,
         cache: false,
         success: function (response) {
-            window.location.assign("yourprofile");
+            window.location.assign("/yourprofile");
             loadProfilePic();
-
         },
         error: function (e) {
             console.log("Failure", e);

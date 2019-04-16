@@ -28,6 +28,8 @@ public class ProfileRepo {
                 public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempuser.setUsername(rs.getString("username"));
                     tempuser.setBio(rs.getString("bio"));
+                    tempuser.setAdminStatus(rs.getBoolean("admin"));
+                    tempuser.setEmail(rs.getString("email"));
                     tempuser.setImgUrl(rs.getString("imgurl"));
                     return tempuser;
                 }

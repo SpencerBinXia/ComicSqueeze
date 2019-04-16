@@ -4,11 +4,11 @@ import java.util.ArrayList;
 public class Series {
 
     private boolean collaborative;
-    private ArrayList<String> creators = new ArrayList<String>();
+    private String creators;
     private String description;
     private double rating;
     private String title;
-    private ArrayList<String> tags = new ArrayList<String>();
+    private String tags;
     private long timestamp;
     private String username;
     private int views;
@@ -23,12 +23,8 @@ public class Series {
         this.collaborative = collaborative;
     }
 
-    public ArrayList<String> getCreators() {
-        return creators;
-    }
-
-    public void setCreators(ArrayList<String> creators) {
-        this.creators = creators;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getDescription() {
@@ -55,12 +51,16 @@ public class Series {
         this.title = title;
     }
 
-    public ArrayList<String> getTags() {
-        return tags;
+    public String getCreators() {
+        return creators;
     }
 
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
+    public void setCreators(String creators) {
+        this.creators = creators;
+    }
+
+    public String getTags() {
+        return tags;
     }
 
     public long getTimestamp() {
