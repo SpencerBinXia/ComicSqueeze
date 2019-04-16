@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 
 public class IndexController {
+
     @Autowired
     private loginRegisterService service;
+
     @RequestMapping(value ="/",method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, HttpSession session)
     {

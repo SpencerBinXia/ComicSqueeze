@@ -52,6 +52,4 @@ public class CurrentUserProfileController {
         model.addAttribute("curMember", curMember);
         return "CurrentUserProfile";
     }
-
-
 }

@@ -21,12 +21,14 @@ public class ProfileRepo {
     {
         System.out.println("findbyName repo reached");
         String findMember ="SELECT * FROM \"Member\" WHERE username='" + username + "';";
+        System.out.println(username);
         Member tempuser = new Member();
         try
         {
             jdbc.queryForObject(findMember, new RowMapper<Member>() {
                 public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempuser.setUsername(rs.getString("username"));
+                    System.out.println(tempuser.getUsername());
                     tempuser.setBio(rs.getString("bio"));
                     tempuser.setAdminStatus(rs.getBoolean("admin"));
                     tempuser.setEmail(rs.getString("email"));
