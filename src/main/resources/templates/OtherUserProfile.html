@@ -57,7 +57,7 @@
 
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow" style="align-items: center">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=myDude, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
@@ -85,7 +85,7 @@
             <br><br>
 
             <div class="flexContainer flexRow" style="align-items: center">
-                <a th:href="@{/series/{profileID}/{seriesTitle}(profileID=myDude, seriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{seriesTitle}(profileID=${profileID}, seriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
                 <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
                 <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
