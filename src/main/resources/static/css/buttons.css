@@ -48,6 +48,7 @@
 
 /*other buttons*/
 .lime-button {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #8FC800;
@@ -60,6 +61,7 @@
     text-decoration: none;
 }
 .lime-button-solo {
+    overflow-wrap: break-word;
      color: #ffffff;
      font-size: 20px;
      background: #8FC800;
@@ -75,6 +77,7 @@
     text-decoration: none;
 }
 .lime-button-left {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #8FC800;
@@ -91,6 +94,7 @@
 }
 
 .grey-button-left {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #9a9a9a;

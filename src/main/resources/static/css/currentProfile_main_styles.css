@@ -43,7 +43,9 @@ input {
     padding: 10px;
 }
 .profile_img {
-    width: 65%;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
     border: solid black 2px;
     border-radius: 50%;
     display: block;
