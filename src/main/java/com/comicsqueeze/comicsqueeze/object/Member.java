@@ -7,6 +7,9 @@ public class Member {
     private String bio;
     private boolean admin;
     private String imgUrl;
+    private String currentSeries;
+    private String currentIssue;
+    private String currentPagenumber;
 
     public String getUsername() {return username;}
     public Boolean getAdminStatus() {return admin;}
@@ -27,4 +30,28 @@ public class Member {
         this.bio = bio;
     }
     public void setImgUrl(String imgUrl){this.imgUrl = imgUrl;}
+
+    public String getCurrentSeries() {
+        return currentSeries;
+    }
+
+    public void setCurrentSeries(String currentSeries) {
+        this.currentSeries = currentSeries;
+    }
+
+    public String getCurrentIssue() {
+        return currentIssue;
+    }
+
+    public void setCurrentIssue(String currentIssue) {
+        this.currentIssue = currentIssue;
+    }
+
+    public String getCurrentPagenumber() {
+        return currentPagenumber;
+    }
+
+    public void setCurrentPagenumber(String currentPagenumber) {
+        this.currentPagenumber = currentPagenumber;
+    }
 }

@@ -24,6 +24,8 @@ public class SeriesController {
         System.out.println("seriescontroller");
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
+        Member member = (Member) session.getAttribute("curMember");
+        member.setCurrentSeries(seriesTitle);
         return "SeriesPage";
     }
 }

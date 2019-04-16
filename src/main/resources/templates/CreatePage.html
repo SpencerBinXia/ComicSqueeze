@@ -21,6 +21,7 @@
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
+    <script src = js/uploadData.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/register_main_styles.css" rel="stylesheet">
@@ -36,7 +37,8 @@
 
     <style type="text/css">
         .fs-container {
-            width: 100%;
+            /*width: 663px;*/
+            height: 900px;
             margin: auto;
         }
     </style>
@@ -56,21 +58,38 @@
             <h1>Create Page</h1>
 
             <div class="fs-container">
-                <div id="lc"></div>
+                <div id="lc" style="height: 900px; border: 1px solid black"></div>
             </div>
 
             <script type="text/javascript">
+                // getting current series and issue that the user is under in heirarchy
+                var currentSeries = "[[${session.curMember.getCurrentSeries()}]]"
+                var currentIssue = "[[${session.curMember.getCurrentIssue()}]]"
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
                     defaultStrokeWidth: 2,
-                    strokeWidths: [1, 2, 3, 5, 30]
+                    strokeWidths: [1, 2, 3, 5, 30],
+                    imageSize: {width: 700, height: 950},
+                    backgroundColor: 'white'
                 });
+                var localStorageKey = 'drawing'
+                if (localStorage.getItem(localStorageKey)) {
+                    lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+                }
+                lc.on('drawingChange', function() {
+                    localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+                });
+                function returnJSON() {
+                    var pagedata = JSON.stringify(lc.getSnapshot());
+                    //upload this data to fire base under the current data heirarchy and user id
+                    uploadJSONtoFirebase(currentSeries,currentIssue,"1",pagedata);
+                };
             </script>
 
             <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                 <a class="button-as-link" style="width: fit-content; margin: 0">
-                    <button class="lime-button-left">CREATE</button>
+                    <button class="lime-button-left" onclick="returnJSON()">SAVE</button>
                 </a>
                 <a th:href="@{/}" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                     <button class="grey-button-left">CANCEL</button>

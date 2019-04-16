@@ -24,6 +24,7 @@
     padding-top: 7.5px;
     padding-bottom: 7.5px;
     display: inline-block;
+    object-fit: cover;
 }
 .navLogo {
     position: absolute;
@@ -48,6 +49,7 @@
 
 /*other buttons*/
 .lime-button {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #8FC800;
@@ -60,6 +62,7 @@
     text-decoration: none;
 }
 .lime-button-solo {
+    overflow-wrap: break-word;
      color: #ffffff;
      font-size: 20px;
      background: #8FC800;
@@ -75,6 +78,7 @@
     text-decoration: none;
 }
 .lime-button-left {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #8FC800;
@@ -91,6 +95,7 @@
 }
 
 .grey-button-left {
+    overflow-wrap: break-word;
     color: #ffffff;
     font-size: 20px;
     background: #9a9a9a;

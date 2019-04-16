@@ -1,4 +1,4 @@
-package com.comicsqueeze.comicsqueeze.controller;
+package com.comicsqueeze.comicsqueeze.controller.API;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +12,13 @@ import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class APIController {
+public class EditUserController {
 
     @Autowired
     private loginRegisterService service;
 
     @RequestMapping(value ="/updateBio", method = RequestMethod.GET)
-    public String home(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
+    public String updateBio(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
         {
             System.out.println("updateBio reached");
             service.setBio((String)session.getAttribute("username"), bio);

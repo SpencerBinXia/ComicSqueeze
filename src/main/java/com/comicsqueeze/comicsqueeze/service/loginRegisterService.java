@@ -43,6 +43,7 @@ public class loginRegisterService {
         }
         else
         {
+            System.out.println("findMember " + existing.getUsername());
             return existing;
         }
     }

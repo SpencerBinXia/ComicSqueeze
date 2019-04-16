@@ -19,10 +19,15 @@
     };
     firebase.initializeApp(config);
     </script>
+    <script>
+        <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
+        const curMemBio = "[[${curMember.getBio()}]]";
+    </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/uploadData.js></script>
     <script src =js/loadImage.js></script>
     <script src =js/signIn.js></script>
+    <script src =js/ownProfile.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
@@ -156,17 +161,19 @@
                 <div class="flexContainer flexRow">
                     <div class="column-left">
                         <form>
-                            <!--EVENTUALLY: make email visible here-->
-                            <!--Email:-->
-                            <!--<br>-->
-                            <!--<p th:text=""></p>-->
-                            <!--<br>-->
+                            Email:
+                            <br>
+                            <p th:text="${curMember.getEmail()}"></p>
+                            <br>
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
                             <br>
                             <textarea id="bioField" class="input-large"></textarea>
                             <br><br>
                         </form>
+                        <script>
+                            document.getElementById("bioField").value = curMemBio;
+                        </script>
                         <br>
                     </div>
                     <div class="column-right">
@@ -202,9 +209,9 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
                 <form>
-                    Title: <input class="input-small" type="text" name="Title"><br><br>
-                    Description: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
-                    Tags: <textarea class="input-mid" type="text" name="Tags"></textarea><br><br>
+                    Title: <input id="titleField" class="input-small" type="text" name="Title"><br><br>
+                    Description: <textarea id="descField" class="input-large" type="text" name="Description"></textarea><br><br>
+                    Tags: <textarea id="tagField" class="input-mid" type="text" name="Tags"></textarea><br><br>
                 </form>
                 <h3 style="margin: 0">Series Mode</h3>
                 <select id="seriesMode" name="seriesMode">
@@ -222,7 +229,7 @@
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">CREATE</button>
+                        <button class="lime-button-left" onclick=createSeries()>CREATE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>
