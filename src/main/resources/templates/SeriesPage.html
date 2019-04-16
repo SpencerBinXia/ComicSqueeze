@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title th:text="${seriesTitle} + ' by ' + ${profileID}"></title>
+    <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -23,7 +23,7 @@
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
-<link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
+    <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
     <link href="css/series_main_styles.css" th:href="@{/css/series_main_styles.css}" rel="stylesheet">
     <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
 
@@ -57,7 +57,7 @@
 
         <main class="flexItem whiteBackground main">
             <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
-            <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}}"></a>
+            <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
             <div class="flexContainer flexRow limes">
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
@@ -69,20 +69,20 @@
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 1</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 2')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 2</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 3')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 3</p>
                 </div>
                 <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 4</p>
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
             </div>
