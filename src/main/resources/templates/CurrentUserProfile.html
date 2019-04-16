@@ -19,6 +19,10 @@
     };
     firebase.initializeApp(config);
     </script>
+    <script>
+        <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
+        const curMemBio = "[[${curMember.getBio()}]]";
+    </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/loadImage.js></script>
     <script src =js/signIn.js></script>
@@ -156,17 +160,19 @@
                 <div class="flexContainer flexRow">
                     <div class="column-left">
                         <form>
-                            <!--EVENTUALLY: make email visible here-->
-                            <!--Email:-->
-                            <!--<br>-->
-                            <!--<p th:text=""></p>-->
-                            <!--<br>-->
+                            Email:
+                            <br>
+                            <p th:text="${curMember.getEmail()}"></p>
+                            <br>
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
                             BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
                             <br>
                             <textarea id="bioField" class="input-large"></textarea>
                             <br><br>
                         </form>
+                        <script>
+                            document.getElementById("bioField").value = curMemBio;
+                        </script>
                         <br>
                     </div>
                     <div class="column-right">
