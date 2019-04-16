@@ -121,11 +121,21 @@ function updateProfilePic() {
     var file    = document.querySelector('input[type=file]').files[0]; //sames as here
     var user = firebase.auth().currentUser;
     var storageRef = firebase.storage().ref(user.email+"/"+"profPic");
-    storageRef.put(file);
-    reader.onloadend = function () {
-        loadProfilePic();
-    };
-    reader.readAsDataURL(file);
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+            var percent = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            var uploader = document.getElementById("uploader");
+            uploader.value = percent;
+
+        },
+        function error(err){},
+        function complete() {
+            loadProfilePic();
+        }
+        );
+
+
 
 }
 

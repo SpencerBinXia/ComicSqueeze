@@ -15,6 +15,7 @@ function loadProfilePic(){
                     cache: false,
                     success: function (response) {
                         window.location.assign("yourprofile");
+
                     },
                     error: function (e) {
                         console.log("Failure", e);
