@@ -22,6 +22,8 @@ public class OtherUserProfileController {
     @GetMapping
     public String displayProfile(@PathVariable("profileID") String profileID, Model model, HttpSession session)
     {
+        Member curMember = service.findMember((String)session.getAttribute("username"));
+        model.addAttribute("curMember", curMember);
         if (profileID.equals(session.getAttribute("username")))
         {
             return "redirect:/yourprofile";
