@@ -172,8 +172,15 @@
                     <div class="column-right">
                         <div class="flexContainer flexColumn right-content">
                             <img id = "profPic" th:src="${curMember.getImgUrl()}" class="upload-icon">
+                            <progress value="0" max="100" id="uploader" style="
+                                -webkit-appearance: none;
+                                width: 100%;
+                                margin-top: 3%;
+                            ">0%</progress>
                             <!--When successful, routes back to FrontPage-->
+
                             <input id = "file" name = "file" type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom">
+
                         </div>
                     </div>
                 </div>
