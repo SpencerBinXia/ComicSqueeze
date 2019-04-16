@@ -16,26 +16,36 @@ function updateBio(){
 }
 
 function createSeries(){
-    titleVal = document.getElementById("titleField").value;
-    descVal = document.getElementById("descField").value;
-    tagVal = document.getElementById("tagField").value;
-    $('#titleVal').text(titleVal);
-    $('#descVal').text(descVal);
-    $('#tagVal').text(tagVal);
+    //titleVal = document.getElementById("titleField").value;
+    //descVal = document.getElementById("descField").value;
+    //tagVal = document.getElementById("tagField").value;
+    var titleVal = $('#titleField').val();
+    var descVal = $('#descField').val();
+    var tagVal = $('#tagField').val();
     console.log(titleVal);
     console.log(descVal);
     console.log(tagVal);
-    /*
+    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagVal, timestamp: 0, views: 0, weekly: false, flag: false}
     return $.ajax({
-        type: "GET",
-        url: "/updateBio?bio=" + val,
+        type: "POST",
+        url: "/createSeries",
+        contentType: "application/JSON",
+        dataType: "json",
+        data: JSON.stringify(newSeries),
         cache: false,
         success: function (result) {
-            $('#bioID').text(val);
+            console.log(result);
+            if (result.status === "OK")
+            {
+                console.log("success");
+            }
+            else
+            {
+                console.log("failure");
+            }
         },
         error: function (e) {
-            alert("Update bio failed!");
+            alert("Create series failed!");
         }
     });
-    */
 }

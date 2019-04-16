@@ -1,4 +1,4 @@
-package com.comicsqueeze.comicsqueeze.controller;
+package com.comicsqueeze.comicsqueeze.controller.API;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class APIController {
+public class EditUserController {
 
     @Autowired
     private loginRegisterService service;
@@ -24,12 +24,4 @@ public class APIController {
             service.setBio((String)session.getAttribute("username"), bio);
             return "redirect:/yourprofile";
         }
-
-    @RequestMapping(value ="/createSeries", method = RequestMethod.GET)
-    public String createSeries(Model model, @RequestParam(value ="title") String title, @RequestParam(value ="desc") String desc, @RequestParam(value ="tags") String tags, HttpSession session)
-    {
-        System.out.println("createSeries reached");
-        //service.setBio((String)session.getAttribute("username"), bio);
-        return "redirect:/yourprofile";
-    }
 }
