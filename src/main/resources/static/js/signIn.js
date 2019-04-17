@@ -107,6 +107,7 @@ function redirectToProfile(user) {
         success: function (response) {
             window.location.assign("/yourprofile");
             loadProfilePic();
+
         },
         error: function (e) {
             console.log("Failure", e);

@@ -24,6 +24,8 @@ public class IssueController {
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);
+        Member member = (Member) session.getAttribute("curMember");
+        member.setCurrentIssue(issueTitle);
         return "IssuePage";
     }
 

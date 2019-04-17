@@ -21,6 +21,7 @@
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
+    <script src = js/uploadData.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/register_main_styles.css" rel="stylesheet">
@@ -78,6 +79,9 @@
             </div>
 
             <script type="text/javascript">
+                // getting current series and issue that the user is under in heirarchy
+                var currentSeries = "[[${session.curMember.getCurrentSeries()}]]"
+                var currentIssue = "[[${session.curMember.getCurrentIssue()}]]"
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
@@ -96,8 +100,9 @@
                     localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
                 });
                 function returnJSON() {
-                    var jsonObj = JSON.parse(JSON.stringify(lc.getSnapshot()));
-                    console.log(jsonObj);
+                    var pagedata = JSON.stringify(lc.getSnapshot());
+                    //upload this data to fire base under the current data heirarchy and user id
+                    uploadJSONtoFirebase(currentSeries,currentIssue,"1",pagedata);
                 };
             </script>
 

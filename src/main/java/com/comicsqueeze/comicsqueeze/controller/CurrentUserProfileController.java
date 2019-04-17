@@ -28,7 +28,9 @@ public class CurrentUserProfileController {
         System.out.println("yourprofile func called");
         model.addAttribute("userName",userName);
         model.addAttribute("img",imgURL);
+        Member curMember = service.findMember(userName);
         session.setAttribute("username", userName);
+        session.setAttribute("curMember", curMember);
         return "redirect:/yourprofile";
     }
 
@@ -52,6 +54,4 @@ public class CurrentUserProfileController {
         model.addAttribute("curMember", curMember);
         return "CurrentUserProfile";
     }
-
-
 }
