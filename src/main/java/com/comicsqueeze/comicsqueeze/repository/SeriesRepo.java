@@ -21,7 +21,7 @@ public class SeriesRepo {
     JdbcTemplate jdbc;
 
     public Series findBySeriesName(String username, String seriestitle){
-        String findSeries = "SELECT * FROM \"Series\" WHERE username =" + username + "AND seriestitle= " + seriestitle;
+        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + username + "' AND seriestitle='" + seriestitle + "';";
         Series tempSeries = new Series();
         try
         {
@@ -36,7 +36,7 @@ public class SeriesRepo {
                     tempSeries.setWeekly(rs.getBoolean("weekly"));
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
-                    tempSeries.setTimestamp(rs.getObject(7, LocalDateTime.class));
+                    tempSeries.setTimestamp(rs.getObject(5, LocalDateTime.class));
                     return tempSeries;
                 }
             });

@@ -10,8 +10,16 @@ import org.springframework.stereotype.Service;
 public class ComicIssueService {
     @Autowired
     private IssueRepo issueRepo;
-    public Issue findIssueByTitle(Member member,String seriesTitle, String issueTitle){
-        return issueRepo.findByIssueTitle(member,seriesTitle,issueTitle);
+    public Issue findIssueByTitle(String username, String seriesTitle, String issueTitle){
+        Issue existing = issueRepo.findByIssueTitle(username, seriesTitle, issueTitle);
+        if (existing == null)
+        {
+            return null;
+        }
+        else
+        {
+            return existing;
+        }
     }
     public void createIssue(Issue newIssue){
         issueRepo.createIssue(newIssue);

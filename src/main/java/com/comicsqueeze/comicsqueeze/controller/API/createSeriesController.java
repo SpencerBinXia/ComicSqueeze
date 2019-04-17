@@ -24,6 +24,7 @@ public class createSeriesController {
     {
         JSONObject message = new JSONObject();
         newSeries.setUsername((String)session.getAttribute("username"));
+        newSeries.setCreators("default");
         newSeries.setTimestamp(LocalDateTime.now());
         System.out.println(newSeries.getUsername());
         System.out.println(newSeries.getTitle());
@@ -32,6 +33,8 @@ public class createSeriesController {
         if (service.findSeriesByTitle(newSeries.getUsername(), newSeries.getTitle()) == null)
         {
             service.createSeries(newSeries);
+            message.put("username", newSeries.getUsername());
+            message.put("seriesTitle", newSeries.getTitle());
             message.put("status", "OK");
         }
         else

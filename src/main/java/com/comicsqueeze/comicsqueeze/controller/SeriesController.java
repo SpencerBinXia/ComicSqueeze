@@ -24,18 +24,20 @@ public class SeriesController {
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
-        model.addAttribute("curMember", curMember);
-        System.out.println("seriescontroller");
-        model.addAttribute("profileID", profileID);
-        model.addAttribute("seriesTitle", seriesTitle);
-        Member member = (Member) session.getAttribute("curMember");
-        //GENERATE MOCK DATA FOR NOW
-        Series newSeries = new Series();
-        newSeries.setTitle(seriesTitle);
-        newSeries.setUsername(member.getUsername()); // NULL POINTER
-        //Series series = comicSeriesService.findSeriesByTitle(member,seriesTitle);
-        // END OF MOCK DATA
-        member.setCurrentSeries(newSeries);
+        if(curMember!=null) {
+            model.addAttribute("curMember", curMember);
+            System.out.println("seriescontroller");
+            model.addAttribute("profileID", profileID);
+            model.addAttribute("seriesTitle", seriesTitle);
+            Member member = (Member) session.getAttribute("curMember");
+            //GENERATE MOCK DATA FOR NOW
+            Series newSeries = new Series();
+            newSeries.setTitle(seriesTitle);
+            newSeries.setUsername(member.getUsername());
+            //Series series = comicSeriesService.findSeriesByTitle(member,seriesTitle);
+            // END OF MOCK DATA
+            member.setCurrentSeries(newSeries);
+        }
         return "SeriesPage";
     }
 }

@@ -19,6 +19,7 @@ public class ComicSeriesService {
         }
         else
         {
+            System.out.println(existing.getTitle());
             return existing;
         }
     }
