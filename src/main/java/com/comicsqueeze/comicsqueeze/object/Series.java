@@ -1,4 +1,5 @@
 package com.comicsqueeze.comicsqueeze.object;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Series {
@@ -9,7 +10,7 @@ public class Series {
     private double rating;
     private String title;
     private String tags;
-    private long timestamp;
+    private LocalDateTime timestamp;
     private String username;
     private int views;
     private boolean weekly;
@@ -63,11 +64,11 @@ public class Series {
         return tags;
     }
 
-    public long getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

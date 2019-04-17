@@ -30,7 +30,6 @@ public class loginRegisterService {
 
     public boolean setBio(String name, String bio)
     {
-        System.out.println("setbio");
         userrepo.setMemberBio(userrepo.findByName(name), bio);
         return true;
     }
@@ -43,7 +42,6 @@ public class loginRegisterService {
         }
         else
         {
-            System.out.println("findMember " + existing.getUsername());
             return existing;
         }
     }
