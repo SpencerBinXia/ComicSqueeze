@@ -208,11 +208,38 @@
         <div id="create-series-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
-                <form>
+                <form id="form">
                     Title: <input id="titleField" class="input-small" type="text" name="Title"><br><br>
                     Description: <textarea id="descField" class="input-large" type="text" name="Description"></textarea><br><br>
                     Tags: <textarea id="tagField" class="input-mid" type="text" name="Tags"></textarea><br><br>
                 </form>
+                <!--<input id="tagField" class="input-small" type="text" name="Tag" placeholder="Tag Name:">-->
+                <!--<button id="btn" class="grey-button-left" type="button" style="margin-top: 5px; margin-bottom: 20px">Add Tag</button>-->
+                <!--used for dynamically adding tags-->
+                <!--<script type="text/javascript">-->
+                    <!--(function() {-->
+                        <!--var counter = 0;-->
+                        <!--var btn = document.getElementById('btn');-->
+                        <!--var form = document.getElementById('form');-->
+                        <!--var addInput = function() {-->
+                            <!--var tagName = document.getElementById('tagField').value;-->
+                            <!--if(tagName == "" || tagName == null){-->
+                                <!--alert("Please enter a tag name.");-->
+                                <!--return false;-->
+                            <!--}-->
+                            <!--counter++;-->
+                            <!--var tagButton = document.createElement("button");-->
+                            <!--tagButton.id = 'tag' + counter;-->
+                            <!--tagButton.innerText = tagName;-->
+                            <!--tagButton.classList.add("tagBtn");-->
+                            <!--tagButton.onclick = deleteTag;-->
+                            <!--form.appendChild(tagButton);-->
+                        <!--};-->
+                        <!--btn.addEventListener('click', function() {-->
+                            <!--addInput();-->
+                        <!--}.bind(this));-->
+                    <!--})();-->
+                <!--</script>-->
                 <h3 style="margin: 0">Series Mode</h3>
                 <select id="seriesMode" name="seriesMode">
                     <option value="recent">Individual</option>

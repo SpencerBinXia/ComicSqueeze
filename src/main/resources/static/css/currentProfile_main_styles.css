@@ -19,6 +19,16 @@ input {
     font-size:20px;
 }
 
+.tagBtn {
+    width: fit-content;
+    background-color: #d7dde5;
+    margin: 3px;
+    font-size: 17px;
+}
+.tagBtn:hover {
+    background-color: #ccd1d9;
+}
+
 .upload-icon {
     border-radius: 50%;
     display: block;

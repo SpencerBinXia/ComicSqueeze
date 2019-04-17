@@ -15,6 +15,12 @@ function updateBio(){
     });
 }
 
+function deleteTag() {
+    // occurs when clicking a newly created tag in the create series popup.
+    // TO-DO
+    console.log("delete tag");
+}
+
 function createSeries(){
     //titleVal = document.getElementById("titleField").value;
     //descVal = document.getElementById("descField").value;
