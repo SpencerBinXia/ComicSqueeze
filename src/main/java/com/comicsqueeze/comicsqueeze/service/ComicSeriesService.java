@@ -15,10 +15,13 @@ public class ComicSeriesService {
         Series existing = seriesRepo.findBySeriesName(username, seriesTitle);
         if (existing == null)
         {
+            System.out.println("null existing");
             return null;
         }
         else
         {
+            System.out.println("series exists");
+            System.out.println(existing.getTitle());
             return existing;
         }
     }

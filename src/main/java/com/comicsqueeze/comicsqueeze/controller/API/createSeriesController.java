@@ -24,6 +24,7 @@ public class createSeriesController {
     {
         JSONObject message = new JSONObject();
         newSeries.setUsername((String)session.getAttribute("username"));
+        newSeries.setCreators("default");
         newSeries.setTimestamp(LocalDateTime.now());
         System.out.println(newSeries.getUsername());
         System.out.println(newSeries.getTitle());
@@ -36,6 +37,7 @@ public class createSeriesController {
         }
         else
         {
+            System.out.println("not null in controller");
             message.put("status", "error");
         }
         return message;
