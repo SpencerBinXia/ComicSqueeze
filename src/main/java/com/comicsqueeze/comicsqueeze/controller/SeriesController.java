@@ -32,7 +32,7 @@ public class SeriesController {
         //GENERATE MOCK DATA FOR NOW
         Series newSeries = new Series();
         newSeries.setTitle(seriesTitle);
-        newSeries.setUsername(member.getUsername());
+        newSeries.setUsername(member.getUsername()); // NULL POINTER
         //Series series = comicSeriesService.findSeriesByTitle(member,seriesTitle);
         // END OF MOCK DATA
         member.setCurrentSeries(newSeries);
