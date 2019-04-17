@@ -25,7 +25,7 @@ function createSeries(){
     console.log(titleVal);
     console.log(descVal);
     console.log(tagVal);
-    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagVal, timestamp: 0, views: 0, weekly: false, flag: false}
+    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagVal, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false};
     return $.ajax({
         type: "POST",
         url: "/createSeries",
@@ -41,7 +41,7 @@ function createSeries(){
             }
             else
             {
-                console.log("failure");
+                alert("Create new series failed.");
             }
         },
         error: function (e) {
