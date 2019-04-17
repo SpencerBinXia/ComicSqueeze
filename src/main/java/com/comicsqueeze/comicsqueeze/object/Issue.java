@@ -1,12 +1,14 @@
 package com.comicsqueeze.comicsqueeze.object;
 
+import java.time.LocalDateTime;
+
 public class Issue {
 
     private String title;
     private String series;
     private String description;
     private int pagecount;
-    private long timestamp;
+    private LocalDateTime timestamp;
     private String username;
 
     public String getTitle() {
@@ -41,11 +43,11 @@ public class Issue {
         this.pagecount = pagecount;
     }
 
-    public long getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

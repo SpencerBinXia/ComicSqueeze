@@ -9,15 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 @Repository
 public class IssueRepo {
     @Autowired
     JdbcTemplate jdbc;
 
-    public Issue findByIssueTitle(Member user, String seriestitle, String issuetitle){
+    public Issue findByIssueTitle(String username, String seriestitle, String issuetitle){
 
-        String findIssue = "SELECT * FROM \"Issue\" WHERE username='" + user.getUsername() + "AND title=" + issuetitle + "AND series=" +
+        String findIssue = "SELECT * FROM \"Issue\" WHERE username='" + username + "' AND title='" + issuetitle + "' AND series='" +
                 seriestitle + "';";
         Issue tempIssue = new Issue();
         try
@@ -29,7 +30,7 @@ public class IssueRepo {
                     tempIssue.setUsername(rs.getString("username"));
                     tempIssue.setSeries(rs.getString("series"));
                     tempIssue.setPagecount(rs.getInt("pagecount"));
-                    tempIssue.setTimestamp(0);
+                    tempIssue.setTimestamp(rs.getObject(5, LocalDateTime.class));
                     return tempIssue;
                 }
             });
@@ -41,7 +42,7 @@ public class IssueRepo {
         return tempIssue;
     }
     public void createIssue(Issue newIssue){
-        jdbc.update("INSERT INTO \"Issue\"(title,series,description,pagecount,timestamp,username)" + "VALUES(?,?,?,?,?,?", newIssue.getTitle(),newIssue.getSeries(),
+        jdbc.update("INSERT INTO \"Issue\"(title,series,description,pagecount,timestamp,username)" + "VALUES(?,?,?,?,?,?)", newIssue.getTitle(),newIssue.getSeries(),
                 newIssue.getDescription(),newIssue.getPagecount(),newIssue.getTimestamp(),newIssue.getUsername());
     }
 }

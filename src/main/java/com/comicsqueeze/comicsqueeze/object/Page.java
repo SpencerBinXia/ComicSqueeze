@@ -4,7 +4,6 @@ public class Page {
 
     private String issue;
     private String imgurl;
-    private int pagenumber;
     private int votes;
     private boolean published;
     private String username;
@@ -24,14 +23,6 @@ public class Page {
 
     public void setImgurl(String imgurl) {
         this.imgurl = imgurl;
-    }
-
-    public int getPagenumber() {
-        return pagenumber;
-    }
-
-    public void setPagenumber(int pagenumber) {
-        this.pagenumber = pagenumber;
     }
 
     public int getVotes() {
