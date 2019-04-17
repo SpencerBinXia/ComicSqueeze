@@ -1,6 +1,8 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpSession;
 public class SeriesController {
     @Autowired
     private loginRegisterService service;
+    @Autowired
+    private ComicSeriesService comicSeriesService;
     @GetMapping
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
@@ -25,7 +29,13 @@ public class SeriesController {
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
         Member member = (Member) session.getAttribute("curMember");
-        member.setCurrentSeries(seriesTitle);
+        //GENERATE MOCK DATA FOR NOW
+        Series newSeries = new Series();
+        newSeries.setTitle(seriesTitle);
+        newSeries.setUsername(member.getUsername());
+        //Series series = comicSeriesService.findSeriesByTitle(member,seriesTitle);
+        // END OF MOCK DATA
+        member.setCurrentSeries(newSeries);
         return "SeriesPage";
     }
 }

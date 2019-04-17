@@ -1,5 +1,4 @@
 package com.comicsqueeze.comicsqueeze.object;
-import java.util.ArrayList;
 
 public class Member {
     private String username;
@@ -7,9 +6,9 @@ public class Member {
     private String bio;
     private boolean admin;
     private String imgUrl;
-    private String currentSeries;
-    private String currentIssue;
-    private String currentPagenumber;
+    private Series currentSeries;
+    private Issue currentIssue;
+    private Page currentPage;
 
     public String getUsername() {return username;}
     public Boolean getAdminStatus() {return admin;}
@@ -31,27 +30,27 @@ public class Member {
     }
     public void setImgUrl(String imgUrl){this.imgUrl = imgUrl;}
 
-    public String getCurrentSeries() {
+    public Series getCurrentSeries() {
         return currentSeries;
     }
 
-    public void setCurrentSeries(String currentSeries) {
+    public void setCurrentSeries(Series currentSeries) {
         this.currentSeries = currentSeries;
     }
 
-    public String getCurrentIssue() {
+    public Issue getCurrentIssue() {
         return currentIssue;
     }
 
-    public void setCurrentIssue(String currentIssue) {
+    public void setCurrentIssue(Issue currentIssue) {
         this.currentIssue = currentIssue;
     }
 
-    public String getCurrentPagenumber() {
-        return currentPagenumber;
+    public Page getCurrentPage() {
+        return currentPage;
     }
 
-    public void setCurrentPagenumber(String currentPagenumber) {
-        this.currentPagenumber = currentPagenumber;
+    public void setCurrentPage(Page currentPage) {
+        this.currentPage = currentPage;
     }
 }
