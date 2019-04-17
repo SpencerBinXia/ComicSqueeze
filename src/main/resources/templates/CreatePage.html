@@ -63,8 +63,8 @@
 
             <script type="text/javascript">
                 // getting current series and issue that the user is under in heirarchy
-                var currentSeries = "[[${session.curMember.getCurrentSeries()}]]"
-                var currentIssue = "[[${session.curMember.getCurrentIssue()}]]"
+                var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
+                var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
