@@ -32,26 +32,30 @@ public class RegisterController {
 
     @RequestMapping("/registerUser")
     public String registerUser(Model m,@RequestParam String Username, @RequestParam String Password, @RequestParam String Email, @RequestParam String First, @RequestParam String Last, HttpSession session) {
-
+        String message;
         try {
             UserRecord.CreateRequest request =  new UserRecord.CreateRequest()
                     .setEmail(Email)
                     .setEmailVerified(false)
                     .setPassword(Password)
                     .setDisplayName(Username);
-
-            UserRecord userRecord = null;
-            userRecord = FirebaseAuth.getInstance().createUser(request);
-            System.out.println("Successfully created new user: " + userRecord.getUid());
-            m.addAttribute("userName",userRecord.getDisplayName());
-            session.setAttribute("username", Username);
             Member newMember = new Member();
             newMember.setUsername(Username);
             newMember.setEmail(Email);
-            service.registerMember(newMember);
-            return "redirect:/yourprofile";
+            UserRecord userRecord = null;
+            userRecord = FirebaseAuth.getInstance().createUser(request);
+            if(service.registerMember(newMember)){
+                m.addAttribute("userName",userRecord.getDisplayName());
+                session.setAttribute("username", Username);
+                return "redirect:/yourprofile";
+            }
+            else{
+                FirebaseAuth.getInstance().deleteUser(userRecord.getUid());
+                message= "Username already in use";
+                m.addAttribute("err2",message);
+                return "Register";
+            }
         } catch (FirebaseAuthException e) {
-            String message;
             if (e.getMessage().equals("User management service responded with an error")){
                 message= "Email already in use";
             }
