@@ -34,7 +34,7 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
@@ -77,12 +77,13 @@
                 </div>
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 20px;">
-                <a class="button-as-link" th:href="@{/createpage}">
+                <a th:if="${session.username == profileID}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <button class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
-                <button class="lime-button" style="margin-right: 30px">DELETE</button>
-                <button class="lime-button" style="margin-right: 30px">SAVE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">SAVE</button>
             </div>
             <br><br>
             <div class="flexContainer flexRow issue_pages">
@@ -90,37 +91,37 @@
                 <div class="flexContainer flexColumn">
                     <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" th:src="@{/images/EXAMPLE_2_PAGE.jpg}" class="issue"></a>
                     <div class="flexContainer flexRow">
-                        <a href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
                     </div>
                 </div>
                 <div class="flexContainer flexColumn">
                     <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" th:src="@{/images/EXAMPLE_2_PAGE.jpg}" class="issue"></a>
                     <div class="flexContainer flexRow">
-                        <a href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
-                        <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <h2 class="subtext" style="margin: 0; padding-left: 25%">2</h2>
                     </div>
                 </div>
                 <div class="flexContainer flexColumn">
                     <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" th:src="@{/images/EXAMPLE_2_PAGE.jpg}" class="issue"></a>
                     <div class="flexContainer flexRow">
-                        <a href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
-                        <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <h2 class="subtext" style="margin: 0; padding-left: 25%">3</h2>
                     </div>
                 </div>
                 <div class="flexContainer flexColumn">
                     <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" th:src="@{/images/EXAMPLE_2_PAGE.jpg}" class="issue"></a>
                     <div class="flexContainer flexRow">
-                        <a href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
-                        <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <h2 class="subtext" style="margin: 0; padding-left: 25%">4</h2>
                     </div>
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
@@ -130,12 +131,12 @@
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; margin-bottom: 5px">Comments</h1>
-                <a href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                <a th:if="${session.username != null}"href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
             </div>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
                 <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>
                 <p class="upvote-text">3</p>
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
@@ -144,8 +145,8 @@
             <p style="margin-top: -5px">Lorem ipsum dolor sit amet.</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">
                 <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>
                 <p class="upvote-text">1</p>
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
@@ -154,8 +155,8 @@
             <p style="margin-top: -5px; margin-left: 60px">Ut enim ad minim</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
                 <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
+                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
                 <a href="#" class="comment-header-item"><img src="images/icons/upvote_NONE_icon.png" th:src="@{/images/icons/upvote_NONE_icon.png}"></a>
                 <p class="upvote-text">0</p>
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_icon.png" th:src="@{/images/icons/downvote_icon.png}"></a>

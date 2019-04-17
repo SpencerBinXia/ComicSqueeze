@@ -46,3 +46,9 @@ img {
 .subtext {
     color: #555555;
 }
+.page-option {
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    padding-right: 5px;
+}

@@ -58,8 +58,8 @@
         <main class="flexItem whiteBackground main">
             <div class="flexContainer flexRow" style="align-items: center">
                 <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
-                <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
-                <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
+                <button th:if="${session.username}!=null" class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
+                <a th:if="${session.username}!=null" href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
@@ -86,8 +86,8 @@
 
             <div class="flexContainer flexRow" style="align-items: center">
                 <a th:href="@{/series/{profileID}/{seriesTitle}(profileID=${profileID}, seriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
-                <button class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
-                <a href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
+                <button th:if="${session.username}!=null" class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
+                <a th:if="${session.username}!=null" href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
@@ -121,7 +121,7 @@
                     <h2 th:text="${profileID}" style="text-align: center"></h2>
                     <p style="margin-top: -15px; overflow-wrap: break-word;" th:text="${viewMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
-                    <button class="lime-button-solo">FOLLOW</button>
+                    <button th:if="${session.username}!=null" class="lime-button-solo">FOLLOW</button>
                 </div>
             </div>
         </aside>
