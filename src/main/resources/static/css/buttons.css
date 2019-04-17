@@ -24,7 +24,22 @@
     padding-top: 7.5px;
     padding-bottom: 7.5px;
     display: inline-block;
+    /*object-fit: cover;*/
+    /*background-image: url("../images/icons/default_pro_icon.png");*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+}
+.navUserIcon {
+    margin: 7.5px 0 7.5px 0;
+    height: 45px;
+    width: 45px;
+    /*padding-top: 7.5px;*/
+    /*padding-bottom: 7.5px;*/
+    display: inline-block;
     object-fit: cover;
+    background-image: url("../images/icons/default_pro_icon.png");
+    background-position: center;
+    background-size: cover;
 }
 .navLogo {
     position: absolute;

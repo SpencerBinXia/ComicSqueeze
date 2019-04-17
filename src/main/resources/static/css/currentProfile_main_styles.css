@@ -28,6 +28,9 @@ input {
     width: 200px;
     height: 200px;
     border: solid #000000 2px;
+    background-image: url("../images/icons/default_pro_icon.png");
+    background-position: center;
+    background-size: cover;
 }
 
 .series {
@@ -51,6 +54,9 @@ input {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    background-image: url("../images/icons/default_pro_icon.png");
+    background-position: center;
+    background-size: cover;
 }
 
 .arrow {

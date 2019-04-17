@@ -34,7 +34,7 @@
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
@@ -89,10 +89,11 @@
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p class="subtext">#action, #funny, #long, #horror</p>
             <div class="flexContainer flexRow">
-                <a class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
+                <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
                     <button class="lime-button-left">ADD ISSUE</button>
                 </a>
-                <button class="lime-button-left" style="margin-left: 20px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">EDIT</button>
             </div>
 
             <br>
@@ -105,7 +106,10 @@
 
             <br>
 
-            <h1>Reviews</h1>
+            <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
+                <h1 style="margin-right: 20px; ">Reviews</h1>
+                <a th:if="${session.username != profileID and session.username != null}" href="#write-review-modal-container" data-reveal-id="write-review-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+            </div>
             <p>Username</p>
             <div class="flexContainer flexRow limes">
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
@@ -126,6 +130,32 @@
         <aside class="sidebar sidebarLeft"></aside>
         <aside class="sidebar sidebarRight"></aside>
 
+    </div>
+
+    <!--Write Review Popup-->
+    <div id="write-review-modal-container">
+        <div id="write-review-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Write Review: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
+                <div class="flexContainer flexRow limes">
+                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
+                    <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
+                </div>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left">SUBMIT</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--Notifications Popup-->

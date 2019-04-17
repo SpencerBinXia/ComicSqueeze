@@ -49,7 +49,24 @@
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
+        <a style="float: left; padding-left: 17%; display: inline-block">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
+            <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
+            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+                <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
+            </a>
+        </a>
         <a th:href="@{/}" class="navLogo"></a>
+        <div style="float: right; padding-right: 17%;">
+            <a th:href="@{/search}" style="float: right; display: inline-block">
+                <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
+            </a>
+            <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
+            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}!=null" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
+                <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
+            </a>
+        </div>
     </nav>
 
     <div class="flexContainer flexItem">
@@ -63,15 +80,17 @@
 
             <script type="text/javascript">
                 // getting current series and issue that the user is under in heirarchy
-                var currentSeries = "[[${session.curMember.getCurrentSeries()}]]"
-                var currentIssue = "[[${session.curMember.getCurrentIssue()}]]"
+                var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
+                var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
                     defaultStrokeWidth: 2,
                     strokeWidths: [1, 2, 3, 5, 30],
                     imageSize: {width: 700, height: 950},
-                    backgroundColor: 'white'
+                    backgroundColor: 'white',
+                    tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Rectangle, LC.tools.Ellipse, LC.tools.Text,
+                        LC.tools.Polygon, LC.tools.Pan, LC.tools.Eyedropper, LC.tools.SelectShape]
                 });
                 var localStorageKey = 'drawing'
                 if (localStorage.getItem(localStorageKey)) {
