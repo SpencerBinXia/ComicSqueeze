@@ -175,3 +175,15 @@ select {
     visibility: visible;
     display: block;
 }
+/*Used in SeriesPage*/
+#write-review-modal-container {
+    width: 60%;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+#write-review-modal-container:target {
+    visibility: visible;
+    display: block;
+}

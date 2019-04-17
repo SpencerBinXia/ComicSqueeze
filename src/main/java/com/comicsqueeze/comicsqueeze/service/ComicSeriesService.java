@@ -8,10 +8,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ComicSeriesService {
+
     @Autowired
     private SeriesRepo seriesRepo;
-    public Series findSeriesByTitle(Member member, String seriesTitle){
-        return seriesRepo.findBySeriesName(member, seriesTitle);
+    public Series findSeriesByTitle(String username, String seriesTitle){
+        Series existing = seriesRepo.findBySeriesName(username, seriesTitle);
+        if (existing == null)
+        {
+            System.out.println("null existing");
+            return null;
+        }
+        else
+        {
+            System.out.println("series exists");
+            System.out.println(existing.getTitle());
+            return existing;
+        }
     }
     public void createSeries(Series newSeries){
         seriesRepo.createSeries(newSeries);
