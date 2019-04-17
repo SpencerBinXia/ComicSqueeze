@@ -11,6 +11,8 @@ module.exports = SelectShape = (function(superClass) {
 
   SelectShape.prototype.name = 'SelectShape';
 
+  SelectShape.prototype.iconName = 'null';
+
   SelectShape.prototype.usesSimpleAPI = false;
 
   function SelectShape(lc) {

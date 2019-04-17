@@ -20,6 +20,6 @@ module.exports = {
   onInit: function onInit() {},
   tools: [require('../tools/Pencil'), require('../tools/Eraser'), require('../tools/Line'),
     require('../tools/Rectangle'), require('../tools/Ellipse'), require('../tools/Text'),
-    require('../tools/Polygon'), require('../tools/Pan'), require('../tools/Eyedropper')
+    require('../tools/Polygon'), require('../tools/Pan'), require('../tools/Eyedropper'), require('../tools/SelectShape')
   ]
 };
