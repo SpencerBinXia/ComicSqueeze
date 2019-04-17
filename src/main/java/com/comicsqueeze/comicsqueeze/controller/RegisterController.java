@@ -32,6 +32,9 @@ public class RegisterController {
 
     @RequestMapping("/registerUser")
     public String registerUser(Model m,@RequestParam String Username, @RequestParam String Password, @RequestParam String Email, @RequestParam String First, @RequestParam String Last, HttpSession session) {
+        /*
+            Create User in Firebase
+         */
         String message;
         try {
             UserRecord.CreateRequest request =  new UserRecord.CreateRequest()
@@ -44,11 +47,17 @@ public class RegisterController {
             newMember.setEmail(Email);
             UserRecord userRecord = null;
             userRecord = FirebaseAuth.getInstance().createUser(request);
+            /*
+                Check if the username already exists
+             */
             if(service.registerMember(newMember)){
                 m.addAttribute("userName",userRecord.getDisplayName());
                 session.setAttribute("username", Username);
                 return "redirect:/yourprofile";
             }
+            /*
+                if the username already exists cancel registration and delete user from firebase
+             */
             else{
                 FirebaseAuth.getInstance().deleteUser(userRecord.getUid());
                 message= "Username already in use";

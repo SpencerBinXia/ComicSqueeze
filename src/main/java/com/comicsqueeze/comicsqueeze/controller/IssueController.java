@@ -24,18 +24,20 @@ public class IssueController {
     public String displayProfile(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
-        model.addAttribute("curMember", curMember);
-        model.addAttribute("profileID", profileID);
-        model.addAttribute("seriesTitle", seriesTitle);
-        model.addAttribute("issueTitle", issueTitle);
-        Member member = (Member) session.getAttribute("curMember");
-        /*GENERATE MOCK data for now*/
-        Issue newIssue = new Issue();
-        newIssue.setUsername(member.getUsername());
-        newIssue.setTitle(issueTitle);
-        //Issue issue = issueService.findIssueByTitle(member,seriesTitle,issueTitle);
-        /* END OF MOCK DATA */
-        member.setCurrentIssue(newIssue);
+        if(curMember!=null) {
+            model.addAttribute("curMember", curMember);
+            model.addAttribute("profileID", profileID);
+            model.addAttribute("seriesTitle", seriesTitle);
+            model.addAttribute("issueTitle", issueTitle);
+            Member member = (Member) session.getAttribute("curMember");
+            /*GENERATE MOCK data for now*/
+            Issue newIssue = new Issue();
+            newIssue.setUsername(member.getUsername());
+            newIssue.setTitle(issueTitle);
+            //Issue issue = issueService.findIssueByTitle(member,seriesTitle,issueTitle);
+            /* END OF MOCK DATA */
+            member.setCurrentIssue(newIssue);
+        }
         return "IssuePage";
     }
 
