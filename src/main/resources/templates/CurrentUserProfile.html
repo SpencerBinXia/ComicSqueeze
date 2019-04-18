@@ -28,12 +28,16 @@
     <script src =js/loadImage.js></script>
     <script src =js/signIn.js></script>
     <script src =js/ownProfile.js></script>
+    <script src="js/owl_carousel.js"></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
     <link href="css/currentProfile_main_styles.css" rel="stylesheet">
     <link href="css/modal_styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="glide-3.2.7/dist/css/glide.core.min.css">
+    <link href="css/owl_carousel.css" rel="stylesheet">
+    <link href="css/owl_theme_default.css" rel="stylesheet">
+    <link href="css/owl_theme_green.css" rel="stylesheet">
+
 
 </head>
 
@@ -64,55 +68,6 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-            <div class="flexContainer flexRow">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
-            </div>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
-            </div>
-
-            <br><br>
-
-            <div class="flexContainer flexRow">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;" ><h1>Series Name</h1></a>
-            </div>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
-            </div>
             <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
                 <div class="flexContainer flexRow">
                     <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
