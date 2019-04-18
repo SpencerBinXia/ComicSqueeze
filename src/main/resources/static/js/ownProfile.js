@@ -38,8 +38,8 @@ function createSeries(){
             if (result.status === "OK")
             {
                 console.log("success");
-                var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle;
-                window.location.assign(redirectSeries);
+                var redirectIssue = "/series/" + result.username + "/" + result.seriesTitle;
+                window.location.assign(redirectIssue);
             }
             else
             {
