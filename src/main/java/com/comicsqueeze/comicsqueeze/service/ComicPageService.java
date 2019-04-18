@@ -1,11 +1,14 @@
 package com.comicsqueeze.comicsqueeze.service;
 
 
+import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.repository.PageRepo;
+
+import java.util.ArrayList;
 //import sun.jvm.hotspot.gc.cms.ParNewGeneration;
 
 @Service
@@ -33,5 +36,10 @@ public class ComicPageService {
     }
 
     public void deletePage(Page thePage) { pageRepo.deletePage(thePage); }
+
+
+    public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle){
+        return pageRepo.queryAllPages(member,seriesTitle,issueTitle);
+    }
 
 }

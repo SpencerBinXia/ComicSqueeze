@@ -1,6 +1,7 @@
 package com.comicsqueeze.comicsqueeze.object;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Issue {
 
@@ -10,6 +11,7 @@ public class Issue {
     private int pagecount;
     private LocalDateTime timestamp;
     private String username;
+    private ArrayList<Page> pages;
 
     public String getTitle() {
         return title;
@@ -57,5 +59,13 @@ public class Issue {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public ArrayList<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(ArrayList<Page> pages) {
+        this.pages = pages;
     }
 }
