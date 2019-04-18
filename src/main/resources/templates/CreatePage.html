@@ -119,6 +119,7 @@
                 };
 
                 function passLoadValues() {
+                    // just for testing
                     loadImage(lc.getImage().toDataURL(), "myImg");
                 }
                 function loadImage(img_b64, elemID) {
@@ -140,7 +141,7 @@
             <a class="button-as-link" style="width: fit-content; margin: 0">
                 <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>
             </a>
-            <img id="myImg">
+            <img id="myImg" style="height: 200px; width: 80px; object-fit: cover">
             <a class="button-as-link" style="width: fit-content; margin: 0">
                 <button class="grey-button-left" onclick="passLoadValues()">TEST</button>
             </a>
