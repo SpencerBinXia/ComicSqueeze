@@ -119,7 +119,7 @@
                 <div class="flexContainer flexRow series">
                     <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
                     <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=issue1)}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                         <p style="margin: -5px; text-align: center">Issue #</p>
                     </div>
                     <div class="flexContainer flexColumn">
