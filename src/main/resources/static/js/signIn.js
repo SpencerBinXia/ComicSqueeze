@@ -146,3 +146,10 @@ function updateProfilePic() {
 
 }
 
+$(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+        loop: true,
+        nav: true
+    });
+});
+
