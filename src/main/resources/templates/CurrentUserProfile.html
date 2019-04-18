@@ -24,8 +24,8 @@
         const curMemBio = "[[${curMember.getBio()}]]";
     </script>
 
-    <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.min.css}" rel="stylesheet">
-    <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.min.css}" rel="stylesheet">
+    <link href="css/owl_carousel.css" rel="stylesheet">
+    <link href="css/owl_theme_default.css" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/uploadData.js></script>
     <script src =js/loadImage.js></script>
@@ -89,8 +89,6 @@
             </th:block>
             -->
 
-
-
             <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
                 <div class="flexContainer flexRow">
                     <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
@@ -105,8 +103,25 @@
                         </th:block>
                     </div>
                 </div>
+                    <div class="flexContainer flexRow series">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $(".owl-carousel").owlCarousel({
+                                    loop: true,
+                                    nav: true
+                                });
+                            });
+                        </script>
+                        <div class="owl-carousel owl-theme" style="max-width:1000px">
+                            <th:block th:each="issue: ${series.getIssueArrayList()}">
+                                <div class="flexContainer flexColumn">
+                                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                                    <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
             </th:block>
-
 
             <br><br><br>
 
@@ -289,7 +304,5 @@
 </div>
 
 </body>
-
-<script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
 
 </html>

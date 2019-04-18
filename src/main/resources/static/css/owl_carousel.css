@@ -39,6 +39,7 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none; }
   .owl-carousel .owl-item img {
+      margin: auto;
     display: block;
     width: 100%; }
   .owl-carousel .owl-nav.disabled,
@@ -47,6 +48,8 @@
   .owl-carousel .owl-nav .owl-prev,
   .owl-carousel .owl-nav .owl-next,
   .owl-carousel .owl-dot {
+      width: 60px;
+      background-color: #e3e9f2;
     cursor: pointer;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -56,7 +59,9 @@
   .owl-carousel .owl-nav button.owl-prev,
   .owl-carousel .owl-nav button.owl-next,
   .owl-carousel button.owl-dot {
-    background: none;
+      width: 60px;
+      background-color: #e3e9f2;
+    /*background: none;*/
     color: inherit;
     border: none;
     padding: 0 !important;
