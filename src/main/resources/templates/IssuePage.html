@@ -21,6 +21,7 @@
     </script>
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
+    <script src="js/ownIssue.js" th:src="@{/js/ownIssue.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
@@ -93,7 +94,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
                     </div>
                 </div>
@@ -102,7 +103,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">2</h2>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">3</h2>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">4</h2>
                     </div>
                 </div>

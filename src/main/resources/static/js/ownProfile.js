@@ -17,6 +17,12 @@ function updateBio(){
     });
 }
 
+function deleteTag() {
+    // occurs when clicking a newly created tag in the create series popup.
+    // TO-DO
+    console.log("delete tag");
+}
+
 function createSeries(){
     //titleVal = document.getElementById("titleField").value;
     //descVal = document.getElementById("descField").value;
@@ -24,6 +30,22 @@ function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
     var tagVal = $('#tagField').val();
+
+    var errors = "";
+    if(titleVal == "" || titleVal == null){
+        errors += "title ";
+    }
+    if(descVal == "" || descVal == null){
+        errors += "description ";
+    }
+    if(tagVal == "" || tagVal == null){
+        errors += "tags ";
+    }
+    if(errors != "") {
+        alert("Make sure the ( " + errors + ") field(s) have content.")
+        return false;
+    }
+
     console.log(titleVal);
     console.log(descVal);
     console.log(tagVal);
@@ -40,12 +62,12 @@ function createSeries(){
             if (result.status === "OK")
             {
                 console.log("success");
-                var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle;
-                window.location.assign(redirectSeries);
+                var redirectIssue = "/series/" + result.username + "/" + result.seriesTitle;
+                window.location.assign(redirectIssue);
             }
             else
             {
-                alert("Create new series failed.");
+                alert("Series title already in use on your account.");
             }
         },
         error: function (e) {
