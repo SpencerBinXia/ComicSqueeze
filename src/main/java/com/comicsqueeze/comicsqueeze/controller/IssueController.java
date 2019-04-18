@@ -32,7 +32,6 @@ public class IssueController {
     @GetMapping
     public String displayProfile(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
     {
-        Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);
@@ -41,13 +40,19 @@ public class IssueController {
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
         ArrayList<Page> pages =  issue.getPages();
+        model.addAttribute("issue", issue);
         model.addAttribute("pages",pages);
 
-        if(curMember!=null) {
-            model.addAttribute("curMember", curMember);
-            curMember.setCurrentSeries(series);
-            curMember.setCurrentIssue(issue);
-            //Member sesMember = (Member) session.getAttribute("curMember");
+        if(member.getUsername().equals((String)session.getAttribute("username"))) {
+            member = (Member) session.getAttribute("curMember");
+            model.addAttribute("curMember", member);
+            member.setCurrentSeries(series);
+            member.setCurrentIssue(issue);
+            session.setAttribute("curMember", member);
+        }
+        else if (session.getAttribute("username") != null)
+        {
+            model.addAttribute("curMember", (Member)session.getAttribute("curMember"));
         }
         return "IssuePage";
     }
