@@ -93,16 +93,6 @@
                 <div class="flexContainer flexRow">
                     <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
                 </div>
-                <div class="flexContainer flexRow series">
-                    <div class="owl-carousel owl-theme" style="max-width:1500px">
-                        <th:block th:each="issue: ${series.getIssueArrayList()}">
-                        <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                        <p th:text="${issue.getTitle()}" style="margin: -5px; text-align: center">Issue #</p>
-                    </div>
-                        </th:block>
-                    </div>
-                </div>
                     <div class="flexContainer flexRow series">
                         <script type="text/javascript">
                             $(document).ready(function(){
