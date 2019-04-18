@@ -36,6 +36,7 @@ public class CurrentUserProfileController {
         Member curMember = service.findMember(userName);
         session.setAttribute("username", userName);
         model.addAttribute("curMember", curMember);
+
         session.setAttribute("curMember", curMember);
         return "redirect:/yourprofile";
     }
