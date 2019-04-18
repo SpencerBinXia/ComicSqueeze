@@ -45,10 +45,3 @@ function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 
 
 }
-
-$(document).ready(function(){
-    $(".owl-carousel").owlCarousel({
-        loop: true,
-        nav: true
-    });
-});

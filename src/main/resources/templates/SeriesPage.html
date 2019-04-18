@@ -78,27 +78,18 @@
             <div class="flexContainer flexRow series">
                 <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
                 <div class="owl-carousel owl-theme" style="max-width: 1000px">
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                        <p style="margin: 0; text-align: center">Issue 1</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 2')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                        <p style="margin: 0; text-align: center">Issue 2</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 3')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                        <p style="margin: 0; text-align: center">Issue 3</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                        <p style="margin: 0; text-align: center">Issue 4</p>
-                    </div>
+
+                    <th:block th:each="issue: ${seriesIssues}">
+                        <div class="flexContainer flexColumn">
+                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                            <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                        </div>
+                    </th:block>
                 </div>
                 <!-- <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a> -->
             </div>
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
-            <p class="subtext" th:text="${session.curMember.getCurrentSeries().getTags()}">#action, #funny, #long, #horror</p>
+            <p class="subtext" th:text="${currentSeries.getTags()}">#action, #funny, #long, #horror</p>
             <div class="flexContainer flexRow">
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
                     <button class="lime-button-left">ADD ISSUE</button>
@@ -110,7 +101,7 @@
             <br>
 
             <h1>Description</h1>
-            <p th:text="${session.curMember.getCurrentSeries().getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -212,7 +203,8 @@
             <div class="flexContainer flexColumn">
 
                 Email: <input id = "email"class="input-small" type="text" name="email"><br><br>
-                <label id ="passLbl">Password:</label> <input id = "passWord" class="input-small" type="text" name="passWord">
+                <label id ="passLbl">Password:</label> <input type="password" id="passWord" class="input-small" name="passWord">
+                <input type="checkbox" onclick="showPass()">Show Password
 
 
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">

@@ -49,7 +49,8 @@
                 <div class="column-left">
                     <form method="get" action="/registerUser">
                         *Username: <input type="text" name="Username"><br><br>
-                        *Password (Must be at least 6 characters): <input type="text" name="Password"><br><br>
+                        *Password (Must be at least 6 characters): <input id="regPassWord" type="password" name="Password"><br>
+                        <input type="checkbox" style="float: left" onclick="showRegPass()">Show Password<br><br>
                         *Email: <input type="text" name="Email"><br><br>
                         First Name: <input type="text" name="First"><br><br>
                         Last Name: <input type="text" name="Last">
