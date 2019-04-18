@@ -84,8 +84,10 @@
 
             <script type="text/javascript">
                 // getting current series and issue that the user is under in heirarchy
+                var username = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
+
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
@@ -107,7 +109,8 @@
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    uploadJSONtoFirebase(currentSeries,currentIssue,"1",pagedata);
+                    uploadJSONtoFirebase(currentSeries,currentIssue,1,pagedata);
+                    uploadPagetoDB(username,currentSeries,currentIssue,1);
                 };
 
                 // gets PNG of drawing (tied to button in form below)

@@ -12,6 +12,19 @@ function uploadJSONtoFirebase(comicseries,comicissue,pagenumber,pagedata){
             pagedata: pagedata,
         });
        console.log(result);
+}
+function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber){
+    return $.ajax({
+        type: "GET",
+        url: "/pageDB?userName="+username+"&",
+        cache: false,
+        success: function (response) {
+            window.location.assign("/yourprofile");
+            loadProfilePic();
 
-
+        },
+        error: function (e) {
+            console.log("Failure", e);
+        }
+    });
 }
