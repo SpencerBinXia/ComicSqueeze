@@ -20,8 +20,7 @@ function loadProfilePic(){
                     url: "/updateImg?img="+url,
                     cache: false,
                     success: function (response) {
-                        //reload page
-                        window.location.assign("yourprofile");
+
 
                     },
                     error: function (e) {
