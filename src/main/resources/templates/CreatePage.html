@@ -117,10 +117,32 @@
                     download(lc.getImage().toDataURL(), "comic_page.png", "image/png");
                     // var pagePNG = lc.getImage();
                 };
+
+                function passLoadValues() {
+                    loadImage(lc.getImage().toDataURL(), "myImg");
+                }
+                function loadImage(img_b64, elemID) {
+                    var png = img_b64.split(',')[1];
+
+                    var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});
+
+                    var fr = new FileReader();
+                    fr.onload = function ( oFREvent ) {
+                        var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
+                        v = atob(v);
+                        var good_b64 = btoa(decodeURIComponent(escape(v)));
+                        document.getElementById(elemID).src = "data:image/png;base64," + good_b64;
+                    };
+                    fr.readAsDataURL(the_file);
+                }
             </script>
 
             <a class="button-as-link" style="width: fit-content; margin: 0">
                 <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>
+            </a>
+            <img id="myImg">
+            <a class="button-as-link" style="width: fit-content; margin: 0">
+                <button class="grey-button-left" onclick="passLoadValues()">TEST</button>
             </a>
 
             <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
