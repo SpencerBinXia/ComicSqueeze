@@ -34,9 +34,6 @@ public class CurrentUserProfileController {
         model.addAttribute("userName",userName);
         model.addAttribute("img",imgURL);
         Member curMember = service.findMember(userName);
-        //load all the series associated with the member
-        ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);
-        curMember.setSeriesArrayList(seriesArrayList);
         session.setAttribute("username", userName);
         session.setAttribute("curMember", curMember);
         return "redirect:/yourprofile";
@@ -45,8 +42,14 @@ public class CurrentUserProfileController {
     @RequestMapping(value="/yourprofile", method=RequestMethod.GET)
     public String currentProf(Model model, HttpSession session)
     {
-        Member curMember = service.findMember((String)session.getAttribute("username"));
-        model.addAttribute("curMember", curMember);
+       Member curMember = service.findMember((String)session.getAttribute("username"));
+       model.addAttribute("curMember", curMember);
+        //load all the series associated with the member
+        ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);
+        //set the series to member variable to be loaded in app
+        Member sessionMember = (Member) session.getAttribute("curMember");
+        sessionMember.setSeriesArrayList(seriesArrayList);
+
         return "CurrentUserProfile";
     }
     /*
