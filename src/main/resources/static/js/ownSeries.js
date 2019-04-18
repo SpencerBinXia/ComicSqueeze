@@ -1,9 +1,19 @@
 function createIssue(){
-    //titleVal = document.getElementById("titleField").value;
-    //descVal = document.getElementById("descField").value;
-    //tagVal = document.getElementById("tagField").value;
     var issueTitleVal = $('#issueField').val();
     var issueDescVal = $('#issueDescField').val();
+
+    var errors = "";
+    if(issueTitleVal == "" || issueTitleVal == null){
+        errors += "title ";
+    }
+    if(issueDescVal == "" || issueDescVal == null){
+        errors += "description ";
+    }
+    if(errors != "") {
+        alert("Make sure the ( " + errors + ") field(s) have content.")
+        return false;
+    }
+
     var newIssue = {username: null, title: issueTitleVal, description: issueDescVal, series: null, timestamp: '2011-12-03T10:15:30', pagecount: 0};
     return $.ajax({
         type: "POST",
@@ -30,3 +40,14 @@ function createIssue(){
         }
     });
 }
+
+function resetIssueForm() {
+    document.getElementById("issueForm").reset();
+}
+
+$(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+        loop: true,
+        nav: true
+    });
+});

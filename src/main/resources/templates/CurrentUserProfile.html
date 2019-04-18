@@ -28,11 +28,16 @@
     <script src =js/loadImage.js></script>
     <script src =js/signIn.js></script>
     <script src =js/ownProfile.js></script>
+    <script src="js/owl_carousel.js"></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
     <link href="css/currentProfile_main_styles.css" rel="stylesheet">
     <link href="css/modal_styles.css" rel="stylesheet">
+    <link href="css/owl_carousel.css" rel="stylesheet">
+    <link href="css/owl_theme_default.css" rel="stylesheet">
+    <link href="css/owl_theme_green.css" rel="stylesheet">
+
 
 </head>
 
@@ -63,55 +68,6 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-            <div class="flexContainer flexRow">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
-            </div>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
-            </div>
-
-            <br><br>
-
-            <div class="flexContainer flexRow">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;" ><h1>Series Name</h1></a>
-            </div>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
-            </div>
             <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
                 <div class="flexContainer flexRow">
                     <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
@@ -224,7 +180,7 @@
         <div id="create-series-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
-                <form id="form">
+                <form id="seriesForm">
                     Title: <input id="titleField" class="input-small" type="text" name="Title"><br><br>
                     Description: <textarea id="descField" class="input-large" type="text" name="Description"></textarea><br><br>
                     Tags: <textarea id="tagField" class="input-mid" type="text" name="Tags"></textarea><br><br>
@@ -236,7 +192,7 @@
                     <!--(function() {-->
                         <!--var counter = 0;-->
                         <!--var btn = document.getElementById('btn');-->
-                        <!--var form = document.getElementById('form');-->
+                        <!--var form = document.getElementById('seriesForm');-->
                         <!--var addInput = function() {-->
                             <!--var tagName = document.getElementById('tagField').value;-->
                             <!--if(tagName == "" || tagName == null){-->
@@ -249,7 +205,7 @@
                             <!--tagButton.innerText = tagName;-->
                             <!--tagButton.classList.add("tagBtn");-->
                             <!--tagButton.onclick = deleteTag;-->
-                            <!--form.appendChild(tagButton);-->
+                            <!--seriesForm.appendChild(tagButton);-->
                         <!--};-->
                         <!--btn.addEventListener('click', function() {-->
                             <!--addInput();-->
@@ -275,7 +231,7 @@
                         <button class="lime-button-left" onclick=createSeries()>CREATE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
+                        <button class="grey-button-left" onclick="resetSeriesForm()">CLOSE</button>
                     </a>
                 </div>
             </div>

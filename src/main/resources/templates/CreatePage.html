@@ -22,6 +22,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
     <script src = js/uploadData.js></script>
+    <script src = js/download.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/register_main_styles.css" rel="stylesheet">
@@ -83,8 +84,10 @@
 
             <script type="text/javascript">
                 // getting current series and issue that the user is under in heirarchy
+                var username = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
+
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
@@ -102,12 +105,49 @@
                 lc.on('drawingChange', function() {
                     localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
                 });
+
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    uploadJSONtoFirebase(currentSeries,currentIssue,"1",pagedata);
+                    uploadJSONtoFirebase(currentSeries,currentIssue,1,pagedata);
+                    uploadPagetoDB(username,currentSeries,currentIssue,1);
                 };
+
+                // gets PNG of drawing (tied to button in form below)
+                function exportPNG() {
+                    console.log("export png");
+                    // window.open(lc.getImage().toDataURL());
+                    download(lc.getImage().toDataURL(), "comic_page.png", "image/png");
+                    // var pagePNG = lc.getImage();
+                };
+
+                function passLoadValues() {
+                    // just for testing
+                    loadImage(lc.getImage().toDataURL(), "myImg");
+                }
+                function loadImage(img_b64, elemID) {
+                    var png = img_b64.split(',')[1];
+
+                    var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});
+
+                    var fr = new FileReader();
+                    fr.onload = function ( oFREvent ) {
+                        var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
+                        v = atob(v);
+                        var good_b64 = btoa(decodeURIComponent(escape(v)));
+                        document.getElementById(elemID).src = "data:image/png;base64," + good_b64;
+                    };
+                    fr.readAsDataURL(the_file);
+                }
             </script>
+
+            <a class="button-as-link" style="width: fit-content; margin: 0">
+                <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>
+            </a>
+            <img id="myImg" style="height: 200px; width: 80px; object-fit: cover">
+            <a class="button-as-link" style="width: fit-content; margin: 0">
+                <button class="grey-button-left" onclick="passLoadValues()">TEST</button>
+            </a>
 
             <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                 <a class="button-as-link" style="width: fit-content; margin: 0">
