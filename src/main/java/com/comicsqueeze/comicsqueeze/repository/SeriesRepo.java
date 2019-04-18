@@ -1,7 +1,6 @@
 package com.comicsqueeze.comicsqueeze.repository;
 
 
-import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class SeriesRepo {
@@ -52,6 +52,26 @@ public class SeriesRepo {
         jdbc.update("INSERT INTO \"Series\"(seriestitle,username,creators,tags,views,weekly,flag,timestamp,rating,collaborative,description)"
                         + "VALUES(?,?,?,?,?,?,?,?,?,?,?)", newSeries.getTitle(),newSeries.getUsername(),newSeries.getCreators(),newSeries.getTags(),
                 newSeries.getViews(),newSeries.isWeekly(),newSeries.isFlag(),newSeries.getTimestamp(), newSeries.getRating(),newSeries.isCollaborative(),newSeries.getDescription());
+    }
 
+    public ArrayList<Series> queryAllSeries(Member member) {
+        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + member.getUsername() + "';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
+        ArrayList<Series> series = new ArrayList<>();
+        for (Map rs : rows) {
+            Series tempSeries = new Series();
+            tempSeries.setTitle((String)rs.get("seriestitle"));
+            tempSeries.setDescription((String)rs.get("description"));
+            tempSeries.setUsername((String)rs.get("username"));
+            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+            tempSeries.setFlag((boolean)rs.get("flag"));
+            tempSeries.setRating((double)rs.get("rating"));
+            tempSeries.setWeekly((boolean)rs.get("weekly"));
+            tempSeries.setTags((String)rs.get("tags"));
+            tempSeries.setCreators((String)rs.get("creators"));
+            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            series.add(tempSeries);
+        }
+        return series;
     }
 }

@@ -19,6 +19,10 @@
         };
         firebase.initializeApp(config);
     </script>
+    <!--
+    <link href="css/owl.carousel.min.css" th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+    <link href="css/owl.theme.default.min.css" th:href="@{/css/owl.theme.default.min.css}" rel="stylesheet">
+    -->
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src="js/ownIssue.js" th:src="@{/js/ownIssue.js}"></script>
@@ -94,7 +98,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">1</h2>
                     </div>
                 </div>
@@ -103,7 +107,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">2</h2>
                     </div>
                 </div>
@@ -112,7 +116,7 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">3</h2>
                     </div>
                 </div>
@@ -121,13 +125,12 @@
                     <div class="flexContainer flexRow">
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                         <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                        <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                        <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         <h2 class="subtext" style="margin: 0; padding-left: 25%">4</h2>
                     </div>
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
             </div>
-
             <br><br>
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
@@ -255,5 +258,7 @@
 </div>
 
 </body>
+
+<!-- <script src="js/owl.carousel.min.js" th:src="@{/js/owl.carousel.min.js}"></script> -->
 
 </html>
