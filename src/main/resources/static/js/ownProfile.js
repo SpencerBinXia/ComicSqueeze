@@ -28,6 +28,22 @@ function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
     var tagVal = $('#tagField').val();
+
+    var errors = "";
+    if(titleVal == "" || titleVal == null){
+        errors += "title ";
+    }
+    if(descVal == "" || descVal == null){
+        errors += "description ";
+    }
+    if(tagVal == "" || tagVal == null){
+        errors += "tags ";
+    }
+    if(errors != "") {
+        alert("Make sure the ( " + errors + ") field(s) have content.")
+        return false;
+    }
+
     console.log(titleVal);
     console.log(descVal);
     console.log(tagVal);
@@ -49,7 +65,7 @@ function createSeries(){
             }
             else
             {
-                alert("Create new series failed.");
+                alert("Series title already in use on your account.");
             }
         },
         error: function (e) {
