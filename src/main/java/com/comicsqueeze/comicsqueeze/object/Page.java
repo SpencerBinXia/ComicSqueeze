@@ -5,6 +5,7 @@ public class Page {
     private String issue;
     private String imgurl;
     private int votes;
+    private int pagenumber;
     private boolean published;
     private String username;
     private String series;
@@ -56,4 +57,9 @@ public class Page {
     public void setSeries(String series) {
         this.series = series;
     }
+
+    public int getPagenumber() { return pagenumber;}
+
+    public void setPagenumber(int pagenumber) {this.pagenumber = pagenumber; }
+
 }
