@@ -23,7 +23,7 @@ public class CreatePageController {
         return "CreatePage";
     }
 
-    @RequestMapping("/pageDB}")
+    @RequestMapping("/pageDB")
     public String addPageToDB(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") String pageNumber)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));

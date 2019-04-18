@@ -86,7 +86,7 @@
                 var username = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
-                var pageNumber = "[[${session.curMember.getCurrentIssue().getPageCount()+1}]]"
+
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: 'images/img',
                     toolbarPosition: 'bottom',
@@ -107,8 +107,8 @@
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    uploadJSONtoFirebase(currentSeries,currentIssue,pageNumber,pagedata);
-                    uploadPagetoDB(username,currentSeries,currentIssue,pageNumber);
+                    uploadJSONtoFirebase(currentSeries,currentIssue,1,pagedata);
+                    uploadPagetoDB(username,currentSeries,currentIssue,1);
                 };
             </script>
 
