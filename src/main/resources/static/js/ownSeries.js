@@ -44,3 +44,10 @@ function createIssue(){
 function resetIssueForm() {
     document.getElementById("issueForm").reset();
 }
+
+$(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+        loop: true,
+        nav: true
+    });
+});
