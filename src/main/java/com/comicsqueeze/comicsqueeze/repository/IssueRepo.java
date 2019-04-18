@@ -59,12 +59,12 @@ public class IssueRepo {
         ArrayList<Issue> issues = new ArrayList<>();
         for (Map rs : rows) {
             Issue tempIssue = new Issue();
-            tempIssue.setTitle((String)rs.get("seriestitle"));
+            tempIssue.setTitle((String)rs.get("title"));
             tempIssue.setDescription((String)rs.get("description"));
             tempIssue.setUsername((String)rs.get("username"));
             tempIssue.setPagecount((Integer)rs.get("pagecount"));
             tempIssue.setTimestamp((LocalDateTime)rs.get("time_stamp"));
-            tempIssue.setSeries((String)rs.get("issue"));
+            tempIssue.setSeries((String)rs.get("series"));
             issues.add(tempIssue);
         }
         return issues;
