@@ -1,5 +1,7 @@
 package com.comicsqueeze.comicsqueeze.object;
 
+import java.util.ArrayList;
+
 public class Member {
     private String username;
     private String email;
@@ -9,6 +11,7 @@ public class Member {
     private Series currentSeries;
     private Issue currentIssue;
     private Page currentPage;
+    private ArrayList<Series> seriesArrayList;
 
     public String getUsername() {return username;}
     public Boolean getAdminStatus() {return admin;}
@@ -52,5 +55,13 @@ public class Member {
 
     public void setCurrentPage(Page currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public ArrayList<Series> getSeriesArrayList() {
+        return seriesArrayList;
+    }
+
+    public void setSeriesArrayList(ArrayList<Series> seriesArrayList) {
+        this.seriesArrayList = seriesArrayList;
     }
 }

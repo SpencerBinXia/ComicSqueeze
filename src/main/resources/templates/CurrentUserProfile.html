@@ -90,7 +90,8 @@
             <br><br>
 
             <div class="flexContainer flexRow">
-                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
+                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=series2)}" style="color: black;" ><h1>Series Name</h1></a>
+                <h2 th:block th:fragment="hi" th:object="${curMember.getSeriesArrayList()}"></h2>
             </div>
             <div class="flexContainer flexRow series">
                 <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
@@ -112,6 +113,12 @@
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
             </div>
+            <!--<th:block th:each="series: ${curMember.getSeriesArrayList()}">"-->
+                <!--<div class="flexContainer flexRow">-->
+                    <!--<a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;"><h1>Series From User</h1></a>-->
+                <!--</div>-->
+            <!--</th:block>-->
+
 
             <br><br><br>
 

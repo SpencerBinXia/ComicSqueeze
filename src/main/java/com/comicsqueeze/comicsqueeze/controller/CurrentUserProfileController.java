@@ -1,6 +1,8 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 @Controller
 
@@ -21,6 +24,8 @@ public class CurrentUserProfileController {
 
     @Autowired
     private loginRegisterService service;
+    @Autowired
+    private ComicSeriesService comicSeriesService;
 
     @RequestMapping(value ="/signin", method = RequestMethod.GET)
     public String home(Model model, HttpSession session, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, @RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
@@ -29,6 +34,9 @@ public class CurrentUserProfileController {
         model.addAttribute("userName",userName);
         model.addAttribute("img",imgURL);
         Member curMember = service.findMember(userName);
+        //load all the series associated with the member
+        ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);
+        curMember.setSeriesArrayList(seriesArrayList);
         session.setAttribute("username", userName);
         session.setAttribute("curMember", curMember);
         return "redirect:/yourprofile";

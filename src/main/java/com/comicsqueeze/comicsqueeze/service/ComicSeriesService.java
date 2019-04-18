@@ -6,6 +6,8 @@ import com.comicsqueeze.comicsqueeze.repository.SeriesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class ComicSeriesService {
 
@@ -25,5 +27,8 @@ public class ComicSeriesService {
     }
     public void createSeries(Series newSeries){
         seriesRepo.createSeries(newSeries);
+    }
+    public ArrayList<Series> queryAllSeries (Member member){
+        return seriesRepo.queryAllSeries(member);
     }
 }
