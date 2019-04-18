@@ -2,6 +2,7 @@ package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.ComicPageService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/issue/{profileID}/{seriesTitle}/{issueTitle}")
@@ -46,6 +48,8 @@ public class IssueController {
 
             /* END OF MOCK DATA */
             member.setCurrentIssue(issue);
+            ArrayList<Page> pages =  issue.getPages();
+            model.addAttribute("pages",pages);
         }
         return "IssuePage";
     }
