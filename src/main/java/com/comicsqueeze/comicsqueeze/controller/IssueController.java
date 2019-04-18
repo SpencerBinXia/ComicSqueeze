@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/series/{profileID}/{seriesTitle}/{issueTitle}")
+@RequestMapping("/issue/{profileID}/{seriesTitle}/{issueTitle}")
 public class IssueController {
     @Autowired
     private loginRegisterService service;
