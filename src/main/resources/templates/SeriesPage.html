@@ -21,10 +21,8 @@
         firebase.initializeApp(config);
     </script>
 
-    <!--
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.min.css}" rel="stylesheet">
     <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.min.css}" rel="stylesheet">
-    -->
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
@@ -77,7 +75,8 @@
             </div>
             <br>
             <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
+                <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
+                <div class="owl-carousel owl-theme" style="max-width:1500px">
                 <div class="flexContainer flexColumn">
                     <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue 1</p>
@@ -94,7 +93,8 @@
                     <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue 4</p>
                 </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
+                </div>
+                <!-- <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a> -->
             </div>
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p class="subtext" th:text="${session.curMember.getCurrentSeries().getTags()}">#action, #funny, #long, #horror</p>
@@ -233,7 +233,7 @@
 
 </body>
 
-<!-- <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.min.js}"></script> -->
+<script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.min.js}"></script>
 
 
 </html>
