@@ -22,6 +22,7 @@
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
+    <script src="js/ownSeries.js" th:src="@{/js/ownSeries.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
@@ -181,12 +182,12 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Add Issue</h2>
                 <form>
-                    <h4 style="margin-bottom: 0">Issue # - Title:</h4> <input class="input-small" type="text" name="issueNumTitle"><br><br>
-                    Description: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                    <h4 style="margin-bottom: 0">Issue # - Title:</h4> <input id="issueField" class="input-small" type="text" name="issueNumTitle"><br><br>
+                    Description: <textarea id="issueDescField" class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left" onclick="addIssue()">ADD</button>
+                        <button class="lime-button-left" onclick=createIssue()>ADD</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>

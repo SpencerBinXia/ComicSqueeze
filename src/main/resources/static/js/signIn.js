@@ -132,10 +132,17 @@ function updateProfilePic() {
         function error(err){},
         function complete() {
             loadProfilePic();
+            previewFile(file);
         }
         );
 
-
+    function previewFile(file) {
+        var reader = new FileReader();
+        reader.onloadend  = function(){
+            document.getElementById("profPic").src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
 
 }
 
