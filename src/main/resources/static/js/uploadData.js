@@ -12,6 +12,7 @@ function uploadJSONtoFirebase(comicseries,comicissue,pagenumber,pagedata){
             pagedata: pagedata,
         });
        console.log(result);
-
-
+}
+function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber){
+    
 }

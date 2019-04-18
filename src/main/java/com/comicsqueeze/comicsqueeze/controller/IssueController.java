@@ -34,6 +34,7 @@ public class IssueController {
             Issue newIssue = new Issue();
             newIssue.setUsername(member.getUsername());
             newIssue.setTitle(issueTitle);
+            newIssue.setPagecount(0);
             //Issue issue = issueService.findIssueByTitle(member,seriesTitle,issueTitle);
             /* END OF MOCK DATA */
             member.setCurrentIssue(newIssue);
