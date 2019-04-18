@@ -2,9 +2,12 @@ package com.comicsqueeze.comicsqueeze.service;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.repository.IssueRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class ComicIssueService {
@@ -23,5 +26,8 @@ public class ComicIssueService {
     }
     public void createIssue(Issue newIssue){
         issueRepo.createIssue(newIssue);
+    }
+    public ArrayList<Issue> queryAllIssuesFromASeries (Member member, Series series){
+        return issueRepo.queryAllIssuesFromASeries(member, series);
     }
 }

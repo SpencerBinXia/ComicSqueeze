@@ -1,8 +1,10 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
+import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
+import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -26,6 +28,8 @@ public class CurrentUserProfileController {
     private loginRegisterService service;
     @Autowired
     private ComicSeriesService comicSeriesService;
+    @Autowired
+    private ComicIssueService comicIssueService;
 
     @RequestMapping(value ="/signin", method = RequestMethod.GET)
     public String home(Model model, HttpSession session, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, @RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
@@ -48,12 +52,18 @@ public class CurrentUserProfileController {
        model.addAttribute("curMember", curMember);
         //load all the series associated with the member
         ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);
+        //load each issue from the user series
+        for(int i = 0; i < seriesArrayList.size(); i++){
+            seriesArrayList.get(i).setIssueArrayList(comicIssueService.queryAllIssuesFromASeries(curMember, seriesArrayList.get(i)));
+        }
         //set the series to member variable to be loaded in app
         Member sessionMember = (Member) session.getAttribute("curMember");
         sessionMember.setSeriesArrayList(seriesArrayList);
 
         return "CurrentUserProfile";
     }
+
+
     /*
         function to update image
      */
@@ -67,4 +77,6 @@ public class CurrentUserProfileController {
         model.addAttribute("curMember", curMember);
         return "CurrentUserProfile";
     }
+
+
 }

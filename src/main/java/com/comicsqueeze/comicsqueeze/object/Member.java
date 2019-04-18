@@ -13,6 +13,7 @@ public class Member {
     private Page currentPage;
     private ArrayList<Series> seriesArrayList;
 
+
     public String getUsername() {return username;}
     public Boolean getAdminStatus() {return admin;}
     public String getEmail() {
@@ -64,4 +65,6 @@ public class Member {
     public void setSeriesArrayList(ArrayList<Series> seriesArrayList) {
         this.seriesArrayList = seriesArrayList;
     }
+
+
 }
