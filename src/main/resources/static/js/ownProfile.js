@@ -79,7 +79,7 @@ function createSeries(){
 
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
-        loop: true,
+        loop: false,
         nav: true
     });
 });

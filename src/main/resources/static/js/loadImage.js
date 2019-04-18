@@ -37,9 +37,3 @@ function loadProfilePic(){
     }
 }
 
-$(document).ready(function(){
-    $(".owl-carousel").owlCarousel({
-        loop: true,
-        nav: true
-    });
-});

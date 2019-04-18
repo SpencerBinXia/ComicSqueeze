@@ -41,11 +41,13 @@ public class IssueController {
 
             member.setCurrentSeries(series);
 
-            Issue issue = issueService.findIssueByTitle(member.getUsername(),seriesTitle,issueTitle);
-            issue.setPages(comicPageService.queryAllPages(member,seriesTitle,issueTitle));
+            if(profileID == curMember.getUsername()) {
+                Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
+                issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
 
-            /* END OF MOCK DATA */
-            member.setCurrentIssue(issue);
+                /* END OF MOCK DATA */
+                member.setCurrentIssue(issue);
+            }
         }
         return "IssuePage";
     }
