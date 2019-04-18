@@ -8,6 +8,8 @@ function updateBio(){
         cache: false,
         success: function (result) {
             $('#bioID').text(val);
+            //reload page
+            window.location.assign("yourprofile");
         },
         error: function (e) {
             alert("Update bio failed!");
