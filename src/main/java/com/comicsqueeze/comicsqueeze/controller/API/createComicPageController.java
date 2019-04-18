@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/createPage")
-public class createPageController {
+public class createComicPageController {
 
     @Autowired
     private ComicPageService service;

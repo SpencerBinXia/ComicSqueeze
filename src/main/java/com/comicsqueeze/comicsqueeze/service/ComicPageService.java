@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.repository.PageRepo;
-import sun.jvm.hotspot.gc.cms.ParNewGeneration;
+//import sun.jvm.hotspot.gc.cms.ParNewGeneration;
 
 @Service
 public class ComicPageService {
