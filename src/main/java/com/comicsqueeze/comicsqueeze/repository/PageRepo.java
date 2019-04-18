@@ -49,6 +49,7 @@ public class PageRepo {
     }
 
     public void createPage(Page newPage){
+        System.out.println("THE IMGURL "+ newPage.getImgurl());
         jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published)"
                         + "VALUES(?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
                 newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished());
@@ -62,6 +63,7 @@ public class PageRepo {
     public void setImgUrl(Page page, String username, String url){
         jdbc.update("UPDATE \"Page\" SET imgurl = '" + url+"' WHERE username = '" + username + "' AND pagenumber ='" + page.getPagenumber() + "';");
         System.out.println("Updated User's img in DB");
+
     }
     public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle) {
         String findPage = "SELECT * FROM \"Page\" WHERE username ='" + member.getUsername() + "' AND series='" + seriesTitle

@@ -13,17 +13,35 @@ function uploadJSONtoFirebase(comicseries,comicissue,pagenumber,pagedata){
         });
        console.log(result);
 }
-function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber){
-    return $.ajax({
-        type: "GET",
-        url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber,
-        cache: false,
-        success: function (response) {
+function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
+    var task = storageRef.putString(img,'data_url');
+    task.on('state_changed',
+        function progress(snapshot){
 
 
         },
-        error: function (e) {
-            console.log("Failure", e);
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber).getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
         }
-    });
+    );
+
+
 }

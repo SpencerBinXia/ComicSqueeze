@@ -28,13 +28,13 @@ public class CreatePageController {
     }
 
     @RequestMapping("/pageDB")
-    public String addPageToDB(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") String pageNumber)
+    public String addPageToDB(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") String pageNumber, @RequestParam("imgurl") String imgurl)
     {
         Page page = new Page();
         page.setUsername(username);
         page.setPagenumber(Integer.valueOf(pageNumber));
         page.setIssue(issueTitle);
-        page.setImgurl("blah");
+        page.setImgurl(imgurl);
         page.setPublished(false);
         page.setSeries(seriesTitle);
         page.setVotes(0);

@@ -130,14 +130,17 @@
 
                     var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});
 
+
                     var fr = new FileReader();
                     fr.onload = function ( oFREvent ) {
                         var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
                         v = atob(v);
                         var good_b64 = btoa(decodeURIComponent(escape(v)));
                         var img = "data:image/png;base64," + good_b64;
+                        uploadPagetoDB(username,currentSeries,currentIssue,1,img);
+
                         document.getElementById(elemID).src = "data:image/png;base64," + good_b64;
-                        uploadPagetoDB(username,currentSeries,currentIssue,1,imgurl);
+
                     };
                     fr.readAsDataURL(the_file);
                 }
