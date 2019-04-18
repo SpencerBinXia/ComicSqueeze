@@ -42,7 +42,7 @@ public class IssueController {
             Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
 
             member.setCurrentSeries(series);
-            
+
                 Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
                 issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
                 member.setCurrentIssue(issue);
