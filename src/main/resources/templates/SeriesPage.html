@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
     <script>
         // Initialize Firebase
         var config = {
@@ -19,6 +20,9 @@
         };
         firebase.initializeApp(config);
     </script>
+
+    <link href="css/owl.carousel.css" th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+    <link href="css/owl.theme.default.css" th:href="@{/css/owl.theme.default.min.css}" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
@@ -55,6 +59,8 @@
         </div>
     </nav>
 
+    <!-- Set up your HTML -->
+
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
@@ -68,8 +74,8 @@
                 <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
             </div>
             <br>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
+            <!-- <div class="flexContainer flexRow series"> -->
+            <div class="owl-carousel owl-theme">
                 <div class="flexContainer flexColumn">
                     <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue 1</p>
@@ -86,8 +92,16 @@
                     <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
                     <p style="margin: -5px; text-align: center">Issue 4</p>
                 </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
+                <div class="flexContainer flexColumn">
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 5</p>
+                </div>
+                <div class="flexContainer flexColumn">
+                    <a th:href="@{/series/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                    <p style="margin: -5px; text-align: center">Issue 6 </p>
+                </div>
             </div>
+            <!-- </div> -->
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p class="subtext">#action, #funny, #long, #horror</p>
             <div class="flexContainer flexRow">
@@ -224,5 +238,8 @@
 </div>
 
 </body>
+
+<script src="js/owl.carousel.js" th:src="@{/js/owl.carousel.min.js}"></script>
+
 
 </html>
