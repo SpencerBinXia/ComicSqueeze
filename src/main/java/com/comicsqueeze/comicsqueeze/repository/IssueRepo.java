@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -25,12 +26,14 @@ public class IssueRepo {
         {
             jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
                 public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    System.out.println("issue result");
                     tempIssue.setTitle(rs.getString("title"));
                     tempIssue.setDescription(rs.getString("description"));
                     tempIssue.setUsername(rs.getString("username"));
                     tempIssue.setSeries(rs.getString("series"));
                     tempIssue.setPagecount(rs.getInt("pagecount"));
                     tempIssue.setTimestamp(rs.getObject(5, LocalDateTime.class));
+                    System.out.println("before return issue result");
                     return tempIssue;
                 }
             });
