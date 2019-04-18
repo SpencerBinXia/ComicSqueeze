@@ -98,7 +98,7 @@
                     tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Rectangle, LC.tools.Ellipse, LC.tools.Text,
                         LC.tools.Polygon, LC.tools.Pan, LC.tools.Eyedropper, LC.tools.SelectShape]
                 });
-                var localStorageKey = 'drawing'
+                var localStorageKey = 'drawing';
                 if (localStorage.getItem(localStorageKey)) {
                     lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
                 }
