@@ -33,11 +33,12 @@ public class createSeriesController {
         if (service.findSeriesByTitle(newSeries.getUsername(), newSeries.getTitle()) == null)
         {
             service.createSeries(newSeries);
+            message.put("username", newSeries.getUsername());
+            message.put("seriesTitle", newSeries.getTitle());
             message.put("status", "OK");
         }
         else
         {
-            System.out.println("not null in controller");
             message.put("status", "error");
         }
         return message;

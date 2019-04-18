@@ -40,6 +40,8 @@ function createSeries(){
             if (result.status === "OK")
             {
                 console.log("success");
+                var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle;
+                window.location.assign(redirectSeries);
             }
             else
             {
