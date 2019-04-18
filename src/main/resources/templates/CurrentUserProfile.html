@@ -99,7 +99,7 @@
                     <div class="owl-carousel owl-theme" style="max-width:1500px">
                         <th:block th:each="issue: ${series.getIssueArrayList()}">
                         <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
                         <p th:text="${issue.getTitle()}" style="margin: -5px; text-align: center">Issue #</p>
                     </div>
                         </th:block>
