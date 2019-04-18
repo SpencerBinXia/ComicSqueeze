@@ -181,7 +181,7 @@
         <div id="add-issue-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Add Issue</h2>
-                <form>
+                <form id="issueForm">
                     <h4 style="margin-bottom: 0">Issue # - Title:</h4> <input id="issueField" class="input-small" type="text" name="issueNumTitle"><br><br>
                     Description: <textarea id="issueDescField" class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>
@@ -190,7 +190,7 @@
                         <button class="lime-button-left" onclick=createIssue()>ADD</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
+                        <button class="grey-button-left" onclick="resetIssueForm()">CLOSE</button>
                     </a>
                 </div>
             </div>

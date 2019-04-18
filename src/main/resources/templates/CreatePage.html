@@ -22,6 +22,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
     <script src = js/uploadData.js></script>
+    <script src = js/download.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/register_main_styles.css" rel="stylesheet">
@@ -102,12 +103,25 @@
                 lc.on('drawingChange', function() {
                     localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
                 });
+
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
                     uploadJSONtoFirebase(currentSeries,currentIssue,"1",pagedata);
                 };
+
+                // gets PNG of drawing (tied to button in form below)
+                function exportPNG() {
+                    console.log("export png");
+                    // window.open(lc.getImage().toDataURL());
+                    download(lc.getImage().toDataURL(), "comic_page.png", "image/png");
+                    // var pagePNG = lc.getImage();
+                };
             </script>
+
+            <a class="button-as-link" style="width: fit-content; margin: 0">
+                <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>
+            </a>
 
             <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                 <a class="button-as-link" style="width: fit-content; margin: 0">

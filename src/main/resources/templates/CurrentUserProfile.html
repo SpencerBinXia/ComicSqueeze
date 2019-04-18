@@ -208,7 +208,7 @@
         <div id="create-series-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
-                <form id="form">
+                <form id="seriesForm">
                     Title: <input id="titleField" class="input-small" type="text" name="Title"><br><br>
                     Description: <textarea id="descField" class="input-large" type="text" name="Description"></textarea><br><br>
                     Tags: <textarea id="tagField" class="input-mid" type="text" name="Tags"></textarea><br><br>
@@ -220,7 +220,7 @@
                     <!--(function() {-->
                         <!--var counter = 0;-->
                         <!--var btn = document.getElementById('btn');-->
-                        <!--var form = document.getElementById('form');-->
+                        <!--var form = document.getElementById('seriesForm');-->
                         <!--var addInput = function() {-->
                             <!--var tagName = document.getElementById('tagField').value;-->
                             <!--if(tagName == "" || tagName == null){-->
@@ -233,7 +233,7 @@
                             <!--tagButton.innerText = tagName;-->
                             <!--tagButton.classList.add("tagBtn");-->
                             <!--tagButton.onclick = deleteTag;-->
-                            <!--form.appendChild(tagButton);-->
+                            <!--seriesForm.appendChild(tagButton);-->
                         <!--};-->
                         <!--btn.addEventListener('click', function() {-->
                             <!--addInput();-->
@@ -259,7 +259,7 @@
                         <button class="lime-button-left" onclick=createSeries()>CREATE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
+                        <button class="grey-button-left" onclick="resetSeriesForm()">CLOSE</button>
                     </a>
                 </div>
             </div>

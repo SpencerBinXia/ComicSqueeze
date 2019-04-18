@@ -23,10 +23,11 @@ function deleteTag() {
     console.log("delete tag");
 }
 
+function resetSeriesForm() {
+    document.getElementById("seriesForm").reset();
+}
+
 function createSeries(){
-    //titleVal = document.getElementById("titleField").value;
-    //descVal = document.getElementById("descField").value;
-    //tagVal = document.getElementById("tagField").value;
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
     var tagVal = $('#tagField').val();
