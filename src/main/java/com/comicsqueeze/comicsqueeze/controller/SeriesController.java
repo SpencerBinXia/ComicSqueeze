@@ -2,6 +2,7 @@ package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class SeriesController {
     private loginRegisterService service;
     @Autowired
     private ComicSeriesService comicSeriesService;
+    @Autowired
+    private ComicIssueService issueService;
+
     @GetMapping
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
@@ -31,9 +35,20 @@ public class SeriesController {
             model.addAttribute("seriesTitle", seriesTitle);
             Member member = (Member) session.getAttribute("curMember");
             Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
-
+            series.setIssueArrayList(issueService.queryAllIssuesFromASeries(curMember, series));
+            model.addAttribute("currentSeries", series);
+            model.addAttribute("seriesIssues", series.getIssueArrayList());
             member.setCurrentSeries(series);
         }
+        else
+        {
+            Member displayMember = service.findMember(profileID);
+            Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
+            series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
+            model.addAttribute("currentSeries", series);
+            model.addAttribute("seriesIssues", series.getIssueArrayList());
+        }
+
         return "SeriesPage";
     }
 }
