@@ -110,7 +110,7 @@
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
                     uploadJSONtoFirebase(currentSeries,currentIssue,1,pagedata);
-                    uploadPagetoDB(username,currentSeries,currentIssue,1);
+
                 };
 
                 // gets PNG of drawing (tied to button in form below)
@@ -135,7 +135,9 @@
                         var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
                         v = atob(v);
                         var good_b64 = btoa(decodeURIComponent(escape(v)));
+                        var img = "data:image/png;base64," + good_b64;
                         document.getElementById(elemID).src = "data:image/png;base64," + good_b64;
+                        uploadPagetoDB(username,currentSeries,currentIssue,1,imgurl);
                     };
                     fr.readAsDataURL(the_file);
                 }
