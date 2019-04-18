@@ -21,12 +21,13 @@
         firebase.initializeApp(config);
     </script>
 
-    <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.min.css}" rel="stylesheet">
-    <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.min.css}" rel="stylesheet">
+    <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
+    <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.css}" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
     <script src="js/ownSeries.js" th:src="@{/js/ownSeries.js}"></script>
+    <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
@@ -76,23 +77,23 @@
             <br>
             <div class="flexContainer flexRow series">
                 <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
-                <div class="owl-carousel owl-theme" style="max-width:1500px">
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue 1</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 2')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue 2</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 3')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue 3</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue 4</p>
-                </div>
+                <div class="owl-carousel owl-theme" style="max-width: 1000px">
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 1')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                        <p style="margin: 0; text-align: center">Issue 1</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 2')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                        <p style="margin: 0; text-align: center">Issue 2</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 3')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                        <p style="margin: 0; text-align: center">Issue 3</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue/{profileID}/{seriesTitle}/{issueTitle}(profileID=${profileID}, seriesTitle=${seriesTitle}, issueTitle='Issue 4')}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/example_2.jpg}" class="issue"></a>
+                        <p style="margin: 0; text-align: center">Issue 4</p>
+                    </div>
                 </div>
                 <!-- <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a> -->
             </div>
@@ -232,8 +233,5 @@
 </div>
 
 </body>
-
-<script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.min.js}"></script>
-
 
 </html>
