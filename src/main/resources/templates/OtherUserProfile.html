@@ -56,6 +56,7 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
+            <!--
             <div class="flexContainer flexRow" style="align-items: center">
                 <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=series1)}" style="color: black;"><h1>Series Name</h1></a>
                 <button th:if="${session.username}!=null" class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
@@ -81,34 +82,35 @@
                 </div>
                 <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
             </div>
-
+    
+            -->
             <br><br>
 
-            <div class="flexContainer flexRow" style="align-items: center">
-                <a th:href="@{/series/{profileID}/{seriesTitle}(profileID=${profileID}, seriesTitle=series2)}" style="color: black;"><h1>Series Name</h1></a>
-                <button th:if="${session.username}!=null" class="lime-button-left" style="margin-top: 0; margin-left: 20px; padding-left: 20px">SUBSCRIBE</button>
-                <a th:if="${session.username}!=null" href="#"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}" style="width: 30px; height: 30px; padding-left: 20px"></a>
-            </div>
-            <div class="flexContainer flexRow series">
-                <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+            <th:block th:each="series: ${displayMember.getSeriesArrayList()}">
+                <div class="flexContainer flexRow">
+                    <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
                 </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
+                <div class="flexContainer flexRow series">
+                    <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()},issueTitle=issue1)}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Issue #</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Issue #</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Issue #</p>
+                    </div>
+                    <div class="flexContainer flexColumn">
+                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                        <p style="margin: -5px; text-align: center">Issue #</p>
+                    </div>
+                    <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
                 </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <div class="flexContainer flexColumn">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                    <p style="margin: -5px; text-align: center">Issue #</p>
-                </div>
-                <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
-            </div>
+            </th:block>
 
             <br><br><br>
 
