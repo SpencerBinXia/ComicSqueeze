@@ -15,6 +15,7 @@ public class Series {
     private int views;
     private boolean weekly;
     private boolean flag;
+    private ArrayList<Issue> issueArrayList;
 
     public boolean isCollaborative() {
         return collaborative;
@@ -102,5 +103,13 @@ public class Series {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public ArrayList<Issue> getIssueArrayList() {
+        return issueArrayList;
+    }
+
+    public void setIssueArrayList(ArrayList<Issue> issueArrayList) {
+        this.issueArrayList = issueArrayList;
     }
 }
