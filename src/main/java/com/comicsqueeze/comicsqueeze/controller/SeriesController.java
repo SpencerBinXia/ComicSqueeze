@@ -30,17 +30,16 @@ public class SeriesController {
         Member curMember = service.findMember((String)session.getAttribute("username"));
         if(curMember!=null) {
             model.addAttribute("curMember", curMember);
-            System.out.println("seriescontroller");
             model.addAttribute("profileID", profileID);
             model.addAttribute("seriesTitle", seriesTitle);
             Member member = (Member) session.getAttribute("curMember");
-//            if(profileID == curMember.getUsername()) {
+           if(profileID.equals(curMember.getUsername())) {
                 Series series = comicSeriesService.findSeriesByTitle(member.getUsername(), seriesTitle);
                 series.setIssueArrayList(issueService.queryAllIssuesFromASeries(curMember, series));
                 member.setCurrentSeries(series);
                 model.addAttribute("currentSeries", series);
                 model.addAttribute("seriesIssues", series.getIssueArrayList());
-//            }
+            }
 //            model.addAttribute("currentSeries", series);
 //            model.addAttribute("seriesIssues", series.getIssueArrayList());
         }
