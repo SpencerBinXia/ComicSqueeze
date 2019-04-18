@@ -30,6 +30,23 @@ function forgotPassword() {
 
 }
 
+function showPass() {
+    var x = document.getElementById("passWord");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+function showRegPass() {
+    var x = document.getElementById("regPassWord");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
 function sendPasswordResetFromLink(){
     var user = firebase.auth().currentUser;
     var auth = firebase.auth();
