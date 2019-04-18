@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PageRepo {
@@ -30,7 +33,7 @@ public class PageRepo {
                     tempPage.setUsername(rs.getString("username"));
                     tempPage.setPublished(rs.getBoolean("published"));
                     tempPage.setImgurl(rs.getString("imgurl"));
-                    tempPage.setVotes(rs.getInt("rating"));
+                    tempPage.setVotes(rs.getInt("votes"));
                     tempPage.setSeries(rs.getString("series"));
                     tempPage.setIssue(rs.getString("issue"));
                     tempPage.setPagenumber(rs.getInt("pagenumber"));
@@ -59,5 +62,23 @@ public class PageRepo {
     public void setImgUrl(Page page, String username, String url){
         jdbc.update("UPDATE \"Page\" SET imgurl = '" + url+"' WHERE username = '" + username + "' AND pagenumber ='" + page.getPagenumber() + "';");
         System.out.println("Updated User's img in DB");
+    }
+    public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle) {
+        String findPage = "SELECT * FROM \"Page\" WHERE username ='" + member.getUsername() + "' AND series='" + seriesTitle
+                + "' AND issue='" + issueTitle +"';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findPage);
+        ArrayList<Page> pages = new ArrayList<>();
+        for (Map rs : rows) {
+            Page tempPage = new Page();
+            tempPage.setUsername((String)rs.get("username"));
+            tempPage.setPublished((boolean)rs.get("published"));
+            tempPage.setImgurl((String)rs.get("imgurl"));
+            tempPage.setVotes((int)rs.get("votes"));
+            tempPage.setSeries((String)rs.get("series"));
+            tempPage.setIssue((String)rs.get("issue"));
+            tempPage.setPagenumber((int)rs.get("pagenumber"));
+            pages.add(tempPage);
+        }
+        return pages;
     }
 }
