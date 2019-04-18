@@ -19,7 +19,10 @@
         };
         firebase.initializeApp(config);
     </script>
+    <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
+    <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.css}" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
@@ -91,24 +94,22 @@
                     <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
                 </div>
                 <div class="flexContainer flexRow series">
-                    <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()},issueTitle=issue1)}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Issue #</p>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $(".owl-carousel").owlCarousel({
+                                loop: true,
+                                nav: true
+                            });
+                        });
+                    </script>
+                    <div class="owl-carousel owl-theme" style="max-width:1000px">
+                        <th:block th:each="issue: ${series.getIssueArrayList()}">
+                            <div class="flexContainer flexColumn">
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                                <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                            </div>
+                        </th:block>
                     </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Issue #</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Issue #</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue}"><img src="images/EXAMP LE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Issue #</p>
-                    </div>
-                    <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a>
                 </div>
             </th:block>
 

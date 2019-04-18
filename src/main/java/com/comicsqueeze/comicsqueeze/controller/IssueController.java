@@ -33,24 +33,21 @@ public class IssueController {
     public String displayProfile(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
+        model.addAttribute("profileID", profileID);
+        model.addAttribute("seriesTitle", seriesTitle);
+        model.addAttribute("issueTitle", issueTitle);
+        Member member = service.findMember(profileID);
+        Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
+        Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
+        issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
+        ArrayList<Page> pages =  issue.getPages();
+        model.addAttribute("pages",pages);
+
         if(curMember!=null) {
             model.addAttribute("curMember", curMember);
-            model.addAttribute("profileID", profileID);
-            model.addAttribute("seriesTitle", seriesTitle);
-            model.addAttribute("issueTitle", issueTitle);
-            Member member = (Member) session.getAttribute("curMember");
-            Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
-
-            member.setCurrentSeries(series);
-            
-                Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
-                issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
-                member.setCurrentIssue(issue);
-                ArrayList<Page> pages =  issue.getPages();
-                model.addAttribute("pages",pages);
-
-
-
+            curMember.setCurrentSeries(series);
+            curMember.setCurrentIssue(issue);
+            //Member sesMember = (Member) session.getAttribute("curMember");
         }
         return "IssuePage";
     }

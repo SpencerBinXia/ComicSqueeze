@@ -28,18 +28,25 @@ public class SeriesController {
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
+        model.addAttribute("profileID", profileID);
+        model.addAttribute("seriesTitle", seriesTitle);
         if(curMember!=null) {
             model.addAttribute("curMember", curMember);
-            model.addAttribute("profileID", profileID);
-            model.addAttribute("seriesTitle", seriesTitle);
             Member member = (Member) session.getAttribute("curMember");
            if(profileID.equals(curMember.getUsername())) {
-                Series series = comicSeriesService.findSeriesByTitle(member.getUsername(), seriesTitle);
-                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(curMember, series));
-                member.setCurrentSeries(series);
-                model.addAttribute("currentSeries", series);
-                model.addAttribute("seriesIssues", series.getIssueArrayList());
-            }
+               Series series = comicSeriesService.findSeriesByTitle(member.getUsername(), seriesTitle);
+               series.setIssueArrayList(issueService.queryAllIssuesFromASeries(curMember, series));
+               member.setCurrentSeries(series);
+               model.addAttribute("currentSeries", series);
+               model.addAttribute("seriesIssues", series.getIssueArrayList());
+           }
+           else {
+               Member displayMember = service.findMember(profileID);
+               Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
+               series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
+               model.addAttribute("currentSeries", series);
+               model.addAttribute("seriesIssues", series.getIssueArrayList());
+           }
 //            model.addAttribute("currentSeries", series);
 //            model.addAttribute("seriesIssues", series.getIssueArrayList());
         }
