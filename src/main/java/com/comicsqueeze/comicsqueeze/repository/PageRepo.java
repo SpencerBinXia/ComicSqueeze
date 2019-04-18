@@ -46,8 +46,8 @@ public class PageRepo {
     }
 
     public void createPage(Page newPage){
-        jdbc.update("INSERT INTO \"Page\"(username,series,issue,pagenumber)"
-                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
+        jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published)"
+                        + "VALUES(?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
                 newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished());
     }
 

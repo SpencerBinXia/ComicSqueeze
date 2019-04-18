@@ -16,11 +16,10 @@ function uploadJSONtoFirebase(comicseries,comicissue,pagenumber,pagedata){
 function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber){
     return $.ajax({
         type: "GET",
-        url: "/pageDB?userName="+username+"&",
+        url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber,
         cache: false,
         success: function (response) {
-            window.location.assign("/yourprofile");
-            loadProfilePic();
+
 
         },
         error: function (e) {

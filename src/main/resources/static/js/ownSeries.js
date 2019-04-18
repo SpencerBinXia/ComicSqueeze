@@ -27,7 +27,7 @@ function createIssue(){
             if (result.status === "OK")
             {
                 console.log("success");
-                var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle  + "/" + result.issueTitle;
+                var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle;
                 window.location.assign(redirectSeries);
             }
             else
