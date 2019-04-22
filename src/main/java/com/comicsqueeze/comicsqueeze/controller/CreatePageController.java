@@ -44,4 +44,15 @@ public class CreatePageController {
         return "IssuePage";
     }
 
+    @RequestMapping("/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}")
+    public String deletePage(@PathVariable("username") String username, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, @PathVariable("pageNumber") int pageNumber){
+        Page p = new Page();
+        p.setUsername(username);
+        p.setSeries(seriesTitle);
+        p.setIssue(issueTitle);
+        p.setPagenumber(pageNumber);
+        comicPageService.deletePage(p);
+        return "IssuePage";
+    }
+
 }
