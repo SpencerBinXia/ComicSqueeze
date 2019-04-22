@@ -60,7 +60,6 @@ function resetSeriesForm() {
 function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
-    var tagVal = $('#tagField').val();
 
     var errors = "";
     if(titleVal == "" || titleVal == null){
@@ -68,9 +67,6 @@ function createSeries(){
     }
     if(descVal == "" || descVal == null){
         errors += "description ";
-    }
-    if(tagVal == "" || tagVal == null){
-        errors += "tags ";
     }
     if(errors != "") {
         alert("Make sure the ( " + errors + ") field(s) have content.")
