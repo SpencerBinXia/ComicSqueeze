@@ -22,11 +22,12 @@ input {
 .tagBtn {
     width: fit-content;
     background-color: #d7dde5;
-    margin: 3px;
-    font-size: 17px;
+    margin: -3px 3px 5px 3px;
+    font-size: 18px;
 }
 .tagBtn:hover {
-    background-color: #ccd1d9;
+    background-color: #c7ccd4;
+    border: 1px solid red;
 }
 
 .upload-icon {
