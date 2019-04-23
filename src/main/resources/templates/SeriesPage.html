@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 
 <link>
@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
+
 
     <script>
         // Initialize Firebase
@@ -33,6 +35,10 @@
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
     <link href="css/series_main_styles.css" th:href="@{/css/series_main_styles.css}" rel="stylesheet">
     <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
+
+    <script>
+        const curSeriesDesc = "[[${curMember.getCurrentSeries().getDescription()}]]";
+    </script>
 
 </head>
 
@@ -193,6 +199,35 @@
                         <button class="grey-button-left" onclick="resetIssueForm()">CLOSE</button>
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Series Popup-->
+    <div id="edit-series-modal-container">
+        <div id="edit-series-modal" class ="reveal-modal">
+            <div class ="flexContainer flexColumn">
+                <h2 style="margin-top: 0">Edit Series</h2>
+                <form id="editSeriesForm">
+                    Series Title:
+                    <br>
+                    <p th:text="${curMember.getCurrentSeries().getTitle()}"></p>
+                    <br>
+                    Tags: <textarea id="seriesTagsField" class="input-medium" type="text" name="Tags"></textarea><br><br>
+                    Description: <textarea id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
+                    <script>
+                        document.getElementById("seriesDescField").value = curSeriesDesc;
+                    </script>
+                </form>
+                <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left" onclick=editSeries()>Save Changes</button>
+                    </a>
+                    <a class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

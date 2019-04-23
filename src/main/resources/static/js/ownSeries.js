@@ -41,8 +41,22 @@ function createIssue(){
     });
 }
 
+function editSeries() {
+    var seriesTitleVal = $('#seriesTitleField').val();
+    var seriesDescVal = $('#seriesDescField').val();
+    var seriesTagsVal = $('#seriesTagsField').val();
+
+
+
+
+
+}
 function resetIssueForm() {
     document.getElementById("issueForm").reset();
+}
+
+function resetEditSeriesForm() {
+    document.getElementById("editSeriesForm").reset();
 }
 
 $(document).ready(function(){
