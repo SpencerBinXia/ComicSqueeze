@@ -97,7 +97,7 @@
                             <h2 class="subtext" style="margin: 0">1</h2>
                             <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                             <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
-                            <a th:if="${session.username == profileID}" href="#" class="page-option" th:href="@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${page.getUsername()}, seriesTitle = ${page.getSeries()}, issueTitle=${page.getIssue()}, pageNumber = ${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                            <a th:if="${session.username == profileID}" href="#" class="page-option" onclick="deletePage()"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                         </div>
                     </div>
                     </th:block>
