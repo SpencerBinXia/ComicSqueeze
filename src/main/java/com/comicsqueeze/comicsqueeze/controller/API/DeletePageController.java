@@ -1,4 +1,4 @@
-package com.comicsqueeze.comicsqueeze.controller;
+package com.comicsqueeze.comicsqueeze.controller.API;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
@@ -11,50 +11,39 @@ import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
+
 @Controller
 
-public class CreatePageController {
-    @Autowired
-    private ComicSeriesService comicSeriesService;
-    @Autowired
-    private ComicIssueService issueService;
+public class DeletePageController {
     @Autowired
     private loginRegisterService service;
     @Autowired
+    private ComicIssueService issueService;
+    @Autowired
+    private ComicSeriesService comicSeriesService;
+    @Autowired
     private ComicPageService comicPageService;
-    @RequestMapping("/createpage")
-    public String home(Model model, HttpSession session)
-    {
-        Member curMember = service.findMember((String)session.getAttribute("username"));
-        model.addAttribute("curMember", curMember);
-        return "CreatePage";
-    }
-
-    @RequestMapping("/pageDB")
-    public String addPageToDB(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
-    {
-        Page page = new Page();
-        page.setUsername(username);
-        page.setPagenumber(pageNumber);
-        page.setIssue(issueTitle);
-        page.setImgurl(imgurl);
-        page.setPublished(false);
-        page.setSeries(seriesTitle);
-        page.setVotes(0);
-        comicPageService.createPage(page);
+    @RequestMapping("/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}")
+    public String home(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, @PathVariable("pageNumber") int pageNumber){
+        System.out.println("HERE");
+        Page p = new Page();
+        p.setUsername(username);
+        p.setSeries(seriesTitle);
+        p.setIssue(issueTitle);
+        p.setPagenumber(pageNumber);
+        comicPageService.deletePage(p);
         model.addAttribute("profileID", username);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);
         Member member = service.findMember(username);
         Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
-        int pageCount = issue.getPagecount()+1;
-        issueService.updatePageCount(member.getUsername(), seriesTitle, issueTitle, pageCount);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
         ArrayList<Page> pages =  issue.getPages();
         model.addAttribute("issue", issue);
@@ -73,5 +62,4 @@ public class CreatePageController {
         }
         return "IssuePage";
     }
-
 }

@@ -32,7 +32,7 @@ function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
                     url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-
+                        window.location.assign("/yourprofile");
 
                     },
                     error: function (e) {

@@ -56,8 +56,16 @@ public class PageRepo {
     }
 
     public void deletePage(Page newPage){
-        jdbc.update("DELETE FROM\"Page\"(username,series,issue,pagenumber)"
-                        + "VALUES(?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getPagenumber());
+        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + newPage.getIssue() + "' AND series='" + newPage.getSeries() + "' AND username='"
+                         + newPage.getUsername() + "' AND pagenumber='" + newPage.getPagenumber() + "';");
+    }
+
+    public void deletePages(String issue, String series, String username){
+        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + issue + "' AND series='" + series + "' AND username='" + username + "';");
+    }
+
+    public void deleteSeriesPages(String series, String username){
+        jdbc.update("DELETE FROM \"Page\" WHERE series='" + series + "' AND username='" + username + "';");
     }
 
     public void setImgUrl(Page page, String username, String url){
@@ -70,6 +78,7 @@ public class PageRepo {
                 + "' AND issue='" + issueTitle +"';";
         List<Map<String, Object>> rows = jdbc.queryForList(findPage);
         ArrayList<Page> pages = new ArrayList<>();
+        int i = 1;
         for (Map rs : rows) {
             Page tempPage = new Page();
             tempPage.setUsername((String)rs.get("username"));
@@ -79,6 +88,8 @@ public class PageRepo {
             tempPage.setSeries((String)rs.get("series"));
             tempPage.setIssue((String)rs.get("issue"));
             tempPage.setPagenumber((int)rs.get("pagenumber"));
+            tempPage.setPageArrayNumber(i);
+            i++;
             pages.add(tempPage);
         }
         return pages;

@@ -69,5 +69,22 @@ public class IssueRepo {
         }
         return issues;
     }
+
+    public void deleteIssue(String issueTitle, String series, String username)
+    {
+            String deleteIssue = "DELETE FROM \"Issue\" WHERE title='" + issueTitle + "' AND series='" + series + "' AND username='" + username + "';";
+            jdbc.update(deleteIssue);
+    }
+
+    public void deleteIssues(String series, String username)
+    {
+        String deleteIssue = "DELETE FROM \"Issue\" WHERE series='" + series + "' AND username='" + username + "';";
+        jdbc.update(deleteIssue);
+    }
+
+    public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
+        String updateIssue= "UPDATE \"Issue\" SET PAGECOUNT= '"+ pageCount+"' WHERE title='" + issueTitle + "' AND username='" + username + "';";
+        jdbc.update(updateIssue);
+    }
 }
 

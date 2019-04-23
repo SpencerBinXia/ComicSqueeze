@@ -27,7 +27,17 @@ public class ComicIssueService {
     public void createIssue(Issue newIssue){
         issueRepo.createIssue(newIssue);
     }
+
+    public void deleteIssue(String issueTitle, String series, String username) { issueRepo.deleteIssue(issueTitle, series, username); }
+
+    public void deleteIssues(String series, String username) { issueRepo.deleteIssues(series, username); }
+
+
     public ArrayList<Issue> queryAllIssuesFromASeries (Member member, Series series){
         return issueRepo.queryAllIssuesFromASeries(member, series);
+    }
+
+    public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
+    issueRepo.updatePageCount(username, seriesTitle, issueTitle, pageCount);
     }
 }

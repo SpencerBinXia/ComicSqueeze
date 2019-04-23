@@ -9,6 +9,7 @@ public class Page {
     private boolean published;
     private String username;
     private String series;
+    private int pageArrayNumber;
 
     public String getIssue() {
         return issue;
@@ -62,4 +63,11 @@ public class Page {
 
     public void setPagenumber(int pagenumber) {this.pagenumber = pagenumber; }
 
+    public int getPageArrayNumber() {
+        return pageArrayNumber;
+    }
+
+    public void setPageArrayNumber(int pageArrayNumber) {
+        this.pageArrayNumber = pageArrayNumber;
+    }
 }
