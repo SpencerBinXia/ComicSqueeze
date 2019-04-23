@@ -64,6 +64,10 @@ public class PageRepo {
         jdbc.update("DELETE FROM \"Page\" WHERE issue='" + issue + "' AND series='" + series + "' AND username='" + username + "';");
     }
 
+    public void deleteSeriesPages(String series, String username){
+        jdbc.update("DELETE FROM \"Page\" WHERE series='" + series + "' AND username='" + username + "';");
+    }
+
     public void setImgUrl(Page page, String username, String url){
         jdbc.update("UPDATE \"Page\" SET imgurl = '" + url+"' WHERE username = '" + username + "' AND pagenumber ='" + page.getPagenumber() + "';");
         System.out.println("Updated User's img in DB");

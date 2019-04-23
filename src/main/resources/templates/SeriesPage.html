@@ -94,7 +94,7 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
                     <button class="lime-button-left">ADD ISSUE</button>
                 </a>
-                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">EDIT</button>
             </div>
 

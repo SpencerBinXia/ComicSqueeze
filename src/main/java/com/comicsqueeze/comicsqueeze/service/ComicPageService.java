@@ -35,6 +35,10 @@ public class ComicPageService {
         pageRepo.createPage(newPage);
     }
 
+    public void deletePages(String issue, String series, String username) { pageRepo.deletePages(issue, series, username);}
+
+    public void deleteSeriesPages(String series, String username) { pageRepo.deleteSeriesPages(series, username);}
+
     public void deletePage(Page thePage) { pageRepo.deletePage(thePage); }
 
 
