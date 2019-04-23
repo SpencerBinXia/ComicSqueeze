@@ -57,7 +57,7 @@ public class PageRepo {
 
     public void deletePage(Page newPage){
         jdbc.update("DELETE FROM \"Page\" WHERE issue='" + newPage.getIssue() + "' AND series='" + newPage.getSeries() + "' AND username='"
-                         + newPage.getUsername() + "' + AND pagenumber='" + newPage.getPagenumber() + "';");
+                         + newPage.getUsername() + "' AND pagenumber='" + newPage.getPagenumber() + "';");
     }
 
     public void deletePages(String issue, String series, String username){
