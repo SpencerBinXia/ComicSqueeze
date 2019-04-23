@@ -74,4 +74,10 @@ public class SeriesRepo {
         }
         return series;
     }
+
+    public void deleteSeries(String series, String username)
+    {
+        String deleteSeries = "DELETE FROM \"Series\" WHERE seriestitle='" + series + "' AND username='" + username + "';";
+        jdbc.update(deleteSeries);
+    }
 }

@@ -45,6 +45,27 @@ function resetIssueForm() {
     document.getElementById("issueForm").reset();
 }
 
+function deleteSeries() {
+    if (confirm('Are you sure you want to delete this series?')) {
+        // Delete the page
+        $.ajax({
+            type: "GET",
+            url: "/deleteSeries",
+            cache: false,
+            success: function (result) {
+                //reload page
+                window.location.assign("/yourprofile");
+            },
+            error: function (e) {
+                alert("Delete series failed!");
+            }
+        });
+    } else {
+        // Do nothing
+    }
+
+}
+
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
         loop: false,

@@ -20,7 +20,7 @@ function deleteIssue() {
                 window.location.assign("/yourprofile");
             },
             error: function (e) {
-                alert("Update bio failed!");
+                alert("Delete issue failed!");
             }
         });
     } else {

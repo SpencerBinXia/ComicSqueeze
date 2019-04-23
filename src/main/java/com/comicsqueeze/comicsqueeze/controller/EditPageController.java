@@ -1,4 +1,4 @@
-package com.comicsqueeze.comicsqueeze.controller.API;
+package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
@@ -9,7 +9,6 @@ import com.comicsqueeze.comicsqueeze.service.ComicPageService;
 import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
-
-@Controller
-
-public class DeletePageController {
+public class EditPageController {
     @Autowired
     private loginRegisterService service;
     @Autowired
@@ -30,7 +26,7 @@ public class DeletePageController {
     @Autowired
     private ComicPageService comicPageService;
     @RequestMapping("/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}")
-    public String home(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, @PathVariable("pageNumber") int pageNumber){
+    public String home(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, @PathVariable("pageNumber") int pageNumber){
         System.out.println("HERE");
         Page p = new Page();
         p.setUsername(username);

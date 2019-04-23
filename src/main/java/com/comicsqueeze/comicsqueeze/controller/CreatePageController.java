@@ -41,14 +41,12 @@ public class CreatePageController {
         Page page = new Page();
         page.setUsername(username);
         page.setPagenumber(pageNumber);
-        System.out.println("PAGENYMUMUMU" + pageNumber);
         page.setIssue(issueTitle);
         page.setImgurl(imgurl);
         page.setPublished(false);
         page.setSeries(seriesTitle);
         page.setVotes(0);
         comicPageService.createPage(page);
-        System.out.println("here");
         model.addAttribute("profileID", username);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);

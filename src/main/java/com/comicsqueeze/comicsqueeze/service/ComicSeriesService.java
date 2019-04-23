@@ -28,6 +28,10 @@ public class ComicSeriesService {
     public void createSeries(Series newSeries){
         seriesRepo.createSeries(newSeries);
     }
+
+    public void deleteSeries(String series, String username) { seriesRepo.deleteSeries(series, username); }
+
+
     public ArrayList<Series> queryAllSeries (Member member){
         return seriesRepo.queryAllSeries(member);
     }

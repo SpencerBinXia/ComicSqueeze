@@ -3,6 +3,7 @@ package com.comicsqueeze.comicsqueeze.controller.API;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.ComicPageService;
+import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class deleteIssueController {
+public class deleteSeriesController {
 
     @Autowired
     private loginRegisterService service;
@@ -26,13 +27,16 @@ public class deleteIssueController {
     @Autowired
     private ComicPageService pageService;
 
-    @RequestMapping(value ="/deleteIssue", method = RequestMethod.GET)
+    @Autowired
+    private ComicSeriesService seriesService;
+
+    @RequestMapping(value ="/deleteSeries", method = RequestMethod.GET)
     public String deleteIssue(Model model, HttpSession session)
     {
         Member member = (Member) session.getAttribute("curMember");
-        System.out.println(member.getCurrentIssue().getTitle());
-        pageService.deletePages(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
-        issueService.deleteIssue(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
+        pageService.deleteSeriesPages(member.getCurrentSeries().getTitle(), member.getUsername());
+        issueService.deleteIssues(member.getCurrentSeries().getTitle(), member.getUsername());
+        seriesService.deleteSeries(member.getCurrentSeries().getTitle(), member.getUsername());
         return "redirect:/yourprofile";
     }
 }
