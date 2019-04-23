@@ -69,5 +69,11 @@ public class IssueRepo {
         }
         return issues;
     }
+
+    public void deleteIssue(String issueTitle, String username)
+    {
+            String deleteIssue = "DELETE FROM \"Issue\" WHERE title='" + issueTitle + "' AND username='" + username + "';";
+            jdbc.update(deleteIssue);
+    }
 }
 

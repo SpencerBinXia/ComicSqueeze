@@ -69,7 +69,7 @@
                     <div class="flexContainer flexColumn">
                         <br>
                         <h1 style="margin: 0" th:text="${issueTitle}"></h1>
-                        <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"></a>
+                        <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"><h4 class="subtext" style="margin: 0" th:text ="'Series: ' + ${seriesTitle}"></h4></a>
                         <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}"></h4></a>
                         <br>
                         <h2>Description</h2>
@@ -82,7 +82,7 @@
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">SAVE</button>
             </div>
