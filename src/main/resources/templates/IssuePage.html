@@ -82,7 +82,7 @@
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">DELETE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">SAVE</button>
             </div>
