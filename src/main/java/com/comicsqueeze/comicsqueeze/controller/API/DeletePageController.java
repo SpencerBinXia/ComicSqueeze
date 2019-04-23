@@ -44,6 +44,8 @@ public class DeletePageController {
         Member member = service.findMember(username);
         Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
+        int pageCount = issue.getPagecount()-1;
+        issueService.updatePageCount(member.getUsername(), seriesTitle, issueTitle, pageCount);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
         ArrayList<Page> pages =  issue.getPages();
         model.addAttribute("issue", issue);
