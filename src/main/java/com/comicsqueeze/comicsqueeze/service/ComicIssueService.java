@@ -36,4 +36,8 @@ public class ComicIssueService {
     public ArrayList<Issue> queryAllIssuesFromASeries (Member member, Series series){
         return issueRepo.queryAllIssuesFromASeries(member, series);
     }
+
+    public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
+    issueRepo.updatePageCount(username, seriesTitle, issueTitle, pageCount);
+    }
 }

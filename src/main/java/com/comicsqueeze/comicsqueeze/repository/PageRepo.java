@@ -78,6 +78,7 @@ public class PageRepo {
                 + "' AND issue='" + issueTitle +"';";
         List<Map<String, Object>> rows = jdbc.queryForList(findPage);
         ArrayList<Page> pages = new ArrayList<>();
+        int i = 1;
         for (Map rs : rows) {
             Page tempPage = new Page();
             tempPage.setUsername((String)rs.get("username"));
@@ -87,6 +88,8 @@ public class PageRepo {
             tempPage.setSeries((String)rs.get("series"));
             tempPage.setIssue((String)rs.get("issue"));
             tempPage.setPagenumber((int)rs.get("pagenumber"));
+            tempPage.setPageArrayNumber(i);
+            i++;
             pages.add(tempPage);
         }
         return pages;
