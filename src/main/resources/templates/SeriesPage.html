@@ -36,10 +36,6 @@
     <link href="css/series_main_styles.css" th:href="@{/css/series_main_styles.css}" rel="stylesheet">
     <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
 
-    <script>
-        const curSeriesDesc = "[[${curMember.getCurrentSeries().getDescription()}]]";
-    </script>
-
 </head>
 
 <body style="margin: 0px">
@@ -100,8 +96,10 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
                     <button class="lime-button-left">ADD ISSUE</button>
                 </a>
-                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">DELETE</button>
-                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">EDIT</button>
+                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal">
+                    <button class="lime-button-left">EDIT</button>
+                </a>
             </div>
 
             <br>
@@ -211,19 +209,55 @@
                 <form id="editSeriesForm">
                     Series Title:
                     <br>
-                    <p th:text="${curMember.getCurrentSeries().getTitle()}"></p>
+                    <p th:text="${session.curMember.currentSeries.title}"></p>
                     <br>
-                    Tags: <textarea id="seriesTagsField" class="input-medium" type="text" name="Tags"></textarea><br><br>
+                    <form id="tagsForm">
+                        <!-- tag buttons go here -->
+                    </form>
+                    <input id="tagField" class="input-small" type="text" name="Tag" placeholder="Tag Name:">
+                    <button id="btn" class="grey-button-left" type="button" style="margin-top: 5px; margin-bottom: 20px">Add Tag</button>
+                    <!-- used for dynamically adding tags -->
+                    <script type="text/javascript">
+                        (function() {
+                            var counter = 0;
+                            var btn = document.getElementById('btn');
+                            var form = document.getElementById('tagsForm');
+                            var addButton = function() {
+                                var tagName = document.getElementById('tagField').value;
+                                if(tagName == "" || tagName == null){
+                                    alert("Please enter a tag name.");
+                                    return false;
+                                }
+                                // done first in case of duplicate tags
+                                if (addTag(tagName) == 0){
+                                    alert("There cannot be duplicate tags.");
+                                    return false;
+                                }
+                                counter++;
+                                var tagButton = document.createElement("button");
+                                tagButton.id = 'tag' + counter;
+                                tagButton.innerText = tagName;
+                                tagButton.classList.add("tagBtn");
+                                tagButton.addEventListener('click', function(){
+                                    deleteTag(tagButton);
+                                });
+                                form.appendChild(tagButton);
+                            };
+                            btn.addEventListener('click', function() {
+                                addButton();
+                            }.bind(this));
+                        })();
+                    </script>
                     Description: <textarea id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
                     <script>
-                        document.getElementById("seriesDescField").value = curSeriesDesc;
+                        document.getElementById("seriesDescField").value = "hello";
                     </script>
                 </form>
                 <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=editSeries()>Save Changes</button>
                     </a>
-                    <a class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
                     </a>
                 </div>

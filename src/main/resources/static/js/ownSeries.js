@@ -41,22 +41,44 @@ function createIssue(){
     });
 }
 
-function editSeries() {
-    var seriesTitleVal = $('#seriesTitleField').val();
-    var seriesDescVal = $('#seriesDescField').val();
-    var seriesTagsVal = $('#seriesTagsField').val();
-
-
-
-
-
-}
 function resetIssueForm() {
     document.getElementById("issueForm").reset();
 }
 
 function resetEditSeriesForm() {
     document.getElementById("editSeriesForm").reset();
+}
+function editSeries(){
+    var descVal = $('#descField').val();
+    var tagListString = tagList.join(", "); // creates comma separated string of tags
+
+    //var edittedSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false};
+    //Check if there were any changes even made
+    //If no changes made, then save changes button does not do anything
+    //If changes made, then update the series being edited, with the values that were changed
+    //At the moment, if edit series clicked, and a tag entered, it does not check the tag against the existing tags
+    //However, a new tag list is created for each edit series "session", so it does detect duplicate tags entered within the same session
+
+}
+function deleteSeries() {
+    if (confirm('Are you sure you want to delete this series?')) {
+        // Delete the page
+        $.ajax({
+            type: "GET",
+            url: "/deleteSeries",
+            cache: false,
+            success: function (result) {
+                //reload page
+                window.location.assign("/yourprofile");
+            },
+            error: function (e) {
+                alert("Delete series failed!");
+            }
+        });
+    } else {
+        // Do nothing
+    }
+
 }
 
 $(document).ready(function(){

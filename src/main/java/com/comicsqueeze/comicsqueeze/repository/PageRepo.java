@@ -56,8 +56,16 @@ public class PageRepo {
     }
 
     public void deletePage(Page newPage){
-        jdbc.update("DELETE FROM\"Page\"(username,series,issue,pagenumber)"
-                        + "VALUES(?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getPagenumber());
+        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + newPage.getIssue() + "' AND series='" + newPage.getSeries() + "' AND username='"
+                         + newPage.getUsername() + "' AND pagenumber='" + newPage.getPagenumber() + "';");
+    }
+
+    public void deletePages(String issue, String series, String username){
+        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + issue + "' AND series='" + series + "' AND username='" + username + "';");
+    }
+
+    public void deleteSeriesPages(String series, String username){
+        jdbc.update("DELETE FROM \"Page\" WHERE series='" + series + "' AND username='" + username + "';");
     }
 
     public void setImgUrl(Page page, String username, String url){

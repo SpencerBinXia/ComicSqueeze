@@ -8,6 +8,27 @@ function deletePage() {
 
 }
 
+function deleteIssue() {
+    if (confirm('Are you sure you want to delete this issue?')) {
+        // Delete the page
+        $.ajax({
+            type: "GET",
+            url: "/deleteIssue",
+            cache: false,
+            success: function (result) {
+                //reload page
+                window.location.assign("/yourprofile");
+            },
+            error: function (e) {
+                alert("Delete issue failed!");
+            }
+        });
+    } else {
+        // Do nothing
+    }
+
+}
+
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
         loop: false,
