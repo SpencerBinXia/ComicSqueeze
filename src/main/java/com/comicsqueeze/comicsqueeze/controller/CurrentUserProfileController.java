@@ -48,7 +48,9 @@ public class CurrentUserProfileController {
     @RequestMapping(value="/yourprofile", method=RequestMethod.GET)
     public String currentProf(Model model, HttpSession session)
     {
+        System.out.println((String)session.getAttribute("username"));
        Member curMember = service.findMember((String)session.getAttribute("username"));
+       System.out.println(curMember.getUsername());
        model.addAttribute("curMember", curMember);
         //load all the series associated with the member
         ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);

@@ -209,7 +209,7 @@
         <div id="edit-series-modal" class ="reveal-modal">
             <div class ="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Edit Series:</h2>
-                <h3 th:text="${session.curMember.currentSeries.title}" style="margin-top: 0"></h3>
+                <h3 th:text="${seriesTitle}" style="margin-top: 0"></h3>
                 <br>
                 Tags: <textarea disabled th:text="${currentSeries.getTags()}" id="seriesTags" class="input-small" style="border: none;"></textarea><br>
                 <div class="flexContainer flexRow">

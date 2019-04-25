@@ -19,6 +19,7 @@ public class ProfileRepo {
     //Might need to change the table name, depending on the table name for user
     public Member findByName(String username)
     {
+        System.out.println("namerepo" + username);
         String findMember ="SELECT * FROM \"Member\" WHERE username='" + username + "';";
         Member tempuser = new Member();
         try

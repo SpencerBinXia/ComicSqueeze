@@ -56,6 +56,7 @@ public class SeriesRepo {
     }
 
     public ArrayList<Series> queryAllSeries(Member member) {
+        System.out.println(member.getUsername());
         String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + member.getUsername() + "';";
         List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
         ArrayList<Series> series = new ArrayList<>();
@@ -83,10 +84,9 @@ public class SeriesRepo {
         jdbc.update(deleteSeries);
     }
 
-    public void updateSeries(String series, String username, String description, ArrayList tags){
-
-        String updatedSeries = "UPDATE \"Series\" SET description='" + description + "'tags='" + tags +
-                "'WHERE username='" + username + "'AND seriestitle='" + series + "';";
+    public void updateSeries(String series, String username, String description, String tags){
+        String updatedSeries = "UPDATE \"Series\" SET description='" + description + "', tags='" + tags +
+                "' WHERE username='" + username + "' AND seriestitle='" + series + "';";
         jdbc.update(updatedSeries);
     }
 }

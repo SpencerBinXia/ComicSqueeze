@@ -152,8 +152,28 @@ function editSeries(){
     var tagsVal = $('#seriesTags').val();
     console.log("Tags:" + tagsVal);
 
-    $('#descID').text(descVal);
-    $('#curTags').text(tagsVal);
+    //const description = $('#descID').text(descVal);
+    //const tags = $('#curTags').text(tagsVal);
+    //console.log(description)
+    //console.log(tags)
+    $.ajax({
+        type: "GET",
+        //url: "/editSeries?description=?" + descVal + "?tags=" + tagsVal,
+        url: "/editSeries",
+        data:{
+            description: descVal,
+            tags: tagsVal
+        },
+        cache: false,
+        success: function (result) {
+            //reload page
+            location.reload();
+            //window.location.assign("/series/" + result.username + "/" + result.seriesTitle);
+        },
+        error: function (e) {
+            alert("Update series failed!");
+        }
+    });
 
     //var edittedSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false};
     //Check if there were any changes even made
