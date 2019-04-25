@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <html lang="en">
 
 <link>
@@ -25,12 +25,16 @@
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src="js/ownIssue.js" th:src="@{/js/ownIssue.js}"></script>
     <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
+    <!--<script src="js/photoswipe.js" th:src="@{/js/photoswipe.js}"></script>-->
+    <script src="js/lightbox.js" th:src="@{/js/lightbox.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
     <link href="css/issue_main_styles.css" th:href="@{/css/issue_main_styles.css}" rel="stylesheet">
     <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
     <script src="js/editPage.js" th:src="@{/js/editPage.js}"></script>
+    <!--<link href="css/photoswipe.css" th:href="@{/css/photoswipe.css}" rel="stylesheet">-->
+    <link href="css/lightbox.css" th:href="@{/css/lightbox.css}" rel="stylesheet">
 
 </head>
 
@@ -93,7 +97,7 @@
                 <div class="owl-carousel owl-theme" style="max-width:1000px">
                     <th:block th:each="page: ${pages}">
                     <div class="flexContainer flexColumn">
-                        <a href="#"><img th:src="${page.getImgurl()}" class="issue"></a>
+                        <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"><img th:src="${page.getImgurl()}" class="issue-page"></a>
                         <div class="flexContainer flexRow" style="margin: auto">
                             <h2 class="subtext" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                             <a th:if="${session.username == profileID}" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
@@ -105,6 +109,16 @@
                 </div>
             </div>
             <br><br>
+
+            <!-- Photoswipe test -->
+            <!--<h2>TEST gallery:</h2>-->
+
+            <!--<a th:href="@{/images/EXAMPLE.jpg}" data-lightbox="test" data-title="My caption">-->
+                <!--<img th:src="@{/images/EXAMPLE.jpg}" alt=""/>-->
+            <!--</a>-->
+            <!--<a th:href="@{/images/EXAMPLE_2.jpg}" data-lightbox="test" data-title="My caption">-->
+                <!--<img th:src="@{/images/EXAMPLE_2.jpg}" alt=""/>-->
+            <!--</a>-->
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; margin-bottom: 5px">Comments</h1>
@@ -229,6 +243,45 @@
 
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>
 
+</div>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -83,6 +83,17 @@ select {
     visibility: visible;
     display: block;
 }
+#edit-series-modal-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+#edit-series-modal-container:target {
+    visibility: visible;
+    display: block;
+}
 #edit-profile-modal-container {
     width: 100%;
     height: 100%;
