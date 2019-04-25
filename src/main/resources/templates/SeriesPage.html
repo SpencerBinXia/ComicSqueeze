@@ -99,7 +99,7 @@
                 </a>
                 <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
-                    <button class="lime-button-left">EDIT</button>
+                    <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
                 </a>
             </div>
 
@@ -209,10 +209,19 @@
                 <h2 style="margin-top: 0">Edit Series:</h2>
                 <h3 th:text="${session.curMember.currentSeries.title}" style="margin-top: 0"></h3>
                 <br>
-                Tags: <p th:text="${currentSeries.getTags()}" id="seriesTags" ></p><br>
+                Tags: <textarea disabled th:text="${currentSeries.getTags()}" id="seriesTags" class="input-small" style="border: none;"></textarea><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="addTag()">Add Tag</button>
+                    <input id="addInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="deleteTag()">Delete Tag</button>
+                    <input id="deleteInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br><br>
                 <form id="editSeriesForm">
                     Description: <textarea th:text="${currentSeries.getDescription()}" id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>
+
                 <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=editSeries()>SAVE</button>
