@@ -22,6 +22,7 @@
     <script>
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesDesc = "[[${currentSeries.getDescription()}]]";
+        const curSeriesTags = "[[${currentSeries.getTags()}]]";
         const curSeriesTitle = "[[${seriesTitle}]]";
     </script>
 
@@ -105,7 +106,7 @@
             <br>
 
             <h1>Description</h1>
-            <p th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p id="descID" th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -206,74 +207,20 @@
         <div id="edit-series-modal" class ="reveal-modal">
             <div class ="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Edit Series:</h2>
-                    <h3 th:text="${session.curMember.currentSeries.title}" style="margin-top: 0"></h3>
-                    <br>
-                    <form id="editTagsForm">
-                        <!-- tag buttons go here -->
-                    </form>
-                    <input id="editTagField" class="input-small" type="text" name="Tag" placeholder="Tag Name:">
-                    <button id="editBtn" class="grey-button-left" type="button" style="margin-top: 5px; margin-bottom: 20px">Add Tag</button>
-                    <!-- used for dynamically adding tags -->
-                    <script type="text/javascript">
-                        (function() {
-                            var counter = 0;
-                            var btn = document.getElementById('editBtn');
-                            var form = document.getElementById('editTagsForm');
-                            var addEditButton = function() {
-                                var tagName = document.getElementById('editTagField').value;
-                                if(tagName == "" || tagName == null){
-                                    alert("Please enter a tag name.");
-                                    return false;
-                                }
-                                // done first in case of duplicate tags
-                                if (addEditTag(tagName) == 0){
-                                    alert("There cannot be duplicate tags.");
-                                    return false;
-                                }
-                                counter++;
-                                var tagButton = document.createElement("button");
-                                tagButton.id = 'newTag' + counter;
-                                tagButton.innerText = tagName;
-                                tagButton.classList.add("tagBtn");
-                                tagButton.addEventListener('click', function(){
-                                    deleteEditTag(tagButton);
-                                });
-                                form.appendChild(tagButton);
-                            };
-                            btn.addEventListener('click', function() {
-                                addEditButton();
-                            }.bind(this));
-                        })();
-                        var tags = document.getElementById("curTags").innerText;
-                        var tagsArray = tags.split(', ');
-                        console.log(tagsArray);
-                        var form = document.getElementById("editTagsForm");
-                        for (var i = 0; i < tagsArray.length; i++){
-                            var newTagButton = document.createElement("button");
-                            newTagList.push(tagsArray[i]);
-                            newTagButton.id = 'oldTag' + i;
-                            newTagButton.innerText = tagsArray[i];
-                            newTagButton.classList.add("tagBtn");
-                            newTagButton.addEventListener('click', function(){
-                                deleteEditTag(newTagButton);
-                            });
-                            form.appendChild(newTagButton);
-                        }
-                    </script>
-                    Description: <textarea id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
-                    <script>
-                        document.getElementById("seriesDescField").value = curSeriesDesc;
-                        // populateEditSeries();
-                    </script>
+                <h3 th:text="${session.curMember.currentSeries.title}" style="margin-top: 0"></h3>
+                <br>
+                Tags: <p th:text="${currentSeries.getTags()}" id="seriesTags" ></p><br>
+                <form id="editSeriesForm">
+                    Description: <textarea th:text="${currentSeries.getDescription()}" id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
                 <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left" onclick=editSeries()>Save Changes</button>
+                        <button class="lime-button-left" onclick=editSeries()>SAVE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
                     </a>
                 </div>
-
             </div>
         </div>
     </div>
