@@ -110,4 +110,12 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+    $("#tagField").keydown(function(e){
+        var ingnore_key_codes = [188];
+        console.log(e.keyCode);
+        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
+            alert("Tags cannot include commas.")
+            e.preventDefault();
+        }
+    });
 });

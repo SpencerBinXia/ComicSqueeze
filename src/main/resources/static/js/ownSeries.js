@@ -64,6 +64,10 @@ function addTag() {
         console.log("duplicate");
         alert("Cannot have duplicate tags.")
         return false;
+    }
+    else if (tag == "" || tag == null) {
+        alert("Tag cannot be empty.")
+        return false;
     } else {
         newTagList.push(tag);
         console.log("tags list: " + newTagList);
@@ -186,9 +190,25 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+    $("#addInput").keydown(function(e){
+        var ingnore_key_codes = [188];
+        console.log(e.keyCode);
+        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
+            alert("Tags cannot include commas.")
+            e.preventDefault();
+        }
+    });
+    $("#deleteInput").keydown(function(e){
+        var ingnore_key_codes = [188];
+        console.log(e.keyCode);
+        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
+            alert("Tags cannot include commas.")
+            e.preventDefault();
+        }
+    });
 
     /**
-    $("#limeBar").rate({
+     $("#limeBar").rate({
         selected_symbol_type: 'image',
         max_value: 5,
         step_size: 1,

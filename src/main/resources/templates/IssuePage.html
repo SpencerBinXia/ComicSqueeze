@@ -58,12 +58,12 @@
     var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]
     var currentIssue = [[${session.curMember.getCurrentIssue().getTitle()}]]
     var pageNumber = [[${session.curMember.getCurrentIssue().getPagecount()}]]
-            </script>
+</script>
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
         <a style="float: left; padding-left: 17%; display: inline-block">
-            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
+            <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
@@ -106,10 +106,10 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <input id ="uploadPage" type="file" th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">UPLOAD PAGE</input>
+                <input id ="uploadPage" type="file" th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">SAVE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
             </div>
             <br><br>
 

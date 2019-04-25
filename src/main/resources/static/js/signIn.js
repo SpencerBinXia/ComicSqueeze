@@ -163,4 +163,27 @@ function updateProfilePic() {
 
 }
 
+$(document).ready(function(){
+    $("#inputUsername").keydown(function(e){
+        var ingnore_key_codes = [190, 52, 219, 221];
+        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
+            if(e.keyCode == 190 && !e.shiftKey){
+                alert("Username cannot contain '.'")
+                e.preventDefault();
+            }
+            if(e.keyCode == 52 && e.shiftKey){
+                alert("Username cannot contain '$'")
+                e.preventDefault();
+            }
+            if(e.keyCode == 219 && !e.shiftKey){
+                alert("Username cannot contain '['")
+                e.preventDefault();
+            }
+            if(e.keyCode == 221 && !e.shiftKey){
+                alert("Username cannot contain ']'")
+                e.preventDefault();
+            }
+        }
+    });
+});
 
