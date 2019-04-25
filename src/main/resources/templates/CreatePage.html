@@ -19,22 +19,22 @@
         };
         firebase.initializeApp(config);
     </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src =js/signIn.js></script>
-    <script src = js/uploadData.js></script>
-    <script src = js/download.js></script>
-    <link href="css/page_layout.css" rel="stylesheet">
-    <link href="css/buttons.css" rel="stylesheet">
-    <link href="css/register_main_styles.css" rel="stylesheet">
-    <link href="../css/literallycanvas.css" rel="stylesheet">
+    <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src ="js/signIn.js" th:src="@{/js/signIn.js}"></script>
+    <script src = "js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
+    <script src = "js/download.js" th:src="@{/js/download.js}"></script>
+    <link href="css/page_layout.css" th:href="@{/css/page_layout.css}"rel="stylesheet">
+    <link href="css/buttons.css" th:href="@{/css/buttons.css}"rel="stylesheet">
+    <link href="css/register_main_styles.css" th:href="@{/css/register_main_styles.css}"rel="stylesheet">
+    <link href="../css/literallycanvas.css" th:href="@{/css/literallycanvas.css}" rel="stylesheet">
 
     <!-- dependency: React.js -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js" ></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js" ></script>
 
     <!-- Literally Canvas -->
-    <script src="js/literallycanvas.js"></script>
+    <script src="js/literallycanvas.js" th:src="@{/js/literallycanvas.js}" ></script>
 
     <style type="text/css">
         .fs-container {
@@ -47,6 +47,8 @@
 </head>
 
 <body style="margin: 0px">
+<script> var edit = null;</script>
+<script th:if="${editNumber}!=null"> edit = "[[${editNumber}]]" </script>
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
@@ -82,17 +84,18 @@
                 <div id="lc" style="height: 900px; border: 1px solid black"></div>
             </div>
 
-            <script type="text/javascript">
+            <script type="text/javascript" th:inline="javascript">
                 // getting current series and issue that the user is under in heirarchy
-                var username = "[[${session.curMember.getUsername()}]]"
-                var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
-                var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
-                var pageNumber = "[[${session.curMember.getCurrentIssue().getPagecount()}]]"
+                var username = [[${session.curMember.getUsername()}]]
+                var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]
+                var currentIssue = [[${session.curMember.getCurrentIssue().getTitle()}]]
+                var pageNumber = [[${session.curMember.getCurrentIssue().getPagecount()}]]
                 pageNumber = parseInt(pageNumber,10);
                 console.log(pageNumber);
+                console.log(edit);
 
                 var lc = LC.init(document.getElementById("lc"), {
-                    imageURLPrefix: 'images/img',
+                    imageURLPrefix: '../../../images/img',
                     toolbarPosition: 'bottom',
                     defaultStrokeWidth: 2,
                     strokeWidths: [1, 2, 3, 5, 30],
@@ -135,18 +138,25 @@
 
 
                     var fr = new FileReader();
-                    fr.onload = function ( oFREvent ) {
-                        var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
-                        v = atob(v);
-                        var good_b64 = btoa(decodeURIComponent(escape(v)));
-                        var img = "data:image/png;base64," + good_b64;
-                        uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img);
+            fr.onload = function ( oFREvent ) {
+            var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
+            v = atob(v);
+            var good_b64 = btoa(decodeURIComponent(escape(v)));
+            var img = "data:image/png;base64," + good_b64;
+
+            if(edit){
+                console.log(edit);
+                editPagetoDB(username,currentSeries,currentIssue,edit,img);
+            }
+            else {
+                uploadPagetoDB(username, currentSeries, currentIssue, pageNumber, img);
+            }
 
 
 
-                    };
-                    fr.readAsDataURL(the_file);
-                }
+            };
+            fr.readAsDataURL(the_file);
+            }
             </script>
 
             <a class="button-as-link" style="width: fit-content; margin: 0">

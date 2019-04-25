@@ -46,4 +46,7 @@ public class ComicPageService {
         return pageRepo.queryAllPages(member,seriesTitle,issueTitle);
     }
 
+    public void editPage(Page page) {
+        pageRepo.setImgUrl(page,page.getUsername(),page.getImgurl());
+    }
 }
