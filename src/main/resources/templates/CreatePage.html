@@ -106,7 +106,16 @@
                 });
                 var localStorageKey = 'drawing';
                 if (localStorage.getItem(localStorageKey)) {
-                    lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+                    if(edit!==null){
+                       retrieveJSONFromFirebase(username,currentSeries,currentIssue,edit,lc);
+
+
+
+                    }
+                    else {
+                        console.log(localStorage.getItem(localStorageKey));
+                        lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+                    }
                 }
                 lc.on('drawingChange', function() {
                     localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
@@ -115,7 +124,7 @@
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    uploadJSONtoFirebase(currentSeries,currentIssue,pageNumber,pagedata);
+                    uploadJSONtoFirebase(username,currentSeries,currentIssue,pageNumber,pagedata);
 
                 };
 
@@ -146,10 +155,14 @@
 
             if(edit){
                 console.log(edit);
+                returnJSON();
                 editPagetoDB(username,currentSeries,currentIssue,edit,img);
+
             }
             else {
+                returnJSON();
                 uploadPagetoDB(username, currentSeries, currentIssue, pageNumber, img);
+
             }
 
 
