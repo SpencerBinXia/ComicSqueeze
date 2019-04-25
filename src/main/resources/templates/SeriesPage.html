@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 
 <link>
@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
-
     <script>
         // Initialize Firebase
         var config = {
@@ -19,6 +18,12 @@
             messagingSenderId: "213405157042"
         };
         firebase.initializeApp(config);
+    </script>
+    <script>
+        // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
+        const curSeriesDesc = "[[${currentSeries.getDescription()}]]";
+        const curSeriesTags = "[[${currentSeries.getTags()}]]";
+        const curSeriesTitle = "[[${seriesTitle}]]";
     </script>
 
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
@@ -61,8 +66,6 @@
         </div>
     </nav>
 
-    <!-- Set up your HTML -->
-
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
@@ -91,19 +94,21 @@
                 <!-- <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a> -->
             </div>
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
-            <p class="subtext" th:text="${currentSeries.getTags()}">#action, #funny, #long, #horror</p>
+            <p id="curTags" class="subtext" th:text="${currentSeries.getTags()}"></p>
             <div class="flexContainer flexRow">
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
                     <button class="lime-button-left">ADD ISSUE</button>
                 </a>
                 <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
-                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px">EDIT</button>
+                <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
+                    <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
+                </a>
             </div>
 
             <br>
 
             <h1>Description</h1>
-            <p th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p id="descID" th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -193,6 +198,38 @@
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left" onclick="resetIssueForm()">CLOSE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Series Popup-->
+    <div id="edit-series-modal-container">
+        <div id="edit-series-modal" class ="reveal-modal">
+            <div class ="flexContainer flexColumn">
+                <h2 style="margin-top: 0">Edit Series:</h2>
+                <h3 th:text="${session.curMember.currentSeries.title}" style="margin-top: 0"></h3>
+                <br>
+                Tags: <textarea disabled th:text="${currentSeries.getTags()}" id="seriesTags" class="input-small" style="border: none;"></textarea><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="addTag()">Add Tag</button>
+                    <input id="addInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="deleteTag()">Delete Tag</button>
+                    <input id="deleteInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br><br>
+                <form id="editSeriesForm">
+                    Description: <textarea th:text="${currentSeries.getDescription()}" id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
+
+                <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left" onclick=editSeries()>SAVE</button>
+                    </a>
+                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                        <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
                     </a>
                 </div>
             </div>

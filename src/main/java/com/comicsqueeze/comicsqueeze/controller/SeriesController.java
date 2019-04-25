@@ -30,6 +30,7 @@ public class SeriesController {
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
+        //model.addAttribute("seriesDesc", curMember.getCurrentSeries().getDescription());
         if(curMember!=null) {
             model.addAttribute("curMember", curMember);
             Member member = (Member) session.getAttribute("curMember");
@@ -39,6 +40,8 @@ public class SeriesController {
                member.setCurrentSeries(series);
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
+               System.out.println("Heres my series2" + member.getCurrentSeries().getDescription());
+               model.addAttribute("seriesDesc", series.getDescription());
            }
            else {
                Member displayMember = service.findMember(profileID);
@@ -46,6 +49,8 @@ public class SeriesController {
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
+               System.out.println("Heres my series3" + member.getCurrentSeries().getDescription());
+               model.addAttribute("seriesDesc", series.getDescription());
            }
 //            model.addAttribute("currentSeries", series);
 //            model.addAttribute("seriesIssues", series.getIssueArrayList());
@@ -57,6 +62,8 @@ public class SeriesController {
             series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
             model.addAttribute("currentSeries", series);
             model.addAttribute("seriesIssues", series.getIssueArrayList());
+            System.out.println("Heres my series4" + series.getDescription());
+            model.addAttribute("seriesDesc", series.getDescription());
         }
 
         return "SeriesPage";

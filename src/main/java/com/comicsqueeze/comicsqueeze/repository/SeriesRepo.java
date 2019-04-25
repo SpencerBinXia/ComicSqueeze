@@ -82,4 +82,11 @@ public class SeriesRepo {
         String deleteSeries = "DELETE FROM \"Series\" WHERE seriestitle='" + series + "' AND username='" + username + "';";
         jdbc.update(deleteSeries);
     }
+
+    public void updateSeries(String series, String username, String description, ArrayList tags){
+
+        String updatedSeries = "UPDATE \"Series\" SET description='" + description + "'tags='" + tags +
+                "'WHERE username='" + username + "'AND seriestitle='" + series + "';";
+        jdbc.update(updatedSeries);
+    }
 }
