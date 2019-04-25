@@ -124,7 +124,12 @@
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    uploadJSONtoFirebase(username,currentSeries,currentIssue,pageNumber,pagedata);
+                    if(edit!==null){
+                        uploadJSONtoFirebase(username,currentSeries,currentIssue,edit,pagedata);
+                    }
+                    else {
+                        uploadJSONtoFirebase(username, currentSeries, currentIssue, pageNumber, pagedata);
+                    }
 
                 };
 
