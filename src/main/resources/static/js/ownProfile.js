@@ -78,7 +78,7 @@ function createSeries(){
     console.log(titleVal);
     console.log(descVal);
     // console.log(tagVal);
-    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false};
+    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
     return $.ajax({
         type: "POST",
         url: "/createSeries",

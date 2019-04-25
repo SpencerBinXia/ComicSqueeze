@@ -38,6 +38,8 @@ public class DeletePageController {
         p.setIssue(issueTitle);
         p.setPagenumber(pageNumber);
         comicPageService.deletePage(p);
+        return "redirect:/issue/" + username + "/" + seriesTitle + "/" + issueTitle;
+        /*
         model.addAttribute("profileID", username);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);
@@ -60,6 +62,6 @@ public class DeletePageController {
         {
             model.addAttribute("curMember", (Member)session.getAttribute("curMember"));
         }
-        return "IssuePage";
+        */
     }
 }
