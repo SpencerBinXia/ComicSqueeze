@@ -1,6 +1,8 @@
 package com.comicsqueeze.comicsqueeze.object;
 
-public class Page {
+import java.util.Comparator;
+
+public class Page implements Comparable<Page> {
 
     private String issue;
     private String imgurl;
@@ -10,6 +12,15 @@ public class Page {
     private String username;
     private String series;
     private int pageArrayNumber;
+    private int publishedArrayNumber;
+
+    public int compareTo(Page page)
+    {
+        if (this.getPagenumber() > page.getPagenumber())
+            return 1;
+        else
+            return -1;
+    }
 
     public String getIssue() {
         return issue;
@@ -69,5 +80,13 @@ public class Page {
 
     public void setPageArrayNumber(int pageArrayNumber) {
         this.pageArrayNumber = pageArrayNumber;
+    }
+
+    public int getPublishedArrayNumber() {
+        return publishedArrayNumber;
+    }
+
+    public void setPublishedArrayNumber(int publishedArrayNumber) {
+        this.publishedArrayNumber = publishedArrayNumber;
     }
 }

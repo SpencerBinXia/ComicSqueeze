@@ -41,6 +41,7 @@ public class ComicPageService {
 
     public void deletePage(Page thePage) { pageRepo.deletePage(thePage); }
 
+    public void updatePages(ArrayList<Page> issuePages) { pageRepo.updatePages(issuePages); }
 
     public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle){
         return pageRepo.queryAllPages(member,seriesTitle,issueTitle);

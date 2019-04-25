@@ -12,7 +12,7 @@ function createIssue(){
         errors += "description ";
     }
     if(errors != "") {
-        alert("Make sure the ( " + errors + ") field(s) have content.")
+        alert("Make sure the ( " + errors + ") field(s) have content.");
         return false;
     }
 
@@ -54,7 +54,35 @@ function resetEditSeriesForm() {
     //     buttons.removeChild(buttons.firstChild);
     // }
     // console.log("RESET");
-    // newTagList.length = 0; // resets the tag list since the form is closed.
+    newTagList.length = 0; // resets the tag list since the form is closed.
+}
+function addTag() {
+    var tag = document.getElementById("addInput").value;
+    console.log("add tag: " + tag);
+    document.getElementById("addInput").value = "";
+    if(newTagList.includes(tag)){
+        console.log("duplicate");
+        alert("Cannot have duplicate tags.")
+        return false;
+    } else {
+        newTagList.push(tag);
+        console.log("tags list: " + newTagList);
+    }
+    document.getElementById("seriesTags").value = newTagList.join(", ");
+}
+function deleteTag() {
+    var tag = document.getElementById("deleteInput").value;
+    console.log("delete tag: " + tag);
+    document.getElementById("deleteInput").value = "";
+    for( var i = 0; i < newTagList.length; i++){
+        if ( newTagList[i] == tag) {
+            newTagList.splice(i, 1);
+            i--;
+            console.log("tags list: " + newTagList);
+            document.getElementById("seriesTags").value = newTagList.join(", ");
+            return;
+        }
+    }
 }
 
 // function populateEditSeries() {
@@ -104,11 +132,20 @@ function resetEditSeriesForm() {
 //         return 1;
 //     }
 // }
+
+function popEditSeries() {
+    var newTags = document.getElementById("curTags").innerText;
+    console.log(newTags);
+    newTagList = newTags.split(', ');
+    console.log(newTagList);
+    document.getElementById("seriesTags").value = newTags;
+}
+
 function editSeries(){
     var descVal = $('#seriesDescField').val();
     console.log("Desc:" + descVal);
     // var tagListString = newTagList.join(", "); // creates comma separated string of tags
-    var tagsVal = $('#seriesTagsField').val();
+    var tagsVal = $('#seriesTags').val();
     console.log("Tags:" + tagsVal);
 
     $('#descID').text(descVal);
@@ -149,4 +186,19 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+
+    /**
+    $("#limeBar").rate({
+        selected_symbol_type: 'image',
+        max_value: 5,
+        step_size: 1,
+        symbols: {
+            image: {
+                base: '<div style="background-image: url(/../images/icons/lime_BW_icon.png);" class="im2">&nbsp;</div>',
+                hover: '<div style="background-image: url(/../images/icons/lime_COLOR_icon.png);" class="im2">&nbsp;</div>',
+                selected: '<div style="background-image: url(/../images/icons/lime_COLOR_icon.png);" class="im2">&nbsp;</div>'
+            },
+        }
+    });
+     **/
 });
