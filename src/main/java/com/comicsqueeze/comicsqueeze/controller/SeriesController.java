@@ -40,7 +40,6 @@ public class SeriesController {
                member.setCurrentSeries(series);
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
-               System.out.println("Heres my series2" + member.getCurrentSeries().getDescription());
                model.addAttribute("seriesDesc", series.getDescription());
            }
            else {
@@ -49,7 +48,6 @@ public class SeriesController {
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
-               System.out.println("Heres my series3" + member.getCurrentSeries().getDescription());
                model.addAttribute("seriesDesc", series.getDescription());
            }
 //            model.addAttribute("currentSeries", series);
@@ -62,7 +60,6 @@ public class SeriesController {
             series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
             model.addAttribute("currentSeries", series);
             model.addAttribute("seriesIssues", series.getIssueArrayList());
-            System.out.println("Heres my series4" + series.getDescription());
             model.addAttribute("seriesDesc", series.getDescription());
         }
 
