@@ -52,6 +52,16 @@
     width: 108px;
     background: url(../images/Comic_Squeeze_108x90.png) no-repeat;
 }
+.tagBtn {
+    width: fit-content;
+    background-color: #d7dde5;
+    margin: -3px 3px 5px 3px;
+    font-size: 18px;
+}
+.tagBtn:hover {
+    background-color: #c7ccd4;
+    border: 1px solid red;
+}
 
 .button-as-link {
     text-decoration: none;
