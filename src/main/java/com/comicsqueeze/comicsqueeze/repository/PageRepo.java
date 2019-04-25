@@ -73,12 +73,24 @@ public class PageRepo {
         System.out.println("Updated User's img in DB");
 
     }
+
+    public void updatePages(ArrayList<Page> issuePages)
+    {
+        for (int i = 0;i <issuePages.size();i++)
+        {
+            System.out.println("update repo" + issuePages.get(i).isPublished() + issuePages.get(i).getPagenumber());
+            String updatePage = "UPDATE \"Page\" SET published='" + issuePages.get(i).isPublished() + "' WHERE username ='" + issuePages.get(i).getUsername() + "' AND series='" + issuePages.get(i).getSeries()
+                        + "' AND issue='" + issuePages.get(i).getIssue() + "' AND pagenumber='" + issuePages.get(i).getPagenumber() + "';";
+            jdbc.update(updatePage);
+        }
+    }
     public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle) {
         String findPage = "SELECT * FROM \"Page\" WHERE username ='" + member.getUsername() + "' AND series='" + seriesTitle
                 + "' AND issue='" + issueTitle +"';";
         List<Map<String, Object>> rows = jdbc.queryForList(findPage);
         ArrayList<Page> pages = new ArrayList<>();
         int i = 1;
+        int p = 1;
         for (Map rs : rows) {
             Page tempPage = new Page();
             tempPage.setUsername((String)rs.get("username"));
@@ -88,8 +100,6 @@ public class PageRepo {
             tempPage.setSeries((String)rs.get("series"));
             tempPage.setIssue((String)rs.get("issue"));
             tempPage.setPagenumber((int)rs.get("pagenumber"));
-            tempPage.setPageArrayNumber(i);
-            i++;
             pages.add(tempPage);
         }
         return pages;

@@ -19,9 +19,18 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script>
+        var userPageNumber = [];
+        var userPageArrayNumber = [];
+        var userPagePublished = [];
+        var i=0;
+    </script>
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
     <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.css}" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css}" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" th:src="@{//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js}"></script>
+    <script src="js/bootstrap-checkbox.js" th:src="@{/js/bootstrap-checkbox.js}" defer></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src="js/ownIssue.js" th:src="@{/js/ownIssue.js}"></script>
     <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
@@ -84,22 +93,39 @@
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">UPLOAD PAGE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">SAVE</button>
+                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onClick="publish()">SAVE</button>
             </div>
             <br><br>
 
             <div class="flexContainer flexRow issue_pages">
                 <div class="owl-carousel owl-theme" style="max-width:1000px">
                     <th:block th:each="page: ${pages}">
-                    <div class="flexContainer flexColumn">
-                        <a href="#"><img th:src="${page.getImgurl()}" class="issue"></a>
+                        <script>
+                            userPageNumber[i] = "[[${page.getPagenumber()}]]";
+                            userPageArrayNumber[i] = "[[${page.getPageArrayNumber()}]]";
+                            userPagePublished[i] = "[[${page.isPublished()}]]";
+                        </script>
+                    <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn">
+                        <a href="#"><img th:if="${session.username == profileID}" th:src="${page.getImgurl()}" class="issue"></a>
+                        <a href="#"><img th:if="${session.username != profileID and page.isPublished()}" th:src="${page.getImgurl()}" class="issue"></a>
                         <div class="flexContainer flexRow" style="margin: auto">
-                            <h2 class="subtext" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
+                            <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
+                            <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>
                             <a th:if="${session.username == profileID}" href="#" class="page-option"th:href=" @{/editPage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
                             <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
                             <a th:if="${session.username == profileID}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                            <div th:if="${session.username == profileID and page.isPublished() == true}">
+                                <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always checked>
+                            </div>
+                            <div th:if="${session.username == profileID and page.isPublished() == false}">
+                                <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always>
+                            </div>
+                            <script>
+                                i+=1;
+                            </script>
                         </div>
-                    </div>
+                            <!-- <h2 th:if="${session.username == profileID}" class="subtext" style="margin: 0"th:text="'Publish    ed: ' + ${page.isPublished()}"></h2> -->
+                        </div>
                     </th:block>
                 </div>
             </div>

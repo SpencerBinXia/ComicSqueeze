@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Controller
 @RequestMapping("/issue/{profileID}/{seriesTitle}/{issueTitle}")
@@ -39,6 +41,19 @@ public class IssueController {
         Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
+        Collections.sort(issue.getPages());
+        int p = 1;
+        for (int i = 0;i < issue.getPages().size();i++)
+        {
+            System.out.println("issueControllerforLoop");
+            System.out.println(issue.getPages().get(i).getPagenumber());
+            issue.getPages().get(i).setPageArrayNumber(i+1);
+            if (issue.getPages().get(i).isPublished())
+            {
+                issue.getPages().get(i).setPublishedArrayNumber(p);
+                p++;
+            }
+        }
         ArrayList<Page> pages =  issue.getPages();
         model.addAttribute("issue", issue);
         model.addAttribute("pages",pages);

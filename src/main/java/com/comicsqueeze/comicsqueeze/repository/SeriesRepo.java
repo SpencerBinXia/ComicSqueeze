@@ -37,6 +37,7 @@ public class SeriesRepo {
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
                     tempSeries.setTimestamp(rs.getObject(5, LocalDateTime.class));
+                    tempSeries.setRateCounter(rs.getInt("ratecounter"));
                     return tempSeries;
                 }
             });
@@ -49,9 +50,9 @@ public class SeriesRepo {
     }
 
     public void createSeries(Series newSeries){
-        jdbc.update("INSERT INTO \"Series\"(seriestitle,username,creators,tags,views,weekly,flag,timestamp,rating,collaborative,description)"
-                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?)", newSeries.getTitle(),newSeries.getUsername(),newSeries.getCreators(),newSeries.getTags(),
-                newSeries.getViews(),newSeries.isWeekly(),newSeries.isFlag(),newSeries.getTimestamp(), newSeries.getRating(),newSeries.isCollaborative(),newSeries.getDescription());
+        jdbc.update("INSERT INTO \"Series\"(seriestitle,username,creators,tags,views,weekly,flag,timestamp,rating,collaborative,description,ratecounter)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", newSeries.getTitle(),newSeries.getUsername(),newSeries.getCreators(),newSeries.getTags(),
+                newSeries.getViews(),newSeries.isWeekly(),newSeries.isFlag(),newSeries.getTimestamp(), newSeries.getRating(),newSeries.isCollaborative(),newSeries.getDescription(),newSeries.getRateCounter());
     }
 
     public ArrayList<Series> queryAllSeries(Member member) {
@@ -70,6 +71,7 @@ public class SeriesRepo {
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
             tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
         return series;

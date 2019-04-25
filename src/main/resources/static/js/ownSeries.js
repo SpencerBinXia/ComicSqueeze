@@ -10,7 +10,7 @@ function createIssue(){
         errors += "description ";
     }
     if(errors != "") {
-        alert("Make sure the ( " + errors + ") field(s) have content.")
+        alert("Make sure the ( " + errors + ") field(s) have content.");
         return false;
     }
 
@@ -71,4 +71,19 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+
+    /**
+    $("#limeBar").rate({
+        selected_symbol_type: 'image',
+        max_value: 5,
+        step_size: 1,
+        symbols: {
+            image: {
+                base: '<div style="background-image: url(/../images/icons/lime_BW_icon.png);" class="im2">&nbsp;</div>',
+                hover: '<div style="background-image: url(/../images/icons/lime_COLOR_icon.png);" class="im2">&nbsp;</div>',
+                selected: '<div style="background-image: url(/../images/icons/lime_COLOR_icon.png);" class="im2">&nbsp;</div>'
+            },
+        }
+    });
+     **/
 });

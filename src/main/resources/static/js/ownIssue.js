@@ -34,4 +34,55 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+
+    $('.publish-checkbox').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">'
+    });
+
+    for (var i = 0;i < userPageNumber.length;i++)
+    {
+        console.log(userPageNumber[i]);
+        console.log(userPageArrayNumber[i]);
+        console.log(userPagePublished[i]);
+    }
+
+    $('.publish-checkbox').on('change', function() {
+        console.log("clicky");
+        console.log(this.value);
+        if ($(this).prop('checked'))
+        {
+            console.log("checked");
+            userPagePublished[this.value-1] = true;
+        }
+        else
+        {
+            userPagePublished[this.value-1] = false;
+        }
+    });
 });
+
+function publish()
+{
+    for (var i =0;i < userPagePublished.length;i++)
+    {
+            console.log(userPageNumber[i]);
+            console.log(userPageArrayNumber[i]);
+            console.log(userPagePublished[i]);
+    }
+    $.ajax({
+        type : "POST",
+        url : "/publish",
+        data : {
+            publishedArray: userPagePublished //notice that "myArray" matches the value for @RequestParam
+                       //on the Java side
+        },
+        success : function(response) {
+            location.reload();
+        },
+        error : function(e) {
+            alert('Error: ' + e);
+        }
+    })
+}
