@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -36,8 +37,9 @@ public class CreatePageController {
     }
 
     @RequestMapping("/pageDB")
-    public String addPageToDB(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
+    public ModelAndView addPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
     {
+        ModelAndView model = new ModelAndView("IssuePage");
         Page page = new Page();
         page.setUsername(username);
         page.setPagenumber(pageNumber);
@@ -47,9 +49,9 @@ public class CreatePageController {
         page.setSeries(seriesTitle);
         page.setVotes(0);
         comicPageService.createPage(page);
-        model.addAttribute("profileID", username);
-        model.addAttribute("seriesTitle", seriesTitle);
-        model.addAttribute("issueTitle", issueTitle);
+        model.addObject("profileID", username);
+        model.addObject("seriesTitle", seriesTitle);
+        model.addObject("issueTitle", issueTitle);
         Member member = service.findMember(username);
         Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
@@ -57,21 +59,58 @@ public class CreatePageController {
         issueService.updatePageCount(member.getUsername(), seriesTitle, issueTitle, pageCount);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
         ArrayList<Page> pages =  issue.getPages();
-        model.addAttribute("issue", issue);
-        model.addAttribute("pages",pages);
+        model.addObject("issue", issue);
+        model.addObject("pages",pages);
 
         if(member.getUsername().equals((String)session.getAttribute("username"))) {
             member = (Member) session.getAttribute("curMember");
-            model.addAttribute("curMember", member);
+            model.addObject("curMember", member);
             member.setCurrentSeries(series);
             member.setCurrentIssue(issue);
             session.setAttribute("curMember", member);
         }
         else if (session.getAttribute("username") != null)
         {
-            model.addAttribute("curMember", (Member)session.getAttribute("curMember"));
+            model.addObject("curMember", (Member)session.getAttribute("curMember"));
         }
-        return "IssuePage";
+        return model;
+    }
+    @RequestMapping("/editPageDB")
+    public ModelAndView editPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
+    {
+        ModelAndView model = new ModelAndView("IssuePage");
+        Page page = new Page();
+        page.setUsername(username);
+        page.setPagenumber(pageNumber);
+        page.setIssue(issueTitle);
+        page.setImgurl(imgurl);
+        page.setPublished(false);
+        page.setSeries(seriesTitle);
+        page.setVotes(0);
+        comicPageService.editPage(page);
+        model.addObject("profileID", username);
+        model.addObject("seriesTitle", seriesTitle);
+        model.addObject("issueTitle", issueTitle);
+        Member member = service.findMember(username);
+        Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
+        Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
+        issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
+        ArrayList<Page> pages =  issue.getPages();
+        model.addObject("issue", issue);
+        model.addObject("pages",pages);
+
+        if(member.getUsername().equals((String)session.getAttribute("username"))) {
+            member = (Member) session.getAttribute("curMember");
+            model.addObject("curMember", member);
+            member.setCurrentSeries(series);
+            member.setCurrentIssue(issue);
+            session.setAttribute("curMember", member);
+        }
+        else if (session.getAttribute("username") != null)
+        {
+            model.addObject("curMember", (Member)session.getAttribute("curMember"));
+        }
+        return model;
     }
 
 }
