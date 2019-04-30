@@ -74,11 +74,10 @@
         <main class="flexItem whiteBackground main">
             <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
             <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <div class="flexContainer flexRow limes">
-                <!-- Lime rating bar -->
-                <div class="rateit limeBar" id="limeBar" data-rateit-value="0.0" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-                <button onclick="rateReview()">SAVE</button>
+            <div th:if="${session.username}!=null" class="flexContainer flexRow limes">
             </div>
+            <br>
+            <h1>Rating: 4.7</h1>
             <br>
             <div class="flexContainer flexRow series">
                 <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
@@ -151,15 +150,11 @@
                     Write Review: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow limes">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
+                    <div class="rateit limeBar" id="limeBar" data-rateit-value="0" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SUBMIT</button>
+                        <button class="lime-button-left" onclick="rateReview()">SUBMIT</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>
