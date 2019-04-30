@@ -19,12 +19,29 @@ public class RateReviewService {
     RateReviewRepo rateRepo;
 
     public boolean createReview(RateReview newReview) {
-        //Member existing = userrepo.findByName(newMember.getUsername());
-        //if (existing == null) {
-            System.out.println("null existing reached");
+        RateReview existing = rateRepo.findReview(newReview.getRater(), newReview.getSeriesTitle(), newReview.getSeriesCreator());
+        if (existing == null) {
+            System.out.println("null review reached");
             rateRepo.createReview(newReview);
             return true;
-        //}
-        //return false;
+        }
+        else
+        {
+            System.out.println("existing review reached");
+            rateRepo.changeReview(newReview);
+            return true;
+        }
+    }
+
+    public RateReview findReview(String rater, String seriesTitle, String seriesCreator){
+        RateReview existing = rateRepo.findReview(rater, seriesTitle, seriesCreator);
+        if (existing == null)
+        {
+            return null;
+        }
+        else
+        {
+            return existing;
+        }
     }
 }
