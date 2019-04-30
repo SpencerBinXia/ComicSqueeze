@@ -52,7 +52,7 @@
 </head>
 
 <body style="margin: 0px">
-<script type="text/javascript" th:if= "${session.curMember !=null}" th:inline="javascript">
+<script type="text/javascript" th:if= "${session.curMember?.getCurrentSeries()?.getTitle() !=null}" th:inline="javascript">
     // getting current series and issue that the user is under in heirarchy
     var username = [[${session.curMember.getUsername()}]]
     var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]

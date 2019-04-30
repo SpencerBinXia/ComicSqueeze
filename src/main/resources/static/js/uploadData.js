@@ -132,6 +132,7 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
             });
         }
     );
-
+}
+function uploadToWeeklyComic(issue,username,pageNum,img){
 
 }

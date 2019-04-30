@@ -1,6 +1,8 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
+import com.comicsqueeze.comicsqueeze.service.ComicPageService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,23 @@ public class IndexController {
 
     @Autowired
     private loginRegisterService service;
+    @Autowired
+    private ComicIssueService issueService;
 
     @RequestMapping(value ="/",method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, HttpSession session)
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
+        // set the currentSeries of the user to null incase he decides to create a page on weekly comic
+        if(curMember!=null) {
+            curMember.setCurrentSeries(null);
+        }
+        String thisWeekIssue = issueService.queryForWeeklyIssue();
+//        int currentWeeklyIssuePage =
+        model.addAttribute("weeklyIssue",thisWeekIssue);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
+
         return "FrontPage";
     }
 
