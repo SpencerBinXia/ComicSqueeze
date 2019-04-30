@@ -22,6 +22,8 @@ public class SeriesRepo {
 
     public Series findBySeriesName(String username, String seriestitle){
         String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + username + "' AND seriestitle='" + seriestitle + "';";
+        System.out.println("findbyseries" + username);
+        System.out.println("findbyseries" + seriestitle);
         Series tempSeries = new Series();
         try
         {
@@ -38,6 +40,7 @@ public class SeriesRepo {
                     tempSeries.setCreators(rs.getString("creators"));
                     tempSeries.setTimestamp(rs.getObject(5, LocalDateTime.class));
                     tempSeries.setRateCounter(rs.getInt("ratecounter"));
+                    System.out.println("inside findseries query" + tempSeries.getTitle());
                     return tempSeries;
                 }
             });
