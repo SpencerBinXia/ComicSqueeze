@@ -42,6 +42,8 @@
     <link href="css/owl_theme_default.css" rel="stylesheet">
     <link href="css/owl_theme_green.css" rel="stylesheet">
     <link href="slick/slick.css" rel="stylesheet">
+    <link href="slick/slick-theme.css" rel="stylesheet">
+    <link href="css/slick-override.css" rel="stylesheet">
 
 
 </head>
@@ -73,46 +75,28 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-        <!--
-            <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
-                <div class="flexContainer flexRow">
-                    <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
-                </div>
-                <th:block th:each="issue: ${series.getIssueArrayList()}">
-                <div class="flexContainer flexRow series">
-                    <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                    <div class="flexContainer flexColumn">
-                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                        <p th:text="${issue.getTitle()}" style="margin: -5px; text-align: center">Issue #</p>
-                    </div>
-                </div>
-                </th:block>
 
-            </th:block>
-            -->
             <div class="vertical_slick">
                 <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
-                    <div class="flexContainer flexRow">
-                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" style="color: black;display: block; font-size: 2em;margin-block-start: 0.67em;margin-block-end: 0.67em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold;" th:text="${series.getTitle()}"><h1></h1></a>
-                    </div>
-                        <div class="flexContainer flexRow series">
-                            <script type="text/javascript">
-                                $(document).ready(function(){
-                                    $(".owl-carousel").owlCarousel({
-                                        loop: true,
-                                        nav: true
-                                    });
-                                });
-                            </script>
-                            <div class="owl-carousel owl-theme" style="max-width:1000px">
+                    <div class="slickElem">
+                        <div class="flexContainer flexRow">
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1></h1></a>
+                        </div>
+                        <!--<div class="flexContainer flexRow series">-->
+                            <!--<div class="owl-carousel owl-theme" style="max-width:1000px">-->
+                            <div class="horizontal_slick left-align-slick">
                                 <th:block th:each="issue: ${series.getIssueArrayList()}">
-                                    <div class="flexContainer flexColumn">
-                                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                                        <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                    <div class="slickElemIssues">
+                                        <div class="flexContainer flexColumn" style="align-items: center">
+                                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                                            <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                        </div>
                                     </div>
                                 </th:block>
                             </div>
-                        </div>
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
                 </th:block>
             </div>
 
@@ -138,7 +122,7 @@
                 <button class="grey-button-left">EDIT</button>
             </a>
         </aside>
-        <aside class="sidebar sidebarRight"></aside>
+        <aside class="sidebar sidebarRight" style="min-width: 0"></aside>
 
     </div>
 
