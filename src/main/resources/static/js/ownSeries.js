@@ -214,7 +214,7 @@ $(document).ready(function(){
         var ingnore_key_codes = [188];
         console.log(e.keyCode);
         if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+            alert("Tags cannot include commas.");
             e.preventDefault();
         }
     });
@@ -222,7 +222,7 @@ $(document).ready(function(){
         var ingnore_key_codes = [188];
         console.log(e.keyCode);
         if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+            alert("Tags cannot include commas.");
             e.preventDefault();
         }
     });

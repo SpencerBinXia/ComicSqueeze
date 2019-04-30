@@ -55,6 +55,8 @@ public class IssueRepo {
     }
 
     public ArrayList<Issue> queryAllIssuesFromASeries(Member member, Series series) {
+        System.out.println(member.getUsername());
+        System.out.println(series.getTitle());
         String findIssue = "SELECT * FROM \"Issue\" WHERE username ='" + member.getUsername() + "'AND series='" + series.getTitle() + "';";
         List<Map<String, Object>> rows = jdbc.queryForList(findIssue);
         ArrayList<Issue> issues = new ArrayList<>();

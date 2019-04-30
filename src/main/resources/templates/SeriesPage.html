@@ -29,11 +29,14 @@
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
     <link href="css/owl_theme_default.css" th:href="@{/css/owl_theme_default.css}" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="js/rateit/jquery.rateit.js" th:src="@{/js/rateit/jquery.rateit.js}"}></script>
     <script src="js/rater.js" th:src="@{/js/rater.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
     <script src="js/ownSeries.js" th:src="@{/js/ownSeries.js}"></script>
+    <script src="js/rateBar.js" th:src="@{/js/rateBar.js}"></script>
     <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
+    <link href="css/rateit.css" th:href="@{/css/rateit.css}" rel="stylesheet">
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
@@ -71,14 +74,10 @@
         <main class="flexItem whiteBackground main">
             <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
             <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <div class="flexContainer flexRow limes">
-                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
-                <div id="limeBar"></div>
+            <div th:if="${session.username}!=null" class="flexContainer flexRow limes">
             </div>
+            <br>
+            <h1>Rating: 4.7</h1>
             <br>
             <div class="flexContainer flexRow series">
                 <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
@@ -151,15 +150,11 @@
                     Write Review: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow limes">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime">
-                    <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime">
+                    <div class="rateit limeBar" id="limeBar" data-rateit-value="0" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SUBMIT</button>
+                        <button class="lime-button-left" onclick="rateReview()">SUBMIT</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                         <button class="grey-button-left">CLOSE</button>
