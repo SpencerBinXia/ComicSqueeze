@@ -103,6 +103,8 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
                     <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
                 </a>
+                <button th:if="${session.username != profileID and session.username != null}" class="lime-button-left" style="margin-left: 20px" onclick="">FOLLOW</button>
+                <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="">UNFOLLOW</button>
             </div>
 
             <br>

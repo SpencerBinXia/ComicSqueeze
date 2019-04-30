@@ -124,7 +124,8 @@
                     <h2 th:text="${profileID}" style="text-align: center"></h2>
                     <p style="margin-top: -15px; overflow-wrap: break-word;" th:text="${viewMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
-                    <button th:if="${session.username}!=null" class="lime-button-solo">FOLLOW</button>
+                    <button th:if="${session.username}!=null" class="lime-button-solo">FOLLOW ALL</button>
+                    <button th:if="${session.username}!=null" class="lime-button-solo" style="background: #9a9a9a">UNFOLLOW ALL</button>
                 </div>
             </div>
         </aside>
