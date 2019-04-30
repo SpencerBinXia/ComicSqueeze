@@ -187,7 +187,8 @@
             -->
             <script type="text/javascript" th:inline="javascript" >
                 var username = [[${session.curMember.getUsername()}]]
-                var weeklyIssue = [[${weeklyIssue}]]
+                var issueTitle = [[${weeklyComic.getIssueTitle()}]]
+                var pageNum = [[${weeklyComic.getPages()}]]
 
                 // initialize the page creator
                 var lc = LC.init(document.getElementById("lc"), {
@@ -229,7 +230,7 @@
                         v = atob(v);
                         var good_b64 = btoa(decodeURIComponent(escape(v)));
                         var img = "data:image/png;base64," + good_b64;
-                        uploadToWeeklyComic(weeklyIssue,username,pageNum,img);
+                        //uploadToWeeklyComic(issueTitle,username,pageNum,img);
                     };
                     fr.readAsDataURL(the_file);
                 }

@@ -3,6 +3,7 @@ package com.comicsqueeze.comicsqueeze.repository;
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.object.WeeklyComic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -106,24 +107,26 @@ public class IssueRepo {
         }
         return tempIssue.getTitle();
     }
-//    public Issue queryforWeeklyIssue(String issuetitle) {
-//        String findIssue = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= '" + issuetitle +"';";
-//                Issue tempIssue = new Issue();
-//        try
-//        {
-//
-//            jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
-//                public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                    tempIssue.setTitle(rs.getString("issueTitle"));
-//                    return tempIssue;
-//                }
-//            });
-//        }
-//        catch (Exception e)
-//        {
-//            return null;
-//        }
-//        return tempIssue.getTitle();
-//    }
+    public WeeklyComic queryforWeeklyIssue(String issuetitle) {
+        String findComic = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= '" + issuetitle +"';";
+                WeeklyComic weeklyComic = new WeeklyComic();
+        try
+        {
+
+            jdbc.queryForObject(findComic, new RowMapper<WeeklyComic>() {
+                public WeeklyComic mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    weeklyComic.setIssueTitle(rs.getString("issueTitle"));
+                    weeklyComic.setPages(rs.getString("pages"));
+                    weeklyComic.setUsers(rs.getString("users"));
+                    return weeklyComic;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return weeklyComic;
+    }
 }
 

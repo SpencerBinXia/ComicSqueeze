@@ -3,6 +3,7 @@ package com.comicsqueeze.comicsqueeze.service;
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.object.WeeklyComic;
 import com.comicsqueeze.comicsqueeze.repository.IssueRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,9 @@ public class ComicIssueService {
 
     public String queryForWeeklyIssue() {
         return issueRepo.queryforWeeklyIssue();
+    }
+
+    public WeeklyComic queryForWeeklyComic(String thisWeekIssue) {
+        return issueRepo.queryforWeeklyIssue(thisWeekIssue);
     }
 }

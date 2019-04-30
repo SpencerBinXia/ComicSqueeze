@@ -112,5 +112,22 @@ public class CreatePageController {
         }
         return model;
     }
+    @RequestMapping("/weeklyPageDB")
+    public ModelAndView addWeeklyPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
+    {
+        ModelAndView model = new ModelAndView("IssuePage");
+        Page page = new Page();
+        page.setUsername(username);
+        page.setPagenumber(pageNumber);
+        page.setIssue(issueTitle);
+        page.setImgurl(imgurl);
+        page.setPublished(false);
+        page.setSeries(seriesTitle);
+        page.setVotes(0);
+        comicPageService.createPage(page);
+
+
+        return model;
+    }
 
 }

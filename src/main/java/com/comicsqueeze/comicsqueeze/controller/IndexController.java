@@ -1,6 +1,7 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.WeeklyComic;
 import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.ComicPageService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
@@ -32,8 +33,8 @@ public class IndexController {
             curMember.setCurrentSeries(null);
         }
         String thisWeekIssue = issueService.queryForWeeklyIssue();
-//        int currentWeeklyIssuePage =
-        model.addAttribute("weeklyIssue",thisWeekIssue);
+        WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
+        model.addAttribute("weeklyComic",thisWeeklyComic);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
 
