@@ -40,4 +40,8 @@ public class ComicIssueService {
     public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
     issueRepo.updatePageCount(username, seriesTitle, issueTitle, pageCount);
     }
+
+    public String queryForWeeklyIssue() {
+        return issueRepo.queryforWeeklyIssue();
+    }
 }

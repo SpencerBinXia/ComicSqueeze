@@ -88,5 +88,44 @@ public class IssueRepo {
         String updateIssue= "UPDATE \"Issue\" SET PAGECOUNT= '"+ pageCount+"' WHERE title='" + issueTitle + "' AND username='" + username + "';";
         jdbc.update(updateIssue);
     }
+
+    public String queryforWeeklyIssue() {
+        String findIssue = "SELECT * FROM \"WeeklyIssueTitle\" ;";
+        Issue tempIssue = new Issue();
+        try
+        {
+
+            jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
+                public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    tempIssue.setTitle(rs.getString("issueTitle"));
+                return tempIssue;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return tempIssue.getTitle();
+    }
+//    public Issue queryforWeeklyIssue(String issuetitle) {
+//        String findIssue = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= '" + issuetitle +"';";
+//                Issue tempIssue = new Issue();
+//        try
+//        {
+//
+//            jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
+//                public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
+//                    tempIssue.setTitle(rs.getString("issueTitle"));
+//                    return tempIssue;
+//                }
+//            });
+//        }
+//        catch (Exception e)
+//        {
+//            return null;
+//        }
+//        return tempIssue.getTitle();
+//    }
 }
 

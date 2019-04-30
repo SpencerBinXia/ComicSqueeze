@@ -52,7 +52,7 @@
 </head>
 
 <body style="margin: 0px">
-<script type="text/javascript" th:if= "${session.curMember !=null}" th:inline="javascript">
+<script type="text/javascript" th:if= "${session.curMember?.getCurrentSeries()?.getTitle() !=null}" th:inline="javascript">
     // getting current series and issue that the user is under in heirarchy
     var username = [[${session.curMember.getUsername()}]]
     var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]
@@ -94,11 +94,11 @@
                     <div class="flexContainer flexColumn">
                         <br>
                         <h1 style="margin: 0" th:text="${issueTitle}"></h1>
-                        <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"><h4 class="subtext" style="margin: 0" th:text ="'Series: ' + ${seriesTitle}"></h4></a>
-                        <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}"></h4></a>
+                        <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'Series: ' + ${seriesTitle}"></h4></a>
+                        <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'by ' + ${profileID}"></h4></a>
                         <br>
                         <h2>Description</h2>
-                        <p th:text="${issue.getDescription()}"></p>
+                        <p th:text="${issue.getDescription()}" style="font-size: 20px"></p>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,10 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <input id ="uploadPage" type="file" th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
+                <label class="lime-button-file">
+                    <input id ="uploadPage" type="file" th:if="${session.username == profileID}" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
+                    UPLOAD PAGE
+                </label>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
@@ -116,12 +119,12 @@
             <div class="flexContainer flexRow issue_pages">
                 <div class="owl-carousel owl-theme" style="max-width:1000px">
                     <th:block th:each="page: ${pages}">
-                        <script>
-                            userPageNumber[i] = "[[${page.getPagenumber()}]]";
-                            userPageArrayNumber[i] = "[[${page.getPageArrayNumber()}]]";
-                            userPagePublished[i] = "[[${page.isPublished()}]]";
-                        </script>
                         <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn">
+                            <script>
+                                userPageNumber[i] = "[[${page.getPagenumber()}]]";
+                                userPageArrayNumber[i] = "[[${page.getPageArrayNumber()}]]";
+                                userPagePublished[i] = "[[${page.isPublished()}]]";
+                            </script>
                             <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"><img th:if="${session.username == profileID}" th:src="${page.getImgurl()}" class="issue"></a>
                             <a th:href="${page.getImgurl()}" data-lightbox="test1" class="issue-page"><img th:if="${session.username != profileID and page.isPublished()}" th:src="${page.getImgurl()}" class="issue"></a>
                             <div class="flexContainer flexRow" style="margin: auto">
@@ -160,7 +163,7 @@
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
                 <p class="no-downvote-text">0</p>
             </div>
-            <p style="margin-top: -5px">Lorem ipsum dolor sit amet.</p>
+            <p style="margin-top: -5px; font-size: 20px">Lorem ipsum dolor sit amet.</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">
                 <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
                 <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
@@ -170,7 +173,7 @@
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
                 <p class="no-downvote-text">0</p>
             </div>
-            <p style="margin-top: -5px; margin-left: 60px">Ut enim ad minim</p>
+            <p style="margin-top: -5px; margin-left: 60px; font-size: 20px">Ut enim ad minim</p>
             <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
                 <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
                 <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
@@ -180,7 +183,7 @@
                 <a href="#" class="comment-header-item"><img src="images/icons/downvote_icon.png" th:src="@{/images/icons/downvote_icon.png}"></a>
                 <p class="no-downvote-text">1</p>
             </div>
-            <p style="margin-top: -5px">Cool.</p>
+            <p style="margin-top: -5px; font-size: 20px">Cool.</p>
 
             <br><br><br>
 
@@ -272,44 +275,6 @@
 
 </div>
 
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>
