@@ -29,6 +29,8 @@
 html * {
     /*Could be dangerous, check here if font problems*/
     font-family: Tw Cen MT !important;
+    line-height: 1;
+    overflow-wrap: break-word;
 }
 
 /*nav bar (on top)*/
