@@ -19,12 +19,12 @@
 }
 .navIcon {
     margin: 0px;
-    height: 45px;
+    /*height: 45px;*/
     width: 45px;
     padding-top: 7.5px;
     padding-bottom: 7.5px;
     display: inline-block;
-    /*object-fit: cover;*/
+    object-fit: cover;
     /*background-image: url("../images/icons/default_pro_icon.png");*/
     /*background-position: center;*/
     /*background-size: cover;*/
@@ -86,6 +86,26 @@
     background: #75a300;
     text-decoration: none;
 }
+input[type="file"] {
+    display: none;
+}
+.lime-button-file {
+    overflow-wrap: break-word;
+    color: #ffffff;
+    font-size: 20px;
+    background: #8FC800;
+    padding: 10px 20px 10px 20px;
+    border: solid #000000 2px;
+    text-decoration: none;
+    margin-right: 30px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+.lime-button-file:hover {
+    background: #75a300;
+    text-decoration: none;
+}
+
 .lime-button-solo {
     overflow-wrap: break-word;
      color: #ffffff;
@@ -135,3 +155,5 @@
     background: #707070;
     text-decoration: none;
 }
+
+
