@@ -117,7 +117,7 @@
             <br><br>
 
             <div class="flexContainer flexRow issue_pages">
-                <div class="owl-carousel owl-theme" style="max-width:1000px">
+                <div class="owl-carousel owl-theme">
                     <th:block th:each="page: ${pages}">
                         <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn">
                             <script>
@@ -131,7 +131,6 @@
                                 <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                                 <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>
                                 <a th:if="${session.username == profileID}" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                                <a th:if="${session.username == profileID}" href="#" class="page-option"><img src="images/icons/save_icon.png" th:src="@{/images/icons/save_icon.png}"></a>
                                 <a th:if="${session.username == profileID}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                                 <div th:if="${session.username == profileID and page.isPublished() == true}">
                                     <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always checked>
