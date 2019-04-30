@@ -27,6 +27,7 @@ public class RateReviewRepo {
                     newReview.getReview());
     }
 
+    //public RateReview getReview(String rater, String seriesTitle){}
     //public getReviews();
 
 

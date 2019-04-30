@@ -46,6 +46,7 @@ public class SeriesController {
                Member displayMember = service.findMember(profileID);
                Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
+               //member.setCurrentSeries(series);
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
                model.addAttribute("seriesDesc", series.getDescription());
