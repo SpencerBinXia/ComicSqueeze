@@ -34,7 +34,6 @@ function rateReview()
             //on the Java side
         },
         success : function(response) {
-            location.reload();
         },
         error : function(e) {
             alert('Error: ' + e);

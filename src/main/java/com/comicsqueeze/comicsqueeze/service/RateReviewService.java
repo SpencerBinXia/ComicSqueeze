@@ -44,4 +44,10 @@ public class RateReviewService {
             return existing;
         }
     }
+
+    public double averageReview(String seriesTitle, String seriesCreator)
+    {
+        double average = rateRepo.queryAverageReview(seriesTitle, seriesCreator);
+        return average;
+    }
 }
