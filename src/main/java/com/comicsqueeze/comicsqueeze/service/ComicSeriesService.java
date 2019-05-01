@@ -13,6 +13,7 @@ public class ComicSeriesService {
 
     @Autowired
     private SeriesRepo seriesRepo;
+
     public Series findSeriesByTitle(String username, String seriesTitle){
         Series existing = seriesRepo.findBySeriesName(username, seriesTitle);
         if (existing == null)

@@ -214,7 +214,7 @@ $(document).ready(function(){
         var ingnore_key_codes = [188];
         console.log(e.keyCode);
         if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+            alert("Tags cannot include commas.");
             e.preventDefault();
         }
     });
@@ -222,9 +222,20 @@ $(document).ready(function(){
         var ingnore_key_codes = [188];
         console.log(e.keyCode);
         if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+            alert("Tags cannot include commas.");
             e.preventDefault();
         }
+    });
+    $(".horizontal_slick").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        // rows: 1,
+        // slidesPerRow: 4,
+        verticalSwiping: false,
     });
 
     /**

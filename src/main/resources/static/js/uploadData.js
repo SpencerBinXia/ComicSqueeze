@@ -132,6 +132,34 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
             });
         }
     );
+}
+function uploadToWeeklyComic(issue,username,pageNum,img){
+    var storageRef = firebase.storage().ref("WeeklyComic"+"/"+issue+"/"+username+"/"+pageNum);
+    var task = storageRef.putString(img,'data_url');
+    task.on('state_changed',
+        function progress(snapshot){
 
 
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child("WeeklyComic"+"/"+issue+"/"+username+"/"+pageNum).getDownloadURL().then(function (url) {
+                console.log("here");
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/weeklyPageDB?username="+username+"&"+"seriesTitle=WeeklyComic"+"&"+"issueTitle="+issue+"&"+"pageNumber="+pageNum+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                       console.log("done");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
 }

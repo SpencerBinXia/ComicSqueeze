@@ -1,9 +1,11 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
+import com.comicsqueeze.comicsqueeze.object.RateReview;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
 import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
+import com.comicsqueeze.comicsqueeze.service.RateReviewService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +25,14 @@ public class SeriesController {
     private ComicSeriesService comicSeriesService;
     @Autowired
     private ComicIssueService issueService;
+    @Autowired
+    private RateReviewService rateService;
 
     @GetMapping
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
+        double defaultRating = 0.0;
+
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
@@ -46,6 +52,12 @@ public class SeriesController {
                Member displayMember = service.findMember(profileID);
                Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
+               member.setCurrentSeries(series);
+               RateReview rating = rateService.findReview(member.getUsername(), series.getTitle(), series.getUsername());
+               if (rating != null)
+               {
+                   defaultRating = rating.getRating();
+               }
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
                model.addAttribute("seriesDesc", series.getDescription());
@@ -63,6 +75,8 @@ public class SeriesController {
             model.addAttribute("seriesDesc", series.getDescription());
         }
 
+        model.addAttribute("userRating", defaultRating);
+        System.out.println(defaultRating);
         return "SeriesPage";
     }
 }
