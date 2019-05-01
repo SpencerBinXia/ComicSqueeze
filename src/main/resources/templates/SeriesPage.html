@@ -82,7 +82,7 @@
             <div th:if="${session.username}!=null" class="flexContainer flexRow limes">
                 <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
             </div>
-            <h3 style="margin: 10px 0 0 0">Rating: 4.7</h3>
+            <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
             <br><br>
             <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
             <div class="horizontal_slick left-align-slick">
