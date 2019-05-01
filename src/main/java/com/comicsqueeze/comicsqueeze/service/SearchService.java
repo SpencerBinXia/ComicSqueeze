@@ -35,10 +35,12 @@ public class SearchService {
     }
 
     public Member searchForUsername(String searchString){
+        System.out.println("Search string in search service " + searchString);
         Member existing = searchRepo.searchForUsername(searchString);
+        System.out.println("member exist " + existing.getUsername() );
         if(existing == null){ return null; }
         else{
-            System.out.println(existing.getUsername());
+            System.out.println("if user exists in searchservice " + existing.getUsername());
             return existing;
         }
     }

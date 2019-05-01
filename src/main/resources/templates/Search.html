@@ -21,6 +21,7 @@
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
+    <script src =js/search.js></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/search_main_styles.css" rel="stylesheet">
@@ -63,14 +64,13 @@
                     <select id="searchBy" name="searchBy">
                         <option value="keywords">Keywords</option>
                         <option value="tags">Tags</option>
-                        <option value="genre">Series Title</option>
+                        <option value="seriestitle">Series Title</option>
                         <option value="username">Username</option>
                     </select>
                 </form>
                 <br>
-                <form><input type="text" name="searchContents" placeholder="Enter your search here"></form>
-                <button class="lime-button-left">SEARCH</button>
-
+                <form><input type="text" id = "searchContents" name="searchContents" placeholder="Enter your search here"></form>
+                <button class="lime-button-left" onclick = doSearch() >SEARCH</button>
             </div>
 
             <br><br>
