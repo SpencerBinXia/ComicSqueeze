@@ -125,7 +125,7 @@ public class CreatePageController {
         //update the current page count for this weekly issue
         weeklyContributionService.updatePageCount(issueTitle, pageNumber+1);
         //add this user to this weekly issue
-        weeklyContributionService.addContributor(username);
+        weeklyContributionService.addContributor(issueTitle,username);
         Member curMember = service.findMember((String)session.getAttribute("username"));
         // set the currentSeries of the user to null incase he decides to create a page on weekly comic
         if(curMember!=null) {

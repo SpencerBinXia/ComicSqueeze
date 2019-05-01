@@ -13,7 +13,7 @@ public class WeeklyContributionService {
 
     }
 
-    public void addContributor(String username) {
-        weeklyContributionRepo.addContributor(username);
+    public void addContributor(String issueTitle, String username) {
+        weeklyContributionRepo.addContributor(issueTitle,username);
     }
 }
