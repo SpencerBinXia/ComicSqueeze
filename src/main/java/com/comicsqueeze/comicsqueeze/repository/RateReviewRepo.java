@@ -27,6 +27,38 @@ public class RateReviewRepo {
                     newReview.getReview());
     }
 
+    public void changeReview(RateReview review)
+    {
+        System.out.println("inside changereview" + review.getRating() + review.getRater() + review.getSeriesTitle() + review.getSeriesCreator());
+        String changeReviewQuery ="UPDATE ratereview SET rating='" + review.getRating() + "' WHERE rater='" + review.getRater() +
+                                  "' AND seriestitle='" + review.getSeriesTitle() + "' AND seriescreator='" + review.getSeriesCreator() + "';";
+        jdbc.update(changeReviewQuery);
+    }
+
+    public RateReview findReview(String currentUser, String seriesTitle, String seriesCreator){
+        String reviewQuery ="SELECT * FROM ratereview WHERE rater='" + currentUser + "' AND seriestitle='" + seriesTitle +
+                           "' AND seriescreator='" + seriesCreator + "';";
+        System.out.println("inside findreview" + reviewQuery);
+        RateReview tempRate = new RateReview();
+        try
+        {
+            jdbc.queryForObject(reviewQuery, new RowMapper<RateReview>() {
+                public RateReview mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    tempRate.setRater(rs.getString("rater"));
+                    tempRate.setSeriesCreator(rs.getString("seriescreator"));
+                    tempRate.setSeriesTitle(rs.getString("seriestitle"));
+                    tempRate.setReview(rs.getString("review"));
+                    tempRate.setRating(rs.getDouble("rating"));
+                    return tempRate;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return tempRate;
+    }
     //public getReviews();
 
 
