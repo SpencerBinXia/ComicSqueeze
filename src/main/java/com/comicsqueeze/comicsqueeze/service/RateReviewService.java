@@ -44,4 +44,10 @@ public class RateReviewService {
             return existing;
         }
     }
+
+    public double averageReview(String seriesTitle, String seriesCreator)
+    {
+        //String averageQuery = "SELECT AVG (rating) "
+        return 3;
+    }
 }

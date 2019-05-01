@@ -49,6 +49,7 @@ public class RateReviewRepo {
                     tempRate.setSeriesTitle(rs.getString("seriestitle"));
                     tempRate.setReview(rs.getString("review"));
                     tempRate.setRating(rs.getDouble("rating"));
+                    System.out.println(tempRate.getRater() + tempRate.getRating());
                     return tempRate;
                 }
             });
