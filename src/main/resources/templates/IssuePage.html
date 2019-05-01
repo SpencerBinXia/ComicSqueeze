@@ -35,19 +35,20 @@
     <script src="js/ownIssue.js" th:src="@{/js/ownIssue.js}"></script>
     <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
     <script src="js/lightbox.js" th:src="@{/js/lightbox.js}"></script>
-    <!--<script src="js/photoswipe.js" th:src="@{/js/photoswipe.js}"></script>-->
+    <script src="slick/slick.js" th:src="@{/slick/slick.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}" rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" th:href="@{/css/frontPage_main_styles.css}" rel="stylesheet">
     <link href="css/issue_main_styles.css" th:href="@{/css/issue_main_styles.css}" rel="stylesheet">
     <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
     <script src="js/editPage.js" th:src="@{/js/editPage.js}"></script>
-    <!--<link href="css/photoswipe.css" th:href="@{/css/photoswipe.css}" rel="stylesheet">-->
     <link href="css/lightbox.css" th:href="@{/css/lightbox.css}" rel="stylesheet">
     <script src="js/editPage.js" th:src="@{/js/editPage.js}"></script>
     <script src="js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
-    <!--<link href="css/photoswipe.css" th:href="@{/css/photoswipe.css}" rel="stylesheet">-->
     <link  href="css/lightbox.css"  th:href="@{/css/lightbox.css}" rel="stylesheet">
+    <link href="slick/slick.css" th:href="@{/slick/slick.css}" rel="stylesheet">
+    <link href="slick/slick-theme.css" th:href="@{/slick/slick-theme.css}" rel="stylesheet">
+    <link href="css/slick-override.css" th:href="@{/css/slick-override.css}" rel="stylesheet">
 
 </head>
 
@@ -116,10 +117,10 @@
             </div>
             <br><br>
 
-            <div class="flexContainer flexRow issue_pages">
-                <div class="owl-carousel owl-theme">
-                    <th:block th:each="page: ${pages}">
-                        <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn">
+            <div class="horizontal_slick left-align-slick">
+                <th:block th:each="page: ${pages}">
+                    <div class="slickElemIssues">
+                        <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn" style="align-items: center">
                             <script>
                                 userPageNumber[i] = "[[${page.getPagenumber()}]]";
                                 userPageArrayNumber[i] = "[[${page.getPageArrayNumber()}]]";
@@ -144,8 +145,8 @@
                             </div>
                             <!-- <h2 th:if="${session.username == profileID}" class="subtext" style="margin: 0"th:text="'Publish    ed: ' + ${page.isPublished()}"></h2> -->
                         </div>
-                    </th:block>
-                </div>
+                    </div>
+                </th:block>
             </div>
             <br><br>
 

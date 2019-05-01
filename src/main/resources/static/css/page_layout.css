@@ -54,7 +54,7 @@ html * {
 /*left and right bar*/
 .sidebar {
     width: 15%;
-    min-width: 15%;
+    /*min-width: 15%;*/
     background: #b9bec5;
     padding: 15px;
 }

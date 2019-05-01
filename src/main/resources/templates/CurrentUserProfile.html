@@ -78,24 +78,20 @@
 
             <div class="vertical_slick">
                 <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
-                    <div class="slickElem">
+                    <div class="slickElem" style="height: 400px">
                         <div class="flexContainer flexRow">
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1></h1></a>
                         </div>
-                        <!--<div class="flexContainer flexRow series">-->
-                            <!--<div class="owl-carousel owl-theme" style="max-width:1000px">-->
-                            <div class="horizontal_slick left-align-slick">
-                                <th:block th:each="issue: ${series.getIssueArrayList()}">
-                                    <div class="slickElemIssues">
-                                        <div class="flexContainer flexColumn" style="align-items: center">
-                                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
-                                            <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
-                                        </div>
+                        <div class="horizontal_slick left-align-slick">
+                            <th:block th:each="issue: ${series.getIssueArrayList()}">
+                                <div class="slickElemIssues">
+                                    <div class="flexContainer flexColumn" style="align-items: center">
+                                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                                        <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                                     </div>
-                                </th:block>
-                            </div>
-                            <!--</div>-->
-                        <!--</div>-->
+                                </div>
+                            </th:block>
+                        </div>
                     </div>
                 </th:block>
             </div>
