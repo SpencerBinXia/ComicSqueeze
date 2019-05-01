@@ -35,6 +35,21 @@ public class RateReviewRepo {
         jdbc.update(changeReviewQuery);
     }
 
+    public double queryAverageReview(String seriesTitle, String seriesCreator)
+    {
+        String averageQuery = "SELECT AVG (rating) FROM ratereview WHERE seriestitle='" + seriesTitle + "' AND" +
+                              " seriescreator='" + seriesCreator + "';";
+
+        try
+        {
+            return jdbc.queryForObject(averageQuery, Double.class);
+        }
+        catch (Exception e)
+        {
+            return -1.0;
+        }
+    }
+
     public RateReview findReview(String currentUser, String seriesTitle, String seriesCreator){
         String reviewQuery ="SELECT * FROM ratereview WHERE rater='" + currentUser + "' AND seriestitle='" + seriesTitle +
                            "' AND seriescreator='" + seriesCreator + "';";

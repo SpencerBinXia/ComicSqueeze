@@ -32,6 +32,7 @@ public class SeriesController {
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
         double defaultRating = 0.0;
+        double averageRating = 0.0;
 
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
@@ -74,8 +75,16 @@ public class SeriesController {
             model.addAttribute("seriesIssues", series.getIssueArrayList());
             model.addAttribute("seriesDesc", series.getDescription());
         }
-
+        averageRating = rateService.averageReview(seriesTitle, profileID);
         model.addAttribute("userRating", defaultRating);
+        if (averageRating != -1.0)
+        {
+            model.addAttribute("averageRating", averageRating);
+        }
+        else
+        {
+            model.addAttribute("averageRating", "No ratings yet!");
+        }
         System.out.println(defaultRating);
         return "SeriesPage";
     }

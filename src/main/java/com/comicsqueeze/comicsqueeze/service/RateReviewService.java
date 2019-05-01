@@ -47,7 +47,7 @@ public class RateReviewService {
 
     public double averageReview(String seriesTitle, String seriesCreator)
     {
-        //String averageQuery = "SELECT AVG (rating) "
-        return 3;
+        double average = rateRepo.queryAverageReview(seriesTitle, seriesCreator);
+        return average;
     }
 }
