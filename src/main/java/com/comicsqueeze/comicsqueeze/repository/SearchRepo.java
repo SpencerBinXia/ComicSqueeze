@@ -19,11 +19,63 @@ public class SearchRepo {
     @Autowired
     JdbcTemplate jdbc;
 
+    public ArrayList<String> deepSearch(String searchString){
+        String query = "SELECT seriestitle FROM \"Series\" AS document;";
+        String stringlist = "yup";
+        ArrayList<String> alldata = new ArrayList<>();
+        try {
+            List<Map<String, Object>> rows = jdbc.queryForList(query);
+            for(Map rs : rows){
+                alldata.add((String)rs.get("seriestitle"));
+            }
+        }
+        catch(Exception e){
+            return null;
+        }
+        ArrayList<String> allMembers = getAllMembers();
+        ArrayList<String> allTags = getAllTags();
+        for(int i =0; i < allMembers.size(); i++){
+            alldata.add(allMembers.get(i));
+        }
+        for(int i =0; i < allTags.size(); i++){
+            alldata.add(allTags.get(i));
+        }
+        return alldata;
+    }
+    public ArrayList<String> getAllTags(){
+        String query = "SELECT tags FROM \"Series\" AS document;";
+        ArrayList<String> allTags = new ArrayList<>();
+        try{
+            List<Map<String,Object>> rows = jdbc.queryForList(query);
+            for(Map rs : rows){
+                allTags.add((String) rs.get("tags"));
+            }
+        }
+        catch (Exception e){
+            return null;
+        }
+        return allTags;
+    }
+    public ArrayList<String> getAllMembers(){
+        String query = "SELECT username FROM \"Member\" AS document;";
+        ArrayList<String> allMembers = new ArrayList<>();
+        try{
+            List<Map<String,Object>> rows = jdbc.queryForList(query);
+            for(Map rs : rows){
+                allMembers.add((String) rs.get("username") + ", ");
+            }
+        }
+        catch(Exception e){
+            return null;
+        }
+        return allMembers;
+    }
 
     public ArrayList<Series> searchAllSeriesByTitle(String searchString) {
         System.out.println("Matching series titles with " + searchString);
         String findSeries = "SELECT * FROM \"Series\" WHERE seriestitle ='" + searchString + "';";
         return findMatchedSeries(findSeries);
+        //Handle not found results for series title and username
     }
 
     public ArrayList<Series> searchForMatchingTags(String searchString){
@@ -33,7 +85,18 @@ public class SearchRepo {
         //where '8' = ANY (string_to_array(some_column,','))
         return findMatchedSeries(findTagsFromSeries);
     }
+    public ArrayList<Series> sortByRecent(){
+        String findSortByRecent = "SELECT timestamp,seriestitle,username FROM \"Series\" ORDER BY timestamp;";
+        ArrayList<Series> sortedSeries = new ArrayList<>();
+        try{
 
+
+        }
+        catch(Exception e){
+            return null;
+        }
+        return sortedSeries;
+    }
     public Member searchForUsername(String searchString){
         System.out.println("Matching users with" + searchString);
         String findUser = "SELECT * FROM \"Member\" WHERE username ='" + searchString + "';";
@@ -58,6 +121,8 @@ public class SearchRepo {
         System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
         return tempMember;
     }
+
+
 
     public ArrayList<Series> findMatchedSeries(String findSeries){
         List<Map<String, Object>> rows = jdbc.queryForList(findSeries);

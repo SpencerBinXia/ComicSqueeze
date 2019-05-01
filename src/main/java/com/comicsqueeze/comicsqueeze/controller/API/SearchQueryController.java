@@ -26,19 +26,27 @@ public class SearchQueryController {
         Member member = (Member) session.getAttribute("curMember");
         if(filter.equals("tags")){
             ArrayList<Series> series = searchService.searchForMatchingTags(searchString);
-            return series.toString();
+            if(series != null){
+                return series.toString();
+            }
+            return null;
         }
         else if(filter.equals("username")){
             Member foundMember = searchService.searchForUsername(searchString);
-            return foundMember.getUsername();
+            if(foundMember != null){
+                return foundMember.toString();
+            }
+            return null;
         }
         else if(filter.equals("seriestitle")){
             ArrayList<Series> series = searchService.queryAllSeriesByTitle(searchString);
-            return series.toString();
+            if(series != null){
+                return series.toString();
+            }
+            return null;
         }
         else if(filter.equals("keywords")){
-
-
+            return searchService.deepKeywordSearch(searchString).toString();
         }
         return "broo";
     }

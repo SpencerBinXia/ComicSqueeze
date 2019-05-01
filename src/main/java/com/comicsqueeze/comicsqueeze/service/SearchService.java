@@ -16,20 +16,18 @@ public class SearchService {
 
     public ArrayList<Series> queryAllSeriesByTitle(String searchString){
         ArrayList<Series> existing = searchRepo.searchAllSeriesByTitle(searchString);
-        if(existing == null){ return null; }
+        if(existing.size() == 0){ return null; }
         else{
-            System.out.println(existing.get(0));
             return existing;
         }
     }
 
     public ArrayList<Series> searchForMatchingTags(String searchString){
         ArrayList<Series> existing = searchRepo.searchForMatchingTags(searchString);
-        if(existing == null){
+        if(existing.size() ==0 ){
             return null;
         }
         else{
-            System.out.println(existing.get(0));
             return existing;
         }
     }
@@ -37,11 +35,16 @@ public class SearchService {
     public Member searchForUsername(String searchString){
         System.out.println("Search string in search service " + searchString);
         Member existing = searchRepo.searchForUsername(searchString);
-        System.out.println("member exist " + existing.getUsername() );
+        //System.out.println("member exist " + existing.getUsername() );
         if(existing == null){ return null; }
         else{
             System.out.println("if user exists in searchservice " + existing.getUsername());
             return existing;
         }
+    }
+
+    public ArrayList<String> deepKeywordSearch(String searchString){
+        ArrayList<String> thequery = searchRepo.deepSearch(searchString);
+        return thequery;
     }
 }

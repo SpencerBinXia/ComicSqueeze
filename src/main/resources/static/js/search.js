@@ -19,7 +19,7 @@ function doSearch(){
         },
         cache: false,
         success: function (result) {
-            console.log(result)
+            console.log(result.toString())
         },
         error: function(e){
             alert("Search failed!")
