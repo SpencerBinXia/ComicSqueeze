@@ -47,8 +47,24 @@
 </head>
 
 <body style="margin: 0px">
+<!--
+HERE WE HAVE A BOOLEAN THAT DETERMINES IF WERE EDITING A PAGE
+-->
 <script> var edit = null;</script>
 <script th:if="${editNumber}!=null"> edit = "[[${editNumber}]]" </script>
+<!--
+HERE WE HAVE A BOOLEAN THAT DETERMINES IF WERE CREATING A WEEKLY CONTRIBUTION
+-->
+<script>var weekly = false</script>
+<!--
+IF WE ARE CREATING A WEEKLY CONTRIBUTION THEN SET THE APPROPRIATE VARIABLES FOR IT
+-->
+<script th:if="${session.curMember?.getCurrentSeries()?.getTitle()} == null">
+    weekly = true;
+    var weeklyUsername = "[[${session.curMember.getUsername()}]]"
+    var issueTitle = "[[${session.weeklyComic.getIssueTitle()}]]"
+    var pageNum = "[[${session.weeklyComic.getPages()}]]"
+</script>
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
@@ -83,19 +99,22 @@
             <div class="fs-container">
                 <div id="lc" style="height: 900px; border: 1px solid black"></div>
             </div>
-            <!--This script is used to set up the canvas
-            The Th if statement is used to use this script only if a user is logged in
-            because it is creating a page on a issue that is made by the user
+            <!--
+            ONLY SET  THESE VARIABLES IF WE ARE CREATING A PAGE ON A USERS PROFILE
+            WE NEED DIFFERENT VARIABLES FOR CREATE PAGE ON WEEKLY CONTRIBUTION
             -->
-            <script type="text/javascript" th:inline="javascript" th:if="${session.curMember?.getCurrentSeries()?.getTitle()} != null">
+            <script th:if="${session.curMember?.getCurrentSeries()?.getTitle()} != null">
                 // getting current series and issue that the user is under in heirarchy
-                var username = [[${session.curMember.getUsername()}]]
-                var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]
-                var currentIssue = [[${session.curMember.getCurrentIssue().getTitle()}]]
-                var pageNumber = [[${session.curMember.getCurrentIssue().getPagecount()}]]
+                var username = "[[${session.curMember.getUsername()}]]"
+                var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
+                var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
+                var pageNumber = "[[${session.curMember.getCurrentIssue().getPagecount()}]]"
                 pageNumber = parseInt(pageNumber,10);
                 console.log(pageNumber);
                 console.log(edit);
+            </script>
+            <script type="text/javascript" th:inline="javascript" >
+
                 // initialize the page creator
                 var lc = LC.init(document.getElementById("lc"), {
                     imageURLPrefix: '../../../images/img',
@@ -110,31 +129,39 @@
                 // this stuff gets the last created thing and puts it on the canvas
                 // if a user clicked on edit for a page then we return the contents of the page that
                 //edit was clicked on
-                var localStorageKey = 'drawing';
-                if (localStorage.getItem(localStorageKey)) {
-                    if(edit!==null){
-                       retrieveJSONFromFirebase(username,currentSeries,currentIssue,edit,lc);
 
-
-
+                // IF WE ARE NOT DOING WEEKLY CONTRIBUTION THEN RETRIEVE LOCAL STORAGE
+                if(weekly === false) {
+                    var localStorageKey = 'drawing';
+                    if (localStorage.getItem(localStorageKey)) {
+                        if (edit !== null) {
+                            retrieveJSONFromFirebase(username, currentSeries, currentIssue, edit, lc);
+                        }
+                        else {
+                            console.log(localStorage.getItem(localStorageKey));
+                            lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+                        }
                     }
-                    else {
-                        console.log(localStorage.getItem(localStorageKey));
-                        lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
-                    }
+                        lc.on('drawingChange', function () {
+                            localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+                        });
+
                 }
-                lc.on('drawingChange', function() {
-                    localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
-                });
                 // send the json of the cnavas to firebase to be uploaded back on edit
                 function returnJSON() {
                     var pagedata = JSON.stringify(lc.getSnapshot());
                     //upload this data to fire base under the current data heirarchy and user id
-                    if(edit!==null){
-                        uploadJSONtoFirebase(username,currentSeries,currentIssue,edit,pagedata);
+                    if (edit !== null) {
+                        // IF WE ARE EDITING AND NOT ON WEEKLY
+                        if (weekly === false) {
+                            uploadJSONtoFirebase(username, currentSeries, currentIssue, edit, pagedata);
+                        }
                     }
                     else {
-                        uploadJSONtoFirebase(username, currentSeries, currentIssue, pageNumber, pagedata);
+                        // IF WE ARE NOT MAKING A WEEKLY CONT UPLOAD THE JSON TO BE RETURNED LATER
+                        if (weekly === false) {
+                            uploadJSONtoFirebase(username, currentSeries, currentIssue, pageNumber, pagedata);
+                        }
                     }
 
                 };
@@ -165,15 +192,23 @@
             var img = "data:image/png;base64," + good_b64;
 
             if(edit){
-                console.log(edit);
-                returnJSON();
-                editPagetoDB(username,currentSeries,currentIssue,edit,img);
-
+                // IF EDITING DO EDIT PAGE IN DB
+                if(weekly===false) {
+                    console.log(edit);
+                    returnJSON();
+                    editPagetoDB(username, currentSeries, currentIssue, edit, img);
+                }
             }
             else {
-                returnJSON();
-                uploadPagetoDB(username, currentSeries, currentIssue, pageNumber, img);
-
+                if(weekly===false) {
+                    // IF NOT EDITING AND NOT WEEKLY DO UPLOAD NORMAL PAGE
+                    returnJSON();
+                    uploadPagetoDB(username, currentSeries, currentIssue, pageNumber, img);
+                }
+                else{
+                    // OTHER WISE DO UPLOAD WEEKLY PAGE
+                    uploadToWeeklyComic(issueTitle,weeklyUsername,pageNum,img)
+                }
             }
 
 
@@ -182,59 +217,60 @@
             fr.readAsDataURL(the_file);
             }
             </script>
+            <script></script>
             <!--
             This script is used to initialize the canvas for create page on the weekly contribution only
             -->
-            <script type="text/javascript" th:inline="javascript" >
-                var username = [[${session.curMember.getUsername()}]]
-                var issueTitle = [[${session.weeklyComic.getIssueTitle()}]]
-                var pageNum = [[${session.weeklyComic.getPages()}]]
+            <!--<script type="text/javascript" th:inline="javascript" th:if="${session.weeklyComic}!=null">-->
+                <!--var username = [[${session.curMember.getUsername()}]]-->
+                <!--var issueTitle = [[${session.weeklyComic.getIssueTitle()}]]-->
+                <!--var pageNum = [[${session.weeklyComic.getPages()}]]-->
 
-                // initialize the page creator
-                var lc = LC.init(document.getElementById("lc"), {
-                    imageURLPrefix: '../../../images/img',
-                    toolbarPosition: 'bottom',
-                    defaultStrokeWidth: 2,
-                    strokeWidths: [1, 2, 3, 5, 30],
-                    imageSize: {width: 700, height: 950},
-                    backgroundColor: 'white',
-                    tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Rectangle, LC.tools.Ellipse, LC.tools.Text,
-                        LC.tools.Polygon, LC.tools.Pan, LC.tools.Eyedropper, LC.tools.SelectShape]
-                });
-                // send the json of the cnavas to firebase to be uploaded back on edit
-                function returnJSON() {
-                    var pagedata = JSON.stringify(lc.getSnapshot());
-                };
+                <!--// initialize the page creator-->
+                <!--var lc = LC.init(document.getElementById("lc"), {-->
+                    <!--imageURLPrefix: '../../../images/img',-->
+                    <!--toolbarPosition: 'bottom',-->
+                    <!--defaultStrokeWidth: 2,-->
+                    <!--strokeWidths: [1, 2, 3, 5, 30],-->
+                    <!--imageSize: {width: 700, height: 950},-->
+                    <!--backgroundColor: 'white',-->
+                    <!--tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Rectangle, LC.tools.Ellipse, LC.tools.Text,-->
+                        <!--LC.tools.Polygon, LC.tools.Pan, LC.tools.Eyedropper, LC.tools.SelectShape]-->
+                <!--});-->
+                <!--// send the json of the cnavas to firebase to be uploaded back on edit-->
+                <!--function returnJSON2() {-->
+                    <!--var pagedata = JSON.stringify(lc.getSnapshot());-->
+                <!--};-->
 
-                // gets PNG of drawing (tied to button in form below)
-                function exportPNG() {
-                    console.log("export png");
-                    // window.open(lc.getImage().toDataURL());
-                    download(lc.getImage().toDataURL(), "comic_page.png", "image/png");
-                    // var pagePNG = lc.getImage();
-                };
+                <!--// gets PNG of drawing (tied to button in form below)-->
+                <!--function exportPNG2() {-->
+                    <!--console.log("export png");-->
+                    <!--// window.open(lc.getImage().toDataURL());-->
+                    <!--download(lc.getImage().toDataURL(), "comic_page.png", "image/png");-->
+                    <!--// var pagePNG = lc.getImage();-->
+                <!--};-->
 
-                function passLoadValues() {
-                    // just for testing
-                    loadImage(lc.getImage().toDataURL(), "myImg");
-                }
-                function loadImage(img_b64, elemID) {
-                    var png = img_b64.split(',')[1];
+                <!--function passLoadValues2() {-->
+                    <!--// just for testing-->
+                    <!--loadImage2(lc.getImage().toDataURL(), "myImg");-->
+                <!--}-->
+                <!--function loadImage2(img_b64, elemID) {-->
+                    <!--var png = img_b64.split(',')[1];-->
 
-                    var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});
+                    <!--var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});-->
 
 
-                    var fr = new FileReader();
-                    fr.onload = function ( oFREvent ) {
-                        var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
-                        v = atob(v);
-                        var good_b64 = btoa(decodeURIComponent(escape(v)));
-                        var img = "data:image/png;base64," + good_b64;
-                        uploadToWeeklyComic(issueTitle,username,pageNum,img);
-                    };
-                    fr.readAsDataURL(the_file);
-                }
-            </script>
+                    <!--var fr = new FileReader();-->
+                    <!--fr.onload = function ( oFREvent ) {-->
+                        <!--var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it-->
+                        <!--v = atob(v);-->
+                        <!--var good_b64 = btoa(decodeURIComponent(escape(v)));-->
+                        <!--var img = "data:image/png;base64," + good_b64;-->
+                        <!--uploadToWeeklyComic(issueTitle,username,pageNum,img);-->
+                    <!--};-->
+                    <!--fr.readAsDataURL(the_file);-->
+                <!--}-->
+            <!--</script>-->
 
             <a class="button-as-link" style="width: fit-content; margin: 0">
                 <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>
