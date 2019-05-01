@@ -42,6 +42,7 @@
     background-size: cover;
 }
 .navLogo {
+    z-index: 5000;
     position: absolute;
     left: 0;
     right: 0;

@@ -29,12 +29,13 @@ public class IndexController {
     {
         Member curMember = service.findMember((String)session.getAttribute("username"));
         // set the currentSeries of the user to null incase he decides to create a page on weekly comic
-        if(curMember!=null) {
-            curMember.setCurrentSeries(null);
+        Member member = (Member) session.getAttribute("curMember");
+        if(member!=null) {
+            member.setCurrentSeries(null);
         }
         String thisWeekIssue = issueService.queryForWeeklyIssue();
         WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
-        model.addAttribute("weeklyComic",thisWeeklyComic);
+        session.setAttribute("weeklyComic",thisWeeklyComic);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
 

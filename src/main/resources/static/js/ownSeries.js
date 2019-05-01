@@ -226,6 +226,17 @@ $(document).ready(function(){
             e.preventDefault();
         }
     });
+    $(".horizontal_slick").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        // rows: 1,
+        // slidesPerRow: 4,
+        verticalSwiping: false,
+    });
 
     /**
      $("#limeBar").rate({

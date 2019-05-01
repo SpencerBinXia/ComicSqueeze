@@ -145,13 +145,14 @@ function uploadToWeeklyComic(issue,username,pageNum,img){
         function complete() {
             storageRef = firebase.storage().ref();
             storageRef.child("WeeklyComic"+"/"+issue+"/"+username+"/"+pageNum).getDownloadURL().then(function (url) {
+                console.log("here");
                 url = encodeURIComponent(url);
                 return $.ajax({
                     type: "GET",
-                    url: "/pageDB?username="+username+"&"+"seriesTitle=WeeklyComic"+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
+                    url: "/weeklyPageDB?username="+username+"&"+"seriesTitle=WeeklyComic"+"&"+"issueTitle="+issue+"&"+"pageNumber="+pageNum+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                       // window.location.assign("/yourprofile");
+                       console.log("done");
 
                     },
                     error: function (e) {
