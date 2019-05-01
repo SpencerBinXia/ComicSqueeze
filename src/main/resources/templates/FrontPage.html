@@ -35,12 +35,16 @@
     </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/signIn.js></script>
+    <script src="slick/slick.js"></script>
+    <script src="js/frontPage.js"></script>
     <link href="css/page_layout.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
     <link href="css/frontPage_main_styles.css" rel="stylesheet">
     <link href="css/modal_styles.css" rel="stylesheet">
     <link href="css/series_main_styles.css" rel="stylesheet">
-
+    <link href="slick/slick.css" rel="stylesheet">
+    <link href="slick/slick-theme.css" rel="stylesheet">
+    <link href="css/slick-override.css" rel="stylesheet">
 
 </head>
 
@@ -268,25 +272,49 @@
         <div id="vote-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin: 0">Vote</h2><br>
-                <div class="flexContainer flexRow series">
-                    <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png"></a>
-                    <div class="flexContainer flexColumn">
-                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Username</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Username</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Username</p>
-                    </div>
-                    <div class="flexContainer flexColumn">
-                        <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
-                        <p style="margin: -5px; text-align: center">Username</p>
-                    </div>
-                    <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png"></a>
+                <div class="horizontal_slick left-align-slick">
+                    <!--<div class="slickElemIssues">-->
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                        <div class="flexContainer flexColumn" style="align-items: center">
+                                <a href="#"><img src="images/EXAMPLE_2_PAGE.jpg" class="issue"></a>
+                                <p style="margin: -5px; text-align: center">Username</p>
+                            </div>
+                    <!--</div>-->
                 </div>
                 <br>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
@@ -294,7 +322,7 @@
                         <button class="lime-button-left">CAST VOTE</button>
                     </a>
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
+                        <button class="grey-button-left">CANCEL</button>
                     </a>
                 </div>
             </div>
