@@ -34,7 +34,7 @@ public class IndexController {
         }
         String thisWeekIssue = issueService.queryForWeeklyIssue();
         WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
-        model.addAttribute("weeklyComic",thisWeeklyComic);
+        session.setAttribute("weeklyComic",thisWeeklyComic);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
 

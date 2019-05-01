@@ -34,6 +34,9 @@ public class ComicPageService {
     public void createPage(Page newPage){
         pageRepo.createPage(newPage);
     }
+    public void createWeeklyPage(Page newPage){
+        pageRepo.createWeeklyPage(newPage);
+    }
 
     public void deletePages(String issue, String series, String username) { pageRepo.deletePages(issue, series, username);}
 
