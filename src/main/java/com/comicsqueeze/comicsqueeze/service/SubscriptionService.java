@@ -51,9 +51,10 @@ public class SubscriptionService {
         subRepo.deleteSubscription(subscriber, seriesTitle, seriesCreator);
     }
 
-    public int sumSubscriptions(String seriesTitle, String seriesCreator)
+    public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
     {
-        return 0;
+        int sum = subRepo.sumSeriesSubscriptions(seriesTitle, seriesCreator);
+        return sum;
     }
 
     public void queryAllSubscription(String subscriber)

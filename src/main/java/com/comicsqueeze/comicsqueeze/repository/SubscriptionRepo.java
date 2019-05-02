@@ -55,4 +55,22 @@ public class SubscriptionRepo {
         }
         return tempSubscript;
     }
+
+    public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
+    {
+        String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriestitle='" + seriesTitle + "' AND seriescreator='" + seriesCreator +
+                "';";
+        System.out.println(sumSeriesSubQuery);
+
+        try
+        {
+            int sum = jdbc.queryForObject(sumSeriesSubQuery, Integer.class);
+            System.out.println(sum);
+            return sum;
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
 }

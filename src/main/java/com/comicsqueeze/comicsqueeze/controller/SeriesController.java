@@ -34,10 +34,12 @@ public class SeriesController {
         double defaultRating = 0.0;
         double averageRating = 0.0;
         boolean subscribed = false;
-
+        int totalSubscriptions = subService.sumSeriesSubscriptions(seriesTitle, profileID);
+        System.out.println("seriesController totalsub: " + totalSubscriptions);
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
+        model.addAttribute("totalSubscriptions", totalSubscriptions);
         //model.addAttribute("seriesDesc", curMember.getCurrentSeries().getDescription());
         if(curMember!=null) {
             model.addAttribute("curMember", curMember);
