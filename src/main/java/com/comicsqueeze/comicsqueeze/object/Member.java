@@ -12,6 +12,7 @@ public class Member {
     private Issue currentIssue;
     private Page currentPage;
     private ArrayList<Series> seriesArrayList;
+    private boolean voted;
 
 
     public String getUsername() {return username;}
@@ -67,4 +68,11 @@ public class Member {
     }
 
 
+    public boolean isVoted() {
+        return voted;
+    }
+
+    public void setVoted(boolean voted) {
+        this.voted = voted;
+    }
 }
