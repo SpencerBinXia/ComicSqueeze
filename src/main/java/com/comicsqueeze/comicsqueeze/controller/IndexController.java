@@ -47,7 +47,7 @@ public class IndexController {
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         ArrayList<Page> weeklyContributions;
-        // HERE I QUERY FOR ALL THE CONTRIBUTIONS MADE AND ADD IT TO THE MODEL
+        // HERE I QUERY FOR ALL THE CONTRIBUTIONS MADE FOR THIS WEEk FOR THIS DAY AND ADD IT TO THE MODEL
         weeklyContributions = weeklyContributionService.queryAllContributions(thisWeekIssue,dayOfWeek);
         model.addAttribute("weeklyContributions",weeklyContributions);
         return "FrontPage";
