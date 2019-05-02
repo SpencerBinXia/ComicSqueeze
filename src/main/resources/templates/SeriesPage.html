@@ -35,6 +35,7 @@
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
     <script src="js/ownSeries.js" th:src="@{/js/ownSeries.js}"></script>
     <script src="js/rateBar.js" th:src="@{/js/rateBar.js}"></script>
+    <script src="js/subscribe.js" th:src="@{/js/subscribe.js}"></script>
     <script src="js/owl_carousel.js" th:src="@{/js/owl_carousel.js}"></script>
     <script src="slick/slick.js" th:src="@{/slick/slick.js}"></script>
     <link href="css/rateit.css" th:href="@{/css/rateit.css}" rel="stylesheet">
@@ -78,11 +79,11 @@
         <main class="flexItem whiteBackground main">
             <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
             <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <br>
-            <div th:if="${session.username}!=null" class="flexContainer flexRow limes">
-                <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32" onclick="rateReview()"></div>
+            <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes">
+                <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
             </div>
-            <h3 style="margin: 10px 0 0 0">Rating: 4.7</h3>
+            <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
+            <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${averageRating}"></h3>
             <br><br>
             <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
             <div class="horizontal_slick left-align-slick">
@@ -106,8 +107,8 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
                     <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
                 </a>
-                <button th:if="${session.username != profileID and session.username != null}" class="lime-button-left" style="margin-left: 20px" onclick="">FOLLOW</button>
-                <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="">UNFOLLOW</button>
+                <button th:if="${session.username != profileID and session.username != null and subscribed == false}" class="lime-button-left" style="margin-left: 20px" onclick="subscribe()">FOLLOW</button>
+                <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>
             </div>
 
             <br>

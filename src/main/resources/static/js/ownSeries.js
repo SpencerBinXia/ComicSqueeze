@@ -150,6 +150,7 @@ function editSeries(){
     console.log("Desc:" + descVal);
     // var tagListString = newTagList.join(", "); // creates comma separated string of tags
     var tagsVal = $('#seriesTags').val();
+    tagsVal = tagsVal.replace(/\s*,\s*/g, ",");
     console.log("Tags:" + tagsVal);
 
     //const description = $('#descID').text(descVal);
