@@ -134,8 +134,8 @@ public class WeeklyContributionRepo {
         in an object
      */
     public String getContibutors(String issueTitle) throws Exception {
-            String getUsers = "SELECT users FROM \"WeeklyComic\" WHERE issuetitle='"+issueTitle+"';";
-            Issue issue = new Issue();
+        String getUsers = "SELECT users FROM \"WeeklyComic\" WHERE issuetitle='"+issueTitle+"';";
+        Issue issue = new Issue();
         jdbc.queryForObject(getUsers, new RowMapper<Issue>() {
             public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -148,8 +148,16 @@ public class WeeklyContributionRepo {
 
     }
     public void castVote(String issue, String contributor, int pageNum){
-
-        String updatePageVotes = "UPDATE \"WeeklyPages\" SET VOTES= '" +1 + "' WHERE issue='"+issue+"' AND username='"+contributor+"' AND pagenumber='"+pageNum+"';";
+        String curVotes = "SELECT votes FROM \"WeeklyPages\" WHERE issue='"+issue+"' AND username='"+contributor+"' AND pagenumber='"+pageNum+"';";
+        Page page = new Page();
+        jdbc.queryForObject(curVotes, new RowMapper<Page>() {
+            public Page mapRow(ResultSet rs, int rowNum) throws SQLException {
+                page.setVotes(rs.getInt("votes"));
+                return page;
+            }
+        });
+        Integer newVotes = page.getVotes()+1;
+        String updatePageVotes = "UPDATE \"WeeklyPages\" SET VOTES= '" +newVotes + "' WHERE issue='"+issue+"' AND username='"+contributor+"' AND pagenumber='"+pageNum+"';";
         jdbc.update(updatePageVotes);
     }
 }
