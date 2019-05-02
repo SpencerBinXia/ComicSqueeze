@@ -172,5 +172,21 @@ input[type="file"] {
     background: #707070;
     text-decoration: none;
 }
+.grey-button-solo {
+    overflow-wrap: break-word;
+    color: #ffffff;
+    font-size: 20px;
+    background: #9a9a9a;
+    padding: 10px 20px 10px 20px;
+    border: solid #000000 2px;
+    text-decoration: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.grey-button-solo:hover {
+    background: #707070;
+    text-decoration: none;
+}
 
 

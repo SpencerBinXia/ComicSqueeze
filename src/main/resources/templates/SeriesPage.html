@@ -79,7 +79,7 @@
         <main class="flexItem whiteBackground main">
             <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
             <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes">
+            <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
                 <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
             </div>
             <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
