@@ -152,4 +152,10 @@ public class WeeklyContributionRepo {
         String updatePageVotes = "UPDATE \"WeeklyPages\" SET VOTES= '" +1 + "' WHERE issue='"+issue+"' AND username='"+contributor+"' AND pagenumber='"+pageNum+"';";
         jdbc.update(updatePageVotes);
     }
+    public void setMemberCreatedWeekly(String username){
+        String updatemember ="UPDATE \"Member\" SET CREATEDWEEKLY='"+true+"' WHERE username='" + username + "';";
+        jdbc.update(updatemember);
+    }
+
+
 }
