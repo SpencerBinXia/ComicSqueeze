@@ -2,7 +2,6 @@ package com.comicsqueeze.comicsqueeze.repository;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Page;
-import com.comicsqueeze.comicsqueeze.object.Series;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,11 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class WeeklyContributionRepo {
@@ -65,22 +60,27 @@ public class WeeklyContributionRepo {
         This method queries and returns all the contributions made by users site-wide
         for the currently weekly comic issue
      */
-    public ArrayList<Page> queryAllContributions(String issueTitle) throws Exception {
+    public ArrayList<Page> queryAllContributions(String issueTitle,int day)  {
       ArrayList<Page> contributions = new ArrayList<>();
       // get all the contributors for this issue
-      String contributorsList = getContibutors(issueTitle);
-      //map for each contributor to the pages they created
+        String contributorsList = null;
+        try {
+            contributorsList = getContibutors(issueTitle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //map for each contributor to the pages they created
       HashMap<String, LinkedList<Integer>> contributorToPages = new HashMap<>();
       // split them up (contributorList)
       String [] contributors = contributorsList.split(",");
       // now for each contributor find there pages on this issue
       for(String contributor:contributors){
-            findPagesOfContributor(contributor,contributorToPages);
+            findPagesOfContributor(contributor,contributorToPages,day);
       }
       // now put those pages in the list and return it
         for (String contributor: contributorToPages.keySet()){
             for(int pageNum: contributorToPages.get(contributor)){
-                //putPageInList(contributor,pageNum,contributions);
+                putPageInList(contributor,pageNum,contributions);
             }
         }
 
@@ -89,8 +89,42 @@ public class WeeklyContributionRepo {
 
     }
 
-    private void findPagesOfContributor(String contributor, HashMap<String, LinkedList<Integer>> contributorToPages) {
+    private ArrayList<Page> putPageInList(String contributor, int pageNum, ArrayList<Page> contributions) {
+        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE username ='" + contributor + "' AND pagenumber='" + pageNum +"';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findPage);
+       int i = 0;
+        for (Map rs : rows) {
+            Page tempPage = new Page();
+            tempPage.setUsername((String)rs.get("username"));
+            tempPage.setPublished((boolean)rs.get("published"));
+            tempPage.setImgurl((String)rs.get("imgurl"));
+            tempPage.setVotes((int)rs.get("votes"));
+            tempPage.setSeries("WeeklyComic");
+            tempPage.setIssue((String)rs.get("issue"));
+            tempPage.setPagenumber((int)rs.get("pagenumber"));
+            tempPage.setPageArrayNumber(i);
+            contributions.add(tempPage);
+            i++;
+        }
+        return contributions;
+    }
 
+    public HashMap<String, LinkedList<Integer>> findPagesOfContributor(String contributor, HashMap<String, LinkedList<Integer>> contributorToPages,int day) {
+        String getPages = "SELECT * FROM \"WeeklyPages\" WHERE username='"+contributor+"' AND dayofweek='"+day+"';";
+        List<Map<String, Object>> rows = jdbc.queryForList(getPages);
+        for (Map rs : rows) {
+            if(contributorToPages.get(contributor)==null){
+                contributorToPages.put(contributor, new LinkedList<Integer>());
+                contributorToPages.get(contributor).add((int) (rs.get("pagenumber")));
+            }
+            else {
+                contributorToPages.get(contributor).add((int) (rs.get("pagenumber")));
+            }
+        }
+
+
+
+        return contributorToPages;
     }
 
     /*

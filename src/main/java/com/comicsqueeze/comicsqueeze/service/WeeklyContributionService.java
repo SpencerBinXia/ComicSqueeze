@@ -16,4 +16,7 @@ public class WeeklyContributionService {
     public void addContributor(String issueTitle, String username) {
         weeklyContributionRepo.addContributor(issueTitle,username);
     }
+    public void queryAllContributions(String issue,int day){
+        weeklyContributionRepo.queryAllContributions(issue,day);
+    }
 }
