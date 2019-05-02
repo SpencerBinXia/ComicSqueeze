@@ -3,10 +3,8 @@ package com.comicsqueeze.comicsqueeze.controller;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.RateReview;
 import com.comicsqueeze.comicsqueeze.object.Series;
-import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
-import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
-import com.comicsqueeze.comicsqueeze.service.RateReviewService;
-import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
+import com.comicsqueeze.comicsqueeze.object.Subscription;
+import com.comicsqueeze.comicsqueeze.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +25,15 @@ public class SeriesController {
     private ComicIssueService issueService;
     @Autowired
     private RateReviewService rateService;
+    @Autowired
+    private SubscriptionService subService;
 
     @GetMapping
     public String home(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, Model model, HttpSession session)
     {
         double defaultRating = 0.0;
         double averageRating = 0.0;
+        boolean subscribed = false;
 
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("profileID", profileID);
@@ -54,6 +55,11 @@ public class SeriesController {
                Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
                member.setCurrentSeries(series);
+               Subscription subscribedTo = subService.findSubscription(curMember.getUsername(), series.getTitle(), series.getUsername());
+               if (subscribedTo != null)
+               {
+                   subscribed = true;
+               }
                RateReview rating = rateService.findReview(member.getUsername(), series.getTitle(), series.getUsername());
                if (rating != null)
                {
@@ -63,8 +69,6 @@ public class SeriesController {
                model.addAttribute("seriesIssues", series.getIssueArrayList());
                model.addAttribute("seriesDesc", series.getDescription());
            }
-//            model.addAttribute("currentSeries", series);
-//            model.addAttribute("seriesIssues", series.getIssueArrayList());
         }
         else
         {
@@ -77,6 +81,7 @@ public class SeriesController {
         }
         averageRating = rateService.averageReview(seriesTitle, profileID);
         model.addAttribute("userRating", defaultRating);
+        model.addAttribute("subscribed", subscribed);
         if (averageRating != -1.0)
         {
             model.addAttribute("averageRating", averageRating);
@@ -85,7 +90,6 @@ public class SeriesController {
         {
             model.addAttribute("averageRating", "No ratings yet!");
         }
-        System.out.println(defaultRating);
         return "SeriesPage";
     }
 }
