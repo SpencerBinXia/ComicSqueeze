@@ -86,6 +86,11 @@ input {
     width: 50px;
 }
 
+.followingList{
+    height: 400px;
+    overflow: auto;
+}
+
 .grey-button-left {
     color: #ffffff;
     font-size: 20px;
