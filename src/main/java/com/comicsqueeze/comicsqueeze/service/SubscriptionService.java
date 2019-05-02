@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class SubscriptionService {
 
@@ -57,8 +59,7 @@ public class SubscriptionService {
         return sum;
     }
 
-    public void queryAllSubscription(String subscriber)
-    {
-
+    public ArrayList<Subscription> queryAllSubscriptions (String subscriber){
+        return subRepo.queryAllSubscriptions(subscriber);
     }
 }
