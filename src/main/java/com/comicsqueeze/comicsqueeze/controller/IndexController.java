@@ -33,6 +33,7 @@ public class IndexController {
     @RequestMapping(value ="/",method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, HttpSession session)
     {
+
         Member curMember = service.findMember((String)session.getAttribute("username"));
         // set the currentSeries of the user to null incase he decides to create a page on weekly comic
         Member member = (Member) session.getAttribute("curMember");

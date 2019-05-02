@@ -22,4 +22,7 @@ public class WeeklyContributionService {
     public ArrayList<Page> queryAllContributions(String issue, int day){
         return weeklyContributionRepo.queryAllContributions(issue,day);
     }
+    public void castVote(String issue, String contributor, int pageNum,int votes){
+        weeklyContributionRepo.castVote(issue,contributor,pageNum,votes);
+    }
 }

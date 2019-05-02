@@ -147,4 +147,8 @@ public class WeeklyContributionRepo {
 
 
     }
+    public void castVote(String issue, String contributor, int pageNum,int votes){
+        String updatePageVotes = "UPDATE \"WeeklyPages\" SET VOTES= '" +votes + "' WHERE issue='"+issue+"' AND username='"+contributor+"' AND pagenumber='"+pageNum+"';";
+        jdbc.update(updatePageVotes);
+    }
 }
