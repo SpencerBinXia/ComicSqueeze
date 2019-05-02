@@ -14,6 +14,7 @@ $(document).ready(function(){
             },
             success : function(response) {
                 location.reload();
+                alert("Successfully rated!");
             },
             error : function(e) {
                 alert('Error: ' + e);
