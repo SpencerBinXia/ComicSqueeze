@@ -22,6 +22,7 @@ public class SearchController {
     @GetMapping
     public String home(Model model, HttpSession session)
     {
+        System.out.println("search controller called");
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("curMember", curMember);
         if(session.getAttribute("searchResults") != null){

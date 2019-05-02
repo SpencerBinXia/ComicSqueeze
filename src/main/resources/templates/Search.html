@@ -69,7 +69,7 @@
                 </form>
                 <br>
                 <form><input type="text" id = "searchContents" name="searchContents" placeholder="Enter your search here"></form>
-                <button class="lime-button-left" onclick = doSearch() >SEARCH</button>
+                <button class="searchButton lime-button-left">SEARCH</button>
             </div>
 
             <br><br>
@@ -87,7 +87,7 @@
             </form>
             <br><br>
 
-            <div id="seriesResultsList" class="seriesResultsList" style="display: none">
+            <div id="seriesResultsList" class="seriesResultsList">
                 <div th:if="${theResult != null}">
                     <th:block th:each="series: ${theResult}">
                         <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
@@ -96,7 +96,7 @@
                     </th:block>
                 </div>
             </div>
-            <div id="usersResultsList" style="display: none">
+            <div id="usersResultsList">
                 <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
                     <div th:if="${memResult != null}">
                         <a th:href="${memResult.getImgUrl()}">
