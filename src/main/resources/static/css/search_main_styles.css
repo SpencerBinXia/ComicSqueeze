@@ -8,6 +8,12 @@
     padding-left: 30px;
 }
 
+.seriesResultsList{
+    max-height: 600px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
 img {
     max-width: 100%;
     height: auto;

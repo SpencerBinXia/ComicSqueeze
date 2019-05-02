@@ -146,7 +146,11 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Followed Series</h2>
                 <div class="followingList">
-                    <h4 style="overflow-wrap: break-word">Series Title - Username</h4>
+                    <th:block th:each="subscription: ${subscriptions}">
+                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link">
+                            <h4 class="series-title-link" th:text="${subscription.getSeriesTitle()} + ' - ' + ${subscription.getSeriesCreator()}"></h4>
+                        </a>
+                    </th:block>
                 </div>
                 <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
                     <button class="grey-button-left">CLOSE</button>

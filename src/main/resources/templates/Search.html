@@ -86,66 +86,17 @@
                 <button class="lime-button-left">APPLY</button>
             </form>
             <br><br>
-            <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
-                </div>
-                <div class="flexContainer flexColumn issue" style="align-items: center;">
-                    <a th:href="@{/issue}"><img src="images/EXAMPLE_2.jpg"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Issue #</p>
-                    <p style="margin-top: 0px; margin-bottom: 30px;">Username</p>
+
+            <div id="seriesResultsList" class="seriesResultsList" style="display: none">
+                <!--<th:block th:each="series: ${Series}">-->
+                <a href="#" class="no-link"><h4 class="series-title-link">Series Title - Username</h4></a>
+                <!--</th:block>-->
+            </div>
+            <div id="usersResultsList" style="display: none">
+                <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
+                    <a href="#"><img class="top-artist" src="images/icons/default_pro_icon.png"></a>
+                    <p style="font-weight: bold; margin-bottom: 0px;">Username</p>
+                    <p style="margin: 0px"># Followers</p>
                 </div>
             </div>
 
