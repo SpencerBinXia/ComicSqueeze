@@ -6,11 +6,10 @@ import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -22,27 +21,39 @@ public class SearchQueryController {
     private SearchService searchService;
 
     @RequestMapping(value = "/SearchSeriesTitle", method = RequestMethod.GET)
-    public ArrayList<Series> querySeriesTitle(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+    public ArrayList<Series> querySeriesTitle(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
         ArrayList<Series> series = searchService.queryAllSeriesByTitle(searchString);
         if(series != null){
+            session.setAttribute("searchResults", series);
+            //model.addAttribute("seriesTitleResults", series);
+            //redirectAttributes.addFlashAttribute("searchResult", model);
+            //session.setAttribute("seriesTitleResults", series);
             return series;
         }
         return null;
     }
 
     @RequestMapping(value = "/SearchTags", method = RequestMethod.GET)
-    public ArrayList<Series> queryTags(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+    public ArrayList<Series> queryTags(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
         ArrayList<Series> series = searchService.searchForMatchingTags(searchString);
         if(series != null){
+            session.setAttribute("searchResults", series);
+            //model.addAttribute("tagResults", series);
+            //redirectAttributes.addFlashAttribute("searchResult", model);
+            //session.setAttribute("tagResults", series);
             return series;
         }
         return null;
     }
 
     @RequestMapping(value = "/SearchUsername", method = RequestMethod.GET)
-    public Member queryUsername(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+    public Member queryUsername(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
         Member member = searchService.searchForUsername(searchString);
         if(member != null){
+            session.setAttribute("searchMemberResults", member);
+            //model.addAttribute("usernameResult", member);
+            //redirectAttributes.addFlashAttribute("searchResult", model);
+            //session.setAttribute("usernameResult", member);
             return member;
         }
         return null;
