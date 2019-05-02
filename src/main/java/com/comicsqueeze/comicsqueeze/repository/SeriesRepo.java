@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Repository
 public class SeriesRepo {
+
     @Autowired
     JdbcTemplate jdbc;
 

@@ -108,7 +108,9 @@
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
                     <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word;" th:text="${curMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
-                    <button class="lime-button-solo">SUBSCRIPTIONS</button> <br>
+                    <a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">
+                        <button class="lime-button-solo">FOLLOWING</button>
+                    </a><br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
                         <button class="lime-button-solo">CREATE SERIES</button>
                     </a>
@@ -134,6 +136,21 @@
                         <button class="grey-button-left" style="margin: 0;">CLOSE</button>
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Subscriptions Popup-->
+    <div id="subscriptions-modal-container">
+        <div id="subscriptions-modal" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <h2 style="margin-top: 0">Followed Series</h2>
+                <div class="followingList">
+                    <h4 style="overflow-wrap: break-word">Series Title - Username</h4>
+                </div>
+                <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                    <button class="grey-button-left">CLOSE</button>
+                </a>
             </div>
         </div>
     </div>
