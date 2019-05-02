@@ -54,11 +54,11 @@ public class PageRepo {
                         + "VALUES(?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
                 newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished());
     }
-    public void createWeeklyPage(Page newPage){
+    public void createWeeklyPage(Page newPage,int day){
         System.out.println("THE IMGURL "+ newPage.getImgurl());
-        jdbc.update("INSERT INTO \"WeeklyPages\"(username,issue,imgurl,pagenumber,votes,published)"
-                        + "VALUES(?,?,?,?,?,?)", newPage.getUsername(),newPage.getIssue(),newPage.getImgurl(),
-                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished());
+        jdbc.update("INSERT INTO \"WeeklyPages\"(username,issue,imgurl,pagenumber,votes,published,dayOfWeek)"
+                        + "VALUES(?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getIssue(),newPage.getImgurl(),
+                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished(),day);
     }
 
     public void deletePage(Page newPage){

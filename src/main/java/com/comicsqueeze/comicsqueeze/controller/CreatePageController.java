@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Controller
 
@@ -121,7 +122,9 @@ public class CreatePageController {
         page.setPublished(false);
         page.setSeries(seriesTitle);
         page.setVotes(0);
-        comicPageService.createWeeklyPage(page);
+         Calendar cal = Calendar.getInstance();
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        comicPageService.createWeeklyPage(page,dayOfWeek);
         //update the current page count for this weekly issue
         weeklyContributionService.updatePageCount(issueTitle, pageNumber+1);
         //add this user to this weekly issue

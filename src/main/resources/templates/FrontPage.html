@@ -275,78 +275,17 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin: 0">Vote</h2><br>
                 <div class="horizontal_slick left-align-slick">
-                    <!--<div class="slickElemIssues">-->
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" onclick="voteForPage()" style="margin: auto; padding: 5px; font-size: 18px; margin-bottom: 20px">CAST VOTE</button>
+                    <th:block th:each="page: ${weeklyContributions}">
+                        <div>
+                            <div class="flexContainer flexColumn" style="align-items: center">
+                                <a th:href="${page.getImgurl()}" data-lightbox="votePages">
+                                    <img th:src="${page.getImgurl()}" class="issue" style="margin: auto; border: 1px solid #d0d0d0;">
+                                </a>
+                                <p th:text="${page.getUsername()}" style="margin-top: 3px; margin-bottom: 3px; text-align: center"></p>
+                                <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px; margin-bottom: 20px">CAST VOTE</button>
+                            </div>
                         </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                        </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                        </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                        </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                        </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                        </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                            <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                                <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                            </a>
-                            <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                            <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                    </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                        <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                            <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                        </a>
-                        <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                        <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                    </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                        <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                            <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                        </a>
-                        <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                        <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                    </div>
-                        <div class="flexContainer flexColumn" style="align-items: center">
-                        <a href="images/EXAMPLE_2_PAGE.jpg" data-lightbox="votePages">
-                            <img src="images/EXAMPLE_2_PAGE.jpg" class="issue" style="margin: auto;">
-                        </a>
-                        <p style="margin-top: 3px; margin-bottom: 3px; text-align: center">Username</p>
-                        <button class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px;">CAST VOTE</button>
-                    </div>
-                    <!--</div>-->
+                    </th:block>
                 </div>
                 <!--<div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">-->
                     <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->

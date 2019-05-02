@@ -152,7 +152,7 @@ function uploadToWeeklyComic(issue,username,pageNum,img){
                     url: "/weeklyPageDB?username="+username+"&"+"seriesTitle=WeeklyComic"+"&"+"issueTitle="+issue+"&"+"pageNumber="+pageNum+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                       console.log("done");
+                       window.location.assign("/?userName="+username);
 
                     },
                     error: function (e) {
