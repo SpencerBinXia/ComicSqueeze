@@ -105,6 +105,17 @@ select {
     visibility: visible;
     display: block;
 }
+#subscriptions-modal-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+#subscriptions-modal-container:target {
+    visibility: visible;
+    display: block;
+}
 /*used in SeriesPage*/
 #add-issue-modal-container {
     width: 100%;
