@@ -22,8 +22,15 @@ public class SubscriptionRepo {
     JdbcTemplate jdbc;
 
     public void insertSubscription(String subscriber, String seriesTitle, String seriesCreator){
-        jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator)"
-                        + "VALUES(?,?,?)",subscriber,seriesTitle,seriesCreator);
+        try
+        {
+            jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator)"
+                    + "VALUES(?,?,?)", subscriber, seriesTitle, seriesCreator);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     public void deleteSubscription(String subscriber, String seriesTitle, String seriesCreator)
@@ -73,4 +80,29 @@ public class SubscriptionRepo {
             return 0;
         }
     }
+
+    /*
+    public ArrayList<Series> queryAllSeries(String ) {
+        System.out.println(member.getUsername());
+        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + member.getUsername() + "';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
+        ArrayList<Series> series = new ArrayList<>();
+        for (Map rs : rows) {
+            Series tempSeries = new Series();
+            tempSeries.setTitle((String)rs.get("seriestitle"));
+            tempSeries.setDescription((String)rs.get("description"));
+            tempSeries.setUsername((String)rs.get("username"));
+            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+            tempSeries.setFlag((boolean)rs.get("flag"));
+            tempSeries.setRating((double)rs.get("rating"));
+            tempSeries.setWeekly((boolean)rs.get("weekly"));
+            tempSeries.setTags((String)rs.get("tags"));
+            tempSeries.setCreators((String)rs.get("creators"));
+            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            tempSeries.setRateCounter((int)rs.get("ratecounter"));
+            series.add(tempSeries);
+        }
+        return series;
+    }
+    */
 }

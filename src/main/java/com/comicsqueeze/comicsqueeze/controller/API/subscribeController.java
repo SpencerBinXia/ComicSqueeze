@@ -13,11 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
 public class subscribeController {
+
+    @Autowired
+    loginRegisterService memberService;
+
+    @Autowired
+    ComicSeriesService seriesService;
 
     @Autowired
     SubscriptionService subService;
@@ -41,6 +48,30 @@ public class subscribeController {
         System.out.println(curMember.getCurrentSeries().getUsername());
         System.out.println(curMember.getCurrentSeries().getTitle());
         subService.removeSubscription(curMember.getUsername(), curMember.getCurrentSeries().getTitle(), curMember.getCurrentSeries().getUsername());
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/subscribeAll", method=RequestMethod.POST)
+    public String subscribeAllMethod(@RequestParam(value="displayName") String displayName, Model model, HttpSession session)
+    {
+        String username = (String)session.getAttribute("username");
+        System.out.println(username + displayName);
+        ArrayList<Series> seriesArrayList = seriesService.queryAllSeries(memberService.findMember(displayName));
+        for(int i = 0; i < seriesArrayList.size(); i++){
+            subService.insertSubscription(username, seriesArrayList.get(i).getTitle(), displayName);
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/unsubscribeAll", method=RequestMethod.POST)
+    public String unsubscribeAllMethod(@RequestParam(value="displayName") String displayName, Model model, HttpSession session)
+    {
+        String username = (String)session.getAttribute("username");
+        System.out.println(username + displayName);
+        ArrayList<Series> seriesArrayList = seriesService.queryAllSeries(memberService.findMember(displayName));
+        for(int i = 0; i < seriesArrayList.size(); i++){
+            subService.removeSubscription(username, seriesArrayList.get(i).getTitle(), displayName);
+        }
         return "redirect:/";
     }
 
