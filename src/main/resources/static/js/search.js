@@ -8,18 +8,31 @@ function doSearch(){
     var queryString= document.getElementById('searchContents').value
 
     console.log(filterOptionValue);
-    //console.log(queryString);
+    var queryMethod = ""
+    var methodMapping = ""
+    if(filterOptionValue == "username"){
+        queryMethod = "queryUsername"
+        methodMapping = "/SearchUsername"
 
+    }
+    else if(filterOptionValue == "seriestitle"){
+        queryMethod = "querySeriesTitle"
+        methodMapping = "/SearchSeriesTitle"
+    }
+    else if(filterOptionValue == "tags"){
+        queryMethod = "queryTags"
+        methodMapping = "/SearchTags"
+    }
     $.ajax({
         type: "GET",
-        url: "/Search",
+        url: methodMapping,
         data:{
             searchString: queryString,
-            filter: filterOptionValue
+            //filter: filterOptionValue
         },
         cache: false,
         success: function (result) {
-            console.log(result.toString())
+            console.log(result)
         },
         error: function(e){
             alert("Search failed!")

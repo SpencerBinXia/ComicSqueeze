@@ -21,13 +21,40 @@ public class SearchQueryController {
     @Autowired
     private SearchService searchService;
 
+    @RequestMapping(value = "/SearchSeriesTitle", method = RequestMethod.GET)
+    public ArrayList<Series> querySeriesTitle(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+        ArrayList<Series> series = searchService.queryAllSeriesByTitle(searchString);
+        if(series != null){
+            return series;
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/SearchTags", method = RequestMethod.GET)
+    public ArrayList<Series> queryTags(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+        ArrayList<Series> series = searchService.searchForMatchingTags(searchString);
+        if(series != null){
+            return series;
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/SearchUsername", method = RequestMethod.GET)
+    public Member queryUsername(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+        Member member = searchService.searchForUsername(searchString);
+        if(member != null){
+            return member;
+        }
+        return null;
+    }
+/*
     @RequestMapping(value = "/Search", method = RequestMethod.GET)
     public String searchQuery(Model model, @RequestParam(value = "searchString") String searchString, @RequestParam(value = "filter") String filter, HttpSession session){
         Member member = (Member) session.getAttribute("curMember");
         if(filter.equals("tags")){
             ArrayList<Series> series = searchService.searchForMatchingTags(searchString);
             if(series != null){
-                return series.toString();
+                return series;
             }
             return null;
         }
@@ -50,5 +77,6 @@ public class SearchQueryController {
         }
         return "broo";
     }
+*/
 
 }

@@ -88,12 +88,12 @@ public class SearchRepo {
     public ArrayList<Series> sortByRecent(){
         String findSortByRecent = "SELECT timestamp,seriestitle,username FROM \"Series\" ORDER BY timestamp;";
         ArrayList<Series> sortedSeries = new ArrayList<>();
-        try{
 
+        try{
 
         }
         catch(Exception e){
-            return null;
+
         }
         return sortedSeries;
     }
@@ -139,6 +139,7 @@ public class SearchRepo {
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
             tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            System.out.println("The timestamp : " + tempSeries.getTimestamp());
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
