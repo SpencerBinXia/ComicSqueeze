@@ -32,7 +32,7 @@ public class SearchController {
         }
         else if(session.getAttribute("searchMemberResults") != null){
             Member mem = (Member) session.getAttribute("searchMemberResults");
-            model.addAttribute("theResult", mem);
+            model.addAttribute("memResult", mem);
             session.setAttribute("searchMemberResults", null);
             System.out.println("yoyoyoy " + mem.getUsername());
         }

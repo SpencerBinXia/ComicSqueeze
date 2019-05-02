@@ -88,15 +88,23 @@
             <br><br>
 
             <div id="seriesResultsList" class="seriesResultsList" style="display: none">
-                <!--<th:block th:each="series: ${Series}">-->
-                <a href="#" class="no-link"><h4 class="series-title-link">Series Title - Username</h4></a>
-                <!--</th:block>-->
+                <div th:if="${theResult != null}">
+                    <th:block th:each="series: ${theResult}">
+                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
+                            <h4 class="series-title-link" th:text="${series.getTitle()} + ' - ' + ${series.getUsername()}"></h4>
+                        </a>
+                    </th:block>
+                </div>
             </div>
             <div id="usersResultsList" style="display: none">
                 <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
-                    <a href="#"><img class="top-artist" src="images/icons/default_pro_icon.png"></a>
-                    <p style="font-weight: bold; margin-bottom: 0px;">Username</p>
-                    <p style="margin: 0px"># Followers</p>
+                    <div th:if="${memResult != null}">
+                        <a th:href="${memResult.getImgUrl()}">
+                            <img class="top-artist" th:src="${memResult.getImgUrl()}">
+                        </a>
+                        <p th:text="${memResult.getUsername()}" style="font-weight: bold; margin-bottom: 0px;"></p>
+                        <p style="margin: 0px"># Followers</p>
+                    </div>
                 </div>
             </div>
 
