@@ -12,7 +12,7 @@ public class Member {
     private Issue currentIssue;
     private Page currentPage;
     private ArrayList<Series> seriesArrayList;
-    private boolean voted;
+    private boolean createdWeekly;
 
 
     public String getUsername() {return username;}
@@ -68,11 +68,12 @@ public class Member {
     }
 
 
-    public boolean isVoted() {
-        return voted;
+
+    public boolean isCreatedWeekly() {
+        return createdWeekly;
     }
 
-    public void setVoted(boolean voted) {
-        this.voted = voted;
+    public void setCreatedWeekly(boolean createdWeekly) {
+        this.createdWeekly = createdWeekly;
     }
 }

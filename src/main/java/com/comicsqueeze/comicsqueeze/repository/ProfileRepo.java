@@ -31,6 +31,7 @@ public class ProfileRepo {
                     tempuser.setAdminStatus(rs.getBoolean("admin"));
                     tempuser.setEmail(rs.getString("email"));
                     tempuser.setImgUrl(rs.getString("imgurl"));
+                    tempuser.setCreatedWeekly(rs.getBoolean("createdweekly"));
                     return tempuser;
                 }
             });

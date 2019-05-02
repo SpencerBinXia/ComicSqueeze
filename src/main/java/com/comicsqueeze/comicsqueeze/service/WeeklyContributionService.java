@@ -25,4 +25,8 @@ public class WeeklyContributionService {
     public void castVote(String issue, String contributor, int pageNum){
         weeklyContributionRepo.castVote(issue,contributor,pageNum);
     }
+    public void setMemberCreatedWeekly(String username){
+        weeklyContributionRepo.setMemberCreatedWeekly(username);
+    }
+
 }

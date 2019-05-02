@@ -129,13 +129,15 @@ public class CreatePageController {
         weeklyContributionService.updatePageCount(issueTitle, pageNumber+1);
         //add this user to this weekly issue
         weeklyContributionService.addContributor(issueTitle,username);
-        Member curMember = service.findMember((String)session.getAttribute("username"));
+        Member curMember = (Member) session.getAttribute("curMember");
         // set the currentSeries of the user to null incase he decides to create a page on weekly comic
         if(curMember!=null) {
             curMember.setCurrentSeries(null);
         }
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",username);
+        weeklyContributionService.setMemberCreatedWeekly(username);
+        curMember.setCreatedWeekly(true);
 
         return "FrontPage";
     }
