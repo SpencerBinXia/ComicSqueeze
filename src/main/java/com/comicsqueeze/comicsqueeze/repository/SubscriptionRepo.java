@@ -22,8 +22,15 @@ public class SubscriptionRepo {
     JdbcTemplate jdbc;
 
     public void insertSubscription(String subscriber, String seriesTitle, String seriesCreator){
-        jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator)"
-                        + "VALUES(?,?,?)",subscriber,seriesTitle,seriesCreator);
+        try
+        {
+            jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator)"
+                    + "VALUES(?,?,?)", subscriber, seriesTitle, seriesCreator);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     public void deleteSubscription(String subscriber, String seriesTitle, String seriesCreator)
@@ -54,5 +61,38 @@ public class SubscriptionRepo {
             return null;
         }
         return tempSubscript;
+    }
+
+    public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
+    {
+        String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriestitle='" + seriesTitle + "' AND seriescreator='" + seriesCreator +
+                "';";
+        System.out.println(sumSeriesSubQuery);
+
+        try
+        {
+            int sum = jdbc.queryForObject(sumSeriesSubQuery, Integer.class);
+            System.out.println(sum);
+            return sum;
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    public ArrayList<Subscription> queryAllSubscriptions(String subscriber)
+    {
+        String findSubscriptionQuery = "SELECT * FROM \"Subscription\" WHERE subscriber='" + subscriber + "';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findSubscriptionQuery);
+        ArrayList<Subscription> subList = new ArrayList<>();
+        for (Map rs : rows) {
+            Subscription tempSub = new Subscription();
+            tempSub.setSubscriber((String)rs.get("subscriber"));
+            tempSub.setSeriesTitle((String)rs.get("seriestitle"));
+            tempSub.setSeriesCreator((String)rs.get("seriescreator"));
+            subList.add(tempSub);
+        }
+        return subList;
     }
 }

@@ -37,3 +37,48 @@ function unsubscribe()
         }
     });
 }
+
+function subscribeAll()
+{
+
+    var displayName = $('#displayInfo h2').text();
+
+    $.ajax({
+        type : "POST",
+        url : "/subscribeAll",
+        data : {
+            displayName: displayName//notice that "myArray" matches the value for @RequestParam
+            //on the Java side
+        },
+        success : function(response) {
+            location.reload();
+            alert("Subscribed to all series.");
+        },
+        error : function(e) {
+            alert('Error: ' + e);
+        }
+    });
+
+}
+
+function unsubscribeAll()
+{
+
+    var displayName = $('#displayInfo h2').text();
+
+    $.ajax({
+        type : "POST",
+        url : "/unsubscribeAll",
+        data : {
+            displayName: displayName//notice that "myArray" matches the value for @RequestParam
+            //on the Java side
+        },
+        success : function(response) {
+            location.reload();
+            alert("Successfully unsubscribed to all series.");
+        },
+        error : function(e) {
+            alert('Error: ' + e);
+        }
+    });
+}
