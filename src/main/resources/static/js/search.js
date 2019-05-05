@@ -60,6 +60,49 @@ $(document).ready(function(){
     });
 });
 
+function applyFilter(){
+    //console.log("Hello")
+    var sortFilter = document.getElementById('sortBy');
+    var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
+
+    var seriesResultList = document.getElementById("seriesResultsList");
+    var memberResult = document.getElementById("usersResultsList");
+    console.log(seriesResultList);
+    console.log(memberResult);
+    var resultQuery = document.getElementById("giveMeQuery").valueOf();
+    console.log(resultQuery)
+
+    var filterBy = "";
+    if(filterVal == "Recent"){
+        filterBy = "sortByRecent";
+    }
+    else if(filterVal == "Popular"){
+        filterBy = "sortByPopular";
+    }
+    else if(filterVal == "Rating-HIGH"){
+        filterBy = "sortByDescendingRating";
+    }
+    else if(filterVal == "Rating-LOW"){
+        filterBy = "sortByAscendingRating";
+    }
+
+    $.ajax({
+        type : "GET",
+        url : filterBy,
+        cache : false,
+        data : {
+            theSearchResults : resultQuery,
+            theFilter : filterVal
+        },
+        success: function(result){
+
+        },
+        error: function(e){
+
+        }
+    });
+
+}
 
 /*
 function doSearch(){

@@ -20,9 +20,6 @@ public class SearchRepo {
     JdbcTemplate jdbc;
     RateReviewRepo rateReviewRepo;
 
-
-
-
     public ArrayList<Series> searchAllSeriesByTitle(String searchString) {
         System.out.println("Matching series titles with " + searchString);
         String findSeries = "SELECT * FROM \"Series\" WHERE seriestitle ='" + searchString + "';";
@@ -37,11 +34,7 @@ public class SearchRepo {
         //where '8' = ANY (string_to_array(some_column,','))
         return findMatchedSeries(findTagsFromSeries);
     }
-    public ArrayList<Series> sortByHighLow(ArrayList<Member> members, Series series){
-        String findSortHighLow = "SELECT * FROM \"ratereview\" ;";
-        ArrayList<Series> sortedSeries = new ArrayList<>();
-        return sortedSeries;
-    }
+
     public ArrayList<Series> sortByRecent(){
         String findSortByRecent = "SELECT timestamp,seriestitle,username FROM \"Series\" ORDER BY timestamp;";
         ArrayList<Series> sortedSeries = new ArrayList<>();
@@ -81,8 +74,6 @@ public class SearchRepo {
         System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
         return tempMember;
     }
-
-
 
     public ArrayList<Series> findMatchedSeries(String findSeries){
         List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
@@ -156,5 +147,13 @@ public class SearchRepo {
         }
         return allMembers;
     }
+/*
+    public ArrayList<Series> sortByHighLow(ArrayList<Member> members){
+        String findSortHighLow = "SELECT * FROM \"ratereview\" ;";
+        ArrayList<Series> sortedSeries = new ArrayList<>();
 
+
+        return sortedSeries;
+    }
+*/
 }

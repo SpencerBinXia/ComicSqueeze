@@ -21,7 +21,7 @@ public class SearchQueryController {
     private SearchService searchService;
 
     @RequestMapping(value = "/SearchSeriesTitle", method = RequestMethod.GET)
-    public ArrayList<Series> querySeriesTitle(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
+    public ArrayList<Series> querySeriesTitle(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
         ArrayList<Series> series = searchService.queryAllSeriesByTitle(searchString);
         if(series != null){
             session.setAttribute("searchResults", series);
@@ -34,7 +34,7 @@ public class SearchQueryController {
     }
 
     @RequestMapping(value = "/SearchTags", method = RequestMethod.GET)
-    public ArrayList<Series> queryTags(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
+    public ArrayList<Series> queryTags(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
         ArrayList<Series> series = searchService.searchForMatchingTags(searchString);
         if(series != null){
             session.setAttribute("searchResults", series);
@@ -59,6 +59,11 @@ public class SearchQueryController {
         return null;
     }
 /*
+    @RequestMapping(value = "/sortByDescendingRating")
+    public void filterRatingHigh(Model model, @RequestParam(value = "theResults") String theResults, HttpSession session){
+        searchService.applyRatingHigh();
+    }
+
     @RequestMapping(value = "/Search", method = RequestMethod.GET)
     public String searchQuery(Model model, @RequestParam(value = "searchString") String searchString, @RequestParam(value = "filter") String filter, HttpSession session){
         Member member = (Member) session.getAttribute("curMember");

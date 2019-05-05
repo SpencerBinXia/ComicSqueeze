@@ -73,7 +73,7 @@
             </div>
 
             <br><br>
-
+            <input type = "hidden" id="giveMeQuery" th:value="${theResult}"/>
             <h1>Results</h1>
             <form>
                 <p>Sort by:</p>
@@ -83,7 +83,7 @@
                     <option value="rating-HIGH">Rating-HIGH</option>
                     <option value="rating-LOW">Rating-LOW</option>
                 </select>
-                <button class="lime-button-left">APPLY</button>
+                <button class="lime-button-left" onclick = applyFilter(); >APPLY</button>
             </form>
             <br><br>
 
