@@ -21,13 +21,13 @@ public class SeriesRepo {
     JdbcTemplate jdbc;
 
     public Series findBySeriesName(String username, String seriestitle){
-        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + username + "' AND seriestitle='" + seriestitle + "';";
+        String findSeries = "SELECT * FROM \"Series\" WHERE username = ? AND seriestitle= ?;";
         System.out.println("findbyseries" + username);
         System.out.println("findbyseries" + seriestitle);
         Series tempSeries = new Series();
         try
         {
-            jdbc.queryForObject(findSeries, new RowMapper<Series>() {
+            jdbc.queryForObject(findSeries, new Object[] {username, seriestitle}, new RowMapper<Series>() {
                 public Series mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempSeries.setTitle(rs.getString("seriestitle"));
                     tempSeries.setDescription(rs.getString("description"));
@@ -83,13 +83,12 @@ public class SeriesRepo {
 
     public void deleteSeries(String series, String username)
     {
-        String deleteSeries = "DELETE FROM \"Series\" WHERE seriestitle='" + series + "' AND username='" + username + "';";
-        jdbc.update(deleteSeries);
+        String deleteSeries = "DELETE FROM \"Series\" WHERE seriestitle= ? AND username= ?;";
+        jdbc.update(deleteSeries, series, username);
     }
 
     public void updateSeries(String series, String username, String description, String tags){
-        String updatedSeries = "UPDATE \"Series\" SET description='" + description + "', tags='" + tags +
-                "' WHERE username='" + username + "' AND seriestitle='" + series + "';";
-        jdbc.update(updatedSeries);
+        String updatedSeries = "UPDATE \"Series\" SET description= ?, tags= ? WHERE username= ? AND seriestitle= ?;";
+        jdbc.update(updatedSeries, description, tags, username, series);
     }
 }
