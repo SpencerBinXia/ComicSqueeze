@@ -37,9 +37,7 @@ public class IndexController {
         Member curMember = service.findMember((String)session.getAttribute("username"));
         // set the currentSeries of the user to null incase he decides to create a page on weekly comic
         Member member = (Member) session.getAttribute("curMember");
-        if(member!=null) {
-            member.setCurrentSeries(null);
-        }
+
         String thisWeekIssue = issueService.queryForWeeklyIssue();
         WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
         session.setAttribute("weeklyComic",thisWeeklyComic);
@@ -50,6 +48,13 @@ public class IndexController {
         ArrayList<Page> weeklyContributions;
         // HERE I QUERY FOR ALL THE CONTRIBUTIONS MADE FOR THIS WEEk FOR THIS DAY AND ADD IT TO THE MODEL
         weeklyContributions = weeklyContributionService.queryAllContributions(thisWeekIssue,dayOfWeek);
+        // checks if a member already created a page for this issue today
+        if(member!=null) {
+            member.setCurrentSeries(null);
+            if(weeklyContributionService.checkIfCreatedPage(member.getUsername(),thisWeekIssue,dayOfWeek)){
+                member.setCreatedWeekly(true);
+            }
+        }
         model.addAttribute("weeklyContributions",weeklyContributions);
         return "FrontPage";
     }

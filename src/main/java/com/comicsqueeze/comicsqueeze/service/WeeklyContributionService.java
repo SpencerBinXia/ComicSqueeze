@@ -29,4 +29,10 @@ public class WeeklyContributionService {
         weeklyContributionRepo.setMemberCreatedWeekly(username);
     }
 
+    public boolean checkIfCreatedPage(String username, String thisWeekIssue, int dayOfWeek) {
+        if(weeklyContributionRepo.checkIfCreatedPage(username,thisWeekIssue,dayOfWeek)!=null) {
+            return true;
+        }
+        return false;
+    }
 }

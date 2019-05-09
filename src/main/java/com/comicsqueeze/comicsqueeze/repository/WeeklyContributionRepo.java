@@ -1,6 +1,7 @@
 package com.comicsqueeze.comicsqueeze.repository;
 
 import com.comicsqueeze.comicsqueeze.object.Issue;
+import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -166,4 +167,18 @@ public class WeeklyContributionRepo {
     }
 
 
+    public String checkIfCreatedPage(String username, String thisWeekIssue, int dayOfWeek) {
+        String isCreated = "SELECT * FROM \"WeeklyPages\" WHERE username='"+username+"' AND dayofweek='"+dayOfWeek+"' AND issue='"+thisWeekIssue+"';";
+        Member member = new Member();
+        jdbc.queryForObject(isCreated, new RowMapper<Member>() {
+            public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+              member.setUsername(rs.getString("username"));
+               return member;
+            }
+        });
+        if (member.getUsername()!=null){
+            return "created";
+        }
+        return null;
+    }
 }
