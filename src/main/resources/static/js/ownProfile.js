@@ -61,6 +61,8 @@ function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
 
+    console.log(descVal);
+
     var errors = "";
     if(titleVal == "" || titleVal == null){
         errors += "title ";
@@ -133,12 +135,14 @@ $(document).ready(function(){
         // slidesPerRow: 4,
         verticalSwiping: false,
     });
-    $("#tagField").keydown(function(e){
-        var ingnore_key_codes = [188];
-        console.log(e.keyCode);
-        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+    $("#tagField").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Username may only contain alphanumeric characters.");
             e.preventDefault();
+            return false;
         }
     });
 });
