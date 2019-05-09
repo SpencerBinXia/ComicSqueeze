@@ -24,12 +24,11 @@ public class IssueRepo {
 
     public Issue findByIssueTitle(String username, String seriestitle, String issuetitle){
 
-        String findIssue = "SELECT * FROM \"Issue\" WHERE username='" + username + "' AND title='" + issuetitle + "' AND series='" +
-                seriestitle + "';";
+        String findIssue = "SELECT * FROM \"Issue\" WHERE username= ? AND title = ? AND series = ?;";
         Issue tempIssue = new Issue();
         try
         {
-            jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
+            jdbc.queryForObject(findIssue, new Object[] {username, issuetitle, seriestitle}, new RowMapper<Issue>() {
                 public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
                     System.out.println("issue result");
                     tempIssue.setTitle(rs.getString("title"));
@@ -55,10 +54,8 @@ public class IssueRepo {
     }
 
     public ArrayList<Issue> queryAllIssuesFromASeries(Member member, Series series) {
-        System.out.println(member.getUsername());
-        System.out.println(series.getTitle());
-        String findIssue = "SELECT * FROM \"Issue\" WHERE username ='" + member.getUsername() + "'AND series='" + series.getTitle() + "';";
-        List<Map<String, Object>> rows = jdbc.queryForList(findIssue);
+        String findIssue = "SELECT * FROM \"Issue\" WHERE username = ? and series = ?;";
+        List<Map<String, Object>> rows = jdbc.queryForList(findIssue, member.getUsername(), series.getTitle());
         ArrayList<Issue> issues = new ArrayList<>();
         for (Map rs : rows) {
             Issue tempIssue = new Issue();
@@ -75,19 +72,19 @@ public class IssueRepo {
 
     public void deleteIssue(String issueTitle, String series, String username)
     {
-            String deleteIssue = "DELETE FROM \"Issue\" WHERE title='" + issueTitle + "' AND series='" + series + "' AND username='" + username + "';";
-            jdbc.update(deleteIssue);
+            String deleteIssue = "DELETE FROM \"Issue\" WHERE title= ? AND series = ? AND username = ?;";
+            jdbc.update(deleteIssue, issueTitle, series, username);
     }
 
     public void deleteIssues(String series, String username)
     {
-        String deleteIssue = "DELETE FROM \"Issue\" WHERE series='" + series + "' AND username='" + username + "';";
-        jdbc.update(deleteIssue);
+        String deleteIssue = "DELETE FROM \"Issue\" WHERE series= ? AND username = ?;";
+        jdbc.update(deleteIssue, series, username);
     }
 
     public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
-        String updateIssue= "UPDATE \"Issue\" SET PAGECOUNT= '"+ pageCount+"' WHERE title='" + issueTitle + "' AND username='" + username + "';";
-        jdbc.update(updateIssue);
+        String updateIssue= "UPDATE \"Issue\" SET PAGECOUNT= ? WHERE title= ? AND username= ?;";
+        jdbc.update(updateIssue, pageCount, issueTitle, username);
     }
 
     public String queryforWeeklyIssue() {
@@ -110,12 +107,12 @@ public class IssueRepo {
         return tempIssue.getTitle();
     }
     public WeeklyComic queryforWeeklyIssue(String issuetitle) {
-        String findComic = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= '" + issuetitle +"';";
+        String findComic = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= ?;";
                 WeeklyComic weeklyComic = new WeeklyComic();
         try
         {
 
-            jdbc.queryForObject(findComic, new RowMapper<WeeklyComic>() {
+            jdbc.queryForObject(findComic, new Object[] {issuetitle}, new RowMapper<WeeklyComic>() {
                 public WeeklyComic mapRow(ResultSet rs, int rowNum) throws SQLException {
                     weeklyComic.setIssueTitle(rs.getString("issueTitle"));
                     weeklyComic.setPages(rs.getString("pages"));

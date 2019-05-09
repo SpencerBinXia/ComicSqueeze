@@ -22,13 +22,11 @@ public class PageRepo {
     JdbcTemplate jdbc;
 
     public Page findByPageNumber(String username, int pageNumber, String seriesTitle, String issueTitle){
-        String findPage = "SELECT * FROM \"Series\" WHERE username ='" + username + "' AND seriestitle='" + seriesTitle
-                + "' AND issueTitle='" + issueTitle + "' AND pageNumber='" + pageNumber + "';";
-
+        String findPage = "SELECT * FROM \"Series\" WHERE username = ? AND seriestitle= ? AND issueTitle= ? AND pageNumber= ?;";
         Page tempPage = new Page();
         try
         {
-            jdbc.queryForObject(findPage, new RowMapper<Page>() {
+            jdbc.queryForObject(findPage, new Object[] {username, seriesTitle, issueTitle, pageNumber}, new RowMapper<Page>() {
                 public Page mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempPage.setUsername(rs.getString("username"));
                     tempPage.setPublished(rs.getBoolean("published"));
@@ -62,20 +60,19 @@ public class PageRepo {
     }
 
     public void deletePage(Page newPage){
-        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + newPage.getIssue() + "' AND series='" + newPage.getSeries() + "' AND username='"
-                         + newPage.getUsername() + "' AND pagenumber='" + newPage.getPagenumber() + "';");
+        jdbc.update("DELETE FROM \"Page\" WHERE issue= ? AND series= ? AND username= ? AND pagenumber= ?;", newPage.getIssue(), newPage.getSeries(), newPage.getUsername(), newPage.getPagenumber());
     }
 
     public void deletePages(String issue, String series, String username){
-        jdbc.update("DELETE FROM \"Page\" WHERE issue='" + issue + "' AND series='" + series + "' AND username='" + username + "';");
+        jdbc.update("DELETE FROM \"Page\" WHERE issue= ? AND series= ? AND username= ?;", issue, series, username);
     }
 
     public void deleteSeriesPages(String series, String username){
-        jdbc.update("DELETE FROM \"Page\" WHERE series='" + series + "' AND username='" + username + "';");
+        jdbc.update("DELETE FROM \"Page\" WHERE series= ? AND username= ?;", series, username);
     }
 
     public void setImgUrl(Page page, String username, String url){
-        jdbc.update("UPDATE \"Page\" SET imgurl = '" + url+"' WHERE username = '" + username + "' AND pagenumber ='" + page.getPagenumber() + "';");
+        jdbc.update("UPDATE \"Page\" SET imgurl = ? WHERE username = ? AND pagenumber = ?;", url, username, page.getPagenumber());
         System.out.println("Updated User's img in DB");
 
     }
@@ -85,15 +82,13 @@ public class PageRepo {
         for (int i = 0;i <issuePages.size();i++)
         {
             System.out.println("update repo" + issuePages.get(i).isPublished() + issuePages.get(i).getPagenumber());
-            String updatePage = "UPDATE \"Page\" SET published='" + issuePages.get(i).isPublished() + "' WHERE username ='" + issuePages.get(i).getUsername() + "' AND series='" + issuePages.get(i).getSeries()
-                        + "' AND issue='" + issuePages.get(i).getIssue() + "' AND pagenumber='" + issuePages.get(i).getPagenumber() + "';";
-            jdbc.update(updatePage);
+            String updatePage = "UPDATE \"Page\" SET published= ? WHERE username = ? AND series= ? AND issue= ? AND pagenumber= ?;";
+            jdbc.update(updatePage, issuePages.get(i).isPublished(), issuePages.get(i).getUsername(), issuePages.get(i).getSeries(), issuePages.get(i).getIssue(), issuePages.get(i).getPagenumber());
         }
     }
     public ArrayList<Page> queryAllPages(Member member, String seriesTitle, String issueTitle) {
-        String findPage = "SELECT * FROM \"Page\" WHERE username ='" + member.getUsername() + "' AND series='" + seriesTitle
-                + "' AND issue='" + issueTitle +"';";
-        List<Map<String, Object>> rows = jdbc.queryForList(findPage);
+        String findPage = "SELECT * FROM \"Page\" WHERE username = ? AND series= ? AND issue= ?;";
+        List<Map<String, Object>> rows = jdbc.queryForList(findPage, member.getUsername(), seriesTitle, issueTitle);
         ArrayList<Page> pages = new ArrayList<>();
         int i = 1;
         int p = 1;
