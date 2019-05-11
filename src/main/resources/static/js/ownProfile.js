@@ -108,7 +108,10 @@ function createSeries(){
     });
 }
 
-function followingClicked () {
+// FOLLOWING MODAL REWORK
+function followingClicked() {
+    var modal = document.getElementById('subscriptions');
+    modal.style.display = "block";
     // here so slick calculates heights at the right time
     $(".subscriptions_slick").slick({
         dots: true,
@@ -121,6 +124,16 @@ function followingClicked () {
         slidesPerRow: 5,
         verticalSwiping: false,
     });
+}
+function closeFollowing() {
+    var modal = document.getElementById('subscriptions');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('subscriptions');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 $(document).ready(function(){
