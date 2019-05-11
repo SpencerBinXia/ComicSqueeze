@@ -99,7 +99,7 @@
                         <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'by ' + ${profileID}"></h4></a>
                         <br>
                         <h2>Description</h2>
-                        <p th:text="${issue.getDescription()}" style="font-size: 20px"></p>
+                        <p th:text="${issue.getDescription()}" style="font-size: 20px; white-space: pre-wrap"></p>
                     </div>
                 </div>
             </div>
@@ -107,8 +107,8 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <label class="lime-button-file">
-                    <input id ="uploadPage" type="file" th:if="${session.username == profileID}" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
+                <label class="lime-button-file" th:if="${session.username == profileID}">
+                    <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
                 </label>
                 <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
@@ -119,15 +119,15 @@
 
             <div class="horizontal_slick left-align-slick">
                 <th:block th:each="page: ${pages}">
-                    <div class="slickElemIssues">
-                        <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" class="flexContainer flexColumn" style="align-items: center">
+                    <div th:if="${session.username == profileID or (session.username != profileID and page.isPublished())}" >
+                        <div class="slickElemIssues flexContainer flexColumn" style="align-items: center">
                             <script>
                                 userPageNumber[i] = "[[${page.getPagenumber()}]]";
                                 userPageArrayNumber[i] = "[[${page.getPageArrayNumber()}]]";
                                 userPagePublished[i] = "[[${page.isPublished()}]]";
                             </script>
-                            <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"><img th:if="${session.username == profileID}" th:src="${page.getImgurl()}" class="issue"></a>
-                            <a th:href="${page.getImgurl()}" data-lightbox="test1" class="issue-page"><img th:if="${session.username != profileID and page.isPublished()}" th:src="${page.getImgurl()}" class="issue"></a>
+                            <a th:href="${page.getImgurl()}" th:if="${session.username == profileID}" data-lightbox="test" class="issue-page"><img th:src="${page.getImgurl()}"></a>
+                            <a th:href="${page.getImgurl()}" th:if="${session.username != profileID and page.isPublished()}" data-lightbox="test1" class="issue-page"><img th:src="${page.getImgurl()}"></a>
                             <div class="flexContainer flexRow" style="margin: auto">
                                 <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                                 <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>

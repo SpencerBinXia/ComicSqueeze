@@ -108,6 +108,21 @@ function createSeries(){
     });
 }
 
+function followingClicked () {
+    // here so slick calculates heights at the right time
+    $(".subscriptions_slick").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        // slidesToShow: 4,
+        // slidesToScroll: 4,
+        rows: 2,
+        slidesPerRow: 5,
+        verticalSwiping: false,
+    });
+}
+
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
         loop: false,

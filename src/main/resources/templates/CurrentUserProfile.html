@@ -106,10 +106,10 @@
                 <div class="flexContainer flexColumn" style="justify-content: center">
                     <img th:src="${curMember.getImgUrl()}" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
-                    <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word;" th:text="${curMember.getBio()}"></p>
+                    <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word; white-space: pre-wrap" th:text="${curMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
                     <a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">
-                        <button class="lime-button-solo">FOLLOWING</button>
+                        <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
                     </a><br>
                     <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
                         <button class="lime-button-solo">CREATE SERIES</button>
@@ -145,11 +145,20 @@
         <div id="subscriptions-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Followed Series</h2>
-                <div class="followingList">
+                <!--<div class="followingList">-->
+                <div class="subscriptions_slick">
                     <th:block th:each="subscription: ${subscriptions}">
-                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link">
-                            <h4 class="series-title-link" th:text="${subscription.getSeriesTitle()} + ' - ' + ${subscription.getSeriesCreator()}"></h4>
-                        </a>
+                        <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
+                            <a style="width: fit-content">
+                                <img src="https://via.placeholder.com/180x280" class="issue" style="margin: auto;">
+                            </a>
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
+                                <h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
+                            </a>
+                            <a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">
+                                <h4 th:text="${subscription.getSeriesCreator()}" style="margin: 5px 0 5px 0;"></h4>
+                            </a>
+                        </div>
                     </th:block>
                 </div>
                 <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
