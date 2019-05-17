@@ -104,7 +104,7 @@ public class SearchRepo {
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
-            tempSeries.setTimestamp((LocalDateTime)(rs.get("timestamp")));
+            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
