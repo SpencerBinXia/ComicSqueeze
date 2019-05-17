@@ -1,15 +1,15 @@
 var tagList = []; // contains tags, exists until hitting "close" or "save" (save to be implemented through updateBio())
 
 function updateBio(){
-    val = document.getElementById("bioField").value;
-    console.log(val);
-    $('#bioID').text(val);
+    var bio = document.getElementById("bioField").value;
+    console.log(bio);
+    var newBio = bio.replace(/\n\r?/g, '%0D%0A');
     return $.ajax({
         type: "GET",
-        url: "/updateBio?bio=" + val,
+        url: "/updateBio?bio=" + newBio,
         cache: false,
         success: function (result) {
-            $('#bioID').text(val);
+            // $('#bioID').text(newBio);
             // reset create series modal
             resetSeriesForm();
             //reload page
@@ -154,6 +154,7 @@ window.onclick =function (event) {
 function editProfileClicked() {
     var modal = document.getElementById('edit-profile');
     modal.style.display = "block";
+    $("textarea#bioField").val(document.getElementById('bioID').innerText);
 }
 function closeEditProfile() {
     var modal = document.getElementById('edit-profile');
