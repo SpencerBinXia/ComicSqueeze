@@ -235,7 +235,6 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin: 0">Past Comics</h2><br><br>
                 <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
-
                         <th:block th:each="issue:${weeklyIssues}">
                             <div class="flexContainer flexColumn issue" style="align-items: center;">
                                 <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
@@ -248,8 +247,6 @@
                                 <p style="margin-top: 0px; margin-bottom: 30px;"th:text="${issue.getSeries()}">Series Name</p>
                             </div>
                         </th:block>
-                    
-
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
