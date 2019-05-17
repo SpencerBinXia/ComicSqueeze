@@ -69,7 +69,10 @@ public class WeeklyContributionRepo {
         try {
             contributorsList = getContibutors(issueTitle);
         } catch (Exception e) {
-            e.printStackTrace();
+           return null;
+        }
+        if (contributorsList==null){
+            return  null;
         }
         //map for each contributor to the pages they created
       HashMap<String, LinkedList<Integer>> contributorToPages = new HashMap<>();
@@ -138,13 +141,18 @@ public class WeeklyContributionRepo {
     public String getContibutors(String issueTitle) throws Exception {
         String getUsers = "SELECT users FROM \"WeeklyComic\" WHERE issuetitle='"+issueTitle+"';";
         Issue issue = new Issue();
-        jdbc.queryForObject(getUsers, new RowMapper<Issue>() {
-            public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
+        try {
+            jdbc.queryForObject(getUsers, new RowMapper<Issue>() {
+                public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-                issue.setTitle(rs.getString("users"));
-                return issue;
-            }
-        });
+                    issue.setTitle(rs.getString("users"));
+                    return issue;
+                }
+            });
+        }
+        catch (Exception e){
+            return null;
+        }
         return issue.getTitle();
 
 
@@ -203,6 +211,7 @@ public class WeeklyContributionRepo {
                 tempPage.setSeries("WeeklyComic");
                 tempPage.setIssue((String) rs.get("issue"));
                 tempPage.setPagenumber((int) rs.get("pagenumber"));
+                tempPage.setDayOfWeekCreated((int) rs.get("dayofweek"));
                 tempPage.setPageArrayNumber(i);
                 pages.add(tempPage);
                 i++;
@@ -229,8 +238,8 @@ public class WeeklyContributionRepo {
     }
 
     public void addMaxVotesToSeries(Page maxVotes) {
-       // String updatePageVotes = "UPDATE \"WeeklyPages\" SET PUBLISHED= 'true' WHERE issue='"+maxVotes.getIssue()+"' AND username='"+maxVotes.getUsername()+"';";
-        // jdbc.update(updatePageVotes);
+       String updatePagePublished = "UPDATE \"WeeklyPages\" SET PUBLISHED= 'true' WHERE issue='"+maxVotes.getIssue()+"' AND username='"+maxVotes.getUsername()+"' AND dayofweek='"+maxVotes.getDayOfWeekCreated()+"';";
+        jdbc.update(updatePagePublished);
 
     }
 }
