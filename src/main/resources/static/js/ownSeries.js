@@ -1,5 +1,21 @@
 var newTagList = [];
 
+// WRITE REVIEW MODAL REWORK
+function writeReviewClicked() {
+    var modal = document.getElementById('write-review');
+    modal.style.display = "block";
+}
+function closeWriteReview() {
+    var modal = document.getElementById('write-review');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('write-review');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 function createIssue(){
     var issueTitleVal = $('#issueField').val();
     var issueDescVal = $('#issueDescField').val();

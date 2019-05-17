@@ -113,7 +113,7 @@
                 <a th:if="${session.username == profileID}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <label class="lime-button-file" th:if="${session.username == profileID}">
+                <label class="lime-button-file" th:if="${session.username == profileID}" style="cursor: pointer;">
                     <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
                 </label>
@@ -154,42 +154,42 @@
                     </div>
                 </th:block>
             </div>
-            <br><br>
+            <!--<br><br>-->
 
-            <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
-                <h1 style="margin-right: 20px; margin-bottom: 5px">Comments</h1>
-                <a th:if="${session.username != null}"href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-            </div>
-            <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
-                <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>
-                <p class="upvote-text">3</p>
-                <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
-                <p class="no-downvote-text">0</p>
-            </div>
-            <p style="margin-top: -5px; font-size: 20px">Lorem ipsum dolor sit amet.</p>
-            <div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">
-                <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>
-                <p class="upvote-text">1</p>
-                <a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>
-                <p class="no-downvote-text">0</p>
-            </div>
-            <p style="margin-top: -5px; margin-left: 60px; font-size: 20px">Ut enim ad minim</p>
-            <div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">
-                <a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>
-                <a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>
-                <a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>
-                <a href="#" class="comment-header-item"><img src="images/icons/upvote_NONE_icon.png" th:src="@{/images/icons/upvote_NONE_icon.png}"></a>
-                <p class="upvote-text">0</p>
-                <a href="#" class="comment-header-item"><img src="images/icons/downvote_icon.png" th:src="@{/images/icons/downvote_icon.png}"></a>
-                <p class="no-downvote-text">1</p>
-            </div>
-            <p style="margin-top: -5px; font-size: 20px">Cool.</p>
+            <!--<div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">-->
+                <!--<h1 style="margin-right: 20px; margin-bottom: 5px">Comments</h1>-->
+                <!--<a th:if="${session.username != null}"href="#write-comment-modal-container" data-reveal-id="write-comment-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>-->
+            <!--</div>-->
+            <!--<div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">-->
+                <!--<a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>-->
+                <!--<a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>-->
+                <!--<a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>-->
+                <!--<p class="upvote-text">3</p>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>-->
+                <!--<p class="no-downvote-text">0</p>-->
+            <!--</div>-->
+            <!--<p style="margin-top: -5px; font-size: 20px">Lorem ipsum dolor sit amet.</p>-->
+            <!--<div class="flexContainer flexRow" style="align-items: center; margin-top: 0; margin-left: 60px">-->
+                <!--<a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>-->
+                <!--<a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>-->
+                <!--<a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/upvote_icon.png" th:src="@{/images/icons/upvote_icon.png}"></a>-->
+                <!--<p class="upvote-text">1</p>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/downvote_NONE_icon.png" th:src="@{/images/icons/downvote_NONE_icon.png}"></a>-->
+                <!--<p class="no-downvote-text">0</p>-->
+            <!--</div>-->
+            <!--<p style="margin-top: -5px; margin-left: 60px; font-size: 20px">Ut enim ad minim</p>-->
+            <!--<div class="flexContainer flexRow" style="align-items: center; margin-top: 0;">-->
+                <!--<a th:href="@{'/viewprofile/' + 'exampleUser'}" style="text-decoration: none"><h3 class="subtext" style="margin-top: 5px; margin-bottom: 5px; padding-right: 15px">Username</h3></a>-->
+                <!--<a th:if="${session.username != null}" href="#write-reply-modal-container" data-reveal-id="write-comment-modal" class="comment-header-item"><img src="images/icons/reply_icon.png" th:src="@{/images/icons/reply_icon.png}"></a>-->
+                <!--<a th:if="${session.username != null}" href="#" class="comment-header-item"><img src="images/icons/flag_icon.png" th:src="@{/images/icons/flag_icon.png}"></a>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/upvote_NONE_icon.png" th:src="@{/images/icons/upvote_NONE_icon.png}"></a>-->
+                <!--<p class="upvote-text">0</p>-->
+                <!--<a href="#" class="comment-header-item"><img src="images/icons/downvote_icon.png" th:src="@{/images/icons/downvote_icon.png}"></a>-->
+                <!--<p class="no-downvote-text">1</p>-->
+            <!--</div>-->
+            <!--<p style="margin-top: -5px; font-size: 20px">Cool.</p>-->
 
             <br><br><br>
 
@@ -217,42 +217,42 @@
     </div>
 
     <!--Write Comment Popup-->
-    <div id="write-comment-modal-container">
-        <div id="write-comment-modal" class="reveal-modal">
-            <div class="flexContainer flexColumn">
-                <form>
-                    Write Comment: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
-                </form>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SUBMIT</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div id="write-comment-modal-container">-->
+        <!--<div id="write-comment-modal" class="reveal-modal">-->
+            <!--<div class="flexContainer flexColumn">-->
+                <!--<form>-->
+                    <!--Write Comment: <textarea class="input-large" type="text" name="Description"></textarea><br><br>-->
+                <!--</form>-->
+                <!--<div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">-->
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                        <!--<button class="lime-button-left">SUBMIT</button>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <!--<button class="grey-button-left">CLOSE</button>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <!--Write Reply Popup-->
-    <div id="write-reply-modal-container">
-        <div id="write-reply-modal" class="reveal-modal">
-            <div class="flexContainer flexColumn">
-                <form>
-                    Write Reply: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
-                </form>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left">SUBMIT</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div id="write-reply-modal-container">-->
+        <!--<div id="write-reply-modal" class="reveal-modal">-->
+            <!--<div class="flexContainer flexColumn">-->
+                <!--<form>-->
+                    <!--Write Reply: <textarea class="input-large" type="text" name="Description"></textarea><br><br>-->
+                <!--</form>-->
+                <!--<div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">-->
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                        <!--<button class="lime-button-left">SUBMIT</button>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <!--<button class="grey-button-left">CLOSE</button>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <!--Sign In Popup-->
     <div id="sign-In" class="modal-login">

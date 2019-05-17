@@ -123,7 +123,9 @@
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; ">Reviews</h1>
-                <a th:if="${session.username != profileID and session.username != null}" href="#write-review-modal-container" data-reveal-id="write-review-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                <a th:if="${session.username != profileID and session.username != null}" onclick="writeReviewClicked()" class="page-option" style="cursor: pointer">
+                    <img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}">
+                </a>
             </div>
             <!--
             <p>Username</p>
@@ -159,8 +161,8 @@
     </div>
 
     <!--Write Review Popup-->
-    <div id="write-review-modal-container">
-        <div id="write-review-modal" class="reveal-modal">
+    <div id="write-review" class="modal-login">
+        <div id="write-review-modal" class="modal-login-inner">
             <div class="flexContainer flexColumn">
                 <form>
                     Write Review: <textarea class="input-large" id="reviewField" type="text" name="Description"></textarea><br><br>
@@ -172,9 +174,9 @@
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick="rateReview()">SUBMIT</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeWriteReview()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
