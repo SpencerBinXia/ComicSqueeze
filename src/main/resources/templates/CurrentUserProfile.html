@@ -144,13 +144,17 @@
     <div id="subscriptions" class="modal">
         <div id="subscriptions-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
-                <h2 style="margin-top: 0">Followed Series</h2>
-                <!--<div class="followingList">-->
+                <div class="flexContainer flexRow" style="justify-content: space-between;">
+                    <h2 style="margin: 0">Followed Series</h2>
+                    <a class="button-as-link" style="width: fit-content; margin: 0; float: right;">
+                        <button class="grey-button-left" onclick="closeFollowing()" style="margin: 0">CLOSE</button>
+                    </a>
+                </div>
                 <div class="subscriptions_slick">
                     <th:block th:each="subscription: ${subscriptions}">
                         <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
                             <a style="width: fit-content">
-                                <img src="https://via.placeholder.com/180x280" class="issue" style="margin: auto;">
+                                <img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">
                             </a>
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
                                 <h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
@@ -161,9 +165,6 @@
                         </div>
                     </th:block>
                 </div>
-                <a class="button-as-link" style="width: fit-content; margin: 0">
-                    <button class="grey-button-left" onclick="closeFollowing()">CLOSE</button>
-                </a>
             </div>
         </div>
     </div>
