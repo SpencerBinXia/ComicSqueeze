@@ -11,8 +11,9 @@ img {
 }
 
 .review {
-    background: #fffcf3;
+    background: #ececec;
     padding: 10px;
+    margin: 15px 0 15px 0;
 }
 
 .profile-info-container {

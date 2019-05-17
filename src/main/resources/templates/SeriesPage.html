@@ -141,9 +141,11 @@
                 -->
             <th:block th:each="review: ${reviewList}">
                 <div class="review">
-                    <h4 th:text="${review.getRater()}"></h4>
+                    <h4 th:text="${review.getRater()}" style="margin: 0 0 10px 0;"></h4>
                     <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-                    <p th:text="${review.getReview()}" style="white-space: pre-wrap"></p>
+                    <div style="max-height: 200px; overflow: auto; overflow-x: hidden;">
+                        <p th:text="${review.getReview()}" style="white-space: pre-wrap; margin: 10px 0 0 0;"></p>
+                    </div>
                 </div>
             </th:block>
 

@@ -78,6 +78,21 @@ public class SubscriptionRepo {
         }
     }
 
+    public int sumUserSubscriptions(String username)
+    {
+        String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriescreator= ?;";
+
+        try
+        {
+            int sum = jdbc.queryForObject(sumSeriesSubQuery, Integer.class, username);
+            return sum;
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
     public ArrayList<Subscription> queryAllSubscriptions(String subscriber)
     {
         String findSubscriptionQuery = "SELECT * FROM \"Subscription\" WHERE subscriber='" + subscriber + "';";

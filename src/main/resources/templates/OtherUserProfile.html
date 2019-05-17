@@ -97,7 +97,7 @@
                     <img src="images/icons/default_pro_icon.png" th:src="${viewMember.getImgUrl()}" class="profile_img">
                     <h2 id="displayName" th:text="${profileID}" th:value="${profileID}" style="text-align: center"></h2>
                     <p style="margin-top: -15px; overflow-wrap: break-word; white-space: pre-wrap" th:text="${viewMember.getBio()}"></p>
-                    <h3 style="text-align: center"># Followers</h3>
+                    <h3 th:text="'Subscribers: ' + ${subscriptionCount}" style="text-align: center"></h3>
                     <button th:if="${session.username}!=null" class="lime-button-solo" onclick="subscribeAll()">FOLLOW ALL</button><br>
                     <button th:if="${session.username}!=null" class="grey-button-solo" onclick="unsubscribeAll()">UNFOLLOW ALL</button>
                 </div>
