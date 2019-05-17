@@ -22,21 +22,25 @@ public class SearchRepo {
 
     public ArrayList<Series> searchAllSeriesByTitle(String searchString) {
         System.out.println("Matching series titles with " + searchString);
-        String findSeries = "SELECT * FROM \"Series\" WHERE seriestitle ='" + searchString + "';";
+        searchString = searchString.concat(":*");
+        //String findSeries = "SELECT * FROM \"Series\" WHERE seriestitle ='" + searchString + "';";
+        String findSeries = "SELECT * FROM \"Series\", to_tsquery('" + searchString + "') as q WHERE(tsv_series_title @@ q);";
         return findMatchedSeries(findSeries);
         //Handle not found results for series title and username
     }
 
     public ArrayList<Series> searchForMatchingTags(String searchString){
         System.out.println("Matching Tags with" + searchString);
+        searchString = searchString.concat(":*");
+        String findSeries = "SELECT * FROM \"Series\", to_tsquery('" + searchString + "') as q WHERE(tsv_tags @@ q);";
         //String findTagsFromSeries = "SELECT * FROM \"Series\" WHERE find_in_set('" + searchString + "',tags)" + ";";
-        String findTagsFromSeries = "SELECT * FROM \"Series\" WHERE'" + searchString + "'= ANY (string_to_array(tags,','))" + ";";
+        //String findTagsFromSeries = "SELECT * FROM \"Series\" WHERE'" + searchString + "'= ANY (string_to_array(tags,','))" + ";";
         //where '8' = ANY (string_to_array(some_column,','))
-        return findMatchedSeries(findTagsFromSeries);
+        return findMatchedSeries(findSeries);
     }
 
     public ArrayList<Series> sortByRecent(){
-        String findSortByRecent = "SELECT timestamp,seriestitle,username FROM \"Series\" ORDER BY timestamp;";
+        String findSortByRecent = "SELECT timestamp,seriestitle,username,tags FROM \"Series\" ORDER BY timestamp;";
         ArrayList<Series> sortedSeries = new ArrayList<>();
         List<Map<String,Object>> rows = jdbc.queryForList(findSortByRecent);
         for(Map rs : rows){
@@ -50,12 +54,15 @@ public class SearchRepo {
         }
         return sortedSeries;
     }
-    public Member searchForUsername(String searchString){
+    public ArrayList<Member> searchForUsernames(String searchString){
         System.out.println("Matching users with" + searchString);
-        String findUser = "SELECT * FROM \"Member\" WHERE username ='" + searchString + "';";
-        Member tempMember = new Member();
+        //String findUser = "SELECT * FROM \"Member\" WHERE username ='" + searchString + "';";
+        searchString = searchString.concat(":*");
+        String findUsers = "SELECT * FROM \"Member\", to_tsquery('" + searchString + "') as q WHERE (tsv_username @@ q);";
+        ArrayList<Member> members = new ArrayList();
         try
         {
+            /*
             jdbc.queryForObject(findUser, new RowMapper<Member>() {
                 public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempMember.setUsername(rs.getString("username"));
@@ -66,13 +73,21 @@ public class SearchRepo {
                     return tempMember;
                 }
             });
+            */
+            List<Map<String,Object>> rows = jdbc.queryForList(findUsers);
+            for(Map rs : rows){
+                Member tempMember = new Member();
+                tempMember.setUsername((String)rs.get("username"));
+                System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
+                members.add(tempMember);
+            }
         }
         catch (Exception e)
         {
             return null;
         }
-        System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
-        return tempMember;
+
+        return members;
     }
 
     public ArrayList<Series> findMatchedSeries(String findSeries){
@@ -89,36 +104,14 @@ public class SearchRepo {
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
-            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            tempSeries.setTimestamp((LocalDateTime)(rs.get("timestamp")));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
         return series;
     }
-    public ArrayList<String> deepSearch(String searchString){
-        String query = "SELECT seriestitle FROM \"Series\" AS document;";
-        String stringlist = "yup";
-        ArrayList<String> alldata = new ArrayList<>();
-        try {
-            List<Map<String, Object>> rows = jdbc.queryForList(query);
-            for(Map rs : rows){
-                alldata.add((String)rs.get("seriestitle"));
-            }
-        }
-        catch(Exception e){
-            return null;
-        }
-        ArrayList<String> allMembers = getAllMembers();
-        ArrayList<String> allTags = getAllTags();
-        for(int i =0; i < allMembers.size(); i++){
-            alldata.add(allMembers.get(i));
-        }
-        for(int i =0; i < allTags.size(); i++){
-            alldata.add(allTags.get(i));
-        }
-        return alldata;
-    }
+
     public ArrayList<String> getAllTags(){
         String query = "SELECT tags FROM \"Series\" AS document;";
         ArrayList<String> allTags = new ArrayList<>();
@@ -146,6 +139,30 @@ public class SearchRepo {
             return null;
         }
         return allMembers;
+    }
+    public ArrayList<String> deepSearch(String searchString){
+        String query = "SELECT to_tsvector(seriestitle) FROM \"Series\" AS document;";
+        String stringlist = "yup";
+        ArrayList<String> alldata = new ArrayList<>();
+        try {
+            List<Map<String, Object>> rows = jdbc.queryForList(query);
+            System.out.println(rows.toString());
+            for(Map rs : rows){
+                alldata.add((String)rs.get("seriestitle"));
+            }
+        }
+        catch(Exception e){
+            return null;
+        }
+        ArrayList<String> allMembers = getAllMembers();
+        ArrayList<String> allTags = getAllTags();
+        for(int i =0; i < allMembers.size(); i++){
+            alldata.add(allMembers.get(i));
+        }
+        for(int i =0; i < allTags.size(); i++){
+            alldata.add(allTags.get(i));
+        }
+        return alldata;
     }
 /*
     public ArrayList<Series> sortByHighLow(ArrayList<Member> members){

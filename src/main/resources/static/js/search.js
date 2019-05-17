@@ -34,6 +34,9 @@ $(document).ready(function(){
             //$('#seriesResultsList').show();
             //$('#usersResultsList').hide();
         }
+        else if(filterOptionValue == "keywords"){
+            methodMapping = "/SearchKeywords"
+        }
         $.ajax({
             type: "GET",
             url: methodMapping,
@@ -43,7 +46,7 @@ $(document).ready(function(){
             },
             cache: false,
             success: function (result) {
-                //console.log(result);
+                console.log(result);
                 //var result1 = JSON.stringify(result);
                 //var result2 = encodeURI(result);
                 //console.log(result2);

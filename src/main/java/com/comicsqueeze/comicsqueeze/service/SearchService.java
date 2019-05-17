@@ -40,20 +40,19 @@ public class SearchService {
         }
     }
 
-    public Member searchForUsername(String searchString){
+    public ArrayList<Member> searchForUsername(String searchString){
         System.out.println("Search string in search service " + searchString);
-        Member existing = searchRepo.searchForUsername(searchString);
+        ArrayList<Member> existing = searchRepo.searchForUsernames(searchString);
         //System.out.println("member exist " + existing.getUsername() );
         if(existing == null){ return null; }
         else{
-            System.out.println("if user exists in searchservice " + existing.getUsername());
+            //System.out.println("if user exists in searchservice " + existing.getUsername());
             return existing;
         }
     }
 
     public ArrayList<String> deepKeywordSearch(String searchString){
-        ArrayList<String> thequery = searchRepo.deepSearch(searchString);
-        return thequery;
+        return searchRepo.deepSearch(searchString);
     }
 
     /*

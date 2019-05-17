@@ -62,6 +62,7 @@
                 <form style="margin-top: -30px">
                     <p>Search by:</p>
                     <select id="searchBy" name="searchBy">
+                        <option value="keywords">Keywords</option>
                         <option value="tags">Tags</option>
                         <option value="seriestitle">Series Title</option>
                         <option value="username">Username</option>
@@ -75,7 +76,6 @@
             <br><br>
             <input type = "hidden" id="giveMeQuery" th:value="${theResult}"/>
             <h1>Results</h1>
-            <!--
             <form>
                 <p>Sort by:</p>
                 <select id="sortBy" name="sortBy">
@@ -86,7 +86,6 @@
                 </select>
                 <button class="lime-button-left" onclick = applyFilter(); >APPLY</button>
             </form>
-            -->
             <br><br>
 
             <div id="seriesResultsList" class="seriesResultsList">
@@ -101,11 +100,13 @@
             <div id="usersResultsList">
                 <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
                     <div th:if="${memResult != null}">
-                        <a th:href="${memResult.getImgUrl()}">
-                            <img class="top-artist" th:src="${memResult.getImgUrl()}">
-                        </a>
-                        <p th:text="${memResult.getUsername()}" style="font-weight: bold; margin-bottom: 0px;"></p>
-                        <p style="margin: 0px"># Followers</p>
+                        <th:block th:each="member: ${memResult}">
+                            <a th:href="@{/viewprofile/{profileID}/(profileID=${member.getUsername()})}">
+                                <img class="top-artist" th:src="${member.getImgUrl()}">
+                            </a>
+                            <p th:text="${member.getUsername()}" style="font-weight: bold; margin-bottom: 0px; text-align: center"></p>
+                            <p style="margin: 0px;text-align: center">#Followers</p>
+                        </th:block>
                     </div>
                 </div>
             </div>

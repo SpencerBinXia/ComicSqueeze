@@ -47,14 +47,27 @@ public class SearchQueryController {
     }
 
     @RequestMapping(value = "/SearchUsername", method = RequestMethod.GET)
-    public Member queryUsername(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session, final RedirectAttributes redirectAttributes){
-        Member member = searchService.searchForUsername(searchString);
-        if(member != null){
-            session.setAttribute("searchMemberResults", member);
+    public ArrayList<Member> queryUsername(Model model, @RequestParam(value = "searchString") String searchString, HttpSession session){
+        ArrayList<Member> members = searchService.searchForUsername(searchString);
+        if(members != null){
+            session.setAttribute("searchMemberResults", members);
             //model.addAttribute("usernameResult", member);
             //redirectAttributes.addFlashAttribute("searchResult", model);
             //session.setAttribute("usernameResult", member);
-            return member;
+            return members;
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/SearchKeywords", method = RequestMethod.GET)
+    public ArrayList<String> queryKeywords(@RequestParam(value = "searchString") String searchString, HttpSession session){
+        ArrayList<String> keys = searchService.deepKeywordSearch(searchString);
+        if(!keys.isEmpty()){
+            //session.setAttribute("");
+            for(int i = 0; i<keys.size(); i++){
+                System.out.println(keys.get(i));
+            }
+            return keys;
         }
         return null;
     }
