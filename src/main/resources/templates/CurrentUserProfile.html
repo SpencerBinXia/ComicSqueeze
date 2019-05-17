@@ -29,6 +29,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/uploadData.js></script>
     <script src =js/loadImage.js></script>
+    <script src="js/navBar.js"></script>
     <script src =js/signIn.js></script>
     <script src =js/ownProfile.js></script>
     <script src="js/owl_carousel.js"></script>
@@ -113,7 +114,7 @@
                     <!--</a>-->
                     <br>
                     <!--<a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">-->
-                        <button class="lime-button-solo">CREATE SERIES</button>
+                        <button class="lime-button-solo" onclick="createSeriesClicked()">CREATE SERIES</button>
                     <!--</a>-->
                 </div>
             </div>
@@ -220,8 +221,8 @@
     </div>
 
     <!--Create Series Popup-->
-    <div id="create-series-modal-container">
-        <div id="create-series-modal" class="reveal-modal">
+    <div id="create-series" class="modal">
+        <div id="create-series-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
                 <form id="seriesForm">
@@ -281,12 +282,12 @@
                     </a>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
                         <button class="lime-button-left" onclick=createSeries()>CREATE</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick="resetSeriesForm()">CLOSE</button>
-                    </a>
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeCreateSeries()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

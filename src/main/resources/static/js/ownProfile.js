@@ -135,21 +135,6 @@ window.onclick =function (event) {
         modal.style.display = "none";
     }
 }
-// NOTIFICATIONS MODAL REWORK
-function notificationsClicked() {
-    var modal = document.getElementById('notifications');
-    modal.style.display = "block";
-}
-function closeNotifications() {
-    var modal = document.getElementById('notifications');
-    modal.style.display = "none";
-}
-window.onclick =function (event) {
-    var modal = document.getElementById('notifications');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 // EDIT-PROFILE MODAL REWORK
 function editProfileClicked() {
     var modal = document.getElementById('edit-profile');
@@ -164,6 +149,23 @@ window.onclick =function (event) {
     var modal = document.getElementById('edit-profile');
     if (event.target == modal) {
         modal.style.display = "none";
+    }
+}
+// CREATE SERIES MODAL REWORK
+function createSeriesClicked() {
+    var modal = document.getElementById('create-series');
+    modal.style.display = "block";
+}
+function closeCreateSeries() {
+    var modal = document.getElementById('create-series');
+    modal.style.display = "none";
+    resetSeriesForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('create-series');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetSeriesForm();
     }
 }
 
