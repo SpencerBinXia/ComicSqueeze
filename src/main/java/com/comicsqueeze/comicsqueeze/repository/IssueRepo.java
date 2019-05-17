@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,8 @@ public class IssueRepo {
                     tempIssue.setUsername(rs.getString("username"));
                     tempIssue.setSeries(rs.getString("series"));
                     tempIssue.setPagecount(rs.getInt("pagecount"));
-                    tempIssue.setTimestamp(rs.getObject(5, LocalDateTime.class));
+                    Date tempDate = rs.getObject(5, Date.class);
+                    tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     System.out.println("before return issue result");
                     return tempIssue;
                 }
@@ -63,7 +66,8 @@ public class IssueRepo {
             tempIssue.setDescription((String)rs.get("description"));
             tempIssue.setUsername((String)rs.get("username"));
             tempIssue.setPagecount((Integer)rs.get("pagecount"));
-            tempIssue.setTimestamp((LocalDateTime)rs.get("time_stamp"));
+            Date tempDate = ((Date)rs.get("timestamp"));
+            tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             tempIssue.setSeries((String)rs.get("series"));
             issues.add(tempIssue);
         }
@@ -106,18 +110,44 @@ public class IssueRepo {
         }
         return tempIssue.getTitle();
     }
-    public WeeklyComic queryforWeeklyIssue(String issuetitle) {
-        String findComic = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= ?;";
-                WeeklyComic weeklyComic = new WeeklyComic();
+    public ArrayList<Issue> queryforWeeklyIssues() {
+        String findComic = "SELECT * FROM \"WeeklyComic\";";
+        ArrayList<Issue> weeklyIssues = new ArrayList<Issue>();
+        List<Map<String, Object>> rows = jdbc.queryForList(findComic);
+        ArrayList<Issue> issues = new ArrayList<>();
+        try
+        {
+            for (Map rs : rows) {
+                Issue tempIssue = new Issue();
+                tempIssue.setTitle((String)rs.get("issuetitle"));
+                tempIssue.setDescription((String)rs.get("description"));
+                tempIssue.setUsername((String)rs.get("users"));
+                tempIssue.setPagecount((Integer)rs.get("pages"));
+                tempIssue.setSeries("WeeklyComic");
+                weeklyIssues.add(tempIssue);
+            }
+
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return weeklyIssues;
+    }
+
+    public Issue queryforWeeklyIssue(String issueTitle) {
+        String findIssue = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle='"+issueTitle+"' ;";
+        Issue tempIssue = new Issue();
         try
         {
 
-            jdbc.queryForObject(findComic, new Object[] {issuetitle}, new RowMapper<WeeklyComic>() {
-                public WeeklyComic mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    weeklyComic.setIssueTitle(rs.getString("issueTitle"));
-                    weeklyComic.setPages(rs.getString("pages"));
-                    weeklyComic.setUsers(rs.getString("users"));
-                    return weeklyComic;
+            jdbc.queryForObject(findIssue, new RowMapper<Issue>() {
+                public Issue mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    tempIssue.setTitle(rs.getString("issueTitle"));
+                    tempIssue.setUsername(rs.getString("users"));
+                    tempIssue.setDescription(rs.getString("description"));
+                    tempIssue.setPagecount(rs.getInt("pages"));
+                    return tempIssue;
                 }
             });
         }
@@ -125,7 +155,7 @@ public class IssueRepo {
         {
             return null;
         }
-        return weeklyComic;
+        return tempIssue;
     }
 }
 

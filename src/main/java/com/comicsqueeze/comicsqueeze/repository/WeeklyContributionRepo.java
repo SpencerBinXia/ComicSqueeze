@@ -17,6 +17,8 @@ public class WeeklyContributionRepo {
     @Autowired
     JdbcTemplate jdbc;
     @Autowired PageRepo pageRepo;
+    @Autowired
+    IssueRepo issueRepo;
 
     public void updatePageCount(String issueTitle, int pageCount) {
         String updateWeekly= "UPDATE \"WeeklyComic\" SET PAGES= '"+ pageCount+"';";
@@ -80,12 +82,12 @@ public class WeeklyContributionRepo {
       String [] contributors = contributorsList.split(",");
       // now for each contributor find there pages on this issue
       for(String contributor:contributors){
-            findPagesOfContributor(contributor,contributorToPages,day);
+            findPagesOfContributor(contributor,contributorToPages,day,issueTitle);
       }
       // now put those pages in the list and return it
         for (String contributor: contributorToPages.keySet()){
             for(int pageNum: contributorToPages.get(contributor)){
-                putPageInList(contributor,pageNum,contributions);
+                putPageInList(contributor,pageNum,contributions,issueTitle);
             }
         }
 
@@ -94,8 +96,8 @@ public class WeeklyContributionRepo {
 
     }
 
-    private ArrayList<Page> putPageInList(String contributor, int pageNum, ArrayList<Page> contributions) {
-        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE username ='" + contributor + "' AND pagenumber='" + pageNum +"';";
+    private ArrayList<Page> putPageInList(String contributor, int pageNum, ArrayList<Page> contributions,String thisWeekIssue) {
+        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE username ='" + contributor + "' AND pagenumber='" + pageNum +"' AND issue='"+thisWeekIssue+"';";
         List<Map<String, Object>> rows = jdbc.queryForList(findPage);
        int i = 0;
         for (Map rs : rows) {
@@ -114,8 +116,8 @@ public class WeeklyContributionRepo {
         return contributions;
     }
 
-    public HashMap<String, LinkedList<Integer>> findPagesOfContributor(String contributor, HashMap<String, LinkedList<Integer>> contributorToPages,int day) {
-        String getPages = "SELECT * FROM \"WeeklyPages\" WHERE username='"+contributor+"' AND dayofweek='"+day+"';";
+    public HashMap<String, LinkedList<Integer>> findPagesOfContributor(String contributor, HashMap<String, LinkedList<Integer>> contributorToPages,int day, String thisWeekIssue) {
+        String getPages = "SELECT * FROM \"WeeklyPages\" WHERE username='"+contributor+"' AND dayofweek='"+day+"' AND issue ='"+thisWeekIssue+"';";
         List<Map<String, Object>> rows = jdbc.queryForList(getPages);
         for (Map rs : rows) {
             if(contributorToPages.get(contributor)==null){
@@ -241,5 +243,40 @@ public class WeeklyContributionRepo {
        String updatePagePublished = "UPDATE \"WeeklyPages\" SET PUBLISHED= 'true' WHERE issue='"+maxVotes.getIssue()+"' AND username='"+maxVotes.getUsername()+"' AND dayofweek='"+maxVotes.getDayOfWeekCreated()+"';";
         jdbc.update(updatePagePublished);
 
+    }
+
+    public ArrayList<Issue> getWeeklyIssues() {
+        return issueRepo.queryforWeeklyIssues();
+    }
+
+    public Issue queryForIssue(String issueTitle) {
+        return issueRepo.queryforWeeklyIssue(issueTitle);
+    }
+
+    public ArrayList<Page> queryAllIssuePages(String issueTitle) {
+        ArrayList<Page> pages = new ArrayList<>();
+        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE issue ='" + issueTitle +"' AND published='true';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findPage);
+        int i = 0;
+        try {
+            for (Map rs : rows) {
+                Page tempPage = new Page();
+                tempPage.setUsername((String) rs.get("username"));
+                tempPage.setPublished((boolean) rs.get("published"));
+                tempPage.setImgurl((String) rs.get("imgurl"));
+                tempPage.setVotes((int) rs.get("votes"));
+                tempPage.setSeries("WeeklyComic");
+                tempPage.setIssue((String) rs.get("issue"));
+                tempPage.setPagenumber((int) rs.get("pagenumber"));
+                tempPage.setDayOfWeekCreated((int) rs.get("dayofweek"));
+                tempPage.setPageArrayNumber(i);
+                pages.add(tempPage);
+                i++;
+            }
+        }
+        catch (Exception e){
+            return  null;
+        }
+        return pages;
     }
 }
