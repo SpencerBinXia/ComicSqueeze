@@ -83,7 +83,7 @@
                     <option value="rating-HIGH">Rating-HIGH</option>
                     <option value="rating-LOW">Rating-LOW</option>
                 </select>
-                <button class="lime-button-left">APPLY</button>
+                <button class="applyButton lime-button-left"  onclick = applyFiltering() >APPLY</button>
             </form>
             <br><br>
 
@@ -95,6 +95,13 @@
                         </a>
                     </th:block>
                 </div>
+            </div>
+            <div id="sortLow" th:if="${seriesSortedLow != null}" style="display:none">
+                <th:block th:each="mapEntry: ${seriesSortedLow}">
+                    <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
+                        <h4 class="series-title-link" th:text="${mapEntry.key.getTitle()} + ' - ' + ${mapEntry.key.getUsername()}"></h4>
+                    </a>
+                </th:block>
             </div>
             <div id="usersResultsList">
                 <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
