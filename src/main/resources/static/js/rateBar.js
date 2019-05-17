@@ -9,7 +9,8 @@ $(document).ready(function(){
             type : "POST",
             url : "/ratereview",
             data : {
-                userRating: userRating //notice that "myArray" matches the value for @RequestParam
+                userRating: userRating,
+                userReview: ""//notice that "myArray" matches the value for @RequestParam
                 //on the Java side
             },
             success : function(response) {
@@ -26,16 +27,21 @@ $(document).ready(function(){
 
 function rateReview()
 {
-    var userRating = ($('#limeBar').rateit('value'));
+    var userRating = ($('#reviewBar').rateit('value'));
+    var userReview = $("#reviewField").val();
+    console.log(userReview);
 
     $.ajax({
         type : "POST",
         url : "/ratereview",
         data : {
-            userRating: userRating //notice that "myArray" matches the value for @RequestParam
+            userRating: userRating,
+            userReview: userReview//notice that "myArray" matches the value for @RequestParam
             //on the Java side
         },
         success : function(response) {
+            location.reload();
+            alert("Successfully reviewed!");
         },
         error : function(e) {
             alert('Error: ' + e);

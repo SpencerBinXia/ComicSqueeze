@@ -35,13 +35,13 @@ public class rateReviewController {
     private RateReviewService rateService;
 
     @RequestMapping(value = "/ratereview", method = RequestMethod.POST)
-    public String controllerMethod(@RequestParam(value="userRating") double userRating, Model model, HttpSession session){
+    public String controllerMethod(@RequestParam(value="userRating") double userRating, @RequestParam(value="userReview") String userReview, Model model, HttpSession session){
         System.out.println(userRating);
         Member curMember = (Member) session.getAttribute("curMember");
         RateReview review = new RateReview();
         review.setRater(curMember.getUsername());
         review.setRating(userRating);
-        review.setReview("");
+        review.setReview(userReview);
         review.setSeriesTitle(curMember.getCurrentSeries().getTitle());
         review.setSeriesCreator(curMember.getCurrentSeries().getUsername());
         rateService.createReview(review);

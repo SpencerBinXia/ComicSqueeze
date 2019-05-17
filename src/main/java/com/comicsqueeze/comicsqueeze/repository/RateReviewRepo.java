@@ -27,11 +27,18 @@ public class RateReviewRepo {
                     newReview.getReview());
     }
 
-    public void changeReview(RateReview review)
+    public void changeRating(RateReview review)
     {
         System.out.println("inside changereview" + review.getRating() + review.getRater() + review.getSeriesTitle() + review.getSeriesCreator());
         String changeReviewQuery ="UPDATE ratereview SET rating= ? WHERE rater= ? AND seriestitle= ? AND seriescreator= ?;";
         jdbc.update(changeReviewQuery, review.getRating(), review.getRater(), review.getSeriesTitle(), review.getSeriesCreator());
+    }
+
+    public void changeReview(RateReview review)
+    {
+        System.out.println("inside changereview" + review.getRating() + review.getRater() + review.getSeriesTitle() + review.getSeriesCreator());
+        String changeReviewQuery ="UPDATE ratereview SET rating= ?,review = ? WHERE rater= ? AND seriestitle= ? AND seriescreator= ?;";
+        jdbc.update(changeReviewQuery, review.getRating(), review.getReview(), review.getRater(), review.getSeriesTitle(), review.getSeriesCreator());
     }
 
     public double queryAverageReview(String seriesTitle, String seriesCreator)
@@ -71,6 +78,25 @@ public class RateReviewRepo {
             return null;
         }
         return tempRate;
+    }
+
+    public ArrayList<RateReview> queryAllReviews(String seriesTitle, String seriesCreator) {
+        String findSeries = "SELECT * FROM ratereview WHERE seriestitle= ? AND seriescreator= ?;";
+        List<Map<String, Object>> rows = jdbc.queryForList(findSeries, seriesTitle, seriesCreator);
+        ArrayList<RateReview> reviews = new ArrayList<>();
+        for (Map rs : rows) {
+            RateReview tempReview = new RateReview();
+            tempReview.setRater((String)rs.get("rater"));
+            tempReview.setSeriesTitle((String)rs.get("seriestitle"));
+            tempReview.setSeriesCreator((String)rs.get("seriescreator"));
+            tempReview.setRating((double)rs.get("rating"));
+            tempReview.setReview((String)rs.get("review"));
+            if (!tempReview.getReview().equals(""))
+            {
+                reviews.add(tempReview);
+            }
+        }
+        return reviews;
     }
     //public getReviews();
 

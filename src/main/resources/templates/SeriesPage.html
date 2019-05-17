@@ -124,6 +124,7 @@
                 <h1 style="margin-right: 20px; ">Reviews</h1>
                 <a th:if="${session.username != profileID and session.username != null}" href="#write-review-modal-container" data-reveal-id="write-review-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
             </div>
+            <!--
             <p>Username</p>
             <div class="flexContainer flexRow limes">
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
@@ -136,8 +137,13 @@
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <br><br><br>
+                -->
+            <th:block th:each="review: ${reviewList}">
+                <p th:text="'Reviewer: ' + ${review.getRater()}"></p>
+                <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                <p th:text="'Review: ' + ${review.getReview()}" style="white-space: pre-wrap"></p>
+                <br><br><br>
+            </th:block>
 
         </main>
 
@@ -151,10 +157,10 @@
         <div id="write-review-modal" class="reveal-modal">
             <div class="flexContainer flexColumn">
                 <form>
-                    Write Review: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                    Write Review: <textarea class="input-large" id="reviewField" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow limes">
-                    <div class="rateit limeBar" data-rateit-value="0" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <div class="rateit limeBar" id="reviewBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
