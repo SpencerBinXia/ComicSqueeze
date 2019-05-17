@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,8 @@ public class IssueRepo {
                     tempIssue.setUsername(rs.getString("username"));
                     tempIssue.setSeries(rs.getString("series"));
                     tempIssue.setPagecount(rs.getInt("pagecount"));
-                    tempIssue.setTimestamp(rs.getObject(5, LocalDateTime.class));
+                    Date tempDate = rs.getObject(5, Date.class);
+                    tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     System.out.println("before return issue result");
                     return tempIssue;
                 }
@@ -63,7 +66,8 @@ public class IssueRepo {
             tempIssue.setDescription((String)rs.get("description"));
             tempIssue.setUsername((String)rs.get("username"));
             tempIssue.setPagecount((Integer)rs.get("pagecount"));
-            tempIssue.setTimestamp((LocalDateTime)rs.get("time_stamp"));
+            Date tempDate = ((Date)rs.get("timestamp"));
+            tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             tempIssue.setSeries((String)rs.get("series"));
             issues.add(tempIssue);
         }

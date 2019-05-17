@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +40,8 @@ public class SeriesRepo {
                     tempSeries.setWeekly(rs.getBoolean("weekly"));
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
-                    tempSeries.setTimestamp(rs.getObject(5, LocalDateTime.class));
+                    Date tempDate = (rs.getObject(5, Date.class));
+                    tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     tempSeries.setRateCounter(rs.getInt("ratecounter"));
                     System.out.println("inside findseries query" + tempSeries.getTitle());
                     return tempSeries;
@@ -74,7 +77,8 @@ public class SeriesRepo {
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
-            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            Date tempDate = ((Date)rs.get("timestamp"));
+            tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
