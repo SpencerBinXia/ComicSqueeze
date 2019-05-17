@@ -140,11 +140,14 @@
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 -->
             <th:block th:each="review: ${reviewList}">
-                <p th:text="'Reviewer: ' + ${review.getRater()}"></p>
-                <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-                <p th:text="'Review: ' + ${review.getReview()}" style="white-space: pre-wrap"></p>
-                <br><br><br>
+                <div class="review">
+                    <h4 th:text="${review.getRater()}"></h4>
+                    <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <p th:text="${review.getReview()}" style="white-space: pre-wrap"></p>
+                </div>
             </th:block>
+
+            <br><br><br>
 
         </main>
 

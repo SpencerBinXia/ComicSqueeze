@@ -10,6 +10,11 @@ img {
     padding: 20px;
 }
 
+.review {
+    background: #fffcf3;
+    padding: 10px;
+}
+
 .profile-info-container {
     background-color: white;
     border: solid black 2px;
