@@ -211,20 +211,24 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
-    $("#addInput").keydown(function(e){
-        var ingnore_key_codes = [188];
-        console.log(e.keyCode);
-        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.");
+    $("#addInput").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Username may only contain alphanumeric characters.");
             e.preventDefault();
+            return false;
         }
     });
-    $("#deleteInput").keydown(function(e){
-        var ingnore_key_codes = [188];
-        console.log(e.keyCode);
-        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.");
+    $("#deleteInput").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Username may only contain alphanumeric characters.");
             e.preventDefault();
+            return false;
         }
     });
     $(".horizontal_slick").slick({

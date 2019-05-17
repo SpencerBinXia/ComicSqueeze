@@ -28,7 +28,7 @@ public class createSeriesController {
         newSeries.setTimestamp(LocalDateTime.now());
         System.out.println(newSeries.getUsername());
         System.out.println(newSeries.getTitle());
-        System.out.println(newSeries.getDescription());
+        System.out.println("DESCRIPTION: " + newSeries.getDescription());
         System.out.println(newSeries.getTags());
         if (service.findSeriesByTitle(newSeries.getUsername(), newSeries.getTitle()) == null)
         {

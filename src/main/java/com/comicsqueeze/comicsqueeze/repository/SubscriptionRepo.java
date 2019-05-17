@@ -35,19 +35,17 @@ public class SubscriptionRepo {
 
     public void deleteSubscription(String subscriber, String seriesTitle, String seriesCreator)
     {
-        String deleteSubscription = "DELETE FROM \"Subscription\" WHERE subscriber='" + subscriber + "' AND seriestitle='" + seriesTitle +
-                                    "' AND seriescreator='" + seriesCreator + "';";
-        jdbc.update(deleteSubscription);
+        String deleteSubscription = "DELETE FROM \"Subscription\" WHERE subscriber= ? AND seriestitle= ? AND seriescreator= ?;";
+        jdbc.update(deleteSubscription, subscriber, seriesTitle, seriesCreator);
     }
 
     public Subscription findSubscription(String subscriber, String seriesTitle, String seriesCreator)
     {
-        String subscribeQuery ="SELECT * FROM \"Subscription\" WHERE subscriber='" + subscriber + "' AND seriestitle='" + seriesTitle +
-                "' AND seriescreator='" + seriesCreator + "';";
+        String subscribeQuery ="SELECT * FROM \"Subscription\" WHERE subscriber= ? AND seriestitle= ? AND seriescreator= ?;";
         Subscription tempSubscript = new Subscription();
         try
         {
-            jdbc.queryForObject(subscribeQuery, new RowMapper<Subscription>() {
+            jdbc.queryForObject(subscribeQuery, new Object[] {subscriber, seriesTitle, seriesCreator}, new RowMapper<Subscription>() {
                 public Subscription mapRow(ResultSet rs, int rowNum) throws SQLException {
                     tempSubscript.setSubscriber(rs.getString("subscriber"));
                     tempSubscript.setSeriesCreator(rs.getString("seriescreator"));
@@ -65,13 +63,12 @@ public class SubscriptionRepo {
 
     public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
     {
-        String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriestitle='" + seriesTitle + "' AND seriescreator='" + seriesCreator +
-                "';";
+        String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriestitle= ? AND seriescreator= ?;";
         System.out.println(sumSeriesSubQuery);
 
         try
         {
-            int sum = jdbc.queryForObject(sumSeriesSubQuery, Integer.class);
+            int sum = jdbc.queryForObject(sumSeriesSubQuery, Integer.class, seriesTitle, seriesCreator);
             System.out.println(sum);
             return sum;
         }
