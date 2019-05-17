@@ -108,17 +108,18 @@
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
                     <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word; white-space: pre-wrap" th:text="${curMember.getBio()}"></p>
                     <h3 style="text-align: center"># Followers</h3>
-                    <a class="button-as-link">
+                    <!--<a class="button-as-link">-->
                         <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
-                    </a><br>
-                    <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
+                    <!--</a>-->
+                    <br>
+                    <!--<a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">-->
                         <button class="lime-button-solo">CREATE SERIES</button>
-                    </a>
+                    <!--</a>-->
                 </div>
             </div>
-            <a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">
+            <!--<a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">-->
                 <button class="grey-button-left">EDIT</button>
-            </a>
+            <!--</a>-->
         </aside>
         <aside class="sidebar sidebarRight" style="min-width: 0"></aside>
 
@@ -170,8 +171,8 @@
     </div>
 
     <!--Edit Profile Popup-->
-    <div id="edit-profile-modal-container">
-        <div id="edit-profile-modal" class="reveal-modal">
+    <div id="edit-profile" class="modal">
+        <div id="edit-profile-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <div class="flexContainer flexRow">
                     <div class="column-left">
