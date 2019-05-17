@@ -48,7 +48,7 @@
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
             <a th:if="${session.username}!=null" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
                 <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
             </a>
@@ -137,23 +137,25 @@
     </div>
 
     <!--Sign In Popup-->
-    <div id="signIn-modal-container">
-        <div id="signIn-modal" class="reveal-modal">
+    <div id="sign-In" class="modal-login">
+        <div id="signIn-modal" class="modal-login-inner">
             <div class="flexContainer flexColumn">
 
                 Email: <input id = "email"class="input-small" type="text" name="email"><br><br>
                 <label id ="passLbl">Password:</label> <input type="password" id="passWord" class="input-small" name="passWord">
-                <input type="checkbox" onclick="showPass()">Show Password
-
+                <div class="flexContainer flexRow">
+                    <input type="checkbox" onclick="showPass()" style="padding-right: 5px; width: fit-content;">
+                    Show Password
+                </div>
 
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
-                    </a>
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                    <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
+                    <!--</a>-->
                     <a id ="forgot" href="javascript:forgotPassword();">Forgot Password?</a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button  class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                    <button  class="grey-button-left" onclick="closeLogin()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
