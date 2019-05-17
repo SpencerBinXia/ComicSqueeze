@@ -118,7 +118,7 @@
                 </div>
             </div>
             <!--<a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">-->
-                <button class="grey-button-left">EDIT</button>
+                <button class="grey-button-left" onclick="editProfileClicked()">EDIT</button>
             <!--</a>-->
         </aside>
         <aside class="sidebar sidebarRight" style="min-width: 0"></aside>
@@ -208,12 +208,12 @@
                     </div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
                         <button class="lime-button-left" onclick=updateBio()>SAVE</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeEditProfile()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

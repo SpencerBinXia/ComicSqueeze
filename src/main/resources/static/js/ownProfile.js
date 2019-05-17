@@ -150,6 +150,21 @@ window.onclick =function (event) {
         modal.style.display = "none";
     }
 }
+// EDIT-PROFILE MODAL REWORK
+function editProfileClicked() {
+    var modal = document.getElementById('edit-profile');
+    modal.style.display = "block";
+}
+function closeEditProfile() {
+    var modal = document.getElementById('edit-profile');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('edit-profile');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
