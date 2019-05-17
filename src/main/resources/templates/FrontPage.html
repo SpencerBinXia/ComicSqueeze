@@ -237,7 +237,7 @@
 
                         <th:block th:each="issue:${weeklyIssues}">
                             <div class="flexContainer flexColumn issue" style="align-items: center;">
-                                <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
+                                <a  th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
                                 <th:block th:each="page: ${issue.getPages()}">
 
                                     <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"></a>
@@ -247,7 +247,7 @@
                                 <p style="margin-top: 0px; margin-bottom: 30px;"th:text="${issue.getSeries()}">Series Name</p>
                             </div>
                         </th:block>
-                    
+
 
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
@@ -272,7 +272,14 @@
                                     <img th:src="${page.getImgurl()}" class="issue" style="margin: auto; border: 1px solid #d0d0d0;">
                                 </a>
                                 <p th:text="${page.getUsername()}" style="margin-top: 3px; margin-bottom: 3px; text-align: center"></p>
-                                <a th:href="@{'castVote?username='+${page.getUsername()}+'&issue='+${page.getIssue()}+'&pagenum='+${page.getPagenumber()}}" class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px; margin-bottom: 20px">CAST VOTE</a>
+                                <div th:if="${session.curMember}!=null">
+                                    <div th:if="${session.curMember.getVoted()} ==false">
+                                        <div th:if="${page.getUsername()}!= ${session.curMember.getUsername()}">
+                                        <a th:href="@{'castVote?username='+${page.getUsername()}+'&issue='+${page.getIssue()}+'&pagenum='+${page.getPagenumber()}}" class="lime-button-left" style="margin: auto; padding: 5px; font-size: 18px; margin-bottom: 20px">CAST VOTE</a>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </th:block>

@@ -13,6 +13,7 @@ public class Member {
     private Page currentPage;
     private ArrayList<Series> seriesArrayList;
     private boolean createdWeekly;
+    private boolean voted;
 
 
     public String getUsername() {return username;}
@@ -75,5 +76,12 @@ public class Member {
 
     public void setCreatedWeekly(boolean createdWeekly) {
         this.createdWeekly = createdWeekly;
+    }
+
+    public void setVoted(boolean b) {
+        this.voted = b;
+    }
+    public boolean getVoted(){
+        return this.voted;
     }
 }

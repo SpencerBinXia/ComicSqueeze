@@ -198,9 +198,9 @@ public class WeeklyContributionRepo {
         return null;
     }
 
-    public Page calculateBestPage(String thisWeekIssue) {
+    public Page calculateBestPage(String thisWeekIssue,int dayOfWeek) {
         ArrayList<Page> pages = new ArrayList<>();
-        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE issue ='" + thisWeekIssue +"';";
+        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE issue ='" + thisWeekIssue +"' AND dayofweek='"+dayOfWeek+"';";
         List<Map<String, Object>> rows = jdbc.queryForList(findPage);
         int i = 0;
         try {
@@ -278,5 +278,28 @@ public class WeeklyContributionRepo {
             return  null;
         }
         return pages;
+    }
+
+
+    public void resetAllVoted() {
+        String resetAllVoted = "UPDATE \"Member\" SET VOTED='false'";
+        try {
+
+            jdbc.update(resetAllVoted);
+        }
+        catch (Exception e){
+            System.out.println(e.getStackTrace());
+        }
+    }
+
+    public void setMemberVoted(String username) {
+        String setVoted = "UPDATE \"Member\" SET VOTED='true' WHERE username='"+username+"';";
+        try {
+
+            jdbc.update(setVoted);
+        }
+        catch (Exception e){
+            System.out.println(e.getStackTrace());
+        }
     }
 }
