@@ -59,6 +59,12 @@ public class SubscriptionService {
         return sum;
     }
 
+    public int sumUserSubscriptions(String username)
+    {
+        int sum = subRepo.sumUserSubscriptions(username);
+        return sum;
+    }
+
     public ArrayList<Subscription> queryAllSubscriptions (String subscriber){
         return subRepo.queryAllSubscriptions(subscriber);
     }
