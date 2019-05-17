@@ -55,7 +55,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -125,16 +125,16 @@
     </div>
 
     <!--Notifications Popup-->
-    <div id="notifications-modal-container">
-        <div id="notifications-modal" class="reveal-modal-notifications">
-            <div class="flexContainer flexColumn">
-                <p class="notification-item">USERNAME has released a new comic series</p>
-                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
-                <p class="notification-item">New Follower: USERNAME</p>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
-                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
-                    </a>
+    <div id="notifications" class="modal-notifications">
+        <div id="notifications-modal" class="modal-notifications-inner">
+            <div class="flexContainer flexRow">
+                <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
+                <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
+                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                    <p class="notification-item">New Follower: USERNAME</p>
+                    <p class="notification-item">SeriesName has been flagged.</p>
+                    <p class="notification-item">USERNAME has released a new comic series</p>
                 </div>
             </div>
         </div>
