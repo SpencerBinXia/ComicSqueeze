@@ -21,6 +21,7 @@ public class EditUserController {
     public String updateBio(Model model, @RequestParam(value ="bio") String bio, HttpSession session)
         {
             System.out.println("updateBio reached");
+            System.out.println("NEW BIO IN CONTROLLER: " + bio);
             service.setBio((String)session.getAttribute("username"), bio);
             return "redirect:/yourprofile";
         }

@@ -1,15 +1,15 @@
 var tagList = []; // contains tags, exists until hitting "close" or "save" (save to be implemented through updateBio())
 
 function updateBio(){
-    val = document.getElementById("bioField").value;
-    console.log(val);
-    $('#bioID').text(val);
+    var bio = document.getElementById("bioField").value;
+    console.log(bio);
+    var newBio = bio.replace(/\n\r?/g, '%0D%0A');
     return $.ajax({
         type: "GET",
-        url: "/updateBio?bio=" + val,
+        url: "/updateBio?bio=" + newBio,
         cache: false,
         success: function (result) {
-            $('#bioID').text(val);
+            // $('#bioID').text(newBio);
             // reset create series modal
             resetSeriesForm();
             //reload page
@@ -108,7 +108,10 @@ function createSeries(){
     });
 }
 
-function followingClicked () {
+// FOLLOWING MODAL REWORK
+function followingClicked() {
+    var modal = document.getElementById('subscriptions');
+    modal.style.display = "block";
     // here so slick calculates heights at the right time
     $(".subscriptions_slick").slick({
         dots: true,
@@ -121,6 +124,49 @@ function followingClicked () {
         slidesPerRow: 5,
         verticalSwiping: false,
     });
+}
+function closeFollowing() {
+    var modal = document.getElementById('subscriptions');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('subscriptions');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+// EDIT-PROFILE MODAL REWORK
+function editProfileClicked() {
+    var modal = document.getElementById('edit-profile');
+    modal.style.display = "block";
+    $("textarea#bioField").val(document.getElementById('bioID').innerText);
+}
+function closeEditProfile() {
+    var modal = document.getElementById('edit-profile');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('edit-profile');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+// CREATE SERIES MODAL REWORK
+function createSeriesClicked() {
+    var modal = document.getElementById('create-series');
+    modal.style.display = "block";
+}
+function closeCreateSeries() {
+    var modal = document.getElementById('create-series');
+    modal.style.display = "none";
+    resetSeriesForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('create-series');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetSeriesForm();
+    }
 }
 
 $(document).ready(function(){

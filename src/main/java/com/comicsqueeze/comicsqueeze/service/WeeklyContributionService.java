@@ -1,5 +1,6 @@
 package com.comicsqueeze.comicsqueeze.service;
 
+import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.repository.WeeklyContributionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,17 @@ public class WeeklyContributionService {
 
     public void addMaxVotesToSeries(Page maxVotes) {
         weeklyContributionRepo.addMaxVotesToSeries(maxVotes);
+    }
+
+    public ArrayList<Issue> getWeeklyIssues() {
+        return weeklyContributionRepo.getWeeklyIssues();
+    }
+
+    public Issue queryForIssue(String issueTitle) {
+        return weeklyContributionRepo.queryForIssue(issueTitle);
+    }
+
+    public ArrayList<Page> queryAllIssuePages(String issueTitle) {
+        return weeklyContributionRepo.queryAllIssuePages(issueTitle);
     }
 }

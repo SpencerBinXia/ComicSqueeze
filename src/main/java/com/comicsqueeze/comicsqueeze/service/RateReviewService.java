@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class RateReviewService {
 
@@ -28,7 +30,14 @@ public class RateReviewService {
         else
         {
             System.out.println("existing review reached");
-            rateRepo.changeReview(newReview);
+            if (newReview.getReview().equals(""))
+            {
+                rateRepo.changeRating(newReview);
+            }
+            else
+            {
+                rateRepo.changeReview(newReview);
+            }
             return true;
         }
     }
@@ -49,5 +58,9 @@ public class RateReviewService {
     {
         double average = rateRepo.queryAverageReview(seriesTitle, seriesCreator);
         return average;
+    }
+
+    public ArrayList<RateReview> findAllReviewsFromSeries (String seriesTitle, String seriesCreator){
+        return rateRepo.queryAllReviews(seriesTitle, seriesCreator);
     }
 }

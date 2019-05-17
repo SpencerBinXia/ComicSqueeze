@@ -23,9 +23,11 @@
     <script src ="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src = "js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
     <script src = "js/download.js" th:src="@{/js/download.js}"></script>
+    <script src="js/navBar.js" th:src="@{/js/navBar.js}"></script>
     <link href="css/page_layout.css" th:href="@{/css/page_layout.css}"rel="stylesheet">
     <link href="css/buttons.css" th:href="@{/css/buttons.css}"rel="stylesheet">
     <link href="css/register_main_styles.css" th:href="@{/css/register_main_styles.css}"rel="stylesheet">
+    <link href="css/modal_styles.css" th:href="@{/css/modal_styles.css}" rel="stylesheet">
     <link href="../css/literallycanvas.css" th:href="@{/css/literallycanvas.css}" rel="stylesheet">
 
     <!-- dependency: React.js -->
@@ -71,7 +73,7 @@ IF WE ARE CREATING A WEEKLY CONTRIBUTION THEN SET THE APPROPRIATE VARIABLES FOR 
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
@@ -296,6 +298,22 @@ IF WE ARE CREATING A WEEKLY CONTRIBUTION THEN SET THE APPROPRIATE VARIABLES FOR 
         <aside class="sidebar sidebarLeft" style="width: 5%; min-width: 5%"></aside>
         <aside class="sidebar sidebarRight" style="width: 5%; min-width: 5%"></aside>
 
+    </div>
+
+    <!--Notifications Popup-->
+    <div id="notifications" class="modal-notifications">
+        <div id="notifications-modal" class="modal-notifications-inner">
+            <div class="flexContainer flexRow">
+                <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
+                <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
+                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                    <p class="notification-item">New Follower: USERNAME</p>
+                    <p class="notification-item">SeriesName has been flagged.</p>
+                    <p class="notification-item">USERNAME has released a new comic series</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>
