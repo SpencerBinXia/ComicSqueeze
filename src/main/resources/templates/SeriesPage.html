@@ -21,7 +21,6 @@
     </script>
     <script>
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
-        const curSeriesDesc = "[[${currentSeries.getDescription()}]]";
         const curSeriesTags = "[[${currentSeries.getTags()}]]";
         const curSeriesTitle = "[[${seriesTitle}]]";
     </script>
@@ -114,7 +113,7 @@
             <br>
 
             <h1>Description</h1>
-            <p id="descID" th:text="${currentSeries.getDescription()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p id="descID" th:text="${currentSeries.getDescription()}" style="white-space: pre-wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -133,7 +132,7 @@
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
                 <img src="images/icons/lime_BW_icon.png" th:src="@{/images/icons/lime_BW_icon.png}" class="lime-small">
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p style="white-space: pre-wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>

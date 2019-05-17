@@ -61,6 +61,8 @@ function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
 
+    console.log(descVal);
+
     var errors = "";
     if(titleVal == "" || titleVal == null){
         errors += "title ";
@@ -106,6 +108,21 @@ function createSeries(){
     });
 }
 
+function followingClicked () {
+    // here so slick calculates heights at the right time
+    $(".subscriptions_slick").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        // slidesToShow: 4,
+        // slidesToScroll: 4,
+        rows: 2,
+        slidesPerRow: 5,
+        verticalSwiping: false,
+    });
+}
+
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
         loop: false,
@@ -133,12 +150,14 @@ $(document).ready(function(){
         // slidesPerRow: 4,
         verticalSwiping: false,
     });
-    $("#tagField").keydown(function(e){
-        var ingnore_key_codes = [188];
-        console.log(e.keyCode);
-        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            alert("Tags cannot include commas.")
+    $("#tagField").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Username may only contain alphanumeric characters.");
             e.preventDefault();
+            return false;
         }
     });
 });

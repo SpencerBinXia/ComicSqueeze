@@ -164,25 +164,33 @@ function updateProfilePic() {
 }
 
 $(document).ready(function(){
-    $("#inputUsername").keydown(function(e){
-        var ingnore_key_codes = [190, 52, 219, 221];
-        if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
-            if(e.keyCode == 190 && !e.shiftKey){
-                alert("Username cannot contain '.'")
-                e.preventDefault();
-            }
-            if(e.keyCode == 52 && e.shiftKey){
-                alert("Username cannot contain '$'")
-                e.preventDefault();
-            }
-            if(e.keyCode == 219 && !e.shiftKey){
-                alert("Username cannot contain '['")
-                e.preventDefault();
-            }
-            if(e.keyCode == 221 && !e.shiftKey){
-                alert("Username cannot contain ']'")
-                e.preventDefault();
-            }
+    $("#inputUsername").keypress(function(e){
+        // var ingnore_key_codes = [8, 46];
+        // if ($.inArray(e.keyCode, ingnore_key_codes) >= 0){
+        //     if(e.keyCode == 190 && !e.shiftKey){
+        //         alert("Username cannot contain '.'")
+        //         e.preventDefault();
+        //     }
+        //     if(e.keyCode == 52 && e.shiftKey){
+        //         alert("Username cannot contain '$'")
+        //         e.preventDefault();
+        //     }
+        //     if(e.keyCode == 219 && !e.shiftKey){
+        //         alert("Username cannot contain '['")
+        //         e.preventDefault();
+        //     }
+        //     if(e.keyCode == 221 && !e.shiftKey){
+        //         alert("Username cannot contain ']'")
+        //         e.preventDefault();
+        //     }
+        // }
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Username may only contain alphanumeric characters.");
+            e.preventDefault();
+            return false;
         }
     });
 });

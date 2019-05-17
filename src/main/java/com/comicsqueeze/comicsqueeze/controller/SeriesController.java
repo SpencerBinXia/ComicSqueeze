@@ -34,6 +34,7 @@ public class SeriesController {
         double defaultRating = 0.0;
         double averageRating = 0.0;
         boolean subscribed = false;
+        System.out.println("series controller" + seriesTitle);
         int totalSubscriptions = subService.sumSeriesSubscriptions(seriesTitle, profileID);
         System.out.println("seriesController totalsub: " + totalSubscriptions);
         Member curMember = service.findMember((String)session.getAttribute("username"));

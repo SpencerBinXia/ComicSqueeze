@@ -52,7 +52,7 @@ public class ProfileRepo {
     }
     public void setMemberBio(Member member, String bio)
     {
-        jdbc.update("UPDATE \"Member\" SET bio = '" + bio +"' WHERE username = '" + member.getUsername() + "';");
+        jdbc.update("UPDATE \"Member\" SET bio = ? WHERE username = ?;", bio, member.getUsername());
         System.out.println("Updated User's Bio in DB");
     }
     public void setImgUrl(Member member, String url){
