@@ -10,7 +10,9 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +106,8 @@ public class SearchRepo {
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
-            tempSeries.setTimestamp((LocalDateTime)(rs.get("time_stamp")));
+            Date tempDate = ((Date)rs.get("timestamp"));
+            tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
