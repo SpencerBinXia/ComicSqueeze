@@ -16,6 +16,7 @@ import java.util.*;
 public class WeeklyContributionRepo {
     @Autowired
     JdbcTemplate jdbc;
+    @Autowired PageRepo pageRepo;
 
     public void updatePageCount(String issueTitle, int pageCount) {
         String updateWeekly= "UPDATE \"WeeklyComic\" SET PAGES= '"+ pageCount+"';";
@@ -170,15 +171,66 @@ public class WeeklyContributionRepo {
     public String checkIfCreatedPage(String username, String thisWeekIssue, int dayOfWeek) {
         String isCreated = "SELECT * FROM \"WeeklyPages\" WHERE username='"+username+"' AND dayofweek='"+dayOfWeek+"' AND issue='"+thisWeekIssue+"';";
         Member member = new Member();
-        jdbc.queryForObject(isCreated, new RowMapper<Member>() {
-            public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-              member.setUsername(rs.getString("username"));
-               return member;
-            }
-        });
+        try {
+            jdbc.queryForObject(isCreated, new RowMapper<Member>() {
+                public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    member.setUsername(rs.getString("username"));
+                    return member;
+                }
+            });
+        }
+        catch (Exception e){
+            return  null;
+        }
         if (member.getUsername()!=null){
             return "created";
         }
         return null;
+    }
+
+    public Page calculateBestPage(String thisWeekIssue) {
+        ArrayList<Page> pages = new ArrayList<>();
+        String findPage = "SELECT * FROM \"WeeklyPages\" WHERE issue ='" + thisWeekIssue +"';";
+        List<Map<String, Object>> rows = jdbc.queryForList(findPage);
+        int i = 0;
+        try {
+            for (Map rs : rows) {
+                Page tempPage = new Page();
+                tempPage.setUsername((String) rs.get("username"));
+                tempPage.setPublished((boolean) rs.get("published"));
+                tempPage.setImgurl((String) rs.get("imgurl"));
+                tempPage.setVotes((int) rs.get("votes"));
+                tempPage.setSeries("WeeklyComic");
+                tempPage.setIssue((String) rs.get("issue"));
+                tempPage.setPagenumber((int) rs.get("pagenumber"));
+                tempPage.setPageArrayNumber(i);
+                pages.add(tempPage);
+                i++;
+            }
+        }
+        catch (Exception e){
+            return  null;
+        }
+        Page maxVotes = new Page();
+        maxVotes.setUsername("max.votes");
+        maxVotes.setVotes(0);
+        for (Page page :pages){
+            if(page.getVotes()>maxVotes.getVotes()){
+                maxVotes = page;
+            }
+        }
+        // if no page had votes greater than 0 aka no max then select at random
+        if(maxVotes.getUsername().equals("max.votes")){
+            Random r = new Random();
+            int index = r.nextInt()+pages.size();
+            return pages.get(index);
+        }
+        return maxVotes;
+    }
+
+    public void addMaxVotesToSeries(Page maxVotes) {
+       // String updatePageVotes = "UPDATE \"WeeklyPages\" SET PUBLISHED= 'true' WHERE issue='"+maxVotes.getIssue()+"' AND username='"+maxVotes.getUsername()+"';";
+        // jdbc.update(updatePageVotes);
+
     }
 }

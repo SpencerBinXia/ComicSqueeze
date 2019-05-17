@@ -35,4 +35,16 @@ public class WeeklyContributionService {
         }
         return false;
     }
+
+    public Page calculateBestPage(String thisWeekIssue) {
+        Page maxVotes =weeklyContributionRepo.calculateBestPage(thisWeekIssue);
+        if(maxVotes==null){
+            return null;
+        }
+        return maxVotes;
+    }
+
+    public void addMaxVotesToSeries(Page maxVotes) {
+        weeklyContributionRepo.addMaxVotesToSeries(maxVotes);
+    }
 }

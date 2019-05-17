@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 @Controller
 
@@ -44,8 +45,23 @@ public class IndexController {
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
         Calendar cal = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone("EST");
+        cal.setTimeZone(tz);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         ArrayList<Page> weeklyContributions;
+
+        //Voting stops at 12 A.M EST
+        int hours= cal.get(Calendar.HOUR_OF_DAY);
+        System.out.println(hours);
+        // it is 12 A.M s
+
+        if (hours==14){
+            Page maxVotes = weeklyContributionService.calculateBestPage(thisWeekIssue);
+            if(maxVotes!=null) {
+                weeklyContributionService.addMaxVotesToSeries(maxVotes);
+            }
+        }
+
         // HERE I QUERY FOR ALL THE CONTRIBUTIONS MADE FOR THIS WEEk FOR THIS DAY AND ADD IT TO THE MODEL
         weeklyContributions = weeklyContributionService.queryAllContributions(thisWeekIssue,dayOfWeek);
         // checks if a member already created a page for this issue today
