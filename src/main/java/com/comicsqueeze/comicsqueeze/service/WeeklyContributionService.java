@@ -29,4 +29,22 @@ public class WeeklyContributionService {
         weeklyContributionRepo.setMemberCreatedWeekly(username);
     }
 
+    public boolean checkIfCreatedPage(String username, String thisWeekIssue, int dayOfWeek) {
+        if(weeklyContributionRepo.checkIfCreatedPage(username,thisWeekIssue,dayOfWeek)!=null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Page calculateBestPage(String thisWeekIssue) {
+        Page maxVotes =weeklyContributionRepo.calculateBestPage(thisWeekIssue);
+        if(maxVotes==null){
+            return null;
+        }
+        return maxVotes;
+    }
+
+    public void addMaxVotesToSeries(Page maxVotes) {
+        weeklyContributionRepo.addMaxVotesToSeries(maxVotes);
+    }
 }

@@ -13,6 +13,7 @@ public class Page implements Comparable<Page> {
     private String series;
     private int pageArrayNumber;
     private int publishedArrayNumber;
+    private int dayOfWeekCreated;
 
     public int compareTo(Page page)
     {
@@ -88,5 +89,13 @@ public class Page implements Comparable<Page> {
 
     public void setPublishedArrayNumber(int publishedArrayNumber) {
         this.publishedArrayNumber = publishedArrayNumber;
+    }
+
+    public int getDayOfWeekCreated() {
+        return dayOfWeekCreated;
+    }
+
+    public void setDayOfWeekCreated(int dayOfWeekCreated) {
+        this.dayOfWeekCreated = dayOfWeekCreated;
     }
 }

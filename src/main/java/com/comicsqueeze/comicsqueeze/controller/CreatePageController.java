@@ -136,7 +136,6 @@ public class CreatePageController {
         }
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",username);
-        weeklyContributionService.setMemberCreatedWeekly(username);
         curMember.setCreatedWeekly(true);
 
         return "FrontPage";
