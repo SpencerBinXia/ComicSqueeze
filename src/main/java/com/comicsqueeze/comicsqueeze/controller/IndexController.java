@@ -1,5 +1,6 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
+import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.object.WeeklyComic;
@@ -40,8 +41,8 @@ public class IndexController {
         Member member = (Member) session.getAttribute("curMember");
 
         String thisWeekIssue = issueService.queryForWeeklyIssue();
-        WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
-        session.setAttribute("weeklyComic",thisWeeklyComic);
+       // WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
+        //session.setAttribute("weeklyComic",thisWeeklyComic);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
         Calendar cal = Calendar.getInstance();
@@ -58,7 +59,7 @@ public class IndexController {
         // it is 12 A.M s
 
         if ((hours==0)&& (minutes==0)){
-            // calculates max votes then sets the page with max votes to published true in weekly pages O(meaning it is published in the issue for this weekly comic)
+            // calculates max votes then sets the page with max votes to published true in weekly pages (meaning it is published in the issue for this weekly comic)
             Page maxVotes = weeklyContributionService.calculateBestPage(thisWeekIssue);
             if(maxVotes!=null) {
                 weeklyContributionService.addMaxVotesToSeries(maxVotes);
@@ -76,6 +77,12 @@ public class IndexController {
                 }
             }
         }
+        //HERE I Query for all the issues that were created for the weekly comic series
+        ArrayList<Issue> weeklyissues = weeklyContributionService.getWeeklyIssues();
+        for(Issue issue: weeklyissues){
+            issue.setPages(weeklyContributionService.queryAllIssuePages(issue.getTitle()));
+        }
+        model.addAttribute("weeklyIssues",weeklyissues);
         model.addAttribute("weeklyContributions",weeklyContributions);
         return "FrontPage";
     }

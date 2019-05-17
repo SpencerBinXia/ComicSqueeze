@@ -234,31 +234,21 @@
             <div class="flexContainer flexColumn">
                 <h2 style="margin: 0">Past Comics</h2><br><br>
                 <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
-                    <div class="flexContainer flexColumn issue" style="align-items: center;">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_3.jpg"></a>
-                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
-                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
-                    </div>
-                    <div class="flexContainer flexColumn issue" style="align-items: center;">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_3.jpg"></a>
-                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
-                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
-                    </div>
-                    <div class="flexContainer flexColumn issue" style="align-items: center;">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_3.jpg"></a>
-                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
-                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
-                    </div>
-                    <div class="flexContainer flexColumn issue" style="align-items: center;">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_3.jpg"></a>
-                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
-                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
-                    </div>
-                    <div class="flexContainer flexColumn issue" style="align-items: center;">
-                        <a th:href="@{/issue}"><img src="images/EXAMPLE_3.jpg"></a>
-                        <p style="font-weight: bold; margin-bottom: 0px;">Issue Title</p>
-                        <p style="margin-top: 0px; margin-bottom: 30px;">Series Name</p>
-                    </div>
+
+                        <th:block th:each="issue:${weeklyIssues}">
+                            <div class="flexContainer flexColumn issue" style="align-items: center;">
+                                <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
+                                <th:block th:each="page: ${issue.getPages()}">
+
+                                    <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"></a>
+
+                                </th:block>
+                                <p style="font-weight: bold; margin-bottom: 0px;" th:text="${issue.getTitle()}">Issue Title</p>
+                                <p style="margin-top: 0px; margin-bottom: 30px;"th:text="${issue.getSeries()}">Series Name</p>
+                            </div>
+                        </th:block>
+                    
+
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
@@ -293,6 +283,7 @@
             </div>
         </div>
     </div>
+
 
     <!--Sign In Popup-->
     <div id="signIn-modal-container">
