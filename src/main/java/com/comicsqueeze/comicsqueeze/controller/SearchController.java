@@ -29,7 +29,10 @@ public class SearchController {
     {
         System.out.println("search controller called");
         Member curMember = service.findMember((String)session.getAttribute("username"));
-        model.addAttribute("curMember", curMember);
+        if(curMember != null){
+            System.out.println("CurMember no null");
+            model.addAttribute("curMember", curMember);
+        }
         if(session.getAttribute("searchResults") != null){
             ArrayList<Series> ser = (ArrayList<Series>) session.getAttribute("searchResults");
             model.addAttribute("theResult", ser);
@@ -47,11 +50,29 @@ public class SearchController {
                 System.out.print(me2.getKey() + ": ");
                 System.out.println(me2.getValue());
             }
+
+
+            //Reverse seriesLow Map to achieve descending order of ratings
+            Map<Series,Double> seriesHigh = new TreeMap<>(Collections.reverseOrder());
+            Set seriesLowSet = seriesLow.entrySet();
+            Iterator iter= seriesLowSet.iterator();
+
+
+            while(iter.hasNext()){
+
+                Map.Entry key = (Map.Entry) iter.next();
+                //System.out.print(key.getKey() + ": ");
+                //System.out.println(key.getValue());
+                //Series temp = (Series) key.getKey();
+               // seriesHigh.put(temp, seriesLow.get(key));
+            }
+            for(int i =0; i < seriesHigh.size(); i++){
+                //System.out.println("Trying to print high");
+                //System.out.println(seriesHigh.get(i));
+            }
+
+
             model.addAttribute("seriesSortedLow", seriesLow);
-
-
-
-
 
 
 
@@ -73,7 +94,16 @@ public class SearchController {
         }
         return sortByValues(seriesHigh);
     }
-
+/*
+    private HashMap<Series,Double> reverseMapOrder(Map<Series,Double> seriesRatingMap){
+        Map<Series,Double> sortedMap = new LinkedHashMap<>();
+        seriesRatingMap.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+                .forEachOrdered(entry ->
+                        sortedMap.put(entry.getKey(), entry.getValue()));
+    }
+*/
     private static HashMap sortByValues(HashMap map) {
         List list = new LinkedList(map.entrySet());
         // Defined Custom Comparator here

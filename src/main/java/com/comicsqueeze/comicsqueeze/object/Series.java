@@ -121,4 +121,6 @@ public class Series {
     public void setRateCounter(int rateCounter) {
         this.rateCounter = rateCounter;
     }
+
+
 }
