@@ -7,6 +7,7 @@ import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
 
 import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
+import com.comicsqueeze.comicsqueeze.service.SubscriptionService;
 import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
 
 import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
@@ -45,12 +46,18 @@ public class OtherUserProfileController {
     private ComicSeriesService comicService;
     @Autowired
     private ComicIssueService comicIssueService;
+    @Autowired
+    private SubscriptionService subService;
+
     @GetMapping
     public String displayProfile(@PathVariable("profileID") String profileID, Model model, HttpSession session)
     {
+        int subscriptionCount = 0;
         Member curMember = service.findMember((String)session.getAttribute("username"));
         System.out.println(profileID);
         Member displayMember = service.findMember(profileID);
+        subscriptionCount = subService.sumUserSubscriptions(profileID);
+        model.addAttribute("subscriptionCount", subscriptionCount);
         model.addAttribute("curMember", curMember);
         ArrayList<Series> seriesArrayList = comicService.queryAllSeries(displayMember);
 

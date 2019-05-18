@@ -52,7 +52,8 @@ public class CurrentUserProfileController {
     @RequestMapping(value="/yourprofile", method=RequestMethod.GET)
     public String currentProf(Model model, HttpSession session)
     {
-        System.out.println((String)session.getAttribute("username"));
+       int subscriptionCount = 0;
+       System.out.println((String)session.getAttribute("username"));
        Member curMember = service.findMember((String)session.getAttribute("username"));
        System.out.println(curMember.getUsername());
        model.addAttribute("curMember", curMember);
@@ -63,7 +64,9 @@ public class CurrentUserProfileController {
             seriesArrayList.get(i).setIssueArrayList(comicIssueService.queryAllIssuesFromASeries(curMember, seriesArrayList.get(i)));
         }
         ArrayList<Subscription> subArrayList = subService.queryAllSubscriptions(curMember.getUsername());
+        subscriptionCount = subService.sumUserSubscriptions((String)session.getAttribute("username"));
         model.addAttribute("subscriptions", subArrayList);
+        model.addAttribute("subscriptionCount", subscriptionCount);
         //set the series to member variable to be loaded in app
         Member sessionMember = (Member) session.getAttribute("curMember");
         sessionMember.setSeriesArrayList(seriesArrayList);

@@ -21,7 +21,7 @@
     </script>
     <script>
         // <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
-        const curMemBio = "[[${curMember.getBio()}]]";
+        // const curMemBio = "[[${curMember.getBio()}]]";
     </script>
 
     <link href="css/owl_carousel.css" rel="stylesheet">
@@ -29,6 +29,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src =js/uploadData.js></script>
     <script src =js/loadImage.js></script>
+    <script src="js/navBar.js"></script>
     <script src =js/signIn.js></script>
     <script src =js/ownProfile.js></script>
     <script src="js/owl_carousel.js"></script>
@@ -55,7 +56,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" class="navIcon">
             </a>
         </a>
@@ -65,7 +66,7 @@
                 <img src="images/icons/search_icon.png" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
             <a th:if="${session.username}!=null" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
                 <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
             </a>
@@ -107,50 +108,57 @@
                     <img th:src="${curMember.getImgUrl()}" class="profile_img">
                     <h2 th:text="${session.username}" style="text-align: center"></h2>
                     <p id="bioID" style="margin-top: -15px; overflow-wrap: break-word; white-space: pre-wrap" th:text="${curMember.getBio()}"></p>
-                    <h3 style="text-align: center"># Followers</h3>
-                    <a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">
+                    <!--<h3 style="text-align: center"># Followers</h3>-->
+                    <!--<a class="button-as-link">-->
+                    <h3 th:text="'Follows: ' + ${subscriptionCount}" style="text-align: center"></h3>
+                    <!--<a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">-->
                         <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
-                    </a><br>
-                    <a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">
-                        <button class="lime-button-solo">CREATE SERIES</button>
-                    </a>
+                    <!--</a>-->
+                    <br>
+                    <!--<a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">-->
+                        <button class="lime-button-solo" onclick="createSeriesClicked()">CREATE SERIES</button>
+                    <!--</a>-->
                 </div>
             </div>
-            <a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">
-                <button class="grey-button-left">EDIT</button>
-            </a>
+            <!--<a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">-->
+                <button class="grey-button-left" onclick="editProfileClicked()">EDIT</button>
+            <!--</a>-->
         </aside>
         <aside class="sidebar sidebarRight" style="min-width: 0"></aside>
 
     </div>
 
     <!--Notifications Popup-->
-    <div id="notifications-modal-container">
-        <div id="notifications-modal" class="reveal-modal-notifications">
-            <div class="flexContainer flexColumn">
-                <p class="notification-item">USERNAME has released a new comic series</p>
-                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
-                <p class="notification-item">New Follower: USERNAME</p>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
-                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
-                    </a>
+    <div id="notifications" class="modal-notifications">
+        <div id="notifications-modal" class="modal-notifications-inner">
+            <div class="flexContainer flexRow">
+                <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
+                <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
+                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                    <p class="notification-item">New Follower: USERNAME</p>
+                    <p class="notification-item">SeriesName has been flagged.</p>
+                    <p class="notification-item">USERNAME has released a new comic series</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!--Subscriptions Popup-->
-    <div id="subscriptions-modal-container">
-        <div id="subscriptions-modal" class="reveal-modal">
+    <div id="subscriptions" class="modal">
+        <div id="subscriptions-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
-                <h2 style="margin-top: 0">Followed Series</h2>
-                <!--<div class="followingList">-->
+                <div class="flexContainer flexRow" style="justify-content: space-between;">
+                    <h2 style="margin: 0">Followed Series</h2>
+                    <a class="button-as-link" style="width: fit-content; margin: 0; float: right;">
+                        <button class="grey-button-left" onclick="closeFollowing()" style="margin: 0">CLOSE</button>
+                    </a>
+                </div>
                 <div class="subscriptions_slick">
                     <th:block th:each="subscription: ${subscriptions}">
                         <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
                             <a style="width: fit-content">
-                                <img src="https://via.placeholder.com/180x280" class="issue" style="margin: auto;">
+                                <img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">
                             </a>
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
                                 <h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
@@ -161,16 +169,13 @@
                         </div>
                     </th:block>
                 </div>
-                <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                    <button class="grey-button-left">CLOSE</button>
-                </a>
             </div>
         </div>
     </div>
 
     <!--Edit Profile Popup-->
-    <div id="edit-profile-modal-container">
-        <div id="edit-profile-modal" class="reveal-modal">
+    <div id="edit-profile" class="modal">
+        <div id="edit-profile-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <div class="flexContainer flexRow">
                     <div class="column-left">
@@ -206,20 +211,20 @@
                     </div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
                         <button class="lime-button-left" onclick=updateBio()>SAVE</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeEditProfile()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
     </div>
 
     <!--Create Series Popup-->
-    <div id="create-series-modal-container">
-        <div id="create-series-modal" class="reveal-modal">
+    <div id="create-series" class="modal">
+        <div id="create-series-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Create Series</h2>
                 <form id="seriesForm">
@@ -279,35 +284,37 @@
                     </a>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
                         <button class="lime-button-left" onclick=createSeries()>CREATE</button>
-                    </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick="resetSeriesForm()">CLOSE</button>
-                    </a>
+                    <!--</a>-->
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeCreateSeries()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
     </div>
 
     <!--Sign In Popup-->
-    <div id="signIn-modal-container">
-        <div id="signIn-modal" class="reveal-modal">
+    <div id="sign-In" class="modal-login">
+        <div id="signIn-modal" class="modal-login-inner">
             <div class="flexContainer flexColumn">
 
                 Email: <input id = "email"class="input-small" type="text" name="email"><br><br>
                 <label id ="passLbl">Password:</label> <input type="password" id="passWord" class="input-small" name="passWord">
-                <input type="checkbox" onclick="showPass()">Show Password
-
+                <div class="flexContainer flexRow">
+                    <input type="checkbox" onclick="showPass()" style="padding-right: 5px; width: fit-content;">
+                    Show Password
+                </div>
 
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
-                    </a>
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                    <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
+                    <!--</a>-->
                     <a id ="forgot" href="javascript:forgotPassword();">Forgot Password?</a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button  class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                    <button  class="grey-button-left" onclick="closeLogin()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

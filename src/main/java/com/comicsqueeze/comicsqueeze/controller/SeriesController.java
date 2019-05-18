@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/series/{profileID}/{seriesTitle}")
@@ -83,8 +84,10 @@ public class SeriesController {
             model.addAttribute("seriesDesc", series.getDescription());
         }
         averageRating = rateService.averageReview(seriesTitle, profileID);
+        ArrayList<RateReview> reviewList = rateService.findAllReviewsFromSeries(seriesTitle, profileID);
         model.addAttribute("userRating", defaultRating);
         model.addAttribute("subscribed", subscribed);
+        model.addAttribute("reviewList", reviewList);
         if (averageRating != -1.0)
         {
             model.addAttribute("averageRating", averageRating);

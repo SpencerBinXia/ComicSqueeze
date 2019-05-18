@@ -50,7 +50,11 @@
                     <form method="get" action="/registerUser">
                         *Username: <input id="inputUsername" type="text" name="Username"><br><br>
                         *Password (Must be at least 6 characters): <input id="regPassWord" type="password" name="Password"><br>
-                        <input type="checkbox" style="float: left" onclick="showRegPass()">Show Password<br><br>
+                        <div class="flexContainer flexRow">
+                            <input type="checkbox" style="float: left; padding-right: 5px; width: fit-content;" onclick="showRegPass()">
+                            Show Password
+                        </div>
+                        <br><br>
                         *Email: <input type="text" name="Email"><br><br>
                         First Name: <input type="text" name="First"><br><br>
                         Last Name: <input type="text" name="Last">

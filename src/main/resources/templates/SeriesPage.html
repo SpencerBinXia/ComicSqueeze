@@ -31,6 +31,7 @@
     <script src="js/rateit/jquery.rateit.js" th:src="@{/js/rateit/jquery.rateit.js}"}></script>
     <script src="js/rater.js" th:src="@{/js/rater.js}"></script>
     <script src="js/signIn.js" th:src="@{/js/signIn.js}"></script>
+    <script src="js/navBar.js" th:src="@{/js/navBar.js}"></script>
     <script src =js/ownProfile.js th:src="@{/js/ownProfile.js}"></script>
     <script src="js/ownSeries.js" th:src="@{/js/ownSeries.js}"></script>
     <script src="js/rateBar.js" th:src="@{/js/rateBar.js}"></script>
@@ -56,7 +57,7 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" href="#notifications-modal-container" data-reveal-id="exampleModal" class="navButton" style="float: left; display: inline-block">
+            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
                 <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
@@ -66,7 +67,7 @@
                 <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
-            <a th:if="${session.username}==null" href="#signIn-modal-container" data-reveal-id="signIn-modal" class="navButton" style="float: right;">SIGN IN</a>
+            <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
             <a th:if="${session.username}!=null" class="button-as-link" style="width: fit-content; margin: 0 10px 0 0; float: right;">
                 <button class="navButton" id="signOut" style="border-bottom: 0; border-top: 0" onclick="signOut()">LOG OUT</button>
             </a>
@@ -122,8 +123,11 @@
 
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; ">Reviews</h1>
-                <a th:if="${session.username != profileID and session.username != null}" href="#write-review-modal-container" data-reveal-id="write-review-modal" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                <a th:if="${session.username != profileID and session.username != null}" onclick="writeReviewClicked()" class="page-option" style="cursor: pointer">
+                    <img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}">
+                </a>
             </div>
+            <!--
             <p>Username</p>
             <div class="flexContainer flexRow limes">
                 <img src="images/icons/lime_COLOR_icon.png" th:src="@{/images/icons/lime_COLOR_icon.png}" class="lime-small">
@@ -136,6 +140,16 @@
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                 dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                -->
+            <th:block th:each="review: ${reviewList}">
+                <div class="review">
+                    <h4 th:text="${review.getRater()}" style="margin: 0 0 10px 0;"></h4>
+                    <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <div style="max-height: 200px; overflow: auto; overflow-x: hidden;">
+                        <p th:text="${review.getReview()}" style="white-space: pre-wrap; margin: 10px 0 0 0;"></p>
+                    </div>
+                </div>
+            </th:block>
 
             <br><br><br>
 
@@ -147,38 +161,38 @@
     </div>
 
     <!--Write Review Popup-->
-    <div id="write-review-modal-container">
-        <div id="write-review-modal" class="reveal-modal">
+    <div id="write-review" class="modal-login">
+        <div id="write-review-modal" class="modal-login-inner">
             <div class="flexContainer flexColumn">
                 <form>
-                    Write Review: <textarea class="input-large" type="text" name="Description"></textarea><br><br>
+                    Write Review: <textarea class="input-large" id="reviewField" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow limes">
-                    <div class="rateit limeBar" data-rateit-value="0" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <div class="rateit limeBar" id="reviewBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick="rateReview()">SUBMIT</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeWriteReview()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
     </div>
 
     <!--Notifications Popup-->
-    <div id="notifications-modal-container">
-        <div id="notifications-modal" class="reveal-modal-notifications">
-            <div class="flexContainer flexColumn">
-                <p class="notification-item">USERNAME has released a new comic series</p>
-                <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
-                <p class="notification-item">New Follower: USERNAME</p>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a href="#" class="button-as-link close-reveal-modal notification-item" style="border: none; margin: 0;">
-                        <button class="grey-button-left" style="margin: 0;">CLOSE</button>
-                    </a>
+    <div id="notifications" class="modal-notifications">
+        <div id="notifications-modal" class="modal-notifications-inner">
+            <div class="flexContainer flexRow">
+                <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
+                <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
+                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
+                    <p class="notification-item">New Follower: USERNAME</p>
+                    <p class="notification-item">SeriesName has been flagged.</p>
+                    <p class="notification-item">USERNAME has released a new comic series</p>
                 </div>
             </div>
         </div>
@@ -238,23 +252,25 @@
     </div>
 
     <!--Sign In Popup-->
-    <div id="signIn-modal-container">
-        <div id="signIn-modal" class="reveal-modal">
+    <div id="sign-In" class="modal-login">
+        <div id="signIn-modal" class="modal-login-inner">
             <div class="flexContainer flexColumn">
 
                 Email: <input id = "email"class="input-small" type="text" name="email"><br><br>
                 <label id ="passLbl">Password:</label> <input type="password" id="passWord" class="input-small" name="passWord">
-                <input type="checkbox" onclick="showPass()">Show Password
-
+                <div class="flexContainer flexRow">
+                    <input type="checkbox" onclick="showPass()" style="padding-right: 5px; width: fit-content;">
+                    Show Password
+                </div>
 
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
-                    </a>
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                    <button id = "signIn" onclick="signIn()"  class="lime-button-left">SIGN IN</button>
+                    <!--</a>-->
                     <a id ="forgot" href="javascript:forgotPassword();">Forgot Password?</a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button  class="grey-button-left">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                    <button  class="grey-button-left" onclick="closeLogin()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

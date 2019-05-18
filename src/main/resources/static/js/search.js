@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    localStorage.setItem('showSearch', 'true');
     $(".searchButton").click(function (e){
         console.log("search function called");
         var filterField = document.getElementById('searchBy');
@@ -11,6 +11,8 @@ $(document).ready(function(){
             return false;
         }
 
+
+        localStorage.setItem('showLow', 'false');
         document.getElementById('searchContents').value = "";
 
         console.log(filterOptionValue);
@@ -63,6 +65,33 @@ $(document).ready(function(){
     });
 });
 
+
+function applyFiltering() {
+    var sortFilter = document.getElementById('sortBy');
+    var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
+
+    //localStorage.setItem('showLow', 'true');
+    localStorage.setItem('showSearch', 'false');
+    if(filterVal == "rating-LOW"){
+        console.log("gottorate")
+        localStorage.setItem("showLow", 'true');
+            //document.getElementById("sortLow").style.display = "block";
+    }
+}
+
+window.onload = function(){
+    //localStorage.setItem('showLow', 'false');
+    var showLow = localStorage.getItem('showLow');
+    var showSearch = localStorage.getItem('showSearch');
+    if(showLow == 'true'){
+        document.getElementById("sortLow").style.display = "block";
+        document.getElementById("seriesResultsList").style.display = "none";
+    }
+    if(showSearch == 'true'){
+        document.getElementById("seriesResultsList").style.display = "block";
+        document.getElementById("sortLow").style.display = "none";
+    }
+}
 function applyFilter(){
     //console.log("Hello")
     var sortFilter = document.getElementById('sortBy');
@@ -71,6 +100,10 @@ function applyFilter(){
     var seriesResultList = document.getElementById("seriesResultsList");
     var memberResult = document.getElementById("usersResultsList");
     console.log(seriesResultList);
+    //var seriesList = document.querySelector("#seriesResultsList > div");
+    //document.querySelector("#seriesResultsList > div > a:nth-child(1)")
+    //#seriesResultsList > div > a:nth-child(1)
+
     console.log(memberResult);
     var resultQuery = document.getElementById("giveMeQuery").valueOf();
     console.log(resultQuery)
@@ -83,10 +116,10 @@ function applyFilter(){
         filterBy = "sortByPopular";
     }
     else if(filterVal == "Rating-HIGH"){
-        filterBy = "sortByDescendingRating";
+        filterBy = "sortByHighRating";
     }
     else if(filterVal == "Rating-LOW"){
-        filterBy = "sortByAscendingRating";
+        filterBy = "sortByLowRating";
     }
 
     $.ajax({

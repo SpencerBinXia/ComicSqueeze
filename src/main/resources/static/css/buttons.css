@@ -1,3 +1,7 @@
+button {
+    cursor:pointer; !important;
+}
+
 /*navBar buttons*/
 .navButton {
     background-color: transparent;
