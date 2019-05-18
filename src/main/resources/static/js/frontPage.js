@@ -71,4 +71,15 @@ $(document).ready(function(){
         // slidesPerRow: 4,
         verticalSwiping: false,
     });
+    $("#recentIssues").slick({
+        dots: true,
+        arrows: false,
+        vertical: false,
+        infinite: false,
+        // slidesToShow: 5,
+        // slidesToScroll: 1,
+        rows: 2,
+        slidesPerRow: 5,
+        verticalSwiping: true,
+    });
 });

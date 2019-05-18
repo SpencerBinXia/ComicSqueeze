@@ -44,23 +44,23 @@ public class IndexRepo {
         return members;
     }
 
-    public ArrayList<Member> queryRecentIssues(){
+    public ArrayList<Issue> queryRecentIssues(){
         String findRecentIssues = "SELECT * FROM \"Member\" GROUP BY username ORDER BY follows DESC fetch first 10 rows only;";
-        ArrayList<Member> members = new ArrayList();
+        ArrayList<Issue> issues = new ArrayList();
         try {
             List<Map<String,Object>> rows = jdbc.queryForList(findRecentIssues);
             for(Map rs : rows){
-                Member tempMember = new Member();
-                tempMember.setUsername((String)rs.get("username"));
-                tempMember.setImgUrl((String)rs.get("imgurl"));
-                tempMember.setFollows((Integer)rs.get("follows"));
-                members.add(tempMember);
+                Issue tempIssue = new Issue();
+//                tempMember.setUsername((String)rs.get("username"));
+//                tempMember.setImgUrl((String)rs.get("imgurl"));
+//                tempMember.setFollows((Integer)rs.get("follows"));
+                issues.add(tempIssue);
             }
         }
         catch (Exception e) {
             return null;
         }
-        return members;
+        return issues;
     }
 
 }

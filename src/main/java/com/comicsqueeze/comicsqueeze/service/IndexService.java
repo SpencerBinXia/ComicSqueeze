@@ -1,5 +1,6 @@
 package com.comicsqueeze.comicsqueeze.service;
 
+import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
 import com.comicsqueeze.comicsqueeze.repository.IndexRepo;
@@ -17,6 +18,10 @@ public class IndexService {
 
     public ArrayList<Member> queryTopArtists(){
         return indexRepo.queryTopArtists();
+    }
+
+    public ArrayList<Issue> queryRecentIssues(){
+        return indexRepo.queryRecentIssues();
     }
 
 }
