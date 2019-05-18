@@ -13,6 +13,21 @@ window.onclick =function (event) {
         modal.style.display = "none";
     }
 }
+// NEW WEEKLY COMIC MODAL MODAL REWORK
+function newWeeklyClicked() {
+    var modal = document.getElementById('new-weekly');
+    modal.style.display = "block";
+}
+function closeNewWeekly() {
+    var modal = document.getElementById('new-weekly');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('new-weekly');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 // VOTE MODAL REWORK
 function voteClicked() {
     var modal = document.getElementById('vote');

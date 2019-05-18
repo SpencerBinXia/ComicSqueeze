@@ -35,7 +35,10 @@ public class SearchController {
             model.addAttribute("theResult", ser);
             session.setAttribute("searchResults", null);
 
+            System.out.println("ser: "+ ser);
             Map<Series,Double> seriesLow = sortByRatingLow(ser);
+            System.out.println("seriesLow: "+ seriesLow);
+
             System.out.println("After Sorting:");
             Set set2 = seriesLow.entrySet();
             Iterator iterator2 = set2.iterator();

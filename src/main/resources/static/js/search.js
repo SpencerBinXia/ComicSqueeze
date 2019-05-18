@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    localStorage.setItem('showSearch', 'true');
     $(".searchButton").click(function (e){
         console.log("search function called");
         var filterField = document.getElementById('searchBy');
@@ -11,8 +10,10 @@ $(document).ready(function(){
             return false;
         }
 
-
+        console.log("2");
         localStorage.setItem('showLow', 'false');
+        localStorage.setItem('showSearch', 'true');
+
         document.getElementById('searchContents').value = "";
 
         console.log(filterOptionValue);
@@ -70,28 +71,34 @@ function applyFiltering() {
     var sortFilter = document.getElementById('sortBy');
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
 
-    //localStorage.setItem('showLow', 'true');
+    console.log("3");
     localStorage.setItem('showSearch', 'false');
     if(filterVal == "rating-LOW"){
-        console.log("gottorate")
+        console.log("rate-low");
         localStorage.setItem("showLow", 'true');
-            //document.getElementById("sortLow").style.display = "block";
     }
 }
 
 window.onload = function(){
-    //localStorage.setItem('showLow', 'false');
+    console.log("1");
     var showLow = localStorage.getItem('showLow');
     var showSearch = localStorage.getItem('showSearch');
     if(showLow == 'true'){
-        document.getElementById("sortLow").style.display = "block";
+        console.log("showLow - low: " + showLow);
+        console.log("showLow - search: " + showSearch);
         document.getElementById("seriesResultsList").style.display = "none";
-    }
-    if(showSearch == 'true'){
-        document.getElementById("seriesResultsList").style.display = "block";
+        document.getElementById("sortLow").style.display = "block";
+    } else if(showSearch == 'true'){
+        console.log("showSearch - low: " + showLow);
+        console.log("showSearch - search: " + showSearch);
         document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "block";
     }
 }
+
+
+
+
 function applyFilter(){
     //console.log("Hello")
     var sortFilter = document.getElementById('sortBy');
