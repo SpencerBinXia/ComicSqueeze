@@ -70,4 +70,8 @@ public class WeeklyContributionService {
     public void setMemberVoted(String username) {
         weeklyContributionRepo.setMemberVoted(username);
     }
+
+    public void createNewWeeklyIssue(String issueTitle, String description) {
+        weeklyContributionRepo.createNewWeeklyIssue(issueTitle,description);
+    }
 }

@@ -302,4 +302,22 @@ public class WeeklyContributionRepo {
             System.out.println(e.getStackTrace());
         }
     }
+
+    public void createNewWeeklyIssue(String issueTitle, String description) {
+        try{
+            jdbc.update("INSERT INTO \"WeeklyComic\"(issueTitle,users,pages,description)"+"VALUES (?,?,?,?)",issueTitle,null,1,description);
+        }
+        catch (Exception e){
+
+        }
+
+        String updateWeeklyIssue = "UPDATE \"WeeklyIssueTitle\" SET ISSUETITLE='"+issueTitle+"';";
+        try {
+            jdbc.update(updateWeeklyIssue);
+        }
+        catch (Exception e){
+
+        }
+
+    }
 }

@@ -101,6 +101,9 @@
                             <a th:if="${session.username}!=null and ${session.curMember.isCreatedWeekly()}==false"  class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
+                            <a th:href="@{/createWeeklyIssue}" th:if=" ${session.username}!=null" class="button-as-link" >
+                                <a href="#new-weekly-container" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -314,7 +317,22 @@
             </div>
         </div>
     </div>
+    <!--new weekly issue modal-->
+    <div id="new-weekly-container">
+        <div id="new-weekly" class="reveal-modal">
+            <div class="flexContainer flexColumn">
+                <form action="/createWeeklyIssue">
+                   Issue name: <input class="input-small" type="text" name="issueTitle">
+                   Description: <input class="input-small" type="text" name="description">
+                    <input type="submit" class="lime-button-left">
+                </form>
 
+                <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
+                    <button  class="grey-button-left">CLOSE</button>
+                </a>
+            </div>
+        </div>
+    </div>
     <footer class="footer darkGreyBackground">Copyright &copy; Debugging Enterprises</footer>
 
 </div>
