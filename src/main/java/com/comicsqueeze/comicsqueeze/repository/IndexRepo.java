@@ -25,12 +25,12 @@ public class IndexRepo {
     @Autowired
     JdbcTemplate jdbc;
 
-    public ArrayList<Member> showTopArtists(){
-        String findUsers = "SELECT * FROM \"Member\" WHERE ;";
+    public ArrayList<Member> queryTopArtists(){
+        String findTopUsers = "SELECT TOP(10) FROM \"Member\" GROUP BY username ORDER BY follows DESC;";
         ArrayList<Member> members = new ArrayList();
         try
         {
-            List<Map<String,Object>> rows = jdbc.queryForList(findUsers);
+            List<Map<String,Object>> rows = jdbc.queryForList(findTopUsers);
             for(Map rs : rows){
                 Member tempMember = new Member();
                 tempMember.setUsername((String)rs.get("username"));

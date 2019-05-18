@@ -4,10 +4,7 @@ import com.comicsqueeze.comicsqueeze.object.Issue;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.object.WeeklyComic;
-import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
-import com.comicsqueeze.comicsqueeze.service.ComicPageService;
-import com.comicsqueeze.comicsqueeze.service.WeeklyContributionService;
-import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
+import com.comicsqueeze.comicsqueeze.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +28,8 @@ public class IndexController {
     private ComicIssueService issueService;
     @Autowired
     private WeeklyContributionService weeklyContributionService;
+    @Autowired
+    private IndexService indexService;
 
     @RequestMapping(value ="/",method = RequestMethod.GET)
     public String home(Model model, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, HttpSession session)
@@ -50,6 +49,9 @@ public class IndexController {
         cal.setTimeZone(tz);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         ArrayList<Page> weeklyContributions;
+
+        // Top artists
+
 
         //Voting stops at 12 A.M EST
         int hours= cal.get(Calendar.HOUR_OF_DAY);
