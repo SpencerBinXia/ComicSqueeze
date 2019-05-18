@@ -61,6 +61,16 @@ public class SubscriptionRepo {
         return tempSubscript;
     }
 
+    public void increaseFollows(String seriesCreator){
+        String incFollowsQuery = "UPDATE \"Member\" SET follows = follows + 1 WHERE username='" + seriesCreator + "';";
+        jdbc.update(incFollowsQuery);
+    }
+
+    public void decreaseFollows(String seriesCreator){
+        String decFollowsQuery = "UPDATE \"Member\" SET follows = follows - 1 WHERE username='" + seriesCreator + "';";
+        jdbc.update(decFollowsQuery);
+    }
+
     public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
     {
         String sumSeriesSubQuery = "SELECT COUNT(*) FROM \"Subscription\" WHERE seriestitle= ? AND seriescreator= ?;";

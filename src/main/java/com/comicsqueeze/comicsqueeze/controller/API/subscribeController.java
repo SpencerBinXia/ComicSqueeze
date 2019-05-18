@@ -37,6 +37,7 @@ public class subscribeController {
         System.out.println(curMember.getCurrentSeries().getUsername());
         System.out.println(curMember.getCurrentSeries().getTitle());
         subService.insertSubscription(curMember.getUsername(), curMember.getCurrentSeries().getTitle(), curMember.getCurrentSeries().getUsername());
+//        subService.increaseFollows(curMember.getCurrentSeries().getUsername());
         return "redirect:/";
     }
 
@@ -48,6 +49,7 @@ public class subscribeController {
         System.out.println(curMember.getCurrentSeries().getUsername());
         System.out.println(curMember.getCurrentSeries().getTitle());
         subService.removeSubscription(curMember.getUsername(), curMember.getCurrentSeries().getTitle(), curMember.getCurrentSeries().getUsername());
+//        subService.decreaseFollows(curMember.getCurrentSeries().getUsername());
         return "redirect:/";
     }
 
@@ -59,6 +61,7 @@ public class subscribeController {
         ArrayList<Series> seriesArrayList = seriesService.queryAllSeries(memberService.findMember(displayName));
         for(int i = 0; i < seriesArrayList.size(); i++){
             subService.insertSubscription(username, seriesArrayList.get(i).getTitle(), displayName);
+//            subService.increaseFollows(displayName);
         }
         return "redirect:/";
     }
@@ -71,6 +74,7 @@ public class subscribeController {
         ArrayList<Series> seriesArrayList = seriesService.queryAllSeries(memberService.findMember(displayName));
         for(int i = 0; i < seriesArrayList.size(); i++){
             subService.removeSubscription(username, seriesArrayList.get(i).getTitle(), displayName);
+//            subService.decreaseFollows(displayName);
         }
         return "redirect:/";
     }

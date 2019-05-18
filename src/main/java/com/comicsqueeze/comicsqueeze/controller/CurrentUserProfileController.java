@@ -69,7 +69,9 @@ public class CurrentUserProfileController {
         model.addAttribute("subscriptionCount", subscriptionCount);
         //set the series to member variable to be loaded in app
         Member sessionMember = (Member) session.getAttribute("curMember");
-        sessionMember.setSeriesArrayList(seriesArrayList);
+        if(seriesArrayList != null) {
+            sessionMember.setSeriesArrayList(seriesArrayList);
+        }
 
         return "CurrentUserProfile";
     }

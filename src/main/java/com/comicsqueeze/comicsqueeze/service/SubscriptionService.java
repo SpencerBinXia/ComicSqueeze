@@ -25,14 +25,29 @@ public class SubscriptionService {
     public boolean insertSubscription(String subscriber, String seriesTitle, String seriesCreator) {
         Subscription existing = subRepo.findSubscription(subscriber, seriesTitle, seriesCreator);
         if (existing == null) {
-            System.out.println("null review reached");
+            System.out.println("null subscription reached");
             subRepo.insertSubscription(subscriber, seriesTitle, seriesCreator);
+            subRepo.increaseFollows(seriesCreator);
             return true;
         }
         else
         {
-            System.out.println("existing review reached");
+            System.out.println("existing subscription reached");
             return false;
+        }
+    }
+
+    public void removeSubscription(String subscriber, String seriesTitle, String seriesCreator) {
+        Subscription existing = subRepo.findSubscription(subscriber, seriesTitle, seriesCreator);
+        if (existing == null) {
+            System.out.println("Remove null subscription");
+            return;
+        }
+        else {
+            System.out.println("Remove subscription");
+            subRepo.deleteSubscription(subscriber, seriesTitle, seriesCreator);
+            subRepo.decreaseFollows(seriesCreator);
+            return;
         }
     }
 
@@ -48,10 +63,12 @@ public class SubscriptionService {
         }
     }
 
-    public void removeSubscription(String subscriber, String seriesTitle, String seriesCreator)
-    {
-        subRepo.deleteSubscription(subscriber, seriesTitle, seriesCreator);
-    }
+//    public void increaseFollows(String seriesCreator){
+//        subRepo.increaseFollows(seriesCreator);
+//    }
+//    public void decreaseFollows(String seriesCreator){
+//        subRepo.decreaseFollows(seriesCreator);
+//    }
 
     public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
     {
