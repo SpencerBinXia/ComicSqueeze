@@ -14,6 +14,7 @@ public class Member {
     private ArrayList<Series> seriesArrayList;
     private boolean createdWeekly;
     private boolean voted;
+    private Integer follows;
 
 
     public String getUsername() {return username;}
@@ -83,5 +84,13 @@ public class Member {
     }
     public boolean getVoted(){
         return this.voted;
+    }
+
+    public Integer getFollows() {
+        return follows;
+    }
+
+    public void setFollows(Integer follows) {
+        this.follows = follows;
     }
 }

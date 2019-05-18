@@ -48,6 +48,7 @@ html * {
     padding-right: 30px;
     border-left: 1px solid #777777;
     border-right: 1px solid #777777;
+    /*width: 100%;*/
     max-width: 70%;
 }
 

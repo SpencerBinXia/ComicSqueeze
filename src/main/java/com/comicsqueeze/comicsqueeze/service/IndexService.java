@@ -15,6 +15,8 @@ public class IndexService {
     @Autowired
     private IndexRepo indexRepo;
 
-
+    public ArrayList<Member> queryTopArtists(){
+        return indexRepo.queryTopArtists();
+    }
 
 }
