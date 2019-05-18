@@ -37,8 +37,8 @@ public class WeeklyContributionService {
         return false;
     }
 
-    public Page calculateBestPage(String thisWeekIssue) {
-        Page maxVotes =weeklyContributionRepo.calculateBestPage(thisWeekIssue);
+    public Page calculateBestPage(String thisWeekIssue, int dayOfWeek) {
+        Page maxVotes =weeklyContributionRepo.calculateBestPage(thisWeekIssue,dayOfWeek);
         if(maxVotes==null){
             return null;
         }
@@ -59,5 +59,19 @@ public class WeeklyContributionService {
 
     public ArrayList<Page> queryAllIssuePages(String issueTitle) {
         return weeklyContributionRepo.queryAllIssuePages(issueTitle);
+    }
+
+
+
+    public void setResetAllVoted() {
+        weeklyContributionRepo.resetAllVoted();
+    }
+
+    public void setMemberVoted(String username) {
+        weeklyContributionRepo.setMemberVoted(username);
+    }
+
+    public void createNewWeeklyIssue(String issueTitle, String description) {
+        weeklyContributionRepo.createNewWeeklyIssue(issueTitle,description);
     }
 }

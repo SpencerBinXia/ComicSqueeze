@@ -32,6 +32,7 @@ public class ProfileRepo {
                     tempuser.setEmail(rs.getString("email"));
                     tempuser.setImgUrl(rs.getString("imgurl"));
                     tempuser.setCreatedWeekly(rs.getBoolean("createdweekly"));
+                    tempuser.setVoted(rs.getBoolean("voted"));
                     return tempuser;
                 }
             });
