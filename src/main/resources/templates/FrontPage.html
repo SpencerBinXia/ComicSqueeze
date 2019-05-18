@@ -102,7 +102,6 @@
                             <a th:if="${session.username}!=null and ${session.curMember.isCreatedWeekly()}==false"  class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
-                            <a th:href="@{/createWeeklyIssue}" th:if=" ${session.username}!=null" class="button-as-link" >
                                 <a href="#new-weekly-container" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
                             </a>
                         </div>
