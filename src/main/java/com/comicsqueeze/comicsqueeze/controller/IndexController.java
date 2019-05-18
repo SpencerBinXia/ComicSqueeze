@@ -51,6 +51,9 @@ public class IndexController {
         ArrayList<Page> weeklyContributions;
 
         // Top artists
+        ArrayList<Member> top = indexService.queryTopArtists();
+        model.addAttribute("topArtists", top);
+        // Recent Issues
 
 
         //Voting stops at 12 A.M EST

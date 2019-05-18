@@ -10,6 +10,7 @@ public class Issue {
     private String description;
     private int pagecount;
     private LocalDateTime timestamp;
+    private LocalDateTime lastModified;
     private String username;
     private ArrayList<Page> pages;
 
@@ -67,5 +68,13 @@ public class Issue {
 
     public void setPages(ArrayList<Page> pages) {
         this.pages = pages;
+    }
+
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
     }
 }

@@ -27,6 +27,8 @@ public class createIssueController {
         newIssue.setUsername((String)session.getAttribute("username"));
         Member member = (Member) session.getAttribute("curMember");
         newIssue.setSeries(member.getCurrentSeries().getTitle());
+        newIssue.setTimestamp(LocalDateTime.now());
+        newIssue.setLastModified(LocalDateTime.now());
         if (service.findIssueByTitle(newIssue.getUsername(), newIssue.getSeries(), newIssue.getTitle()) == null)
         {
             service.createIssue(newIssue);

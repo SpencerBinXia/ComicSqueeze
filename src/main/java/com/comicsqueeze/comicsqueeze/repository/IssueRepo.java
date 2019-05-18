@@ -40,6 +40,7 @@ public class IssueRepo {
                     tempIssue.setPagecount(rs.getInt("pagecount"));
                     Date tempDate = rs.getObject(5, Date.class);
                     tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
+                    tempIssue.setLastModified(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     System.out.println("before return issue result");
                     return tempIssue;
                 }
@@ -52,8 +53,8 @@ public class IssueRepo {
         return tempIssue;
     }
     public void createIssue(Issue newIssue){
-        jdbc.update("INSERT INTO \"Issue\"(title,series,description,pagecount,timestamp,username)" + "VALUES(?,?,?,?,?,?)", newIssue.getTitle(),newIssue.getSeries(),
-                newIssue.getDescription(),newIssue.getPagecount(),newIssue.getTimestamp(),newIssue.getUsername());
+        jdbc.update("INSERT INTO \"Issue\"(title,series,description,pagecount,timestamp,username,lastmodified)" + "VALUES(?,?,?,?,?,?,?)", newIssue.getTitle(),newIssue.getSeries(),
+                newIssue.getDescription(),newIssue.getPagecount(),newIssue.getTimestamp(),newIssue.getUsername(),newIssue.getLastModified());
     }
 
     public ArrayList<Issue> queryAllIssuesFromASeries(Member member, Series series) {
@@ -89,6 +90,11 @@ public class IssueRepo {
     public void updatePageCount(String username, String seriesTitle, String issueTitle, int pageCount) {
         String updateIssue= "UPDATE \"Issue\" SET PAGECOUNT= ? WHERE title= ? AND username= ?;";
         jdbc.update(updateIssue, pageCount, issueTitle, username);
+    }
+
+    public void updateLastModified(String username, String seriesTitle, String issueTitle, Issue curIssue) {
+        String updateLastModified = "UPDATE \"Issue\" SET lastmodified= ? WHERE title= ? AND series= ? AND username= ?;";
+        jdbc.update(updateLastModified, curIssue.getLastModified(), issueTitle, seriesTitle, username);
     }
 
     public String queryforWeeklyIssue() {

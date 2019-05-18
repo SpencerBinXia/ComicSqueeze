@@ -47,6 +47,10 @@ public class publishIssueController {
         }
 
         pageService.updatePages(issue.getPages());
+        // update last modified when published
+        issue.setLastModified(LocalDateTime.now());
+        issueService.updateLastModified(issue.getUsername(), issue.getSeries(), issue.getTitle(), issue);
+
         return "redirect:/yourprofile";
     }
 }

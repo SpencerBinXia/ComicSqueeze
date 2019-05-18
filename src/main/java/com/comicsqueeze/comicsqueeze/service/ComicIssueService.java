@@ -29,6 +29,10 @@ public class ComicIssueService {
         issueRepo.createIssue(newIssue);
     }
 
+    public void updateLastModified(String username, String seriesTitle, String issueTitle, Issue curIssue) {
+        issueRepo.updateLastModified(username, seriesTitle, issueTitle, curIssue);
+    }
+
     public void deleteIssue(String issueTitle, String series, String username) { issueRepo.deleteIssue(issueTitle, series, username); }
 
     public void deleteIssues(String series, String username) { issueRepo.deleteIssues(series, username); }
