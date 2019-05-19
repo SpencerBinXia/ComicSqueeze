@@ -45,19 +45,24 @@ public class IndexRepo {
     }
 
     public ArrayList<Issue> queryRecentIssues(){
-        String findRecentIssues = "SELECT * FROM \"Member\" GROUP BY username ORDER BY follows DESC fetch first 10 rows only;";
-        ArrayList<Issue> issues = new ArrayList();
-        try {
-            List<Map<String,Object>> rows = jdbc.queryForList(findRecentIssues);
-            for(Map rs : rows){
+        String findIssues = "SELECT * FROM \"Issue\" ORDER BY lastmodified DESC fetch first 20 rows only;";
+        List<Map<String, Object>> rows = jdbc.queryForList(findIssues);
+        ArrayList<Issue> issues = new ArrayList<>();
+        try
+        {
+            for (Map rs : rows) {
                 Issue tempIssue = new Issue();
-//                tempMember.setUsername((String)rs.get("username"));
-//                tempMember.setImgUrl((String)rs.get("imgurl"));
-//                tempMember.setFollows((Integer)rs.get("follows"));
+                tempIssue.setTitle((String)rs.get("title"));
+                tempIssue.setSeries((String)rs.get("series"));
+                tempIssue.setDescription((String)rs.get("description"));
+                tempIssue.setPagecount((Integer)rs.get("pagecount"));
+                tempIssue.setUsername((String)rs.get("username"));
                 issues.add(tempIssue);
             }
+
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             return null;
         }
         return issues;

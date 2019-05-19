@@ -54,7 +54,8 @@ public class IndexController {
         ArrayList<Member> top = indexService.queryTopArtists();
         model.addAttribute("topArtists", top);
         // Recent Issues
-
+        ArrayList<Issue> recentIssues = indexService.queryRecentIssues();
+        model.addAttribute("recentIssues", recentIssues);
 
         //Voting stops at 12 A.M EST
         int hours= cal.get(Calendar.HOUR_OF_DAY);
