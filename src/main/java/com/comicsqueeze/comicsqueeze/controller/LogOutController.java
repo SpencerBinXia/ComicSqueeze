@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @Controller
 
@@ -17,7 +18,10 @@ public class LogOutController {
         System.out.println("logout controller");
 //        model.addAttribute("userName",userName);
 //        model.addAttribute("img",imgURL);
-        session.removeAttribute("username");
+        Enumeration attrs =  session.getAttributeNames();
+        while(attrs.hasMoreElements()) {
+            session.removeAttribute((String)attrs.nextElement());
+        }
         return "FrontPage";
     }
 //
