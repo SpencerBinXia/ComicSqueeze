@@ -38,6 +38,7 @@ public class IssueRepo {
                     tempIssue.setUsername(rs.getString("username"));
                     tempIssue.setSeries(rs.getString("series"));
                     tempIssue.setPagecount(rs.getInt("pagecount"));
+                    tempIssue.setImgurl(rs.getString("imgurl"));
                     Date tempDate = rs.getObject(5, Date.class);
                     tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     tempIssue.setLastModified(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
@@ -67,6 +68,7 @@ public class IssueRepo {
             tempIssue.setDescription((String)rs.get("description"));
             tempIssue.setUsername((String)rs.get("username"));
             tempIssue.setPagecount((Integer)rs.get("pagecount"));
+            tempIssue.setImgurl((String) rs.get("imgurl"));
             Date tempDate = ((Date)rs.get("timestamp"));
             tempIssue.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             tempIssue.setSeries((String)rs.get("series"));
@@ -183,6 +185,11 @@ public class IssueRepo {
             return null;
         }
         return weeklyComic;
+    }
+
+    public void addIssueCover(String username, String seriesTitle, String issueTitle, String imgurl) {
+        String updatedIssue = "UPDATE \"Issue\" SET IMGURL='"+imgurl+"'WHERE username='"+username+"' AND series='"+seriesTitle+"' AND title='"+issueTitle+"';";
+        jdbc.update(updatedIssue);
     }
 }
 

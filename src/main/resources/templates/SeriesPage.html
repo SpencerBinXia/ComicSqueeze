@@ -90,7 +90,7 @@
                 <th:block th:each="issue: ${seriesIssues}">
                     <div class="slickElemIssues">
                         <div class="flexContainer flexColumn" style="align-items: center">
-                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" class="issue"></a>
                             <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                         </div>
                     </div>
@@ -106,6 +106,9 @@
                 <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                 <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
                     <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
+                </a>
+                <a th:if="${session.username == profileID}" class="button-as-link"  style="margin-left: 20px">
+                    <a class="lime-button-left" th:href="@{/createseriescover}"> CREATE COVER</a>
                 </a>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == false}" class="lime-button-left" style="margin-left: 20px" onclick="subscribe()">FOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>

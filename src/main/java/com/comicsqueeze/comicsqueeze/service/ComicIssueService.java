@@ -54,4 +54,7 @@ public class ComicIssueService {
     }
 
 
+    public void addIssueCover(String username, String seriesTitle, String issueTitle, String imgurl) {
+        issueRepo.addIssueCover(username,seriesTitle,issueTitle,imgurl);
+    }
 }

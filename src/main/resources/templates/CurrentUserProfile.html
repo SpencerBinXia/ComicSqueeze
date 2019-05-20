@@ -87,7 +87,7 @@
                             <th:block th:each="issue: ${series.getIssueArrayList()}">
                                 <div class="slickElemIssues">
                                     <div class="flexContainer flexColumn" style="align-items: center">
-                                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" class="issue"></a>
+                                        <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img th:src="${issue.getImgurl()}" src="images/EXAMPLE_2.jpg" class="issue"></a>
                                         <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                                     </div>
                                 </div>
