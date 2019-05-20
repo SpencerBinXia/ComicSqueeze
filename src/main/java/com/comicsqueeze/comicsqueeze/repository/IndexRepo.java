@@ -57,6 +57,7 @@ public class IndexRepo {
                 tempIssue.setDescription((String)rs.get("description"));
                 tempIssue.setPagecount((Integer)rs.get("pagecount"));
                 tempIssue.setUsername((String)rs.get("username"));
+                tempIssue.setImgurl((String)rs.get("imgurl"));
                 issues.add(tempIssue);
             }
 

@@ -77,16 +77,31 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-            <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
-            <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <div th:if="${currentSeries.isCollaborative()}==true">
-                <p id="curCreators" class="subtext" th:text="'Collaborators: ' + ${currentSeries.getCreators()}"></p>
+            <br>
+            <div class="flexContainer flexRow">
+                <div class="column-left img">
+                    <div th:if="${seriesImg}==null">
+                        <div style="background-color: #9a9a9a; height: 480px"></div>
+                    </div>
+                    <div th:if="${seriesImg}!=null">
+                        <img th:src="${seriesImg}" style="size: auto">
+                    </div>
+                </div>
+                <div class="column-right">
+                    <div class="flexContainer flexColumn">
+                        <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
+                        <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
+                        <div th:if="${currentSeries.isCollaborative()}==true">
+                            <p id="curCreators" class="subtext" th:text="'Collaborators: ' + ${currentSeries.getCreators()}"></p>
+                        </div>
+                        <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
+                            <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                        </div>
+                        <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
+                        <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
+                    </div>
+                </div>
             </div>
-            <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
-                <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-            </div>
-            <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
-            <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
             <br><br>
             <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
             <div class="horizontal_slick left-align-slick">
@@ -94,10 +109,14 @@
                     <div class="slickElemIssues">
                         <div class="flexContainer flexColumn" style="align-items: center">
                             <div th:if="${issue.getImgurl()}==null">
-                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}">
+                                    <div class="issue-blank"></div>
+                                </a>
                             </div>
                             <div th:if="${issue.getImgurl()!=null}">
-                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" class="issue"></a>
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}">
+                                    <img  th:src="${issue.getImgurl()}" class="issue">
+                                </a>
                             </div>
                                 <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                         </div>

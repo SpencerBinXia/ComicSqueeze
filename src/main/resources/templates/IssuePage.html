@@ -94,15 +94,15 @@
         <main class="flexItem whiteBackground main">
             <br>
             <div class="flexContainer flexRow">
-                <div class="column-left img">
+                <div class="column-left-30 img">
                     <div th:if="${issue.getImgurl()}==null">
-                        <img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" style="size: auto">
+                        <div style="background-color: #9a9a9a; height: 480px"></div>
                     </div>
                     <div th:if="${issue.getImgurl()}!=null">
-                        <img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" style="size: auto">
+                        <img th:src="${issue.getImgurl()}" style="size: auto;">
                     </div>
                 </div>
-                <div class="column-right">
+                <div class="column-right-70">
                     <div class="flexContainer flexColumn">
                         <br>
                         <h1 style="margin: 0" th:text="${issueTitle}"></h1>

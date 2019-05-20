@@ -15,6 +15,16 @@ img {
     margin: auto;
 }
 
+.column-left-30 {
+    float: left;
+    width: 30%;
+}
+.column-right-70 {
+    float: left;
+    width: 70%;
+    padding-left: 30px;
+}
+
 .page-option {
     width: 30px;
     height: 30px;
