@@ -59,7 +59,7 @@ public class IssueRepo {
     }
 
     public ArrayList<Issue> queryAllIssuesFromASeries(Member member, Series series) {
-        String findIssue = "SELECT * FROM \"Issue\" WHERE username = ? and series = ?;";
+        String findIssue = "SELECT * FROM \"Issue\" WHERE username = ? and series = ? ORDER BY timestamp;";
         List<Map<String, Object>> rows = jdbc.queryForList(findIssue, member.getUsername(), series.getTitle());
         ArrayList<Issue> issues = new ArrayList<>();
         for (Map rs : rows) {

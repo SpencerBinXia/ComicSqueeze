@@ -14,7 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -30,8 +34,9 @@ public class IssueController {
     @Autowired
     private ComicPageService comicPageService;
     @GetMapping
-    public String displayProfile(@PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
+    public String displayProfile(HttpServletRequest request, @PathVariable("profileID") String profileID, @PathVariable("seriesTitle") String seriesTitle, @PathVariable("issueTitle") String issueTitle, Model model, HttpSession session)
     {
+        System.out.println(request.getRequestURI());
         model.addAttribute("profileID", profileID);
         model.addAttribute("seriesTitle", seriesTitle);
         model.addAttribute("issueTitle", issueTitle);

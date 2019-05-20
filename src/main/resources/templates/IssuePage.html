@@ -55,10 +55,22 @@
             font-size: 20px;
         }
     </style>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId            : 'your-app-id',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v3.3'
+        });
+    };
+</script>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js" th:src="@{https://connect.facebook.net/en_US/sdk.js}"></script>
 
 </head>
 
 <body style="margin: 0px">
+
 <script type="text/javascript" th:if= "${session.curMember?.getCurrentSeries()?.getTitle() !=null}" th:inline="javascript">
     // getting current series and issue that the user is under in heirarchy
     var username = [[${session.curMember.getUsername()}]]
@@ -166,6 +178,11 @@
                     </div>
                 </th:block>
             </div>
+
+            <div id="comments">
+                <div style="float: left; padding-left:5px; min-height:500px" class="fb-comments" data-href="www.example.com" data-num-posts="20" data-width="380"></div>
+            </div>
+
             <!--<br><br>-->
 
             <!--<div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">-->

@@ -103,7 +103,12 @@
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
                             <!-- eventually, only show when admin -->
-                            <button onclick="newWeeklyClicked()" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                            <div th:if="${session.curMember} != null">
+                                <div th:if="${session.curMember.getAdminStatus()} == true">
+                                    <button onclick="newWeeklyClicked()" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
