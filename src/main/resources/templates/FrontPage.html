@@ -88,7 +88,7 @@
                         <h3>Guidelines:</h3>
                         <p>Genre: Action, Superhero</p>
                         <p>Story so far:</p>
-                        <p>Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
+                        <p th:text="${session.weeklyComic.getDescription()}">Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
                             She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
                         <p th:if="${session.username}==null">Log in to:</p>
                         <h4 style="margin-top: 0">Vote on, or submit, a page to continue the story.</h4>

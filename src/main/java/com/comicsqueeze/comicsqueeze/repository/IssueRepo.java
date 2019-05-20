@@ -176,6 +176,7 @@ public class IssueRepo {
                     weeklyComic.setIssueTitle(rs.getString("issueTitle"));
                     weeklyComic.setPages(rs.getString("pages"));
                     weeklyComic.setUsers(rs.getString("users"));
+                    weeklyComic.setDescription(rs.getString("description"));
                     return weeklyComic;
                 }
             });
