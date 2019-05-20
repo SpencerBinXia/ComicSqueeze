@@ -17,6 +17,7 @@ public class Series {
     private boolean flag;
     private ArrayList<Issue> issueArrayList;
     private int rateCounter;
+    private String imgUrl;
 
     public boolean isCollaborative() {
         return collaborative;
@@ -120,5 +121,13 @@ public class Series {
 
     public void setRateCounter(int rateCounter) {
         this.rateCounter = rateCounter;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

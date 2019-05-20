@@ -140,5 +140,23 @@ public class CreatePageController {
 
         return "FrontPage";
     }
+    @RequestMapping("/seriesCoverDB")
+    public String addSeriesCoverToDB( Model model,HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle,@RequestParam("imgurl") String imgurl)
+    {
+        comicSeriesService.addSeriesCover(username,seriesTitle,imgurl);
+        Member curMember = service.findMember((String)session.getAttribute("username"));
+        model.addAttribute("curMember", curMember);
+        return "CreateSeriesCover";
+
+    }
+    @RequestMapping("/issueCoverDB")
+    public String addIssueCoverToDB( Model model,HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle,@RequestParam("issueTitle") String issueTitle, @RequestParam("imgurl") String imgurl)
+    {
+        issueService.addIssueCover(username,seriesTitle,issueTitle,imgurl);
+        Member curMember = service.findMember((String)session.getAttribute("username"));
+        model.addAttribute("curMember", curMember);
+        return "CreateIssueCover";
+
+    }
 
 }

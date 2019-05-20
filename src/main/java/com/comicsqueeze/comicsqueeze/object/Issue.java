@@ -13,6 +13,7 @@ public class Issue {
     private LocalDateTime lastModified;
     private String username;
     private ArrayList<Page> pages;
+    private String imgurl;
 
     public String getTitle() {
         return title;
@@ -76,5 +77,13 @@ public class Issue {
 
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }

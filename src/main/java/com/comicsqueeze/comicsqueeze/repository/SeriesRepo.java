@@ -40,6 +40,7 @@ public class SeriesRepo {
                     tempSeries.setWeekly(rs.getBoolean("weekly"));
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
+                    tempSeries.setImgUrl( rs.getString("imgurl"));
                     Date tempDate = (rs.getObject(5, Date.class));
                     tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                     tempSeries.setRateCounter(rs.getInt("ratecounter"));
@@ -77,6 +78,7 @@ public class SeriesRepo {
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
+            tempSeries.setImgUrl((String) rs.get("imgurl"));
             Date tempDate = ((Date)rs.get("timestamp"));
             tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             tempSeries.setRateCounter((int)rs.get("ratecounter"));
@@ -94,5 +96,10 @@ public class SeriesRepo {
     public void updateSeries(String series, String username, String description, String tags){
         String updatedSeries = "UPDATE \"Series\" SET description= ?, tags= ? WHERE username= ? AND seriestitle= ?;";
         jdbc.update(updatedSeries, description, tags, username, series);
+    }
+
+    public void addSeriesCover(String username, String seriesTitle, String imgurl) {
+        String updatedSeries = "UPDATE \"Series\" SET IMGURL='"+imgurl+"'WHERE username='"+username+"' AND seriestitle='"+seriesTitle+"';";
+        jdbc.update(updatedSeries);
     }
 }

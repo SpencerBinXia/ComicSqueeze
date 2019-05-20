@@ -102,7 +102,7 @@ function editPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 }
 function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
     var reader  = new FileReader();
-    var file    = document.querySelector('input[type=file]').files[0];
+    var file    = document.getElementById("uploadPage").files[0];
     console.log(file);
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
@@ -153,6 +153,138 @@ function uploadToWeeklyComic(issue,username,pageNum,img){
                     cache: false,
                     success: function (response) {
                        window.location.assign("/?userName="+username);
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+
+function uploadSeriesCoverJSON(username,comicseries,pagedata){
+    // first we get the current user
+    var user = firebase.auth().currentUser;
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var result = firebase.database().ref(username+'/'+comicseries).set({
+        seriescover: pagedata,
+    }, function(error) {
+        if (error) {
+            // The write failed...
+        } else {
+            console.log("complete");
+        }
+    });
+    console.log(result);
+}
+
+function uploadSeriesCoverDB(username,currentSeries,img){
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/cover");
+    var task = storageRef.putString(img,'data_url');
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/seriesCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+
+
+}
+
+function uploadIssueCoverJSON(username,comicseries,currentIssue,pagedata){
+    // first we get the current user
+    var user = firebase.auth().currentUser;
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var result = firebase.database().ref(username+'/'+comicseries+"/"+currentIssue).set({
+        issuecover: pagedata,
+    }, function(error) {
+        if (error) {
+            // The write failed...
+        } else {
+            console.log("complete");
+        }
+    });
+    console.log(result);
+}
+
+function uploadIssueCoverDB(username,currentSeries,currentIssue,img){
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/cover");
+    var task = storageRef.putString(img,'data_url');
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/"+currentIssue+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/issueCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&issueTitle="+currentIssue+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
+    var reader  = new FileReader();
+    var file    = document.querySelector('input[type=file]').files[0];
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/"+currentIssue+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/issueCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&issueTitle="+currentIssue+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
 
                     },
                     error: function (e) {

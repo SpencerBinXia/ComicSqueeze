@@ -22,7 +22,7 @@ public class LogOutController {
         while(attrs.hasMoreElements()) {
             session.removeAttribute((String)attrs.nextElement());
         }
-        return "FrontPage";
+        return "redirect:/";
     }
 //
 //    @RequestMapping(value="/yourprofile", method=RequestMethod.GET)

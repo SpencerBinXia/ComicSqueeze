@@ -49,6 +49,12 @@ public class ComicIssueService {
     public String queryForWeeklyIssue() {
         return issueRepo.queryforWeeklyIssue();
     }
+    public WeeklyComic queryForWeeklyComic(String thisWeekIssue) {
+        return issueRepo.queryforWeeklyComic(thisWeekIssue);
+    }
 
 
+    public void addIssueCover(String username, String seriesTitle, String issueTitle, String imgurl) {
+        issueRepo.addIssueCover(username,seriesTitle,issueTitle,imgurl);
+    }
 }

@@ -38,4 +38,8 @@ public class ComicSeriesService {
     public ArrayList<Series> queryAllSeries (Member member){
         return seriesRepo.queryAllSeries(member);
     }
+
+    public void addSeriesCover(String username, String seriesTitle, String imgurl) {
+        seriesRepo.addSeriesCover(username,seriesTitle,imgurl);
+    }
 }
