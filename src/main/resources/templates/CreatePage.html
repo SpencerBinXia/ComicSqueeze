@@ -107,7 +107,8 @@ IF WE ARE CREATING A WEEKLY CONTRIBUTION THEN SET THE APPROPRIATE VARIABLES FOR 
             -->
             <script th:if="${session.curMember?.getCurrentSeries()?.getTitle()} != null">
                 // getting current series and issue that the user is under in heirarchy
-                var username = "[[${session.curMember.getUsername()}]]"
+                //var username = "[[${session.curMember.getUsername()}]]"
+                var username = "[[${session.curMember.getCurrentSeries().getUsername()}]]"
                 var currentSeries = "[[${session.curMember.getCurrentSeries().getTitle()}]]"
                 var currentIssue = "[[${session.curMember.getCurrentIssue().getTitle()}]]"
                 var pageNumber = "[[${session.curMember.getCurrentIssue().getPagecount()}]]"
@@ -220,59 +221,6 @@ IF WE ARE CREATING A WEEKLY CONTRIBUTION THEN SET THE APPROPRIATE VARIABLES FOR 
             }
             </script>
             <script></script>
-            <!--
-            This script is used to initialize the canvas for create page on the weekly contribution only
-            -->
-            <!--<script type="text/javascript" th:inline="javascript" th:if="${session.weeklyComic}!=null">-->
-                <!--var username = [[${session.curMember.getUsername()}]]-->
-                <!--var issueTitle = [[${session.weeklyComic.getIssueTitle()}]]-->
-                <!--var pageNum = [[${session.weeklyComic.getPages()}]]-->
-
-                <!--// initialize the page creator-->
-                <!--var lc = LC.init(document.getElementById("lc"), {-->
-                    <!--imageURLPrefix: '../../../images/img',-->
-                    <!--toolbarPosition: 'bottom',-->
-                    <!--defaultStrokeWidth: 2,-->
-                    <!--strokeWidths: [1, 2, 3, 5, 30],-->
-                    <!--imageSize: {width: 700, height: 950},-->
-                    <!--backgroundColor: 'white',-->
-                    <!--tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Rectangle, LC.tools.Ellipse, LC.tools.Text,-->
-                        <!--LC.tools.Polygon, LC.tools.Pan, LC.tools.Eyedropper, LC.tools.SelectShape]-->
-                <!--});-->
-                <!--// send the json of the cnavas to firebase to be uploaded back on edit-->
-                <!--function returnJSON2() {-->
-                    <!--var pagedata = JSON.stringify(lc.getSnapshot());-->
-                <!--};-->
-
-                <!--// gets PNG of drawing (tied to button in form below)-->
-                <!--function exportPNG2() {-->
-                    <!--console.log("export png");-->
-                    <!--// window.open(lc.getImage().toDataURL());-->
-                    <!--download(lc.getImage().toDataURL(), "comic_page.png", "image/png");-->
-                    <!--// var pagePNG = lc.getImage();-->
-                <!--};-->
-
-                <!--function passLoadValues2() {-->
-                    <!--// just for testing-->
-                    <!--loadImage2(lc.getImage().toDataURL(), "myImg");-->
-                <!--}-->
-                <!--function loadImage2(img_b64, elemID) {-->
-                    <!--var png = img_b64.split(',')[1];-->
-
-                    <!--var the_file = new Blob([window.atob(png)],  {type: 'image/png', encoding: 'utf-8'});-->
-
-
-                    <!--var fr = new FileReader();-->
-                    <!--fr.onload = function ( oFREvent ) {-->
-                        <!--var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it-->
-                        <!--v = atob(v);-->
-                        <!--var good_b64 = btoa(decodeURIComponent(escape(v)));-->
-                        <!--var img = "data:image/png;base64," + good_b64;-->
-                        <!--uploadToWeeklyComic(issueTitle,username,pageNum,img);-->
-                    <!--};-->
-                    <!--fr.readAsDataURL(the_file);-->
-                <!--}-->
-            <!--</script>-->
 
             <a class="button-as-link" style="width: fit-content; margin: 0">
                 <button class="grey-button-left" onclick="exportPNG()">Export as PNG</button>

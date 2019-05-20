@@ -277,17 +277,54 @@
                 </script>
                 <h3 style="margin: 0">Series Mode</h3>
                 <select id="seriesMode" name="seriesMode">
-                    <option value="recent">Individual</option>
-                    <option value="popular">Group Collaboration</option>
+                    <option value="individual">Individual</option>
+                    <option value="group">Group Collaboration</option>
                 </select>
                 <div class="flexContainer flexRow" style="align-items: center; margin-top: 10px">
-                    <h3 style="margin: 0; padding-right: 20px;">Invite</h3>
+                    <form id="inviteForm">
+                        <!-- tag buttons go here -->
+                    </form>
+                    <h3 id="inviteLabel" style="margin: 0; padding-right: 20px; display: none">Invite</h3>
                     <form style="padding-top: 15px; padding-right: 20px;">
-                        <input class="input-small" type="text" name="invite"><br><br>
+                        <input class="input-small" id="inviteField" type="text" name="invite" style="display: none"><br><br>
                     </form>
                     <a style="margin: 0">
-                        <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
+                        <button id="inviteBtn" type="button" style="display: none">
+                            <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
+                        </button>
                     </a>
+                    <script type="text/javascript">
+                        (function() {
+
+                            var counter = 0;
+                            var btn = document.getElementById('inviteBtn');
+                            var form = document.getElementById('inviteForm');
+                            var inviteButton = function() {
+                                var inviteName = document.getElementById('inviteField').value;
+                                if(inviteName == "" || inviteName == null){
+                                    alert("Please enter a user to invite.");
+                                    return false;
+                                }
+                                // done first in case of duplicate tags
+                                if (addInvite(inviteName) == 0){
+                                    alert("There cannot be duplicate users.");
+                                    return false;
+                                }
+                                counter++;
+                                var invButton = document.createElement("button");
+                                invButton.id = 'invite' + counter;
+                                invButton.innerText = inviteName;
+                                invButton.classList.add("invNameBtn");
+                                invButton.addEventListener('click', function(){
+                                    deleteInvite(invButton);
+                                });
+                                form.appendChild(invButton);
+                            };
+                            btn.addEventListener('click', function() {
+                                inviteButton();
+                            }.bind(this));
+                        })();
+                    </script>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->

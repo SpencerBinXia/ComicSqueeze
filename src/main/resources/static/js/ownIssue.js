@@ -46,6 +46,7 @@ $(document).ready(function(){
         verticalSwiping: false,
     });
 
+
     $('.publish-checkbox').checkboxpicker({
         html: true,
         offLabel: '<span class="glyphicon glyphicon-remove">',

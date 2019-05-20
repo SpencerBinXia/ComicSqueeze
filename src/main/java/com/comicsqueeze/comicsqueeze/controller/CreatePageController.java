@@ -28,7 +28,9 @@ public class CreatePageController {
     @RequestMapping("/createpage")
     public String home(Model model, HttpSession session)
     {
-        Member curMember = service.findMember((String)session.getAttribute("username"));
+        //Member curMember = service.findMember((String)session.getAttribute("username"));
+        Member curMember = (Member) session.getAttribute("curMember");
+        System.out.println(curMember.getCurrentSeries().getTitle());
         model.addAttribute("curMember", curMember);
         return "CreatePage";
     }
@@ -37,6 +39,7 @@ public class CreatePageController {
     public ModelAndView addPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
     {
         ModelAndView model = new ModelAndView("IssuePage");
+        System.out.println("pageDB username: " + username + ",issueTitle: " + issueTitle);
         Page page = new Page();
         page.setUsername(username);
         page.setPagenumber(pageNumber);

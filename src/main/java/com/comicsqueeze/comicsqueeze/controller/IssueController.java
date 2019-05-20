@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 @Controller
 @RequestMapping("/issue/{profileID}/{seriesTitle}/{issueTitle}")
@@ -39,6 +37,18 @@ public class IssueController {
         model.addAttribute("issueTitle", issueTitle);
         Member member = service.findMember(profileID);
         Series series = comicSeriesService.findSeriesByTitle(member.getUsername(),seriesTitle);
+        if (series.isCollaborative())
+        {
+            List creatorList = Arrays.asList(series.getCreators().split(","));
+           for (int i = 0;i < creatorList.size();i++)
+           {
+               if (creatorList.get(i).equals((String)session.getAttribute("username")))
+               {
+                   System.out.println("Creator found");
+                   model.addAttribute("creator", true);
+               }
+           }
+        }
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
         Collections.sort(issue.getPages());
@@ -67,7 +77,12 @@ public class IssueController {
         }
         else if (session.getAttribute("username") != null)
         {
+            member = (Member) session.getAttribute("curMember");
             model.addAttribute("curMember", (Member)session.getAttribute("curMember"));
+            member.setCurrentSeries(series);
+            member.setCurrentIssue(issue);
+            session.setAttribute("curMember", member);
+
         }
         return "IssuePage";
     }
