@@ -88,7 +88,7 @@
                                 <div class="slickElemIssues">
                                     <div class="flexContainer flexColumn" style="align-items: center">
                                         <div th:if="${issue.getImgurl()}==null">
-                                        <a th:if="${issue.getImgurl()}!=null" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{images/EXAMPLE_2.jpg}" class="issue"></a>
+                                        <a th:if="${issue.getImgurl()}==null" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{images/EXAMPLE_2.jpg}" class="issue"></a>
                                         </div>
                                         <div>
                                             <a th:if="${issue.getImgurl()}!=null" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" class="issue"></a>
