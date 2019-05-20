@@ -102,7 +102,7 @@ function editPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 }
 function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
     var reader  = new FileReader();
-    var file    = document.querySelector('input[type=file]').files[0];
+    var file    = document.getElementById("uploadPage").files[0];
     console.log(file);
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
@@ -262,6 +262,36 @@ function uploadIssueCoverDB(username,currentSeries,currentIssue,img){
             });
         }
     );
+}
+function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
+    var reader  = new FileReader();
+    var file    = document.querySelector('input[type=file]').files[0];
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
 
 
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/"+currentIssue+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/issueCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&issueTitle="+currentIssue+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
 }
