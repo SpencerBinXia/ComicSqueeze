@@ -30,7 +30,6 @@ public class CreatePageController {
     {
         //Member curMember = service.findMember((String)session.getAttribute("username"));
         Member curMember = (Member) session.getAttribute("curMember");
-        System.out.println(curMember.getCurrentSeries().getTitle());
         model.addAttribute("curMember", curMember);
         return "CreatePage";
     }
