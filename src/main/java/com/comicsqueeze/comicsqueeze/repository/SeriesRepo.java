@@ -64,7 +64,7 @@ public class SeriesRepo {
 
     public ArrayList<Series> queryAllSeries(Member member) {
         System.out.println(member.getUsername());
-        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + member.getUsername() + "';";
+        String findSeries = "SELECT * FROM \"Series\" WHERE username ='" + member.getUsername() + "' ORDER BY timestamp;";
         List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
         ArrayList<Series> series = new ArrayList<>();
         for (Map rs : rows) {

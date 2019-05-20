@@ -251,7 +251,7 @@ $(document).ready(function(){
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         if (regex.test(str)) {
         } else {
-            alert("Username may only contain alphanumeric characters.");
+            alert("Tags may only contain alphanumeric characters.");
             e.preventDefault();
             return false;
         }
@@ -261,7 +261,7 @@ $(document).ready(function(){
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         if (regex.test(str)) {
         } else {
-            alert("Username may only contain alphanumeric characters.");
+            alert("Tags may only contain alphanumeric characters.");
             e.preventDefault();
             return false;
         }
