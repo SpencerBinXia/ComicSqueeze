@@ -127,13 +127,13 @@
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p id="curTags" class="subtext" th:text="${currentSeries.getTags()}"></p>
             <div class="flexContainer flexRow">
-                <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
-                    <button class="lime-button-left">ADD ISSUE</button>
-                </a>
+                <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">-->
+                    <button th:if="${session.username == profileID}" class="lime-button-left" onclick="addIssueClicked()">ADD ISSUE</button>
+                <!--</a>-->
                 <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
-                <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
-                    <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
-                </a>
+                <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">-->
+                    <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="editSeriesClicked()">EDIT</button>
+                <!--</a>-->
                 <a th:if="${session.username == profileID}" class="button-as-link"  style="margin-left: 20px">
                     <a class="lime-button-left" th:href="@{/createseriescover}"> CREATE COVER</a>
                 </a>
@@ -249,8 +249,8 @@
     </div>
 
     <!--Add Issue Popup-->
-    <div id="add-issue-modal-container">
-        <div id="add-issue-modal" class="reveal-modal">
+    <div id="add-issue" class="modal">
+        <div id="add-issue-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Add Issue</h2>
                 <form id="issueForm">
@@ -261,17 +261,17 @@
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=createIssue()>ADD</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick="resetIssueForm()">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeAddIssue()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
     </div>
 
     <!--Edit Series Popup-->
-    <div id="edit-series-modal-container">
-        <div id="edit-series-modal" class ="reveal-modal">
+    <div id="edit-series" class="modal">
+        <div id="edit-series-modal" class ="modal-inner">
             <div class ="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Edit Series:</h2>
                 <h3 th:text="${seriesTitle}" style="margin-top: 0"></h3>
@@ -293,9 +293,9 @@
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=editSeries()>SAVE</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick=closeEditSeries()>CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

@@ -31,6 +31,42 @@ window.onclick =function (event) {
     }
 }
 
+// ADD ISSUE MODAL REWORK
+function addIssueClicked() {
+    var modal = document.getElementById('add-issue');
+    modal.style.display = "block";
+}
+function closeAddIssue() {
+    var modal = document.getElementById('add-issue');
+    modal.style.display = "none";
+    resetIssueForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('add-issue');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetIssueForm();
+    }
+}
+// EDIT SERIES MODAL REWORK
+function editSeriesClicked() {
+    var modal = document.getElementById('edit-series');
+    modal.style.display = "block";
+    popEditSeries();
+}
+function closeEditSeries() {
+    var modal = document.getElementById('edit-series');
+    modal.style.display = "none";
+    resetEditSeriesForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('edit-series');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetEditSeriesForm();
+    }
+}
+
 function flagSeries() {
 
 }
