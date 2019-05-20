@@ -49,6 +49,9 @@ public class ComicIssueService {
     public String queryForWeeklyIssue() {
         return issueRepo.queryforWeeklyIssue();
     }
+    public WeeklyComic queryForWeeklyComic(String thisWeekIssue) {
+        return issueRepo.queryforWeeklyComic(thisWeekIssue);
+    }
 
 
 }

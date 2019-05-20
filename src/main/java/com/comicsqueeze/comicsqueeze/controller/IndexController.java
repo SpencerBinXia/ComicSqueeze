@@ -40,8 +40,8 @@ public class IndexController {
         Member member = (Member) session.getAttribute("curMember");
 
         String thisWeekIssue = issueService.queryForWeeklyIssue();
-       // WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
-        //session.setAttribute("weeklyComic",thisWeeklyComic);
+        WeeklyComic thisWeeklyComic = issueService.queryForWeeklyComic(thisWeekIssue);
+        session.setAttribute("weeklyComic",thisWeeklyComic);
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
         Calendar cal = Calendar.getInstance();

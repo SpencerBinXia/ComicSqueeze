@@ -163,5 +163,26 @@ public class IssueRepo {
         }
         return tempIssue;
     }
+    public WeeklyComic queryforWeeklyComic(String issuetitle) {
+        String findComic = "SELECT * FROM \"WeeklyComic\" WHERE issuetitle= '" + issuetitle +"';";
+        WeeklyComic weeklyComic = new WeeklyComic();
+        try
+        {
+
+            jdbc.queryForObject(findComic, new RowMapper<WeeklyComic>() {
+                public WeeklyComic mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    weeklyComic.setIssueTitle(rs.getString("issueTitle"));
+                    weeklyComic.setPages(rs.getString("pages"));
+                    weeklyComic.setUsers(rs.getString("users"));
+                    return weeklyComic;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return weeklyComic;
+    }
 }
 
