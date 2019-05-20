@@ -15,6 +15,25 @@ window.onclick =function (event) {
         modal.style.display = "none";
     }
 }
+// WRITE REVIEW MODAL REWORK
+function flagSeriesClicked() {
+    var modal = document.getElementById('flag');
+    modal.style.display = "block";
+}
+function closeFlagSeries() {
+    var modal = document.getElementById('flag');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('flag');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function flagSeries() {
+
+}
 
 function createIssue(){
     var issueTitleVal = $('#issueField').val();

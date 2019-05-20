@@ -109,6 +109,7 @@
                 </a>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == false}" class="lime-button-left" style="margin-left: 20px" onclick="subscribe()">FOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>
+                <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="flagSeriesClicked()">REPORT</button>
             </div>
 
             <br>
@@ -176,6 +177,25 @@
                     </a>
                     <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
                         <button class="grey-button-left" onclick="closeWriteReview()">CLOSE</button>
+                    <!--</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Write REPORT Popup-->
+    <div id="flag" class="modal-login">
+        <div id="flag-modal" class="modal-login-inner">
+            <div class="flexContainer flexColumn">
+                <form>
+                    Write Report: <textarea class="input-large" id="flagReason" type="text" name="Description"></textarea><br><br>
+                </form>
+                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left" onclick="flagSeries()">SUBMIT</button>
+                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                    <button class="grey-button-left" onclick="closeFlagSeries()">CLOSE</button>
                     <!--</a>-->
                 </div>
             </div>

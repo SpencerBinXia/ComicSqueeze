@@ -74,7 +74,7 @@ $(document).ready(function(){
     $("#recentIssues").slick({
         dots: true,
         arrows: false,
-        vertical: false,
+        vertical: true,
         infinite: false,
         // slidesToShow: 5,
         // slidesToScroll: 1,
