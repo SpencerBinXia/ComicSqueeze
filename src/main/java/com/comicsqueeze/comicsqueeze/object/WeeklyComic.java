@@ -4,6 +4,7 @@ public class WeeklyComic {
     private String issueTitle;
     private String users;
     private String pages;
+    private String description;
 
     public String getIssueTitle() {
         return issueTitle;
@@ -27,5 +28,13 @@ public class WeeklyComic {
 
     public void setPages(String pages) {
         this.pages = pages;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

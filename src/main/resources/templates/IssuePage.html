@@ -95,7 +95,12 @@
             <br>
             <div class="flexContainer flexRow">
                 <div class="column-left img">
-                    <img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" style="size: auto">
+                    <div th:if="${issue.getImgurl()}==null">
+                        <img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" style="size: auto">
+                    </div>
+                    <div th:if="${issue.getImgurl()}!=null">
+                        <img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" style="size: auto">
+                    </div>
                 </div>
                 <div class="column-right">
                     <div class="flexContainer flexColumn">
