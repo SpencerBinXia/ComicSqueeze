@@ -46,14 +46,12 @@ public class SearchController {
             System.out.println("Rating Low to High:");
             Set set2 = seriesLow.entrySet();
             printMap(set2.iterator());
-            model.addAttribute("seriesRatingLow", seriesLow);
 
             //Sort by rating high
             Map<Series,Double> seriesHigh = sortByRatingHigh(ser);
             Set set1 = seriesHigh.entrySet();
             System.out.println("Rating High to LOW");
             printMap(set1.iterator());
-            model.addAttribute("seriesRatingHigh", seriesHigh);
 
             //Sort by recent
             for(Map.Entry<Series,Double> seri : seriesLow.entrySet()){
@@ -61,22 +59,17 @@ public class SearchController {
                 System.out.println(seri.getKey().getTitle());
                 System.out.println(seri.getKey().getTimestamp());
             }
-            for(int i =0; i < ser.size(); i++){
-                System.out.println("series timestamp");
-                System.out.println(ser.get(i).getTitle());
-                System.out.println(ser.get(i).getTimestamp());
-            }
             ArrayList<Series> seriesByRecent = ser;
-            System.out.println("Series before sorted by recent");
+            /*System.out.println("Series before sorted by recent");
             for(int i =0; i < seriesByRecent.size(); i++){
                 System.out.println("series timestamp");
                 System.out.println(ser.get(i).getTitle());
                 System.out.println(ser.get(i).getTimestamp());
-            }
+            }*/
             Collections.sort(seriesByRecent, new Comparator<Series>() {
                 @Override
                 public int compare(Series o1, Series o2) {
-                    return o1.getTimestamp().compareTo(o2.getTimestamp());
+                    return o2.getTimestamp().compareTo(o1.getTimestamp());
                 }
             });
             System.out.println("Series after sorted by recent");
@@ -86,6 +79,9 @@ public class SearchController {
                 System.out.println(ser.get(i).getTimestamp());
             }
 
+            model.addAttribute("seriesRatingLow", seriesLow);
+            model.addAttribute("seriesRatingHigh", seriesHigh);
+            model.addAttribute("seriesSortedRecent", seriesByRecent);
 
 
         }
@@ -95,7 +91,6 @@ public class SearchController {
             session.setAttribute("searchMemberResults", null);
 
             ArrayList<Member> popularMembers = mem;
-            /*
             for(int i =0; i<popularMembers.size(); i++){
                 popularMembers.get(i).setFollows(subService.sumUserSubscriptions(popularMembers.get(i).getUsername()));
                 //System.out.println(popularMembers.get(i).);
@@ -105,7 +100,15 @@ public class SearchController {
                 public int compare(Member o1, Member o2) {
                     return o2.getFollows().compareTo(o1.getFollows());
                 }
-            }); */
+            });
+
+            for(int i =0; i < popularMembers.size(); i++){
+                System.out.print(popularMembers.get(i).getUsername());
+                System.out.println(" : ");
+                System.out.println(popularMembers.get(i).getFollows());
+            }
+
+            model.addAttribute("sortByPopular",popularMembers);
 
         }
 
