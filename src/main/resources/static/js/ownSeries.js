@@ -1,4 +1,5 @@
 var newTagList = [];
+var newCollabList = [];
 
 // WRITE REVIEW MODAL REWORK
 function writeReviewClicked() {
@@ -71,24 +72,23 @@ function flagSeries() {
     //var modal = document.getElementById('flag');
     //var body = document.getElementById('flagReason');
     var body = $('#flagReason');
-    console.log(body.val());
-    console.log(curSeriesTitle);
-    console.log(curSeriesUser);
 
     $.ajax({
         type: "GET",
         data: {
             reportBody: body.val(),
             reportSeriesTitle: curSeriesTitle,
-            reportSeriesUser: curSeriesUser,
-            link: "series/" + curSeriesUser + "/" + curSeriesTitle,
+            curUser: curUser,
+            link: "series/" + usernameto + "/" + curSeriesTitle,
             type: "report",
+            usernameto: usernameto,
+            read: false,
         },
         url: "/reportSeries",
         cache: false,
         success: function (result) {
-            console.log(result);
-            console.log("success report");
+            alert("successfully reported "+usernameto);
+            closeFlagSeries();
 
         },
         error: function(e){
@@ -154,6 +154,7 @@ function resetEditSeriesForm() {
     // }
     // console.log("RESET");
     newTagList.length = 0; // resets the tag list since the form is closed.
+    newCollabList.length = 0;
 }
 function addTag() {
     var tag = document.getElementById("addInput").value;
@@ -173,6 +174,7 @@ function addTag() {
     }
     document.getElementById("seriesTags").value = newTagList.join(", ");
 }
+
 function deleteTag() {
     var tag = document.getElementById("deleteInput").value;
     console.log("delete tag: " + tag);
@@ -183,6 +185,65 @@ function deleteTag() {
             i--;
             console.log("tags list: " + newTagList);
             document.getElementById("seriesTags").value = newTagList.join(", ");
+            return;
+        }
+    }
+}
+
+function addCollab() {
+    var collab = document.getElementById("addCollabInput").value;
+    console.log("add collab: " + collab);
+    document.getElementById("addCollabInput").value = "";
+    if(newCollabList.includes(collab)){
+        console.log("duplicate");
+        alert("Cannot have duplicate collaborators.");
+        return false;
+    }
+    else if (collab == "" || collab == null) {
+        alert("Invited collaborator cannot be empty.");
+        return false;
+    } else {
+                $.ajax({
+                    type : "POST",
+                    url : "/findInvitedUser",
+                    dataType: "text",
+                    data : {
+                        invitedUser: collab //notice that "myArray" matches the value for @RequestParam
+                        //on the Java side
+                    },
+                    success : function(response) {
+                        console.log(response);
+                        if (response == "OK")
+                        {
+                            newCollabList.push(collab);
+                            console.log("collab list: " + newCollabList);
+                            document.getElementById("seriesCreators").value = newCollabList.join(",");
+                        }
+                        else
+                        {
+                            alert("This is not a valid user.");
+                            return 0;
+                        }
+                    },
+                    error : function(e) {
+                        console.log(e);
+                        alert('Error: AJAX failed');
+                        return 0;
+                    }
+                });
+            }
+}
+
+function deleteCollab() {
+    var collab = document.getElementById("deleteCollabInput").value;
+    console.log("delete collab: " + collab);
+    document.getElementById("deleteCollabInput").value = "";
+    for( var i = 0; i < newCollabList.length; i++){
+        if ( newCollabList[i] == collab) {
+            newCollabList.splice(i, 1);
+            i--;
+            console.log("collab list: " + newCollabList);
+            document.getElementById("seriesCreators").value = newCollabList.join(",");
             return;
         }
     }
@@ -238,10 +299,15 @@ function deleteTag() {
 
 function popEditSeries() {
     var newTags = document.getElementById("curTags").innerText;
+    var newCollabs = document.getElementById("curCreators").innerText;
     console.log(newTags);
+    console.log(newCollabs);
     newTagList = newTags.split(', ');
+    newCollabList = newCollabs.split(',');
     console.log(newTagList);
+    console.log(newCollabList);
     document.getElementById("seriesTags").value = newTags;
+    document.getElementById("seriesCreators").value = newCollabs;
 }
 
 function editSeries(){
@@ -251,6 +317,14 @@ function editSeries(){
     var tagsVal = $('#seriesTags').val();
     tagsVal = tagsVal.replace(/\s*,\s*/g, ",");
     console.log("Tags:" + tagsVal);
+    var collabVal = $('#seriesCreators').val();
+    if (collabVal != undefined && collabVal != null) {
+        collabVal = collabVal.replace(/\s*,\s*/g, ",");
+    }
+    else
+    {
+        collabVal = "default";
+    }
 
     //const description = $('#descID').text(descVal);
     //const tags = $('#curTags').text(tagsVal);
@@ -262,7 +336,8 @@ function editSeries(){
         url: "/editSeries",
         data:{
             description: descVal,
-            tags: tagsVal
+            tags: tagsVal,
+            creators: collabVal
         },
         cache: false,
         success: function (result) {

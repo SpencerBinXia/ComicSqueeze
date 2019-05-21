@@ -95,9 +95,9 @@ public class SeriesRepo {
         jdbc.update(deleteSeries, series, username);
     }
 
-    public void updateSeries(String series, String username, String description, String tags){
-        String updatedSeries = "UPDATE \"Series\" SET description= ?, tags= ? WHERE username= ? AND seriestitle= ?;";
-        jdbc.update(updatedSeries, description, tags, username, series);
+    public void updateSeries(String series, String username, String description, String tags, String creators, String[] creatorArray){
+        String updatedSeries = "UPDATE \"Series\" SET description= ?, tags= ?, creators=?, creatorArray=? WHERE username= ? AND seriestitle= ?;";
+        jdbc.update(updatedSeries, description, tags, creators, creatorArray, username, series);
     }
 
     public void addSeriesCover(String username, String seriesTitle, String imgurl) {
