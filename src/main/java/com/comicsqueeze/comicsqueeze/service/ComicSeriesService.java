@@ -32,8 +32,8 @@ public class ComicSeriesService {
 
     public void deleteSeries(String series, String username) { seriesRepo.deleteSeries(series, username); }
 
-    public void editSeries(String series, String username, String description, String tags){
-        seriesRepo.updateSeries(series, username, description, tags);
+    public void editSeries(String series, String username, String description, String tags, String creators, String[] creatorArray){
+        seriesRepo.updateSeries(series, username, description, tags, creators, creatorArray);
     }
     public ArrayList<Series> queryAllSeries (Member member){
         return seriesRepo.queryAllSeries(member);

@@ -197,17 +197,42 @@ function addCollab() {
     document.getElementById("addCollabInput").value = "";
     if(newCollabList.includes(collab)){
         console.log("duplicate");
-        alert("Cannot have duplicate collaborators.")
+        alert("Cannot have duplicate collaborators.");
         return false;
     }
     else if (collab == "" || collab == null) {
-        alert("Invited collaborator cannot be empty.")
+        alert("Invited collaborator cannot be empty.");
         return false;
     } else {
-        newCollabList.push(collab);
-        console.log("collab list: " + newCollabList);
-    }
-    document.getElementById("seriesCreators").value = newCollabList.join(",");
+                $.ajax({
+                    type : "POST",
+                    url : "/findInvitedUser",
+                    dataType: "text",
+                    data : {
+                        invitedUser: collab //notice that "myArray" matches the value for @RequestParam
+                        //on the Java side
+                    },
+                    success : function(response) {
+                        console.log(response);
+                        if (response == "OK")
+                        {
+                            newCollabList.push(collab);
+                            console.log("collab list: " + newCollabList);
+                            document.getElementById("seriesCreators").value = newCollabList.join(",");
+                        }
+                        else
+                        {
+                            alert("This is not a valid user.");
+                            return 0;
+                        }
+                    },
+                    error : function(e) {
+                        console.log(e);
+                        alert('Error: AJAX failed');
+                        return 0;
+                    }
+                });
+            }
 }
 
 function deleteCollab() {
@@ -215,7 +240,7 @@ function deleteCollab() {
     console.log("delete collab: " + collab);
     document.getElementById("deleteCollabInput").value = "";
     for( var i = 0; i < newCollabList.length; i++){
-        if ( newCollabList[i] == tag) {
+        if ( newCollabList[i] == collab) {
             newCollabList.splice(i, 1);
             i--;
             console.log("collab list: " + newCollabList);
@@ -294,7 +319,13 @@ function editSeries(){
     tagsVal = tagsVal.replace(/\s*,\s*/g, ",");
     console.log("Tags:" + tagsVal);
     var collabVal = $('#seriesCreators').val();
-    collabVal = collabVal.replace(/\s*,\s*/g, ",");
+    if (collabVal != undefined && collabVal != null) {
+        collabVal = collabVal.replace(/\s*,\s*/g, ",");
+    }
+    else
+    {
+        collabVal = "default";
+    }
 
     //const description = $('#descID').text(descVal);
     //const tags = $('#curTags').text(tagsVal);

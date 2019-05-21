@@ -21,16 +21,12 @@ public class editSeriesController {
     @RequestMapping(value = "/editSeries", method = RequestMethod.GET)
     public String editSeries(Model model, @RequestParam(value = "description") String description, @RequestParam(value = "tags") String tags, @RequestParam(value = "creators") String creators, HttpSession session){
         Member curMember = (Member)session.getAttribute("curMember");
-        if (creators != null)
+        String [] creatorArray = null;
+        if (!creators.equals("default"))
         {
-            String[] creatorArray = creators.split(",", -1);
-            System.out.println(creatorArray);
+            creatorArray = creators.split(",", -1);
         }
-        else
-        {
-
-        }
-        service.editSeries(curMember.getCurrentSeries().getTitle(), curMember.getUsername(), description, tags);
+        service.editSeries(curMember.getCurrentSeries().getTitle(), curMember.getUsername(), description, tags, creators, creatorArray);
         return "redirect:/series/" + curMember.getUsername() + "/" + curMember.getCurrentSeries().getTitle();
     }
 
