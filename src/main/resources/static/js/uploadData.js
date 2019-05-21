@@ -135,9 +135,10 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
     );
 }
 
-function editUploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
+function editUploadPagetoDBCustom(username,currentSeries,currentIssue,e){
     var reader  = new FileReader();
-    var file    = document.getElementById("editPageCustom").files[0];
+    var pageNumber = e.name;
+    var file    = e.files[0];
     console.log(file);
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
