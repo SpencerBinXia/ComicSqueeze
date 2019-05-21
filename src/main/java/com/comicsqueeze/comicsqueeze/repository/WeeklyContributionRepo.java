@@ -233,7 +233,7 @@ public class WeeklyContributionRepo {
         // if no page had votes greater than 0 aka no max then select at random
         if(maxVotes.getUsername().equals("max.votes")){
             Random r = new Random();
-            int index = r.nextInt()+pages.size();
+            int index = r.nextInt(pages.size());
             return pages.get(index);
         }
         return maxVotes;
