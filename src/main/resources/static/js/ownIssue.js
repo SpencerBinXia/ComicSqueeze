@@ -46,6 +46,7 @@ $(document).ready(function(){
         verticalSwiping: false,
     });
 
+
     $('.publish-checkbox').checkboxpicker({
         html: true,
         offLabel: '<span class="glyphicon glyphicon-remove">',
@@ -97,3 +98,12 @@ function publish()
         }
     })
 }
+
+$(document).ready(function() {
+    newUrl = window.location.href;
+    console.log(newUrl);
+    document.getElementById('comments').innerHTML='';
+    parser=document.getElementById('comments');
+    parser.innerHTML='<div style="float: left; padding-left:5px; min-height:500px" class="fb-comments" data-href="'+newUrl+'" data-num-posts="20" data-width="380"></div>';
+    FB.XFBML.parse(parser);
+});

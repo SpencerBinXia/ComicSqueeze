@@ -53,6 +53,7 @@ public class SeriesController {
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
                model.addAttribute("seriesDesc", series.getDescription());
+               model.addAttribute("seriesImg", series.getImgUrl());
            }
            else {
                Member displayMember = service.findMember(profileID);
@@ -72,6 +73,7 @@ public class SeriesController {
                model.addAttribute("currentSeries", series);
                model.addAttribute("seriesIssues", series.getIssueArrayList());
                model.addAttribute("seriesDesc", series.getDescription());
+               model.addAttribute("seriesImg", series.getImgUrl());
            }
         }
         else
@@ -82,6 +84,7 @@ public class SeriesController {
             model.addAttribute("currentSeries", series);
             model.addAttribute("seriesIssues", series.getIssueArrayList());
             model.addAttribute("seriesDesc", series.getDescription());
+            model.addAttribute("seriesImg", series.getImgUrl());
         }
         averageRating = rateService.averageReview(seriesTitle, profileID);
         ArrayList<RateReview> reviewList = rateService.findAllReviewsFromSeries(seriesTitle, profileID);

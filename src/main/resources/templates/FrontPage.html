@@ -102,7 +102,12 @@
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
                             <!-- eventually, only show when admin -->
-                            <button onclick="newWeeklyClicked()" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                            <div th:if="${session.curMember} != null">
+                                <div th:if="${session.curMember.getAdminStatus()} == true">
+                                    <button onclick="newWeeklyClicked()" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -130,10 +135,17 @@
             <div id="recentIssues">
                 <th:block th:each="issue:${recentIssues}">
                     <div>
-                        <div class="flexContainer flexColumn issue" style="align-items: center; text-align: center; margin: auto">
-                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()},issueTitle=${issue.getTitle()})}" style="margin: auto;">
-                                <img src="images/EXAMPLE_2.jpg">
-                            </a>
+                        <div class="flexContainer flexColumn" style="align-items: center; text-align: center; margin: auto">
+                            <div th:if="${issue.getImgurl()}==null">
+                                <a class="no-link" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()},issueTitle=${issue.getTitle()})}" style="margin: auto;">
+                                    <div class="issue-blank"></div>
+                                </a>
+                            </div>
+                            <div th:if="${issue.getImgurl()}!=null">
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()},issueTitle=${issue.getTitle()})}" style="margin: auto;">
+                                    <img  th:src="${issue.getImgurl()}" class="issue">
+                                </a>
+                            </div>
                             <p th:text="${issue.getTitle()}" style="font-weight: bold; margin-bottom: 0px;"></p>
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()})}" th:text="${issue.getSeries()}" style="margin-top: 0px; margin-bottom: 0px;" class="subtext"></a>
                             <a th:href="@{/viewprofile/{profileID}(profileID=${issue.getUsername()})}" th:text="${issue.getUsername()}" style="margin-top: 0px; margin-bottom: 30px;" class="subtext"></a>
@@ -183,9 +195,7 @@
                                     <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" class="issue-page"><img th:src="${issue.getImgurl()}"></a>
                                 </div>
                                 <th:block th:each="page: ${issue.getPages()}">
-
-                                    <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"></a>
-
+                                    <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue"></a>
                                 </th:block>
                                 <p style="font-weight: bold; margin-bottom: 0px;" th:text="${issue.getTitle()}">Issue Title</p>
                                 <p style="margin-top: 0px; margin-bottom: 30px;"th:text="${issue.getSeries()}">Series Name</p>

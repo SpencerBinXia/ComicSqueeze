@@ -12,6 +12,17 @@ img {
     width: 40%;
     padding-left: 30px;
 }
+
+.column-left-30 {
+    float: left;
+    width: 30%;
+}
+.column-right-70 {
+    float: left;
+    width: 70%;
+    padding-left: 30px;
+}
+
 input {
     width: 100%;
     padding: 10px 15px;

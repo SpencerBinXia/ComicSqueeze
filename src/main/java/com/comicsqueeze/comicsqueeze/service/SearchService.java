@@ -2,6 +2,7 @@ package com.comicsqueeze.comicsqueeze.service;
 
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Series;
+import com.comicsqueeze.comicsqueeze.repository.IndexRepo;
 import com.comicsqueeze.comicsqueeze.repository.SearchRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class SearchService {
     @Autowired
     private SearchRepo searchRepo;
 
+    public  ArrayList<Series> returnAllSeries(){
+        ArrayList<Series> existing = searchRepo.getTopSeries();
+        return existing;
+    }
     public ArrayList<Series> queryAllSeriesByTitle(String searchString){
         ArrayList<Series> existing = searchRepo.searchAllSeriesByTitle(searchString);
         if(existing.size() == 0){ return null; }

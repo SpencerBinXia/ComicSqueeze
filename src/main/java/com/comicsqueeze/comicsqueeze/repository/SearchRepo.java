@@ -38,6 +38,7 @@ public class SearchRepo {
         //String findTagsFromSeries = "SELECT * FROM \"Series\" WHERE find_in_set('" + searchString + "',tags)" + ";";
         //String findTagsFromSeries = "SELECT * FROM \"Series\" WHERE'" + searchString + "'= ANY (string_to_array(tags,','))" + ";";
         //where '8' = ANY (string_to_array(some_column,','))
+        System.out.println("got here 4");
         return findMatchedSeries(findSeries);
     }
 
@@ -95,27 +96,82 @@ public class SearchRepo {
     public ArrayList<Series> findMatchedSeries(String findSeries){
         List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
         ArrayList<Series> series = new ArrayList<>();
+        try{
+            for (Map rs : rows) {
+                Series tempSeries = new Series();
+                tempSeries.setTitle((String)rs.get("seriestitle"));
+                tempSeries.setDescription((String)rs.get("description"));
+                tempSeries.setUsername((String)rs.get("username"));
+                tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+                tempSeries.setFlag((boolean)rs.get("flag"));
+                tempSeries.setRating((double)rs.get("rating"));
+                tempSeries.setWeekly((boolean)rs.get("weekly"));
+                tempSeries.setTags((String)rs.get("tags"));
+                tempSeries.setCreators((String)rs.get("creators"));
+                Date tempDate = ((Date)rs.get("timestamp"));
+                tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
+                System.out.println("The timestamp : " + tempSeries.getTimestamp());
+                tempSeries.setRateCounter((int)rs.get("ratecounter"));
+                series.add(tempSeries);
+            }
+        }
+        catch (Exception e){
+            return null;
+        }
+        return series;
+    }
+
+
+
+
+    public ArrayList<Series> getTopSeries(){
+        String query = "SELECT avg(rr.rating), seriestitle, username, description, timestamp, tags,creators,weekly FROM \"ratereview\" rr " +
+                "INNER JOIN \"Series\" USING(seriestitle) WHERE \"Series\".username = rr.seriescreator " +
+                "AND \"Series\".seriestitle = rr.seriestitle GROUP BY seriestitle, username ORDER BY avg(rr.rating) DESC;";
+        List<Map<String, Object>> rows = jdbc.queryForList(query);
+        ArrayList<Series> series = new ArrayList<>();
         for (Map rs : rows) {
             Series tempSeries = new Series();
             tempSeries.setTitle((String)rs.get("seriestitle"));
             tempSeries.setDescription((String)rs.get("description"));
             tempSeries.setUsername((String)rs.get("username"));
-            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
-            tempSeries.setFlag((boolean)rs.get("flag"));
-            tempSeries.setRating((double)rs.get("rating"));
+            tempSeries.setRating((double)rs.get("avg"));
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
             Date tempDate = ((Date)rs.get("timestamp"));
             tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
-            tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
         return series;
     }
+    //Returns first 20 results
+    public ArrayList<Series> getAllSeries(){
+        String query = "SELECT * FROM \"Series\" fetch first 20 rows only;";
+        return findMatchedSeries(query);
+    }
+    public ArrayList<Member> getAllMembers(){
+        String query = "SELECT * FROM \"Series\" fetch first 20 rows only;";
+        ArrayList<Member> members = new ArrayList<>();
+        try{
+            List<Map<String,Object>> rows = jdbc.queryForList(query);
+            for(Map rs : rows){
+                Member tempMember = new Member();
+                tempMember.setUsername((String)rs.get("username"));
+                System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
+                members.add(tempMember);
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return members;
 
-    public ArrayList<String> getAllTags(){
+    }
+
+    public ArrayList<String> getAllTagsstring(){
         String query = "SELECT tags FROM \"Series\" AS document;";
         ArrayList<String> allTags = new ArrayList<>();
         try{
@@ -129,7 +185,7 @@ public class SearchRepo {
         }
         return allTags;
     }
-    public ArrayList<String> getAllMembers(){
+    public ArrayList<String> getAllMembersstring(){
         String query = "SELECT username FROM \"Member\" AS document;";
         ArrayList<String> allMembers = new ArrayList<>();
         try{
@@ -157,8 +213,8 @@ public class SearchRepo {
         catch(Exception e){
             return null;
         }
-        ArrayList<String> allMembers = getAllMembers();
-        ArrayList<String> allTags = getAllTags();
+        ArrayList<String> allMembers = getAllMembersstring();
+        ArrayList<String> allTags = getAllTagsstring();
         for(int i =0; i < allMembers.size(); i++){
             alldata.add(allMembers.get(i));
         }

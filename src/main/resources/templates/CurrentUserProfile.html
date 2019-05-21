@@ -21,7 +21,6 @@
     </script>
     <script>
         // <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
-        // const curMemBio = "[[${curMember.getBio()}]]";
     </script>
 
     <link href="css/owl_carousel.css" rel="stylesheet">
@@ -88,13 +87,16 @@
                                 <div class="slickElemIssues">
                                     <div class="flexContainer flexColumn" style="align-items: center">
                                         <div th:if="${issue.getImgurl()}==null">
-                                        <a th:if="${issue.getImgurl()}==null" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{images/EXAMPLE_2.jpg}" class="issue"></a>
+                                            <a class="no-link" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}">
+                                                <div class="issue-blank"></div>
+                                            </a>
                                         </div>
-                                        <div>
-                                            <a th:if="${issue.getImgurl()}!=null" th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" class="issue"></a>
-
+                                        <div th:if="${issue.getImgurl()}!=null">
+                                            <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()},issueTitle=${issue.getTitle()})}">
+                                                <img  th:src="${issue.getImgurl()}" class="issue">
+                                            </a>
                                         </div>
-                                            <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                        <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                                     </div>
                                 </div>
                             </th:block>
@@ -196,9 +198,6 @@
                             <textarea id="bioField" class="input-large"></textarea>
                             <br><br>
                         </form>
-                        <script>
-                            document.getElementById("bioField").value = curMemBio;
-                        </script>
                         <br>
                     </div>
                     <div class="column-right">
@@ -277,19 +276,58 @@
                 </script>
                 <h3 style="margin: 0">Series Mode</h3>
                 <select id="seriesMode" name="seriesMode">
-                    <option value="recent">Individual</option>
-                    <option value="popular">Group Collaboration</option>
+                    <option value="individual">Individual</option>
+                    <option value="group">Group Collaboration</option>
                 </select>
-                <div class="flexContainer flexRow" style="align-items: center; margin-top: 10px">
-                    <h3 style="margin: 0; padding-right: 20px;">Invite</h3>
-                    <form style="padding-top: 15px; padding-right: 20px;">
-                        <input class="input-small" type="text" name="invite"><br><br>
+                <br>
+                <div class="flexContainer flexColumn" style="margin-top: 10px">
+                    <form id="inviteForm">
+                        <!-- tag buttons go here -->
                     </form>
-                    <a style="margin: 0">
-                        <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
-                    </a>
+                    <h3 id="inviteLabel" style="margin: 10px 0 0 0; padding-right: 20px; display: none">Invite</h3>
+                    <div class="flexContainer flexRow" style="align-items: center;">
+                        <form style="padding-top: 15px; padding-right: 20px;">
+                            <input class="input-small" id="inviteField" type="text" name="invite" style="display: none"><br><br>
+                        </form>
+                        <a style="margin: 0">
+                            <button id="inviteBtn" type="button" style="display: none">
+                                <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
+                            </button>
+                        </a>
+                    </div>
+                    <script type="text/javascript">
+                        (function() {
+                            var counter = 0;
+                            var btn = document.getElementById('inviteBtn');
+                            var form = document.getElementById('inviteForm');
+                            var inviteButton = function() {
+                                var inviteName = document.getElementById('inviteField').value;
+                                if(inviteName == "" || inviteName == null){
+                                    alert("Please enter a user to invite.");
+                                    return false;
+                                }
+                                // done first in case of duplicate tags
+                                if (addInvite(inviteName) == 0){
+                                    alert("There cannot be duplicate users.");
+                                    return false;
+                                }
+                                counter++;
+                                var invButton = document.createElement("button");
+                                invButton.id = 'invite' + counter;
+                                invButton.innerText = inviteName;
+                                invButton.classList.add("tagBtn");
+                                invButton.addEventListener('click', function(){
+                                    deleteInvite(invButton);
+                                });
+                                form.appendChild(invButton);
+                            };
+                            btn.addEventListener('click', function() {
+                                inviteButton();
+                            }.bind(this));
+                        })();
+                    </script>
                 </div>
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                <div class="flexContainer flexRow" style="justify-content: space-between;">
                     <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
                         <button class="lime-button-left" onclick=createSeries()>CREATE</button>
                     <!--</a>-->

@@ -1,4 +1,5 @@
 var tagList = []; // contains tags, exists until hitting "close" or "save" (save to be implemented through updateBio())
+var inviteList = [];
 
 function updateBio(){
     var bio = document.getElementById("bioField").value;
@@ -35,6 +36,7 @@ function deleteTag(tag) {
     var btn = document.getElementById(tag.id);
     btn.parentNode.removeChild(btn);
 }
+
 function addTag(tag) {
     // occurs when clicking the add tag button after inputting the tag name.
     console.log("add tag: " +tag);
@@ -48,6 +50,36 @@ function addTag(tag) {
         return 1;
     }
 }
+
+function deleteInvite(invite) {
+    // occurs when clicking a newly created tag in the create series popup.
+    var inviteText = invite.innerText;
+    console.log("delete invite: " + inviteText);
+    for( var i = 0; i < inviteList.length; i++){
+        if ( inviteList[i] == inviteText) {
+            inviteList.splice(i, 1);
+            i--;
+        }
+    }
+    console.log("invite list: " + inviteList);
+    var btn = document.getElementById(invite.id);
+    btn.parentNode.removeChild(btn);
+}
+
+function addInvite(invite) {
+    // occurs when clicking the add tag button after inputting the tag name.
+    console.log("add invite: " + invite);
+    document.getElementById("inviteField").value = "";
+    if(inviteList.includes(invite)){
+        console.log("invite list: " +inviteList);
+        return 0;
+    } else {
+        inviteList.push(invite);
+        console.log("invite list: " + inviteList);
+        return 1;
+    }
+}
+
 function resetSeriesForm() {
     document.getElementById("seriesForm").reset();
     var buttons = document.getElementById("tagsForm");
@@ -60,10 +92,17 @@ function resetSeriesForm() {
 function createSeries(){
     var titleVal = $('#titleField').val();
     var descVal = $('#descField').val();
-
+    var collabVal = $('#seriesMode').val();
+    var collabBool = false;
     console.log(descVal);
+    console.log(collabVal);
+
 
     var errors = "";
+    if(collabVal == "group")
+    {
+        collabBool = true;
+    }
     if(titleVal == "" || titleVal == null){
         errors += "title ";
     }
@@ -78,10 +117,20 @@ function createSeries(){
     var tagListString = tagList.join(","); // creates comma separated string of tags
     tagListString = tagListString.replace(/\s*,\s*/g, ",");
 
+    if (collabBool == true)
+    {
+        var inviteListString = inviteList.join(","); // creates comma separated string of invites
+        inviteListString = inviteListString.replace(/\s*,\s*/g, ",");
+    }
+    else
+    {
+        inviteListString = "default";
+    }
+
     console.log(titleVal);
     console.log(descVal);
     console.log(tagListString);
-    var newSeries = {username: null, collaborative: false, creators: null, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
+    var newSeries = {username: null, collaborative: collabBool, creators: inviteListString, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
     return $.ajax({
         type: "POST",
         url: "/createSeries",
@@ -206,4 +255,18 @@ $(document).ready(function(){
             return false;
         }
     });
+    $("#seriesMode").on('change', function() {
+        if ($(this).val() == "group")
+        {
+            $("#inviteField").show();
+            $("#inviteLabel").show();
+            $("#inviteBtn").show();
+        }
+        else
+        {
+            $("#inviteField").hide();
+            $("#inviteLabel").hide();
+            $("#inviteBtn").hide();
+        }
+    })
 });
