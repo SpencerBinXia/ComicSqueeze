@@ -64,15 +64,15 @@ public class IndexController {
         System.out.println(hours);
         // it is 12 A.M s
 
-        if ((hours==14)&& (minutes==0)){
-            // calculates max votes of day then sets the page with max votes to published true in weekly pages (meaning it is published in the issue for this weekly comic)
-            Page maxVotes = weeklyContributionService.calculateBestPage(thisWeekIssue,dayOfWeek);
-            if(maxVotes!=null) {
-                weeklyContributionService.addMaxVotesToSeries(maxVotes);
-            }
-            // reset everyones voted boolean its the end of the day
-            weeklyContributionService.setResetAllVoted();
-        }
+//        if ((hours==14)&& (minutes==0)){
+//            // calculates max votes of day then sets the page with max votes to published true in weekly pages (meaning it is published in the issue for this weekly comic)
+//            Page maxVotes = weeklyContributionService.calculateBestPage(thisWeekIssue,dayOfWeek);
+//            if(maxVotes!=null) {
+//                weeklyContributionService.addMaxVotesToSeries(maxVotes);
+//            }
+//            // reset everyones voted boolean its the end of the day
+//            weeklyContributionService.setResetAllVoted();
+//        }
 
         // HERE I QUERY FOR ALL THE CONTRIBUTIONS MADE FOR THIS WEEk FOR THIS DAY AND ADD IT TO THE MODEL
         weeklyContributions = weeklyContributionService.queryAllContributions(thisWeekIssue,dayOfWeek);
