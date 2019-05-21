@@ -83,14 +83,32 @@ window.onload = function(){
     console.log("1");
     var showLow = localStorage.getItem('showLow');
     var showSearch = localStorage.getItem('showSearch');
+    var showHigh = localStorage.getItem('showHigh');
+    var showRecent = localStorage.getItem('showRecent');
+    var showPop = localStorage.getItem('showPop');
     if(showLow == 'true'){
-        console.log("showLow - low: " + showLow);
-        console.log("showLow - search: " + showSearch);
+        console.log("showLow: " + showLow);
         document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
         document.getElementById("sortLow").style.display = "block";
+        $(".vertical_slick_Low").slick({
+            dots: true,
+            arrows: false,
+            vertical: true,
+            infinite: false,
+            rows: 3,
+            slidesPerRow: 1,
+            verticalSwiping: true,
+        });
     } else if(showSearch == 'true'){
-        console.log("showSearch - low: " + showLow);
-        console.log("showSearch - search: " + showSearch);
+        console.log("showSearch: " + showSearch);
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
         document.getElementById("sortLow").style.display = "none";
         document.getElementById("seriesResultsList").style.display = "block";
         $(".vertical_slick_search").slick({
@@ -98,8 +116,6 @@ window.onload = function(){
             arrows: false,
             vertical: true,
             infinite: false,
-            // slidesToShow: 8,
-            // slidesToScroll: 8,
             rows: 3,
             slidesPerRow: 1,
             verticalSwiping: true,

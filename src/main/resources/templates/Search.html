@@ -93,9 +93,85 @@
             <br><br>
 
             <!-- Normal search results -->
-            <div th:if="${theResult != null}">
-                <div id="seriesResultsList" class="vertical_slick_search">
-                    <th:block th:each="series: ${theResult}">
+            <div id="seriesResultsList" class="vertical_slick_search">
+                <th:block th:if="${theResult != null}" th:each="series: ${theResult}">
+                    <div class="test">
+                        <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
+                                    <div th:if="${series.getImgUrl() == null}">
+                                        <div class="issue-blank"></div>
+                                    </div>
+                                    <div th:if="${series.getImgUrl() != null}">
+                                        <img th:src="${series.getImgUrl()}" class="issue">
+                                    </div>
+                                </a>
+                                <div class="flexContainer flexColumn" style="margin: 0 0 0 20px; overflow: auto; width: 100%; max-height: 250px">
+                                    <h1 th:text="${series.getTitle()}" style="margin: 0 0 0 0"></h1>
+                                    <a th:href="@{/viewprofile/{profileID}(profileID=${series.getUsername()})}" style="color: #555555; width: fit-content;">
+                                        <h4 th:text="${series.getUsername()}" style="margin: 5px 0 0 0"></h4>
+                                    </a>
+                                    <h4 th:text="'Rating: ' + ${series.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                    <p style="color: #555555; margin: 0">Description:</p>
+                                    <p th:text="${series.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
+                                    <p style="color: #555555; margin: 0">Tags:</p>
+                                    <p th:text="${series.getTags()}" style="margin: 5px 0 0 0; white-space: pre-wrap"></p>
+                                </div>
+                            </div>
+                    </div>
+                </th:block>
+            </div>
+            <!-- Normal user results -->
+                <div id="usersResultsList">
+                        <th:block th:if="${memResult != null}" th:each="member: ${memResult}">
+                            <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
+                                <a th:href="@{/viewprofile/{profileID}/(profileID=${member.getUsername()})}">
+                                    <img class="top-artist" th:src="${member.getImgUrl()}">
+                                </a>
+                                <p class="long-span" th:text="${member.getUsername()}" style="font-weight: bold; margin-bottom: 0px; text-align: center"></p>
+                                <p style="margin: 0px;text-align: center">#Followers</p>
+                            </div>
+                        </th:block>
+                </div>
+            <!-- SORTED -->
+            <!-- Rating-LOW -->
+                <div id="sortLow" class="vertical_slick_Low">
+                    <th:block th:if="${seriesRatingLow != null}" th:each="mapEntry: ${seriesRatingLow}">
+                        <div class="test">
+                            <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
+                                    <div th:if="${mapEntry.key.getImgUrl() == null}">
+                                        <div class="issue-blank"></div>
+                                    </div>
+                                    <div th:if="${mapEntry.key.getImgUrl() != null}">
+                                        <img th:src="${mapEntry.key.getImgUrl()}" class="issue">
+                                    </div>
+                                </a>
+                                <div class="flexContainer flexColumn" style="margin: 0 0 0 20px; overflow: auto; width: 100%; max-height: 250px">
+                                    <h1 th:text="${mapEntry.key.getTitle()}" style="margin: 0 0 0 0"></h1>
+                                    <a th:href="@{/viewprofile/{profileID}(profileID=${mapEntry.key.getUsername()})}" style="color: #555555; width: fit-content;">
+                                        <h4 th:text="${mapEntry.key.getUsername()}" style="margin: 5px 0 0 0"></h4>
+                                    </a>
+                                    <h4 th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                    <p style="color: #555555; margin: 0">Description:</p>
+                                    <p th:text="${mapEntry.key.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
+                                    <p style="color: #555555; margin: 0">Tags:</p>
+                                    <p th:text="${mapEntry.key.getTags()}" style="margin: 5px 0 0 0; white-space: pre-wrap"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            <!-- Rating-HIGH -->
+                <div id="sortHigh" class="vertical_slick_High">
+                    <th:block th:if="${seriesRatingHigh != null}" th:each="mapEntry: ${seriesRatingHigh}">
+                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
+                            <h4 class="series-title-link" th:text="${mapEntry.key.getTitle()} + ' - ' + ${mapEntry.key.getUsername()}"></h4>
+                        </a>
+                    </th:block>
+                </div>
+            <!-- Recent -->
+                <div id="sortRecent" class="vertical_slick_Recent">
+                    <th:block th:if="${seriesSortedRecent != null}" th:each="series: ${seriesSortedRecent}">
                         <div class="test">
                             <div class="flexContainer flexRow" style="margin-bottom: 20px">
                                 <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
@@ -121,32 +197,18 @@
                         </div>
                     </th:block>
                 </div>
-            </div>
-            <!-- Normal user results -->
-            <div th:if="${memResult != null}">
-                <div id="usersResultsList">
-                        <th:block th:each="member: ${memResult}">
-                            <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
-                                <a th:href="@{/viewprofile/{profileID}/(profileID=${member.getUsername()})}">
-                                    <img class="top-artist" th:src="${member.getImgUrl()}">
-                                </a>
-                                <p class="long-span" th:text="${member.getUsername()}" style="font-weight: bold; margin-bottom: 0px; text-align: center"></p>
-                                <p style="margin: 0px;text-align: center">#Followers</p>
-                            </div>
-                        </th:block>
-                </div>
-            </div>
-            <!-- SORTED -->
-            <!-- Rating-LOW -->
-            <div id="sortLow" class="seriesResultsList">
-                <div th:if="${seriesRatingLow != null}">
-                    <th:block th:each="mapEntry: ${seriesRatingLow}">
-                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
-                            <h4 class="series-title-link" th:text="${mapEntry.key.getTitle()} + ' - ' + ${mapEntry.key.getUsername()}"></h4>
-                        </a>
+            <!-- Popular USERS -->
+                <div id="sortPop">
+                    <th:block th:if="${sortByPopular != null}" th:each="member: ${sortByPopular}">
+                        <div class="flexContainer flexColumn" style="align-items: center; margin: auto">
+                            <a th:href="@{/viewprofile/{profileID}/(profileID=${member.getUsername()})}">
+                                <img class="top-artist" th:src="${member.getImgUrl()}">
+                            </a>
+                            <p class="long-span" th:text="${member.getUsername()}" style="font-weight: bold; margin-bottom: 0px; text-align: center"></p>
+                            <p style="margin: 0px;text-align: center">#Followers</p>
+                        </div>
                     </th:block>
                 </div>
-            </div>
 
             <br><br><br>
 
