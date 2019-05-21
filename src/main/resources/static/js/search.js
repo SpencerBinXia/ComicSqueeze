@@ -97,7 +97,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "rating-HIGH"){
-        console.log("rate-low");
+        console.log("rate-high");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -105,7 +105,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "recent"){
-        console.log("rate-low");
+        console.log("recent");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -113,7 +113,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'true');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "popular"){
-        console.log("rate-low");
+        console.log("popular");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -148,6 +148,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.setItem('showLow', 'false');
     } else if(showSearch == 'true'){
         console.log("showSearch: " + showSearch);
         document.getElementById("usersResultsList").style.display = "none";
@@ -165,6 +166,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.setItem('showSearch', 'false');
     } else if(showHigh == 'true'){
         console.log("showHigh: " + showHigh);
         document.getElementById("usersResultsList").style.display = "none";
@@ -182,6 +184,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.setItem('showHigh', 'false');
     } else if(showRecent == 'true'){
         console.log("showRecent: " + showRecent);
         document.getElementById("usersResultsList").style.display = "none";
@@ -199,6 +202,51 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.setItem('showRecent', 'false');
+    } else if(showUsers == 'true'){
+        console.log("showUsers: " + showUsers);
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "block";
+        $(".horizontal_slick-users").slick({
+            dots: true,
+            arrows: true,
+            vertical: false,
+            infinite: false,
+            rows: 2,
+            slidesPerRow: 4,
+            verticalSwiping: false,
+        });
+        localStorage.setItem('showUsers', 'false');
+    } else if(showPop == 'true'){
+        console.log("showPop: " + showPop);
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortPop").style.display = "block";
+        $(".horizontal_slick-pop").slick({
+            dots: true,
+            arrows: true,
+            vertical: false,
+            infinite: false,
+            rows: 2,
+            slidesPerRow: 4,
+            verticalSwiping: false,
+        });
+        localStorage.setItem('showPop', 'false');
+    } else {
+        console.log("Nothing in local storage");
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
     }
 }
 
