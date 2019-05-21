@@ -302,7 +302,7 @@ function uploadIssueCoverDB(username,currentSeries,currentIssue,img){
 }
 function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
     var reader  = new FileReader();
-    var file    = document.querySelector('input[type=file]').files[0];
+    var file    = document.getElementById("uploadIssueCover").files[0];
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/cover");
     var task = storageRef.put(file);

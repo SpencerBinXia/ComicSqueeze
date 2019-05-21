@@ -169,7 +169,7 @@
                 <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
                 <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
                     <th:block th:each="notif:${session.notifs}">
-                        <p class="notification-item">USERNAME has released a new comic series</p>
+                        <a th:href="@{${notif.getLink()}}" class="notification-item"> Your Series has been reported</a>
                         <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
                         <p class="notification-item">New Follower: USERNAME</p>
                         <p class="notification-item">SeriesName has been flagged.</p>
