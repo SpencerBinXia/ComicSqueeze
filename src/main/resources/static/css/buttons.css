@@ -107,6 +107,19 @@ button {
     background: #75a300;
     text-decoration: none;
 }
+.red-button {
+    overflow-wrap: break-word;
+    color: #ffffff;
+    font-size: 20px;
+    background: #C8002B;
+    padding: 10px 20px 10px 20px;
+    border: solid #000000 2px;
+    text-decoration: none;
+}
+.red-button:hover {
+    background: #820022;
+    text-decoration: none;
+}
 input[type="file"] {
     display: none;
 }
@@ -158,6 +171,22 @@ input[type="file"] {
 }
 .lime-button-left:hover {
     background: #75a300;
+    text-decoration: none;
+}
+.red-button-left {
+    overflow-wrap: break-word;
+    color: #ffffff;
+    font-size: 20px;
+    background: #C8002B;
+    padding: 10px 20px 10px 20px;
+    border: solid #000000 2px;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    width: fit-content;
+}
+.red-button-left:hover {
+    background: #820022;
     text-decoration: none;
 }
 

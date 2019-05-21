@@ -68,6 +68,34 @@ window.onclick =function (event) {
 }
 
 function flagSeries() {
+    //var modal = document.getElementById('flag');
+    //var body = document.getElementById('flagReason');
+    var body = $('#flagReason');
+    console.log(body.val());
+    console.log(curSeriesTitle);
+    console.log(curSeriesUser);
+
+    $.ajax({
+        type: "GET",
+        data: {
+            reportBody: body.val(),
+            reportSeriesTitle: curSeriesTitle,
+            reportSeriesUser: curSeriesUser,
+            link: "series/" + curSeriesUser + "/" + curSeriesTitle,
+            type: "report",
+        },
+        url: "/reportSeries",
+        cache: false,
+        success: function (result) {
+            console.log(result);
+            console.log("success report");
+
+        },
+        error: function(e){
+            console.log("Report failed");
+        }
+    });
+
 
 }
 
@@ -263,6 +291,10 @@ function deleteSeries() {
             type: "GET",
             url: "/deleteSeries",
             cache: false,
+            data:{
+                seriesOwner: curSeriesUser,
+                seriesTitle: curSeriesTitle
+            },
             success: function (result) {
                 //reload page
                 window.location.assign("/yourprofile");

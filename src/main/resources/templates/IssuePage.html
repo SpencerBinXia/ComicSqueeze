@@ -137,9 +137,11 @@
                     <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
                 </label>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
-                <button th:if="${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.curMember.getAdminStatus()} == true and ${session.username != profileID}" class = "red-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 10px;">
                 <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE ISSUE COVER</a>
@@ -165,12 +167,10 @@
                                 <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                                 <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>
                                 <a th:if="${session.username == profileID} and ${page.getCustom()}==false" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-                                <script th:if="${page.getCustom()}!=false">
-                                    var editNumber = "[[${page.getPagenumber()}]]";
-                                </script>
-                                <label class="page-option" th:if="${session.username == profileID} and ${page.getCustom()}!=false" style="cursor: pointer;">
+
+                                <label  class="page-option" th:if="${session.username == profileID} and ${page.getCustom()}!=false" style="cursor: pointer;">
                                     <img src="images/icons/upload_icon.png" th:src="@{/images/icons/upload_icon.png}">
-                                    <input id ="editPageCustom" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(username,currentSeries,currentIssue,editNumber)">
+                                    <input th:name="${page.getPagenumber()}" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(username,currentSeries,currentIssue,this)">
                                 </label>
                                 <a th:if="${session.username == profileID}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                                 <div th:if="${session.username == profileID and page.isPublished() == true}">

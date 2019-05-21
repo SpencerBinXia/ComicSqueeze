@@ -40,8 +40,8 @@ public class SeriesRepo {
                     tempSeries.setWeekly(rs.getBoolean("weekly"));
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
-                    tempSeries.setCreatorArray(((String[])rs.getArray("creatorarray").getArray()));
-                    System.out.println(tempSeries.getCreatorArray());
+                    //tempSeries.setCreatorArray(((String[])rs.getArray("creatorarray").getArray()));
+                    //System.out.println(tempSeries.getCreatorArray());
                     tempSeries.setImgUrl( rs.getString("imgurl"));
                     Date tempDate = (rs.getObject(5, Date.class));
                     tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));

@@ -22,7 +22,8 @@
     <script>
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesTags = "[[${currentSeries.getTags()}]]";
-        const curSeriesTitle = "[[${seriesTitle}]]";
+        const curSeriesTitle = "[[${currentSeries.getTitle()}]]";
+        const curSeriesUser = "[[${currentSeries.getUsername()}]]";
     </script>
 
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
@@ -137,7 +138,11 @@
                 <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">-->
                     <button th:if="${session.username == profileID}" class="lime-button-left" onclick="addIssueClicked()">ADD ISSUE</button>
                 <!--</a>-->
-                <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                <div th:if="${session.curMember} != null" >
+                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                    <button th:if="${session.curMember.getAdminStatus()} == true and ${session.username != profileID} " class="red-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                </div>
                 <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">-->
                     <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="editSeriesClicked()">EDIT</button>
                 <!--</a>-->
@@ -232,9 +237,9 @@
                     Write Report: <textarea class="input-large" id="flagReason" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <a class="button-as-link" style="width: fit-content; margin: 0">
-                        <button class="lime-button-left" onclick="flagSeries()">SUBMIT</button>
-                    </a>
+                    <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->
+                    <button class="lime-button-left" onclick="flagSeries()">SUBMIT</button>
+                    <!--</a>-->
                     <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
                     <button class="grey-button-left" onclick="closeFlagSeries()">CLOSE</button>
                     <!--</a>-->

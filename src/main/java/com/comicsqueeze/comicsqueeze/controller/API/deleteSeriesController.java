@@ -33,14 +33,23 @@ public class deleteSeriesController {
     private RateReviewService rateService;
 
     @RequestMapping(value ="/deleteSeries", method = RequestMethod.GET)
-    public String deleteSeries(Model model, HttpSession session)
+    public String deleteSeries(Model model, HttpSession session, @RequestParam(value = "seriesOwner") String username, @RequestParam(value = "seriesTitle") String seriesTitle)
     {
         Member member = (Member) session.getAttribute("curMember");
-        pageService.deleteSeriesPages(member.getCurrentSeries().getTitle(), member.getUsername());
-        subService.removeSubsFromSeries(member.getCurrentSeries().getTitle(), member.getCurrentSeries().getUsername());
-        rateService.deleteRatings(member.getCurrentSeries().getTitle(), member.getCurrentSeries().getUsername());
-        issueService.deleteIssues(member.getCurrentSeries().getTitle(), member.getUsername());
-        seriesService.deleteSeries(member.getCurrentSeries().getTitle(), member.getUsername());
+        if(member.getAdminStatus()){
+            pageService.deleteSeriesPages(seriesTitle, username);
+            subService.removeSubsFromSeries(seriesTitle, username);
+            rateService.deleteRatings(seriesTitle, username);
+            issueService.deleteIssues(seriesTitle, username);
+            seriesService.deleteSeries(seriesTitle, username);
+        }
+        else{
+            pageService.deleteSeriesPages(member.getCurrentSeries().getTitle(), member.getUsername());
+            subService.removeSubsFromSeries(member.getCurrentSeries().getTitle(), member.getCurrentSeries().getUsername());
+            rateService.deleteRatings(member.getCurrentSeries().getTitle(), member.getCurrentSeries().getUsername());
+            issueService.deleteIssues(member.getCurrentSeries().getTitle(), member.getUsername());
+            seriesService.deleteSeries(member.getCurrentSeries().getTitle(), member.getUsername());
+        }
         return "redirect:/yourprofile";
     }
 }
