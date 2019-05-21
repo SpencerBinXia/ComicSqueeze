@@ -295,6 +295,40 @@ function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
         }
     );
 }
+
+function uploadSeriesCoverDBCustom(username,currentSeries){
+    var reader  = new FileReader();
+    var file    = document.getElementById("uploadSeriesCover").files[0];
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/seriesCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+
 function uploadWeeklyCoverDB(){
     var reader  = new FileReader();
     var file    = document.getElementById("uploadWeeklyCover").files[0];
