@@ -1,13 +1,7 @@
 package com.comicsqueeze.comicsqueeze.controller;
 
-import com.comicsqueeze.comicsqueeze.object.Issue;
-import com.comicsqueeze.comicsqueeze.object.Member;
-import com.comicsqueeze.comicsqueeze.object.Series;
-import com.comicsqueeze.comicsqueeze.object.Subscription;
-import com.comicsqueeze.comicsqueeze.service.ComicSeriesService;
-import com.comicsqueeze.comicsqueeze.service.ComicIssueService;
-import com.comicsqueeze.comicsqueeze.service.SubscriptionService;
-import com.comicsqueeze.comicsqueeze.service.loginRegisterService;
+import com.comicsqueeze.comicsqueeze.object.*;
+import com.comicsqueeze.comicsqueeze.service.*;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +28,8 @@ public class CurrentUserProfileController {
     private ComicIssueService comicIssueService;
     @Autowired
     private SubscriptionService subService;
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping(value ="/signin", method = RequestMethod.GET)
     public String home(Model model, HttpSession session, @RequestParam(value ="userName", defaultValue = "USERNAME") String userName, @RequestParam(value ="img", defaultValue = "images/icons/default_pro_icon.png") String imgURL )
@@ -74,6 +70,9 @@ public class CurrentUserProfileController {
         if(!(seriesArrayList.isEmpty())) {
             sessionMember.setSeriesArrayList(seriesArrayList);
         }
+        //load all the notifications for a user
+        ArrayList<Notification> notifs =notificationService.queryAllNotifications(sessionMember.getUsername());
+        session.setAttribute("notifs",notifs);
 
         return "CurrentUserProfile";
     }

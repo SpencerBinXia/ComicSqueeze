@@ -81,6 +81,11 @@ public class SearchRepo {
             for(Map rs : rows){
                 Member tempMember = new Member();
                 tempMember.setUsername((String)rs.get("username"));
+                tempMember.setBio((String)rs.get("bio"));
+                tempMember.setAdminStatus((boolean)rs.get("admin"));
+                tempMember.setEmail((String)rs.get("email"));
+                tempMember.setImgUrl((String)rs.get("imgurl"));
+                tempMember.setFollows((Integer) rs.get("follows"));
                 System.out.println("Value in searchForUsername in SearchRepo " + tempMember.getUsername());
                 members.add(tempMember);
             }
@@ -104,7 +109,6 @@ public class SearchRepo {
                 tempSeries.setUsername((String)rs.get("username"));
                 tempSeries.setCollaborative((boolean)rs.get("collaborative"));
                 tempSeries.setFlag((boolean)rs.get("flag"));
-                tempSeries.setRating((double)rs.get("rating"));
                 tempSeries.setWeekly((boolean)rs.get("weekly"));
                 tempSeries.setTags((String)rs.get("tags"));
                 tempSeries.setCreators((String)rs.get("creators"));
