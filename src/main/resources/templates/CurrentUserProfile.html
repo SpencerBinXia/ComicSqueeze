@@ -120,11 +120,13 @@
                     <!--<a class="button-as-link">-->
                     <h3 th:text="'Follows: ' + ${subscriptionCount}" style="text-align: center"></h3>
                     <!--<a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">-->
-                        <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
+                    <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
+                    <br>
+                    <button class="lime-button-solo" onclick="collabSeriesClicked()">Collab Series</button>
                     <!--</a>-->
                     <br>
                     <!--<a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">-->
-                        <button class="lime-button-solo" onclick="createSeriesClicked()">CREATE SERIES</button>
+                    <button class="lime-button-solo" onclick="createSeriesClicked()">CREATE SERIES</button>
                     <!--</a>-->
                 </div>
             </div>
@@ -176,6 +178,35 @@
                             </a>
                         </div>
                     </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Collaborative Series Popup-->
+    <div id="collabSeries" class="modal">
+        <div id="collabSeries-modal" class="modal-inner">
+            <div class="flexContainer flexColumn">
+                <div class="flexContainer flexRow" style="justify-content: space-between;">
+                    <h2 style="margin: 0">COLLABORATIVE SERIES</h2>
+                    <a class="button-as-link" style="width: fit-content; margin: 0; float: right;">
+                        <button class="grey-button-left" onclick="closeCollabSeries()" style="margin: 0">CLOSE</button>
+                    </a>
+                </div>
+                <div class="subscriptions_slick">
+                    <!--<th:block th:each="subscription: ${subscriptions}">-->
+                        <!--<div class="flexColumn series-title-link" style="align-items: center; text-align: center;">-->
+                            <!--<a style="width: fit-content">-->
+                                <!--<img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">-->
+                            <!--</a>-->
+                            <!--<a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">-->
+                                <!--<h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>-->
+                            <!--</a>-->
+                            <!--<a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">-->
+                                <!--<h4 th:text="${subscription.getSeriesCreator()}" style="margin: 5px 0 5px 0;"></h4>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</th:block>-->
                 </div>
             </div>
         </div>

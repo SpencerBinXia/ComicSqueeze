@@ -218,6 +218,22 @@ window.onclick =function (event) {
     }
 }
 
+// CREATE SERIES MODAL REWORK
+function collabSeriesClicked() {
+    var modal = document.getElementById('collabSeries');
+    modal.style.display = "block";
+}
+function closeCollabSeries() {
+    var modal = document.getElementById('collabSeries');
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('collabSeries');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
         loop: false,
