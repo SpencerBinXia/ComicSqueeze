@@ -48,10 +48,17 @@
     <link href="slick/slick.css" th:href="@{/slick/slick.css}" rel="stylesheet">
     <link href="slick/slick-theme.css" th:href="@{/slick/slick-theme.css}" rel="stylesheet">
     <link href="css/slick-override.css" th:href="@{/css/slick-override.css}" rel="stylesheet">
+    <script src="js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
 
 </head>
 
 <body style="margin: 0px">
+
+<script type="text/javascript" th:if= "${session.curMember?.getCurrentSeries()?.getTitle() !=null}" th:inline="javascript">
+    // getting current series and issue that the user is under in heirarchy
+    var username = [[${session.curMember.getUsername()}]]
+    var currentSeries = [[${session.curMember.getCurrentSeries().getTitle()}]]
+</script>
 
 <div class="flexContainer flexColumn fullHeight whiteBackground">
     <nav class="navBar darkGreyBackground">
@@ -78,16 +85,31 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main">
-            <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
-            <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
-            <div th:if="${currentSeries.isCollaborative()}==true">
-                <p id="curCreators" class="subtext" th:text="'Collaborators: ' + ${currentSeries.getCreators()}"></p>
+            <br>
+            <div class="flexContainer flexRow">
+                <div class="column-left img">
+                    <div th:if="${seriesImg}==null">
+                        <div style="background-color: #9a9a9a; height: 480px"></div>
+                    </div>
+                    <div th:if="${seriesImg}!=null">
+                        <img th:src="${seriesImg}" style="size: auto">
+                    </div>
+                </div>
+                <div class="column-right">
+                    <div class="flexContainer flexColumn">
+                        <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
+                        <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
+                        <div th:if="${currentSeries.isCollaborative()}==true">
+                            <p id="curCreators" class="subtext" th:text="'Collaborators: ' + ${currentSeries.getCreators()}"></p>
+                        </div>
+                        <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
+                            <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                        </div>
+                        <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
+                        <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
+                    </div>
+                </div>
             </div>
-            <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
-                <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-            </div>
-            <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
-            <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
             <br><br>
             <!-- <a href="#" class="arrow"><img src="images/icons/left_arrow_icon.png" th:src="@{/images/icons/left_arrow_icon.png}"></a> -->
             <div class="horizontal_slick left-align-slick">
@@ -95,10 +117,14 @@
                     <div class="slickElemIssues">
                         <div class="flexContainer flexColumn" style="align-items: center">
                             <div th:if="${issue.getImgurl()}==null">
-                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="@{/images/EXAMPLE_2.jpg}" class="issue"></a>
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}">
+                                    <div class="issue-blank"></div>
+                                </a>
                             </div>
                             <div th:if="${issue.getImgurl()!=null}">
-                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}"><img src="images/EXAMPLE_2.jpg" th:src="${issue.getImgurl()}" class="issue"></a>
+                                <a th:href="@{/issue/{profileID}/{SeriesTitle}/{issueTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle},issueTitle=${issue.getTitle()})}">
+                                    <img  th:src="${issue.getImgurl()}" class="issue">
+                                </a>
                             </div>
                                 <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                         </div>
@@ -109,20 +135,24 @@
             <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
             <p id="curTags" class="subtext" th:text="${currentSeries.getTags()}"></p>
             <div class="flexContainer flexRow">
-                <a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">
-                    <button class="lime-button-left">ADD ISSUE</button>
-                </a>
+                <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">-->
+                    <button th:if="${session.username == profileID}" class="lime-button-left" onclick="addIssueClicked()">ADD ISSUE</button>
+                <!--</a>-->
                 <div th:if="${session.curMember} != null" >
                     <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                     <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                     <button th:if="${session.curMember.getAdminStatus()} == true and ${session.username != profileID} " class="red-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
                 </div>
-                <a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">
-                    <button class="lime-button-left" onclick="popEditSeries()">EDIT</button>
-                </a>
+                <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">-->
+                    <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="editSeriesClicked()">EDIT</button>
+                <!--</a>-->
                 <a th:if="${session.username == profileID}" class="button-as-link"  style="margin-left: 20px">
                     <a class="lime-button-left" th:href="@{/createseriescover}"> CREATE COVER</a>
                 </a>
+                <label class="lime-button-left" th:if="${session.username == profileID}" style="cursor: pointer;">
+                    <input id ="uploadSeriesCover" type="file" accept="image/*" onChange="uploadSeriesCoverDBCustom(username,currentSeries)">
+                    UPLOAD COVER
+                </label>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == false}" class="lime-button-left" style="margin-left: 20px" onclick="subscribe()">FOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="flagSeriesClicked()">REPORT</button>
@@ -235,8 +265,8 @@
     </div>
 
     <!--Add Issue Popup-->
-    <div id="add-issue-modal-container">
-        <div id="add-issue-modal" class="reveal-modal">
+    <div id="add-issue" class="modal">
+        <div id="add-issue-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Add Issue</h2>
                 <form id="issueForm">
@@ -247,17 +277,17 @@
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=createIssue()>ADD</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick="resetIssueForm()">CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick="closeAddIssue()">CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>
     </div>
 
     <!--Edit Series Popup-->
-    <div id="edit-series-modal-container">
-        <div id="edit-series-modal" class ="reveal-modal">
+    <div id="edit-series" class="modal">
+        <div id="edit-series-modal" class ="modal-inner">
             <div class ="flexContainer flexColumn">
                 <h2 style="margin-top: 0">Edit Series:</h2>
                 <h3 th:text="${seriesTitle}" style="margin-top: 0"></h3>
@@ -279,9 +309,9 @@
                     <a class="button-as-link" style="width: fit-content; margin: 0">
                         <button class="lime-button-left" onclick=editSeries()>SAVE</button>
                     </a>
-                    <a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">
-                        <button class="grey-button-left" onclick=resetEditSeriesForm()>CLOSE</button>
-                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                        <button class="grey-button-left" onclick=closeEditSeries()>CLOSE</button>
+                    <!--</a>-->
                 </div>
             </div>
         </div>

@@ -137,6 +137,7 @@ input[type="file"] {
 }
 .lime-button-file:hover {
     background: #75a300;
+    color: white;
     text-decoration: none;
 }
 

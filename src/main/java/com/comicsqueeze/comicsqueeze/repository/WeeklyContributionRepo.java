@@ -320,4 +320,14 @@ public class WeeklyContributionRepo {
         }
 
     }
+
+    public void addCoverToWeekly(String issue, String imgurl) {
+        String updateWeeklyIssue = "UPDATE \"WeeklyComic\" SET IMGURL='"+imgurl+"' WHERE issuetitle='"+issue+"';";
+        try {
+            jdbc.update(updateWeeklyIssue);
+        }
+        catch (Exception e){
+
+        }
+    }
 }

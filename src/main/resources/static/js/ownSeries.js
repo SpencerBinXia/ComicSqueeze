@@ -31,6 +31,42 @@ window.onclick =function (event) {
     }
 }
 
+// ADD ISSUE MODAL REWORK
+function addIssueClicked() {
+    var modal = document.getElementById('add-issue');
+    modal.style.display = "block";
+}
+function closeAddIssue() {
+    var modal = document.getElementById('add-issue');
+    modal.style.display = "none";
+    resetIssueForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('add-issue');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetIssueForm();
+    }
+}
+// EDIT SERIES MODAL REWORK
+function editSeriesClicked() {
+    var modal = document.getElementById('edit-series');
+    modal.style.display = "block";
+    popEditSeries();
+}
+function closeEditSeries() {
+    var modal = document.getElementById('edit-series');
+    modal.style.display = "none";
+    resetEditSeriesForm();
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('edit-series');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        resetEditSeriesForm();
+    }
+}
+
 function flagSeries() {
     //var modal = document.getElementById('flag');
     //var body = document.getElementById('flagReason');
@@ -42,7 +78,7 @@ function flagSeries() {
     $.ajax({
         type: "GET",
         data: {
-            reportBody: body,
+            reportBody: body.val(),
             reportSeriesTitle: curSeriesTitle,
             reportSeriesUser: curSeriesUser,
             type: "report",
@@ -254,6 +290,10 @@ function deleteSeries() {
             type: "GET",
             url: "/deleteSeries",
             cache: false,
+            data:{
+                seriesOwner: curSeriesUser,
+                seriesTitle: curSeriesTitle
+            },
             success: function (result) {
                 //reload page
                 window.location.assign("/yourprofile");

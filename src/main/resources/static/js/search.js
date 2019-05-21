@@ -93,6 +93,17 @@ window.onload = function(){
         console.log("showSearch - search: " + showSearch);
         document.getElementById("sortLow").style.display = "none";
         document.getElementById("seriesResultsList").style.display = "block";
+        $(".vertical_slick_search").slick({
+            dots: true,
+            arrows: false,
+            vertical: true,
+            infinite: false,
+            // slidesToShow: 8,
+            // slidesToScroll: 8,
+            rows: 3,
+            slidesPerRow: 1,
+            verticalSwiping: true,
+        });
     }
 }
 

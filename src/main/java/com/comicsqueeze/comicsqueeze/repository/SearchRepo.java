@@ -112,6 +112,7 @@ public class SearchRepo {
                 tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
                 System.out.println("The timestamp : " + tempSeries.getTimestamp());
                 tempSeries.setRateCounter((int)rs.get("ratecounter"));
+                tempSeries.setImgUrl((String)rs.get("imgurl"));
                 series.add(tempSeries);
             }
         }

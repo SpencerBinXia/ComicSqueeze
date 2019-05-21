@@ -38,7 +38,13 @@ public class SearchController {
         if(session.getAttribute("searchResults") != null){
             ArrayList<Series> ser = (ArrayList<Series>) session.getAttribute("searchResults");
             model.addAttribute("theResult", ser);
-            session.setAttribute("searchResults", null);
+            session.setAttribute("searchResults", ser);
+
+            System.out.println();
+            System.out.println();
+            System.out.println(ser);
+            System.out.println();
+            System.out.println();
 
             //Organize series list into hashmaps of series as key, rating as value
             //Sort by rating low
@@ -79,9 +85,9 @@ public class SearchController {
                 System.out.println(ser.get(i).getTimestamp());
             }
 
-            model.addAttribute("seriesRatingLow", seriesLow);
-            model.addAttribute("seriesRatingHigh", seriesHigh);
-            model.addAttribute("seriesSortedRecent", seriesByRecent);
+            model.addAttribute("seriesRatingLow", seriesLow); //hashmap
+            model.addAttribute("seriesRatingHigh", seriesHigh); //hsahmap
+            model.addAttribute("seriesSortedRecent", seriesByRecent); //arraylist
 
 
         }
@@ -108,7 +114,7 @@ public class SearchController {
                 System.out.println(popularMembers.get(i).getFollows());
             }
 
-            model.addAttribute("sortByPopular",popularMembers);
+            model.addAttribute("sortByPopular",popularMembers); //arraylist
 
         }
 

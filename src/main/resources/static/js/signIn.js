@@ -98,6 +98,7 @@ function signIn() {
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode === 'auth/wrong-password') {
+                window.location.assign("/");
                 alert('Wrong password.');
             } else {
                 alert(errorMessage);

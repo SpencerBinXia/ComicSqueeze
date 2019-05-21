@@ -14,7 +14,7 @@ public class createIssueCoverController {
     private loginRegisterService service;
     @RequestMapping("/createissuecover")
     public String home(Model model, HttpSession session) {
-        Member curMember = service.findMember((String) session.getAttribute("username"));
+        Member curMember = (Member)session.getAttribute("curMember");
         model.addAttribute("curMember", curMember);
         return "CreateIssueCover";
     }

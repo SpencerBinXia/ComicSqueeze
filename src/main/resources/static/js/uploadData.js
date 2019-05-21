@@ -34,6 +34,7 @@ function retrieveJSONFromFirebase(username,comicseries,comicissue,pagenumber,lc)
         });
 
 }
+
 function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
@@ -53,7 +54,7 @@ function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
                     url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {
@@ -87,7 +88,7 @@ function editPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
                     success: function (response) {
                         // document.open("text/html","replace");
                         // document.write(response);
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {
@@ -122,7 +123,7 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
                     url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {
@@ -294,4 +295,102 @@ function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
             });
         }
     );
+}
+
+function uploadSeriesCoverDBCustom(username,currentSeries){
+    var reader  = new FileReader();
+    var file    = document.getElementById("uploadSeriesCover").files[0];
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/seriesCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+
+function uploadWeeklyCoverDB(){
+    var reader  = new FileReader();
+    var file    = document.getElementById("uploadWeeklyCover").files[0];
+    var issue = document.getElementById("weeklyIssueName").value;
+    var description = document.getElementById("weeklyIssueDescription").value;
+if (issue!="") {
+    var storageRef = firebase.storage().ref("WeeklyComic/" + issue + "/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot) {
+            var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            var uploader = document.getElementById("uploaderWeekly");
+            uploader.value = percent;
+        },
+        function error(err) {
+        },
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child("WeeklyComic/" + issue + "/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/weeklyCoverDB?issue=" + issue +"&description="+description+"&imgurl=" + url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/");
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+else{
+    alert("Specify new issue name first");
+}
+}
+
+function retrieveJSONFromFirebaseIssueCover(username,comicseries,comicissue,lc){
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var ref = firebase.database().ref(username+'/'+comicseries+'/'+comicissue+'/issuecover');
+    ref.once('value')
+        .then(function(dataSnapshot) {
+            console.log("editing");
+            lc.loadSnapshot(JSON.parse(dataSnapshot.val()));
+        });
+
+}
+function retrieveJSONFromFirebaseSeriesCover(username,comicseries,lc){
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var ref = firebase.database().ref(username+'/'+comicseries+'/seriescover');
+    ref.once('value')
+        .then(function(dataSnapshot) {
+            console.log("editing");
+            lc.loadSnapshot(JSON.parse(dataSnapshot.val()));
+        });
+
 }
