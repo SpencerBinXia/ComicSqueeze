@@ -61,6 +61,20 @@ public class RateReviewRepo {
         }
     }
 
+    public int queryCountReview(String seriesTitle, String seriesCreator)
+    {
+        String countQuery = "SELECT COUNT(*) FROM ratereview WHERE seriestitle= ? AND seriescreator= ?;";
+
+        try
+        {
+            return jdbc.queryForObject(countQuery, Integer.class, seriesTitle, seriesCreator);
+        }
+        catch (Exception e)
+        {
+            return -1;
+        }
+    }
+
     public RateReview findReview(String currentUser, String seriesTitle, String seriesCreator){
         String reviewQuery ="SELECT * FROM ratereview WHERE rater= ? AND seriestitle= ? AND seriescreator= ?;";
         System.out.println("inside findreview" + reviewQuery);

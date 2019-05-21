@@ -24,6 +24,8 @@ public class CreatePageController {
     @Autowired
     private ComicPageService comicPageService;
     @Autowired
+    private SubscriptionService subService;
+    @Autowired
     private WeeklyContributionService weeklyContributionService;
     @RequestMapping("/createpage")
     public String home(Model model, HttpSession session)
@@ -147,6 +149,7 @@ public class CreatePageController {
     public String addSeriesCoverToDB( Model model,HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle,@RequestParam("imgurl") String imgurl)
     {
         comicSeriesService.addSeriesCover(username,seriesTitle,imgurl);
+        subService.updateSubImage(seriesTitle, username, imgurl);
         Member curMember = service.findMember((String)session.getAttribute("username"));
         model.addAttribute("curMember", curMember);
         return "CreateSeriesCover";

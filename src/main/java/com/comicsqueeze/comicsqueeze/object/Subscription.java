@@ -6,6 +6,16 @@ public class Subscription {
     private String seriesTitle;
     private String seriesCreator;
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    private String imgUrl;
+
     public String getSubscriber() {
         return subscriber;
     }

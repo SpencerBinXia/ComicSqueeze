@@ -53,6 +53,8 @@ public class IssueController {
                    model.addAttribute("creator", true);
                }
            }
+           model.addAttribute("collaborative", true);
+           model.addAttribute("creatorList", creatorList);
         }
         Issue issue = issueService.findIssueByTitle(member.getUsername(), seriesTitle, issueTitle);
         issue.setPages(comicPageService.queryAllPages(member, seriesTitle, issueTitle));
