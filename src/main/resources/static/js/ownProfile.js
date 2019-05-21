@@ -174,6 +174,17 @@ function followingClicked() {
         slidesPerRow: 5,
         verticalSwiping: false,
     });
+    $(".collaborative_slick").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        // slidesToShow: 4,
+        // slidesToScroll: 4,
+        rows: 2,
+        slidesPerRow: 5,
+        verticalSwiping: false,
+    });
 }
 function closeFollowing() {
     var modal = document.getElementById('subscriptions');
