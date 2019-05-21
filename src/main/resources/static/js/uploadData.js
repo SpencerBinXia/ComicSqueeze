@@ -54,7 +54,7 @@ function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
                     url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {
@@ -88,7 +88,7 @@ function editPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
                     success: function (response) {
                         // document.open("text/html","replace");
                         // document.write(response);
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {
@@ -157,7 +157,7 @@ function editUploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber
                     url: "/editPageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
                     cache: false,
                     success: function (response) {
-                        window.location.assign("/yourprofile");
+                        window.location.assign("/issue/"+curSeriesUsername+"/"+curSeriesTitle+"/"+curIssueTitle);
 
                     },
                     error: function (e) {

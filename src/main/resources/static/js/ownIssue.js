@@ -17,7 +17,7 @@ function deleteIssue() {
             cache: false,
             success: function (result) {
                 //reload page
-                window.location.assign("/yourprofile");
+                window.location.assign("/series/" + curSeriesUsername + "/" + curSeriesTitle);
             },
             error: function (e) {
                 alert("Delete issue failed!");
@@ -48,9 +48,11 @@ $(document).ready(function(){
 
 
     $('.publish-checkbox').checkboxpicker({
+        /*
         html: true,
         offLabel: '<span class="glyphicon glyphicon-remove">',
         onLabel: '<span class="glyphicon glyphicon-ok">'
+        */
     });
 
     for (var i = 0;i < userPageNumber.length;i++)

@@ -14,8 +14,8 @@ $(document).ready(function(){
                 //on the Java side
             },
             success : function(response) {
-                location.reload();
-                alert("Successfully rated!");
+                //location.reload();
+                console.log("rated");
             },
             error : function(e) {
                 alert('Error: ' + e);

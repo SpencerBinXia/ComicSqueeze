@@ -25,7 +25,7 @@ public class EditPageController {
     @RequestMapping("/editPage/{editNum}")
     public String home(Model model, HttpSession session, @PathVariable("editNum") String editNumber)
     {
-        Member curMember = service.findMember((String)session.getAttribute("username"));
+        Member curMember = (Member)session.getAttribute("curMember");
         model.addAttribute("curMember", curMember);
         model.addAttribute("editNumber",editNumber);
         return "CreatePage";
