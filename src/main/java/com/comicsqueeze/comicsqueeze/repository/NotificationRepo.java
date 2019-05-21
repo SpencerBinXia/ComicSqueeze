@@ -50,6 +50,30 @@ public class NotificationRepo {
     }
 
 
-    public void queryAdminNotifs(ArrayList<Notification> notifs) {
+    public ArrayList<Notification> queryAdminNotifs(ArrayList<Notification> notifs) {
+        String findallNotifs ="SELECT * FROM \"Notifications\" WHERE adminread='"+false+"';";
+        try {
+
+
+            List<Map<String, Object>> rows = jdbc.queryForList(findallNotifs);
+
+            for (Map rs : rows) {
+                Notification notification = new Notification();
+                notification.setUsername((String) rs.get("username"));
+                notification.setBody((String) rs.get("body"));
+                notification.setLink((String) rs.get("link"));
+                notification.setRead((Boolean) rs.get("read"));
+                notification.setUsernameto((String) rs.get("usernameto"));
+                notification.setType((String) rs.get("type"));
+                notification.setAdminRead((Boolean) rs.get("adminread"));
+                notification.setSeriesReported((String) rs.get("seriesname"));
+                notifs.add(notification);
+            }
+            return notifs;
+
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 }

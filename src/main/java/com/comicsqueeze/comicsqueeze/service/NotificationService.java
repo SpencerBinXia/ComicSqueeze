@@ -14,16 +14,16 @@ public class NotificationService {
     @Autowired
     NotificationRepo notificationRepo;
 
-    public void storeNotification(String username, String seriesTitle, String body, String type, String usernameto,Boolean read, Boolean adminRead, String seriesName){
+    public void storeNotification(String username,String body,String link, String type, String usernameto,Boolean read, Boolean adminRead, String seriesName){
         System.out.println("Got to notif service");
-        notificationRepo.storeNotification(username,seriesTitle,body,type,usernameto,read,adminRead,seriesName);
+        notificationRepo.storeNotification(username,body,link,type,usernameto,read,adminRead,seriesName);
     }
     public ArrayList<Notification> queryAllNotifications(String usernameTo){
         return notificationRepo.queryAllNotifications(usernameTo);
     }
 
-    public void queryAdminNotifs(ArrayList<Notification> notifs) {
-        notificationRepo.queryAdminNotifs(notifs);
+    public ArrayList<Notification> queryAdminNotifs(ArrayList<Notification> notifs) {
+       return notificationRepo.queryAdminNotifs(notifs);
     }
 }
 
