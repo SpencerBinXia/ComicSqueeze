@@ -71,24 +71,23 @@ function flagSeries() {
     //var modal = document.getElementById('flag');
     //var body = document.getElementById('flagReason');
     var body = $('#flagReason');
-    console.log(body.val());
-    console.log(curSeriesTitle);
-    console.log(curSeriesUser);
 
     $.ajax({
         type: "GET",
         data: {
             reportBody: body.val(),
             reportSeriesTitle: curSeriesTitle,
-            reportSeriesUser: curSeriesUser,
-            link: "series/" + curSeriesUser + "/" + curSeriesTitle,
+            curUser: curUser,
+            link: "series/" + usernameto + "/" + curSeriesTitle,
             type: "report",
+            usernameto: usernameto,
+            read: false,
         },
         url: "/reportSeries",
         cache: false,
         success: function (result) {
-            console.log(result);
-            console.log("success report");
+            alert("successfully reported "+usernameto);
+            closeFlagSeries();
 
         },
         error: function(e){

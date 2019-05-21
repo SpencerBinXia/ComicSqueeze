@@ -23,7 +23,8 @@
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesTags = "[[${currentSeries.getTags()}]]";
         const curSeriesTitle = "[[${currentSeries.getTitle()}]]";
-        const curSeriesUser = "[[${currentSeries.getUsername()}]]";
+        const curUser = "[[${session.curMember.getUsername()}]]";
+        const usernameto = "[[${profileID}]]";
     </script>
 
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
