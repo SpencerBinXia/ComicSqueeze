@@ -16,21 +16,17 @@ public class ScheduledTask {
     private WeeklyContributionService weeklyContributionService;
     @Autowired
     private ComicIssueService issueService;
-    @Scheduled(cron = "0 0 16 * * *")
+    @Scheduled(cron = "0 0 0 * * *",zone = "America/New_York")
     public void calculateAndReset(){
         String thisWeekIssue = issueService.queryForWeeklyIssue();
         Calendar cal = Calendar.getInstance();
-        TimeZone tz = TimeZone.getTimeZone("EST");
+        TimeZone tz = TimeZone.getTimeZone("America/New_York");
         cal.setTimeZone(tz);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         //Voting stops at 12 A.M EST
         int hours= cal.get(Calendar.HOUR_OF_DAY);
         int minutes = cal.get(Calendar.MINUTE);
-        System.out.println(minutes);
-        System.out.println(hours);
-        // it is 12 A.M s
-
-        if ((hours==15)&& (minutes==0)){
+        System.out.println(hours+":"+minutes);
             // calculates max votes of day then sets the page with max votes to published true in weekly pages (meaning it is published in the issue for this weekly comic)
             Page maxVotes = weeklyContributionService.calculateBestPage(thisWeekIssue,dayOfWeek);
             if(maxVotes!=null) {
@@ -38,6 +34,6 @@ public class ScheduledTask {
             }
             // reset everyones voted boolean its the end of the day
             weeklyContributionService.setResetAllVoted();
-        }
+
     }
 }
