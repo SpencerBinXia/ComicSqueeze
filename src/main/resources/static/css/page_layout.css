@@ -33,6 +33,18 @@ html * {
     overflow-wrap: break-word;
 }
 
+a {
+    width: fit-content;
+}
+
+.long-span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: normal;
+    width: 100%;
+    white-space: nowrap;
+}
+
 /*nav bar (on top)*/
 .navBar {
     height: 60px;

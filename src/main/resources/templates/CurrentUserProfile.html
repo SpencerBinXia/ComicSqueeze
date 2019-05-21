@@ -74,13 +74,14 @@
 
     <div class="flexContainer flexItem">
 
-        <main class="flexItem whiteBackground main">
+        <main class="flexItem whiteBackground main" style="max-width: 65%">
 
+            <div th:if="${session.curMember.getSeriesArrayList()} != null">
             <div class="vertical_slick">
                 <th:block th:each="series: ${session.curMember.getSeriesArrayList()}">
                     <div class="slickElem" style="height: 400px">
                         <div class="flexContainer flexRow">
-                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1></h1></a>
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1 class="long-span"></h1></a>
                         </div>
                         <div class="horizontal_slick left-align-slick">
                             <th:block th:each="issue: ${series.getIssueArrayList()}">
@@ -96,13 +97,14 @@
                                                 <img  th:src="${issue.getImgurl()}" class="issue">
                                             </a>
                                         </div>
-                                        <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                        <p class="long-span" th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                                     </div>
                                 </div>
                             </th:block>
                         </div>
                     </div>
                 </th:block>
+            </div>
             </div>
 
             <br><br><br>
@@ -171,10 +173,10 @@
                                 <img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">
                             </a>
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
-                                <h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
+                                <h4 class="long-span" th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
                             </a>
                             <a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">
-                                <h4 th:text="${subscription.getSeriesCreator()}" style="margin: 5px 0 5px 0;"></h4>
+                                <h4 class="long-span" th:text="${subscription.getSeriesCreator()}" style="margin: 5px 0 5px 0;"></h4>
                             </a>
                         </div>
                     </th:block>

@@ -19,7 +19,7 @@
         };
         firebase.initializeApp(config);
     </script>
-    <script>
+    <script th:if="${curMember?.getCurrentSeries() != null} and ${curMember?.getCurrentIssue() != null}">
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesUsername = "[[${curMember.getCurrentSeries().getUsername()}]]";
         const curSeriesTitle = "[[${curMember.getCurrentSeries().getTitle()}]]";

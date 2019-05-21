@@ -144,7 +144,7 @@
                 <a th:if="${session.username == profileID}" class="button-as-link"  style="margin-left: 20px">
                     <a class="lime-button-left" th:href="@{/createseriescover}"> CREATE COVER</a>
                 </a>
-                <label class="lime-button-left" th:if="${session.username == profileID}" style="cursor: pointer;">
+                <label class="lime-button-left" th:if="${session.username == profileID}" style="cursor: pointer; margin-left: 20px">
                     <input id ="uploadSeriesCover" type="file" accept="image/*" onChange="uploadSeriesCoverDBCustom(username,currentSeries)">
                     UPLOAD COVER
                 </label>

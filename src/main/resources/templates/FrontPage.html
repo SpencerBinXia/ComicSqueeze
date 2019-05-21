@@ -121,7 +121,7 @@
                 <th:block th:each="user:${topArtists}">
                     <div class="flexContainer flexColumn" style="align-items: center; text-align: center;">
                         <a th:href="@{/viewprofile/{profileID}(profileID=${user.getUsername()})}"><img class="top-artist" th:src="${user.getImgUrl()}" style="margin: auto"></a>
-                        <p th:text="${user.getUsername()}" style="font-weight: bold; margin-bottom: 0px;"></p>
+                        <p class="long-span" th:text="${user.getUsername()}" style="font-weight: bold; margin-bottom: 0px;"></p>
                         <p th:text="'Follows: ' + ${user.getFollows()}" style="margin: 0px"></p>
                     </div>
                 </th:block>
@@ -146,9 +146,9 @@
                                     <img  th:src="${issue.getImgurl()}" class="issue">
                                 </a>
                             </div>
-                            <p th:text="${issue.getTitle()}" style="font-weight: bold; margin-bottom: 0px;"></p>
-                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()})}" th:text="${issue.getSeries()}" style="margin-top: 0px; margin-bottom: 0px;" class="subtext"></a>
-                            <a th:href="@{/viewprofile/{profileID}(profileID=${issue.getUsername()})}" th:text="${issue.getUsername()}" style="margin-top: 0px; margin-bottom: 30px;" class="subtext"></a>
+                            <p class="long-span" th:text="${issue.getTitle()}" style="font-weight: bold; margin-bottom: 0px;"></p>
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${issue.getUsername()}, SeriesTitle=${issue.getSeries()})}" th:text="${issue.getSeries()}" style="margin-top: 0px; margin-bottom: 0px;" class="subtext long-span"></a>
+                            <a th:href="@{/viewprofile/{profileID}(profileID=${issue.getUsername()})}" th:text="${issue.getUsername()}" style="margin-top: 0px; margin-bottom: 30px;" class="subtext long-span"></a>
                         </div>
                     </div>
                 </th:block>
@@ -187,12 +187,12 @@
                 <h2 style="margin: 0">Past Comics</h2><br><br>
                 <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
                         <th:block th:each="issue:${weeklyIssues}">
-                            <div class="flexContainer flexColumn issue" style="align-items: center;">
+                            <div class="flexContainer flexColumn" style="align-items: center;">
                                 <div th:if="${issue.getImgurl()}==null">
-                                    <a  th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
+                                    <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test"><img class="issue" src="images/EXAMPLE_3.jpg"></a>
                                 </div>
                                 <div th:if="${issue.getImgurl()}!=null">
-                                    <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" class="issue-page"><img th:src="${issue.getImgurl()}"></a>
+                                    <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" ><img class="issue" th:src="${issue.getImgurl()}"></a>
                                 </div>
                                 <th:block th:each="page: ${issue.getPages()}">
                                     <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue"></a>
@@ -223,7 +223,7 @@
                                 <a th:href="${page.getImgurl()}" data-lightbox="votePages">
                                     <img th:src="${page.getImgurl()}" class="issue" style="margin: auto; border: 1px solid #d0d0d0;">
                                 </a>
-                                <p th:text="${page.getUsername()}" style="margin-top: 3px; margin-bottom: 3px; text-align: center"></p>
+                                <p class="long-span" th:text="${page.getUsername()}" style="margin-top: 3px; margin-bottom: 3px; text-align: center"></p>
                                 <div th:if="${session.curMember}!=null">
                                     <div th:if="${session.curMember.getVoted()} ==false">
                                         <div th:if="${page.getUsername()}!= ${session.curMember.getUsername()}">

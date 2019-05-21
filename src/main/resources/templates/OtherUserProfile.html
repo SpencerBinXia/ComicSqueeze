@@ -65,13 +65,14 @@
 
     <div class="flexContainer flexItem">
 
-        <main class="flexItem whiteBackground main">
+        <main class="flexItem whiteBackground main" style="max-width: 65%">
 
+            <div th:if="${displayMember.getSeriesArrayList()} != null">
             <div class="vertical_slick">
                 <th:block th:each="series: ${displayMember.getSeriesArrayList()}">
                     <div class="slickElem" style="height: 400px">
                         <div class="flexContainer flexRow">
-                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1></h1></a>
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${displayMember.getUsername()}, SeriesTitle=${series.getTitle()})}" class="series-title" th:text="${series.getTitle()}"><h1 class="long-span"></h1></a>
                         </div>
                         <div class="horizontal_slick left-align-slick">
                             <th:block th:each="issue: ${series.getIssueArrayList()}">
@@ -87,13 +88,14 @@
                                                 <img  th:src="${issue.getImgurl()}" class="issue">
                                             </a>
                                         </div>
-                                        <p th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
+                                        <p class="long-span" th:text="${issue.getTitle()}" style="margin: 0; text-align: center">Issue #</p>
                                     </div>
                                 </div>
                             </th:block>
                         </div>
                     </div>
                 </th:block>
+            </div>
             </div>
 
             <br><br><br>
