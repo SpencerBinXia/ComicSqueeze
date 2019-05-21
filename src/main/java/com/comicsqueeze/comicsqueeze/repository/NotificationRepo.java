@@ -50,11 +50,11 @@ public class NotificationRepo {
     }
 
 
-    public ArrayList<Notification> queryAdminNotifs(ArrayList<Notification> notifs) {
+    public ArrayList<Notification> queryAdminNotifs() {
         String findallNotifs ="SELECT * FROM \"Notifications\" WHERE adminread='"+false+"';";
         try {
 
-
+            ArrayList<Notification> notifs = new ArrayList<>();
             List<Map<String, Object>> rows = jdbc.queryForList(findallNotifs);
 
             for (Map rs : rows) {
