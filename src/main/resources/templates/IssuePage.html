@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title th:text="${issueTitle} + ' of ' + ${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
+    <title th:text="${issueTitle} + ' of ' + ${seriesTitle} + ' by ' + ${profileID} + ' - ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -124,6 +124,12 @@
                         <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'Series: ' + ${seriesTitle}"></h4></a>
                         <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'by ' + ${profileID}"></h4></a>
                         <br>
+                        <div th:if="${collaborative == true}">
+                            <p style="margin-bottom:0;">Collaborators: </p>
+                            <th:block th:each="creator: ${creatorList}">
+                                <a class="subtext" th:text ="${creator} + ','" th:href="@{/viewprofile/{profileID}(profileID=${creator})}"></a>
+                            </th:block>
+                        </div>
                         <h2>Description</h2>
                         <p th:text="${issue.getDescription()}" style="font-size: 20px; white-space: pre-wrap"></p>
                     </div>

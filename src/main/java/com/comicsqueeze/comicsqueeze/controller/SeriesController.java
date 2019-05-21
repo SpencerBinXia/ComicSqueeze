@@ -34,7 +34,9 @@ public class SeriesController {
     {
         double defaultRating = 0.0;
         double averageRating = 0.0;
+        int countRating;
         boolean subscribed = false;
+        Series series;
         System.out.println("series controller" + seriesTitle);
         int totalSubscriptions = subService.sumSeriesSubscriptions(seriesTitle, profileID);
         System.out.println("seriesController totalsub: " + totalSubscriptions);
@@ -47,7 +49,7 @@ public class SeriesController {
             model.addAttribute("curMember", curMember);
             Member member = (Member) session.getAttribute("curMember");
            if(profileID.equals(curMember.getUsername())) {
-               Series series = comicSeriesService.findSeriesByTitle(member.getUsername(), seriesTitle);
+               series = comicSeriesService.findSeriesByTitle(member.getUsername(), seriesTitle);
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(curMember, series));
                member.setCurrentSeries(series);
                model.addAttribute("currentSeries", series);
@@ -57,7 +59,7 @@ public class SeriesController {
            }
            else {
                Member displayMember = service.findMember(profileID);
-               Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
+               series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
                series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
                member.setCurrentSeries(series);
                Subscription subscribedTo = subService.findSubscription(curMember.getUsername(), series.getTitle(), series.getUsername());
@@ -79,7 +81,7 @@ public class SeriesController {
         else
         {
             Member displayMember = service.findMember(profileID);
-            Series series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
+            series = comicSeriesService.findSeriesByTitle(profileID, seriesTitle);
             series.setIssueArrayList(issueService.queryAllIssuesFromASeries(displayMember, series));
             model.addAttribute("currentSeries", series);
             model.addAttribute("seriesIssues", series.getIssueArrayList());
@@ -87,6 +89,7 @@ public class SeriesController {
             model.addAttribute("seriesImg", series.getImgUrl());
         }
         averageRating = rateService.averageReview(seriesTitle, profileID);
+        countRating = rateService.countReview(seriesTitle, profileID);
         ArrayList<RateReview> reviewList = rateService.findAllReviewsFromSeries(seriesTitle, profileID);
         model.addAttribute("userRating", defaultRating);
         model.addAttribute("subscribed", subscribed);
@@ -99,6 +102,24 @@ public class SeriesController {
         {
             model.addAttribute("averageRating", "No ratings yet!");
         }
+        if (countRating != -1)
+        {
+            model.addAttribute("countRating", countRating);
+        }
+        else
+        {
+            model.addAttribute("countRating", "Be the first to rate this series.");
+        }
+        if (series.isCollaborative())
+        {
+            if (!series.getCreators().equals("default"))
+            {
+                String[] creatorArray = series.getCreators().split(",", -1);
+                System.out.println(creatorArray);
+                model.addAttribute("creatorArray", creatorArray);
+            }
+        }
+
         return "SeriesPage";
     }
 }
