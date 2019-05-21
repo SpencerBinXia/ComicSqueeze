@@ -18,6 +18,15 @@ public class Series {
     private ArrayList<Issue> issueArrayList;
     private int rateCounter;
     private String imgUrl;
+    private String[] creatorArray;
+
+    public String[] getCreatorArray() {
+        return creatorArray;
+    }
+
+    public void setCreatorArray(String[] creatorArray) {
+        this.creatorArray = creatorArray;
+    }
 
     public boolean isCollaborative() {
         return collaborative;

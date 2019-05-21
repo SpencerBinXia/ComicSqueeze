@@ -193,20 +193,20 @@
                         <button class="grey-button-left" onclick="closeCollabSeries()" style="margin: 0">CLOSE</button>
                     </a>
                 </div>
-                <div class="subscriptions_slick">
-                    <!--<th:block th:each="subscription: ${subscriptions}">-->
-                        <!--<div class="flexColumn series-title-link" style="align-items: center; text-align: center;">-->
-                            <!--<a style="width: fit-content">-->
-                                <!--<img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">-->
-                            <!--</a>-->
-                            <!--<a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">-->
-                                <!--<h4 th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>-->
-                            <!--</a>-->
-                            <!--<a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">-->
-                                <!--<h4 th:text="${subscription.getSeriesCreator()}" style="margin: 5px 0 5px 0;"></h4>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                    <!--</th:block>-->
+                <div class="collaborative_slick">
+                    <th:block th:each="series: ${groupSeries}">
+                        <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
+                            <a style="width: fit-content">
+                                <img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">
+                            </a>
+                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link" style="width: fit-content">
+                                <h4 th:text="${series.getTitle()}" style="margin: 5px 0 0 0;"></h4>
+                            </a>
+                            <a th:href="@{/viewprofile/{profile}(profile=${series.getUsername()})}" class="subtext" style="width: fit-content">
+                                <h4 th:text="${series.getUsername()}" style="margin: 5px 0 5px 0;"></h4>
+                            </a>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>

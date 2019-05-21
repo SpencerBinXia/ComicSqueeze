@@ -40,6 +40,8 @@ public class SeriesRepo {
                     tempSeries.setWeekly(rs.getBoolean("weekly"));
                     tempSeries.setTags(rs.getString("tags"));
                     tempSeries.setCreators(rs.getString("creators"));
+                    //tempSeries.setCreatorArray(((String[])rs.getArray("creatorarray").getArray()));
+                    //System.out.println(tempSeries.getCreatorArray());
                     tempSeries.setImgUrl( rs.getString("imgurl"));
                     Date tempDate = (rs.getObject(5, Date.class));
                     tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
@@ -57,9 +59,9 @@ public class SeriesRepo {
     }
 
     public void createSeries(Series newSeries){
-        jdbc.update("INSERT INTO \"Series\"(seriestitle,username,creators,tags,views,weekly,flag,timestamp,rating,collaborative,description,ratecounter)"
-                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", newSeries.getTitle(),newSeries.getUsername(),newSeries.getCreators(),newSeries.getTags(),
-                newSeries.getViews(),newSeries.isWeekly(),newSeries.isFlag(),newSeries.getTimestamp(), newSeries.getRating(),newSeries.isCollaborative(),newSeries.getDescription(),newSeries.getRateCounter());
+        jdbc.update("INSERT INTO \"Series\"(seriestitle,username,creators,tags,views,weekly,flag,timestamp,rating,collaborative,description,ratecounter,creatorarray)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", newSeries.getTitle(),newSeries.getUsername(),newSeries.getCreators(),newSeries.getTags(),
+                newSeries.getViews(),newSeries.isWeekly(),newSeries.isFlag(),newSeries.getTimestamp(), newSeries.getRating(),newSeries.isCollaborative(),newSeries.getDescription(),newSeries.getRateCounter(),newSeries.getCreatorArray());
     }
 
     public ArrayList<Series> queryAllSeries(Member member) {
@@ -101,5 +103,41 @@ public class SeriesRepo {
     public void addSeriesCover(String username, String seriesTitle, String imgurl) {
         String updatedSeries = "UPDATE \"Series\" SET IMGURL='"+imgurl+"'WHERE username='"+username+"' AND seriestitle='"+seriesTitle+"';";
         jdbc.update(updatedSeries);
+    }
+
+    public ArrayList<Series> queryForGroupSeries(Member member) {
+        System.out.println(member.getUsername());
+            String findSeries = "SELECT * FROM \"Series\" WHERE '" + member.getUsername() + "'=ANY(creatorarray);";
+        List<Map<String, Object>> rows = jdbc.queryForList(findSeries);
+        ArrayList<Series> series = new ArrayList<>();
+        for (Map rs : rows) {
+            Series tempSeries = new Series();
+            tempSeries.setTitle((String)rs.get("seriestitle"));
+            tempSeries.setDescription((String)rs.get("description"));
+            tempSeries.setUsername((String)rs.get("username"));
+            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+            tempSeries.setFlag((boolean)rs.get("flag"));
+            tempSeries.setRating((double)rs.get("rating"));
+            tempSeries.setWeekly((boolean)rs.get("weekly"));
+            tempSeries.setTags((String)rs.get("tags"));
+            tempSeries.setCreators((String)rs.get("creators"));
+            java.sql.Array tempArray = ((java.sql.Array)rs.get("creatorarray"));
+            try {
+                String[] creatorArray = ((String[]) tempArray.getArray());
+                System.out.println(creatorArray);
+                tempSeries.setCreatorArray(creatorArray);
+            }
+            catch (Exception e)
+            {
+                System.out.println("sql failure");
+            }
+            System.out.println(tempSeries.getCreatorArray());
+            tempSeries.setImgUrl((String) rs.get("imgurl"));
+            Date tempDate = ((Date)rs.get("timestamp"));
+            tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
+            tempSeries.setRateCounter((int)rs.get("ratecounter"));
+            series.add(tempSeries);
+        }
+        return series;
     }
 }
