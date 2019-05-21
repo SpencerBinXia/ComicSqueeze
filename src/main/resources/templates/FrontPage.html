@@ -101,13 +101,11 @@
                             <a th:if="${session.username}!=null and ${session.curMember.isCreatedWeekly()}==false"  class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
-                            <!-- eventually, only show when admin -->
                             <div th:if="${session.curMember} != null">
                                 <div th:if="${session.curMember.getAdminStatus()} == true">
-                                    <button onclick="newWeeklyClicked()" class="lime-button">CREATE NEW WEEKLY ISSUE</button>
+                                    <button onclick="newWeeklyClicked()" class="red-button">CREATE WEEKLY ISSUE</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

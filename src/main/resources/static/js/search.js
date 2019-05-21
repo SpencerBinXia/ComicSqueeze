@@ -84,8 +84,6 @@ $(document).ready(function(){
 
 
 function applyFiltering() {
-    var searchSelect = document.getElementById('searchBy');
-    var searchSelectVal = searchSelect.options[searchSelect.selectedIndex].value;
     var sortFilter = document.getElementById('sortBy');
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
 
