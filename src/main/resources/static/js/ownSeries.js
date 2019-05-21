@@ -32,6 +32,33 @@ window.onclick =function (event) {
 }
 
 function flagSeries() {
+    //var modal = document.getElementById('flag');
+    //var body = document.getElementById('flagReason');
+    var body = $('#flagReason');
+    console.log(body.val());
+    console.log(curSeriesTitle);
+    console.log(curSeriesUser);
+
+    $.ajax({
+        type: "GET",
+        data: {
+            reportBody: body,
+            reportSeriesTitle: curSeriesTitle,
+            reportSeriesUser: curSeriesUser,
+            type: "report",
+        },
+        url: "/reportSeries",
+        cache: false,
+        success: function (result) {
+            console.log(result);
+            console.log("success report");
+
+        },
+        error: function(e){
+            console.log("Report failed");
+        }
+    });
+
 
 }
 
