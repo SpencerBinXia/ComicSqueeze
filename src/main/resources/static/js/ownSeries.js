@@ -1,4 +1,5 @@
 var newTagList = [];
+var newCollabList = [];
 
 // WRITE REVIEW MODAL REWORK
 function writeReviewClicked() {
@@ -154,6 +155,7 @@ function resetEditSeriesForm() {
     // }
     // console.log("RESET");
     newTagList.length = 0; // resets the tag list since the form is closed.
+    newCollabList.length = 0;
 }
 function addTag() {
     var tag = document.getElementById("addInput").value;
@@ -173,6 +175,7 @@ function addTag() {
     }
     document.getElementById("seriesTags").value = newTagList.join(", ");
 }
+
 function deleteTag() {
     var tag = document.getElementById("deleteInput").value;
     console.log("delete tag: " + tag);
@@ -183,6 +186,40 @@ function deleteTag() {
             i--;
             console.log("tags list: " + newTagList);
             document.getElementById("seriesTags").value = newTagList.join(", ");
+            return;
+        }
+    }
+}
+
+function addCollab() {
+    var collab = document.getElementById("addCollabInput").value;
+    console.log("add collab: " + collab);
+    document.getElementById("addCollabInput").value = "";
+    if(newCollabList.includes(collab)){
+        console.log("duplicate");
+        alert("Cannot have duplicate collaborators.")
+        return false;
+    }
+    else if (collab == "" || collab == null) {
+        alert("Invited collaborator cannot be empty.")
+        return false;
+    } else {
+        newCollabList.push(collab);
+        console.log("collab list: " + newCollabList);
+    }
+    document.getElementById("seriesCreators").value = newCollabList.join(",");
+}
+
+function deleteCollab() {
+    var collab = document.getElementById("deleteCollabInput").value;
+    console.log("delete collab: " + collab);
+    document.getElementById("deleteCollabInput").value = "";
+    for( var i = 0; i < newCollabList.length; i++){
+        if ( newCollabList[i] == tag) {
+            newCollabList.splice(i, 1);
+            i--;
+            console.log("collab list: " + newCollabList);
+            document.getElementById("seriesCreators").value = newCollabList.join(",");
             return;
         }
     }
@@ -238,10 +275,15 @@ function deleteTag() {
 
 function popEditSeries() {
     var newTags = document.getElementById("curTags").innerText;
+    var newCollabs = document.getElementById("curCreators").innerText;
     console.log(newTags);
+    console.log(newCollabs);
     newTagList = newTags.split(', ');
+    newCollabList = newCollabs.split(',');
     console.log(newTagList);
+    console.log(newCollabList);
     document.getElementById("seriesTags").value = newTags;
+    document.getElementById("seriesCreators").value = newCollabs;
 }
 
 function editSeries(){
