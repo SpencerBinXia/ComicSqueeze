@@ -110,11 +110,29 @@ public class SearchRepo {
                 tempSeries.setCreators((String)rs.get("creators"));
                 Date tempDate = ((Date)rs.get("timestamp"));
                 tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
-                System.out.println("The timestamp : " + tempSeries.getTimestamp());
+                //System.out.println("The timestamp : " + tempSeries.getTimestamp());
                 tempSeries.setRateCounter((int)rs.get("ratecounter"));
                 tempSeries.setImgUrl((String)rs.get("imgurl"));
                 series.add(tempSeries);
             }
+            System.out.println("Print ratings of series in findMatchedSeries");
+            ArrayList<Series> seriesWithRatings = getTopSeries();
+            for(int i = 0; i< seriesWithRatings.size(); i++){
+                System.out.println(seriesWithRatings.get(i).getUsername());
+                System.out.println(seriesWithRatings.get(i).getTitle());
+                System.out.println(seriesWithRatings.get(i).getRating());
+                System.out.println(seriesWithRatings.get(i).getImgUrl());
+            }
+            System.out.println("Print series of originally fethced series in findMatchedSeries");
+            for(int i = 0; i< series.size(); i++){
+                System.out.println(series.get(i).getUsername());
+                System.out.println(series.get(i).getTitle());
+                System.out.println(series.get(i).getRating());
+                System.out.println(series.get(i).getImgUrl());
+            }
+
+
+
         }
         catch (Exception e){
             return null;
@@ -136,13 +154,17 @@ public class SearchRepo {
             tempSeries.setTitle((String)rs.get("seriestitle"));
             tempSeries.setDescription((String)rs.get("description"));
             tempSeries.setUsername((String)rs.get("username"));
-            tempSeries.setRating((double)rs.get("avg"));
+            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+            tempSeries.setFlag((boolean)rs.get("flag"));
+            tempSeries.setRating((double)rs.get("rating"));
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
             Date tempDate = ((Date)rs.get("timestamp"));
             tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
-            System.out.println("The timestamp : " + tempSeries.getTimestamp());
+            //System.out.println("The timestamp : " + tempSeries.getTimestamp());
+            tempSeries.setRateCounter((int)rs.get("ratecounter"));
+            tempSeries.setImgUrl((String)rs.get("imgurl"));
             series.add(tempSeries);
         }
         return series;

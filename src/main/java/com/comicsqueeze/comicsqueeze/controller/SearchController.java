@@ -45,6 +45,11 @@ public class SearchController {
             System.out.println(ser);
             System.out.println();
             System.out.println();
+            for(int i = 0; i< ser.size(); i++){
+                System.out.println(ser.get(i).getUsername());
+                System.out.println(ser.get(i).getTitle());
+                System.out.print(ser.get(i).getRating());
+            }
 
             //Organize series list into hashmaps of series as key, rating as value
             //Sort by rating low
@@ -88,7 +93,6 @@ public class SearchController {
             model.addAttribute("seriesRatingLow", seriesLow); //hashmap
             model.addAttribute("seriesRatingHigh", seriesHigh); //hsahmap
             model.addAttribute("seriesSortedRecent", seriesByRecent); //arraylist
-
 
         }
         else if(session.getAttribute("searchMemberResults") != null){
