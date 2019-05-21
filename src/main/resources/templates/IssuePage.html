@@ -172,6 +172,12 @@
                                 <div th:if="${session.username == profileID and page.isPublished() == false}">
                                     <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always>
                                 </div>
+                                <div th:if="${creator == true and page.isPublished() == true}">
+                                    <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always disabled checked>
+                                </div>
+                                <div th:if="${creator == true and page.isPublished() == false}">
+                                    <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always disabled>
+                                </div>
                                 <script>
                                     i+=1;
                                 </script>
