@@ -26,5 +26,10 @@ public class WeeklyIssueController {
         weeklyContributionService.createNewWeeklyIssue(issueTitle,description);
 
     }
+    @RequestMapping("weeklyCoverDB")
+    public void addCoverToWeekly(@RequestParam String issue, @RequestParam String description, @RequestParam String imgurl){
+        weeklyContributionService.createNewWeeklyIssue(issue,description);
+        weeklyContributionService.addCoverToWeekly(issue,imgurl);
+    }
 
 }

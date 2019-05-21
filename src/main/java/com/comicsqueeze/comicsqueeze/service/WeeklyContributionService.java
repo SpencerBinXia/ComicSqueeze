@@ -74,4 +74,8 @@ public class WeeklyContributionService {
     public void createNewWeeklyIssue(String issueTitle, String description) {
         weeklyContributionRepo.createNewWeeklyIssue(issueTitle,description);
     }
+
+    public void addCoverToWeekly(String issue, String imgurl) {
+        weeklyContributionRepo.addCoverToWeekly(issue,imgurl);
+    }
 }

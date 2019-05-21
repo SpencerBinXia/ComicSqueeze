@@ -132,6 +132,7 @@ public class IssueRepo {
                 tempIssue.setUsername((String)rs.get("users"));
                 tempIssue.setPagecount((Integer)rs.get("pages"));
                 tempIssue.setSeries("WeeklyComic");
+                tempIssue.setImgurl((String) rs.get("imgurl"));
                 weeklyIssues.add(tempIssue);
             }
 
@@ -155,6 +156,7 @@ public class IssueRepo {
                     tempIssue.setUsername(rs.getString("users"));
                     tempIssue.setDescription(rs.getString("description"));
                     tempIssue.setPagecount(rs.getInt("pages"));
+                    tempIssue.setImgurl(rs.getString("imgurl"));
                     return tempIssue;
                 }
             });
@@ -177,6 +179,7 @@ public class IssueRepo {
                     weeklyComic.setPages(rs.getString("pages"));
                     weeklyComic.setUsers(rs.getString("users"));
                     weeklyComic.setDescription(rs.getString("description"));
+                    weeklyComic.setImgUrl(rs.getString("imgurl"));
                     return weeklyComic;
                 }
             });
