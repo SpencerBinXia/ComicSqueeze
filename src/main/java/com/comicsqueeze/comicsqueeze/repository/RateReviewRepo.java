@@ -41,6 +41,12 @@ public class RateReviewRepo {
         jdbc.update(changeReviewQuery, review.getRating(), review.getReview(), review.getRater(), review.getSeriesTitle(), review.getSeriesCreator());
     }
 
+    public void deleteRatingsFromSeries(String seriesTitle, String seriesCreator)
+    {
+        String deleteRatings = "DELETE FROM ratereview WHERE seriestitle= ? AND seriescreator= ?;";
+        jdbc.update(deleteRatings, seriesTitle, seriesCreator);
+    }
+
     public double queryAverageReview(String seriesTitle, String seriesCreator)
     {
         String averageQuery = "SELECT AVG (rating) FROM ratereview WHERE seriestitle= ? AND seriescreator= ?;";

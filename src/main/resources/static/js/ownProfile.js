@@ -1,5 +1,6 @@
 var tagList = []; // contains tags, exists until hitting "close" or "save" (save to be implemented through updateBio())
 var inviteList = [];
+var inviteCounter = 0;
 
 function updateBio(){
     var bio = document.getElementById("bioField").value;
@@ -284,5 +285,56 @@ $(document).ready(function(){
             $("#inviteLabel").hide();
             $("#inviteBtn").hide();
         }
-    })
+    });
+
+    $("#inviteBtn").on('click', function () {
+        // occurs when clicking the add tag button after inputting the tag name.
+        var inviteName = document.getElementById("inviteField").value;
+        var form = document.getElementById('inviteForm');
+        console.log("add invite: " + inviteName);
+        if(inviteName == "" || inviteName == null) {
+            alert("Please enter a user to invite.");
+        }
+        else if(inviteList.includes(inviteName)){
+            console.log("invite list: " +inviteList);
+            alert("Duplicate invites are invalid.");
+        } else {
+            $.ajax({
+                type : "POST",
+                url : "/findInvitedUser",
+                dataType: "text",
+                data : {
+                    invitedUser: inviteName //notice that "myArray" matches the value for @RequestParam
+                    //on the Java side
+                },
+                success : function(response) {
+                    console.log(response);
+                    if (response == "OK")
+                    {
+                        inviteCounter++;
+                        var invButton = document.createElement("button");
+                        invButton.id = 'invite' + inviteCounter;
+                        invButton.innerText = inviteName;
+                        invButton.classList.add("invNameBtn");
+                        invButton.addEventListener('click', function () {
+                            deleteInvite(invButton);
+                        });
+                        form.appendChild(invButton);
+                        inviteList.push(inviteName);
+                        console.log("invite list: " + inviteList);
+                    }
+                    else
+                    {
+                        alert("This is not a valid user.");
+                        return 0;
+                    }
+                },
+                error : function(e) {
+                    console.log(e);
+                    alert('Error: AJAX failed');
+                    return 0;
+                }
+            });
+        }
+    });
 });

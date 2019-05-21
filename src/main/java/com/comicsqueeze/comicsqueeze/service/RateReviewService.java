@@ -63,4 +63,9 @@ public class RateReviewService {
     public ArrayList<RateReview> findAllReviewsFromSeries (String seriesTitle, String seriesCreator){
         return rateRepo.queryAllReviews(seriesTitle, seriesCreator);
     }
+
+    public void deleteRatings(String seriesTitle, String seriesCreator)
+    {
+        rateRepo.deleteRatingsFromSeries(seriesTitle, seriesCreator);
+    }
 }
