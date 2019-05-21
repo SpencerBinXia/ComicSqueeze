@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title th:text="${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
+    <title th:text="${seriesTitle} + ' by ' + ${profileID} + ' - ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -101,12 +101,16 @@
                         <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
                         <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
                         <div th:if="${currentSeries.isCollaborative()}==true">
-                            Collaborators: <p id="curCreators" class="subtext" th:text="${currentSeries.getCreators()}"></p>
+                            <p style="margin-bottom:0;">Collaborators: </p>
+                            <p id="curCreators" class="subtext" th:text="${currentSeries.getCreators()}" style="margin : 0; padding-top:0; display:none"></p>
+                            <th:block th:each="creator: ${creatorArray}">
+                                <a class="subtext" th:text ="${creator} + ','" th:href="@{/viewprofile/{profileID}(profileID=${creator})}"></a>
+                            </th:block>
                         </div>
                         <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
                             <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                         </div>
-                        <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
+                        <h3 style="margin: 10px 0 0 0" th:text="'Average Rating: ' + ${averageRating}"></h3>
                         <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
                     </div>
                 </div>
@@ -191,8 +195,8 @@
                 -->
             <th:block th:each="review: ${reviewList}">
                 <div class="review">
-                    <h4 th:text="${review.getRater()}" style="margin: 0 0 10px 0;"></h4>
-                    <div class="rateit limeBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <h4 style="margin: 0 0 10px 0;"><a th:text="${review.getRater()}" th:href="@{/viewprofile/{profileID}(profileID=${review.getRater()})}"></a></h4>
+                    <div class="rateit revBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                     <div style="max-height: 200px; overflow: auto; overflow-x: hidden;">
                         <p th:text="${review.getReview()}" style="white-space: pre-wrap; margin: 10px 0 0 0;"></p>
                     </div>

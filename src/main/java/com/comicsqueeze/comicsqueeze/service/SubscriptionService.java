@@ -22,11 +22,11 @@ public class SubscriptionService {
     @Autowired
     SubscriptionRepo subRepo;
 
-    public boolean insertSubscription(String subscriber, String seriesTitle, String seriesCreator) {
+    public boolean insertSubscription(String subscriber, String seriesTitle, String seriesCreator, String imgUrl) {
         Subscription existing = subRepo.findSubscription(subscriber, seriesTitle, seriesCreator);
         if (existing == null) {
             System.out.println("null subscription reached");
-            subRepo.insertSubscription(subscriber, seriesTitle, seriesCreator);
+            subRepo.insertSubscription(subscriber, seriesTitle, seriesCreator, imgUrl);
             subRepo.increaseFollows(seriesCreator);
             return true;
         }
@@ -79,6 +79,11 @@ public class SubscriptionService {
     {
         int sum = subRepo.sumSeriesSubscriptions(seriesTitle, seriesCreator);
         return sum;
+    }
+
+    public void updateSubImage(String seriesTitle, String seriesCreator, String imgUrl)
+    {
+        subRepo.updateSubImgUrl(seriesTitle, seriesCreator, imgUrl);
     }
 
     public int sumUserSubscriptions(String username)

@@ -60,6 +60,12 @@ public class RateReviewService {
         return average;
     }
 
+    public int countReview(String seriesTitle, String seriesCreator)
+    {
+        int count = rateRepo.queryCountReview(seriesTitle, seriesCreator);
+        return count;
+    }
+
     public ArrayList<RateReview> findAllReviewsFromSeries (String seriesTitle, String seriesCreator){
         return rateRepo.queryAllReviews(seriesTitle, seriesCreator);
     }

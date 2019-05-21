@@ -71,8 +71,6 @@ div.limeBar div.rateit-hover
 {
     background: url(../images/icons/lime_COLOR_icon.png);
     background-size: 32px;
-    width: 32px;
-    height: 32px;
 }
 
 div.limeBar div.rateit-selected
@@ -85,7 +83,7 @@ div.limeBar div.rateit-selected
 
 div.limeBar div.rateit-reset
 {
-    background: url(../images/icons/lime_COLOR_icon.png);
+    background: url(../images/icons/lime_BW_icon.png);
     background-size: 32px;
     width: 32px;
     height: 32px;
@@ -94,6 +92,39 @@ div.limeBar div.rateit-reset
 div.limeBar div.rateit-reset:hover
 {
     background: url(../images/icons/lime_COLOR_icon.png);
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+
+div.revBar div.rateit-range
+{
+    background: url(../images/icons/lime_BW_icon.png);
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+div.revBar div.rateit-selected
+{
+    background: url(../images/icons/lime_COLOR_icon.png);
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+div.revBar div.rateit-reset
+{
+    background: url(../images/icons/lime_BW_icon.png);
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+div.revBar div.rateit-reset:hover
+{
+    background: url(../images/icons/lime_BW_icon.png);
     background-size: 32px;
     width: 32px;
     height: 32px;
