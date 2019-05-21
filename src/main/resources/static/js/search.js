@@ -84,8 +84,38 @@ $(document).ready(function(){
 
 
 function applyFiltering() {
+    var searchSelect = document.getElementById('searchBy');
+    var searchSelectVal = searchSelect.options[searchSelect.selectedIndex].value;
     var sortFilter = document.getElementById('sortBy');
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
+
+    if (filterVal == "popular") {
+        if(document.getElementById("seriesResultsList").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortHigh").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortRecent").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortLow").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+    } else if (filterVal != "popular") {
+        if(document.getElementById("usersResultsList").style.display == "block") {
+            alert("Can only sort series by "+ filterVal);
+            return false;
+        }
+        if(document.getElementById("sortPop").style.display == "block") {
+            alert("Can only sort series by "+ filterVal);
+            return false;
+        }
+    }
 
     console.log("3");
     if(filterVal == "rating-LOW"){
@@ -97,7 +127,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "rating-HIGH"){
-        console.log("rate-low");
+        console.log("rate-high");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -105,7 +135,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "recent"){
-        console.log("rate-low");
+        console.log("recent");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -113,7 +143,7 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'true');
         localStorage.setItem('showPop', 'false');
     } else if(filterVal == "popular"){
-        console.log("rate-low");
+        console.log("popular");
         localStorage.setItem('showLow', 'false');
         localStorage.setItem('showSearch', 'false');
         localStorage.setItem('showUsers', 'false');
@@ -121,6 +151,8 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'true');
     }
+
+    window.location.reload();
 }
 
 window.onload = function(){
@@ -148,6 +180,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.clear();
     } else if(showSearch == 'true'){
         console.log("showSearch: " + showSearch);
         document.getElementById("usersResultsList").style.display = "none";
@@ -165,6 +198,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.clear();
     } else if(showHigh == 'true'){
         console.log("showHigh: " + showHigh);
         document.getElementById("usersResultsList").style.display = "none";
@@ -182,6 +216,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.clear();
     } else if(showRecent == 'true'){
         console.log("showRecent: " + showRecent);
         document.getElementById("usersResultsList").style.display = "none";
@@ -199,6 +234,51 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
+        localStorage.clear();
+    } else if(showUsers == 'true'){
+        console.log("showUsers: " + showUsers);
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "block";
+        $(".horizontal_slick-users").slick({
+            dots: true,
+            arrows: true,
+            vertical: false,
+            infinite: false,
+            rows: 2,
+            slidesPerRow: 4,
+            verticalSwiping: false,
+        });
+        localStorage.clear();
+    } else if(showPop == 'true'){
+        console.log("showPop: " + showPop);
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortPop").style.display = "block";
+        $(".horizontal_slick-pop").slick({
+            dots: true,
+            arrows: true,
+            vertical: false,
+            infinite: false,
+            rows: 2,
+            slidesPerRow: 4,
+            verticalSwiping: false,
+        });
+        localStorage.clear();
+    } else {
+        console.log("Nothing in local storage");
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
     }
 }
 
