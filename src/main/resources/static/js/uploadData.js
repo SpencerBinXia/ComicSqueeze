@@ -34,6 +34,7 @@ function retrieveJSONFromFirebase(username,comicseries,comicissue,pagenumber,lc)
         });
 
 }
+
 function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
@@ -295,6 +296,40 @@ function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
         }
     );
 }
+
+function uploadSeriesCoverDBCustom(username,currentSeries){
+    var reader  = new FileReader();
+    var file    = document.getElementById("uploadSeriesCover").files[0];
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/seriesCoverDB?username="+username+"&"+"seriesTitle="+currentSeries+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+
 function uploadWeeklyCoverDB(){
     var reader  = new FileReader();
     var file    = document.getElementById("uploadWeeklyCover").files[0];
@@ -333,4 +368,29 @@ if (issue!="") {
 else{
     alert("Specify new issue name first");
 }
+}
+
+function retrieveJSONFromFirebaseIssueCover(username,comicseries,comicissue,lc){
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var ref = firebase.database().ref(username+'/'+comicseries+'/'+comicissue+'/issuecover');
+    ref.once('value')
+        .then(function(dataSnapshot) {
+            console.log("editing");
+            lc.loadSnapshot(JSON.parse(dataSnapshot.val()));
+        });
+
+}
+function retrieveJSONFromFirebaseSeriesCover(username,comicseries,lc){
+    // we store this new comic under their unique id
+    // we either create a ne series, issue or page number object or it alread exists and we overide it
+    // then we save the pagedata
+    var ref = firebase.database().ref(username+'/'+comicseries+'/seriescover');
+    ref.once('value')
+        .then(function(dataSnapshot) {
+            console.log("editing");
+            lc.loadSnapshot(JSON.parse(dataSnapshot.val()));
+        });
+
 }
