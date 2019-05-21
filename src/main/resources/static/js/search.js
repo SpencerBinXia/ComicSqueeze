@@ -90,9 +90,31 @@ function applyFiltering() {
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
 
     if (filterVal == "popular") {
-        if()
-        alert("Can only sort users by popular");
-        return false;
+        if(document.getElementById("seriesResultsList").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortHigh").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortRecent").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+        if(document.getElementById("sortLow").style.display == "block") {
+            alert("Can only sort users by popular");
+            return false;
+        }
+    } else if (filterVal != "popular") {
+        if(document.getElementById("usersResultsList").style.display == "block") {
+            alert("Can only sort series by "+ filterVal);
+            return false;
+        }
+        if(document.getElementById("sortPop").style.display == "block") {
+            alert("Can only sort series by "+ filterVal);
+            return false;
+        }
     }
 
     console.log("3");
