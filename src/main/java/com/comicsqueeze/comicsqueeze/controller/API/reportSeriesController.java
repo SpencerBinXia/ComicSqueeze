@@ -45,8 +45,14 @@ public class reportSeriesController {
         ArrayList<Series> newGroupSeries = seriesService.queryforGroupSeries(tempMember);
         List<String> splits = Arrays.asList(collabGroup.split(","));
         Boolean read = false;
+        String link = "series/" + seriesCreator + "/" + seriesTitle;
+        System.out.println("In notify group method");
+        System.out.println(collabGroup);
+        System.out.println(splits);
         for(int i =0; i<splits.size(); i++){
-            //notificationService.storeNotification(seriesCreator, "","group",splits.get(i),read, false, seriesTitle);
+            //System.out.println("Split loop");
+            //System.out.println(splits.get(i));
+            notificationService.storeNotification(seriesCreator, "Notifying collaborators", link , "group",splits.get(i), read,false, seriesTitle);
         }
 
 

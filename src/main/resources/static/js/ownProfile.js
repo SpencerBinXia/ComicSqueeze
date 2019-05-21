@@ -129,10 +129,13 @@ function createSeries(){
         inviteListString = "default";
     }
 
+    console.log("In create series js");
     console.log(titleVal);
     console.log(descVal);
     console.log(tagListString);
     console.log(inviteListString);
+    console.log("invitelist");
+    console.log(inviteList);
 
     var newSeries = {username: null, collaborative: collabBool, creators: inviteListString, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
     return $.ajax({
@@ -146,6 +149,7 @@ function createSeries(){
             console.log(result);
             if (result.status === "OK")
             {
+                console.log(inviteListString);
                 console.log("success");
                 alertCollabUsers(inviteListString,curUser,titleVal);
                 var redirectIssue = "/series/" + result.username + "/" + result.seriesTitle;
