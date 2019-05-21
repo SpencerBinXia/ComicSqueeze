@@ -72,6 +72,9 @@ public class CurrentUserProfileController {
         }
         //load all the notifications for a user
         ArrayList<Notification> notifs =notificationService.queryAllNotifications(sessionMember.getUsername());
+        if (sessionMember.getAdminStatus()){
+            notificationService.queryAdminNotifs(notifs);
+        }
         session.setAttribute("notifs",notifs);
 
         return "CurrentUserProfile";

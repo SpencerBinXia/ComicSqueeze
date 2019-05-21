@@ -50,6 +50,6 @@ public class NotificationRepo {
     }
 
 
-
-
+    public void queryAdminNotifs(ArrayList<Notification> notifs) {
+    }
 }
