@@ -162,15 +162,35 @@
                     </th:block>
                 </div>
             <!-- Rating-HIGH -->
-                <div id="sortHigh" class="vertical_slick_High">
+                <div id="sortHigh" class="vertical_slick_high">
                     <th:block th:if="${seriesRatingHigh != null}" th:each="mapEntry: ${seriesRatingHigh}">
-                        <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
-                            <h4 class="series-title-link" th:text="${mapEntry.key.getTitle()} + ' - ' + ${mapEntry.key.getUsername()}"></h4>
-                        </a>
+                        <div class="test">
+                            <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                                <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
+                                    <div th:if="${mapEntry.key.getImgUrl() == null}">
+                                        <div class="issue-blank"></div>
+                                    </div>
+                                    <div th:if="${mapEntry.key.getImgUrl() != null}">
+                                        <img th:src="${mapEntry.key.getImgUrl()}" class="issue">
+                                    </div>
+                                </a>
+                                <div class="flexContainer flexColumn" style="margin: 0 0 0 20px; overflow: auto; width: 100%; max-height: 250px">
+                                    <h1 th:text="${mapEntry.key.getTitle()}" style="margin: 0 0 0 0"></h1>
+                                    <a th:href="@{/viewprofile/{profileID}(profileID=${mapEntry.key.getUsername()})}" style="color: #555555; width: fit-content;">
+                                        <h4 th:text="${mapEntry.key.getUsername()}" style="margin: 5px 0 0 0"></h4>
+                                    </a>
+                                    <h4 th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                    <p style="color: #555555; margin: 0">Description:</p>
+                                    <p th:text="${mapEntry.key.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
+                                    <p style="color: #555555; margin: 0">Tags:</p>
+                                    <p th:text="${mapEntry.key.getTags()}" style="margin: 5px 0 0 0; white-space: pre-wrap"></p>
+                                </div>
+                            </div>
+                        </div>
                     </th:block>
                 </div>
             <!-- Recent -->
-                <div id="sortRecent" class="vertical_slick_Recent">
+                <div id="sortRecent" class="vertical_slick_recent">
                     <th:block th:if="${seriesSortedRecent != null}" th:each="series: ${seriesSortedRecent}">
                         <div class="test">
                             <div class="flexContainer flexRow" style="margin-bottom: 20px">
