@@ -35,7 +35,7 @@ public class CreatePageController {
     }
 
     @RequestMapping("/pageDB")
-    public ModelAndView addPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
+    public ModelAndView addPageToDB( HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl,@RequestParam(value = "custom", defaultValue = "false") Boolean custom)
     {
         ModelAndView model = new ModelAndView("IssuePage");
         System.out.println("pageDB username: " + username + ",issueTitle: " + issueTitle);
@@ -46,6 +46,7 @@ public class CreatePageController {
         page.setImgurl(imgurl);
         page.setPublished(false);
         page.setSeries(seriesTitle);
+        page.setCustom(custom);
         page.setVotes(0);
         comicPageService.createPage(page);
         model.addObject("profileID", username);
