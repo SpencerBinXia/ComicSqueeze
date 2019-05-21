@@ -30,6 +30,10 @@ public class reportSeriesController {
         return seriesToReport;
     }
 
+    @RequestMapping(value = "/notifyGroup", method = RequestMethod.GET)
+    public void notifyGroup(Model model, @RequestParam(value = "group")String collabGroup,@RequestParam(value="seriesCreator") String seriesCreator,
+                              @RequestParam(value = "seriesTitle") String seriesTitle){
 
+    }
 
 }

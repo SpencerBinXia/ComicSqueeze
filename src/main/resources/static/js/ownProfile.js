@@ -95,6 +95,7 @@ function createSeries(){
     var descVal = $('#descField').val();
     var collabVal = $('#seriesMode').val();
     var collabBool = false;
+    var curUser = curSessionUser;
     console.log(descVal);
     console.log(collabVal);
 
@@ -131,6 +132,8 @@ function createSeries(){
     console.log(titleVal);
     console.log(descVal);
     console.log(tagListString);
+    console.log(inviteListString);
+
     var newSeries = {username: null, collaborative: collabBool, creators: inviteListString, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
     return $.ajax({
         type: "POST",
@@ -144,6 +147,7 @@ function createSeries(){
             if (result.status === "OK")
             {
                 console.log("success");
+                alertCollabUsers(inviteListString,curUser,titleVal);
                 var redirectIssue = "/series/" + result.username + "/" + result.seriesTitle;
                 window.location.assign(redirectIssue);
             }
@@ -157,7 +161,29 @@ function createSeries(){
         }
     });
 }
+function alertCollabUsers(group,creator,seriesTitle){
+    console.log("in alert collab");
+    console.log(group);
+    console.log(creator);
+    console.log(seriesTitle);
 
+    $.ajax({
+        type: "GET",
+        url: "/notifyGroup",
+        data:{
+            group: group,
+            seriesCreator: creator,
+            seriesTitle: seriesTitle
+        },
+        cache: false,
+        success: function(result){
+            console.log("Successfully alerted");
+        },
+        error: function (e) {
+            console.log("Alert group failed");
+        }
+    });
+}
 // FOLLOWING MODAL REWORK
 function followingClicked() {
     var modal = document.getElementById('subscriptions');
