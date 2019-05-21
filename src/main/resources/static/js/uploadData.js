@@ -120,7 +120,7 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
                 url = encodeURIComponent(url);
                 return $.ajax({
                     type: "GET",
-                    url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
+                    url: "/pageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url+"&custom="+true,
                     cache: false,
                     success: function (response) {
                         window.location.assign("/yourprofile");
@@ -134,6 +134,41 @@ function uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
         }
     );
 }
+
+function editUploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber){
+    var reader  = new FileReader();
+    var file    = document.getElementById("editPageCustom").files[0];
+    console.log(file);
+
+    var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+
+
+        },
+        function error(err){},
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber).getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/editPageDB?username="+username+"&"+"seriesTitle="+currentSeries+"&"+"issueTitle="+currentIssue+"&"+"pageNumber="+pageNumber+"&imgurl="+url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/yourprofile");
+
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+
 function uploadToWeeklyComic(issue,username,pageNum,img){
     var storageRef = firebase.storage().ref("WeeklyComic"+"/"+issue+"/"+username+"/"+pageNum);
     var task = storageRef.putString(img,'data_url');

@@ -4,6 +4,7 @@ package com.comicsqueeze.comicsqueeze.repository;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.object.Series;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,6 +36,7 @@ public class PageRepo {
                     tempPage.setSeries(rs.getString("series"));
                     tempPage.setIssue(rs.getString("issue"));
                     tempPage.setPagenumber(rs.getInt("pagenumber"));
+                    tempPage.setCustom(rs.getBoolean("customupload"));
                     return tempPage;
                 }
             });
@@ -48,9 +50,9 @@ public class PageRepo {
 
     public void createPage(Page newPage){
         System.out.println("THE IMGURL "+ newPage.getImgurl());
-        jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published)"
-                        + "VALUES(?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
-                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished());
+        jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published,customupload)"
+                        + "VALUES(?,?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
+                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished(),newPage.getCustom());
     }
     public void createWeeklyPage(Page newPage,int day){
         System.out.println("THE IMGURL "+ newPage.getImgurl());
@@ -101,6 +103,7 @@ public class PageRepo {
             tempPage.setSeries((String)rs.get("series"));
             tempPage.setIssue((String)rs.get("issue"));
             tempPage.setPagenumber((int)rs.get("pagenumber"));
+            tempPage.setCustom((Boolean) rs.get("customupload"));
             pages.add(tempPage);
         }
         return pages;
