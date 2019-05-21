@@ -14,9 +14,9 @@ public class NotificationService {
     @Autowired
     NotificationRepo notificationRepo;
 
-    public void storeNotification(String username, String seriesTitle, String body, String type, String usernameto,Boolean read){
+    public void storeNotification(String username, String seriesTitle, String body, String type, String usernameto,Boolean read, Boolean adminRead, String seriesName){
         System.out.println("Got to notif service");
-        notificationRepo.storeNotification(username,seriesTitle,body,type,usernameto,read);
+        notificationRepo.storeNotification(username,seriesTitle,body,type,usernameto,read,adminRead,seriesName);
     }
     public ArrayList<Notification> queryAllNotifications(String usernameTo){
         return notificationRepo.queryAllNotifications(usernameTo);

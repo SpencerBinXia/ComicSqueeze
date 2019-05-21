@@ -23,10 +23,10 @@ public class reportSeriesController {
     @RequestMapping(value = "/reportSeries", method = RequestMethod.GET)
     public Series reportSeries(Model model, @RequestParam(value = "reportBody") String reportBody,
                                @RequestParam(value = "reportSeriesTitle") String seriesTitle, @RequestParam(value = "curUser") String username, @RequestParam(value = "type")
-                               String type, @RequestParam(value = "link") String link, @RequestParam("usernameto") String usernameto, @RequestParam("read") Boolean read){
+                               String type, @RequestParam(value = "link") String link, @RequestParam("usernameto") String usernameto, @RequestParam("read") Boolean read, @RequestParam("adminread") Boolean adminread){
         System.out.println("Got to report controller");
         Series seriesToReport = seriesService.findSeriesByTitle(username,seriesTitle);
-        notificationService.storeNotification(username, reportBody, link,type,usernameto,read);
+        notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle);
         return seriesToReport;
     }
 
