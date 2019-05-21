@@ -25,6 +25,12 @@ public class createSeriesController {
         JSONObject message = new JSONObject();
         newSeries.setUsername((String)session.getAttribute("username"));
         newSeries.setTimestamp(LocalDateTime.now());
+        if (!newSeries.getCreators().equals("default"))
+        {
+            String[] creatorArray = newSeries.getCreators().split(",", -1);
+            System.out.println(creatorArray);
+            newSeries.setCreatorArray(creatorArray);
+        }
         System.out.println(newSeries.isCollaborative());
         System.out.println(newSeries.getCreators());
         System.out.println(newSeries.getUsername());
