@@ -166,9 +166,9 @@
                                 <script th:if="${page.getCustom()}!=false">
                                     var editNumber = "[[${page.getPagenumber()}]]";
                                 </script>
-                                <label class="lime-button-file" th:if="${session.username == profileID} and ${page.getCustom()}!=false" style="cursor: pointer;">
+                                <label class="page-option" th:if="${session.username == profileID} and ${page.getCustom()}!=false" style="cursor: pointer;">
+                                    <img src="images/icons/upload_icon.png" th:src="@{/images/icons/upload_icon.png}">
                                     <input id ="editPageCustom" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(username,currentSeries,currentIssue,editNumber)">
-                                    UPLOAD PAGE
                                 </label>
                                 <a th:if="${session.username == profileID}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                                 <div th:if="${session.username == profileID and page.isPublished() == true}">
