@@ -133,11 +133,6 @@
                 <a th:if="${session.username == profileID} OR ${creator == true}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE ISSUE COVER</a>
-                <label class="lime-button-file" th:if="${session.username == profileID}" style="cursor: pointer;">
-                    <input id ="uploadIssueCover" type="file" accept="image/*" onChange="uploadIssueCoverDBCustom(username,currentSeries,currentIssue)">
-                    UPLOAD COVER
-                </label>
                 <label class="lime-button-file" th:if="${session.username == profileID} OR ${creator == true}" style="cursor: pointer;">
                     <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
@@ -147,6 +142,13 @@
                 <button th:if="${session.curMember != null} and ${session.curMember.getAdminStatus()} == true and ${session.username != profileID}" class = "red-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
                 <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
+            </div>
+            <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 10px;">
+                <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE ISSUE COVER</a>
+                <label class="lime-button-file" th:if="${session.username == profileID}" style="cursor: pointer;">
+                    <input id ="uploadIssueCover" type="file" accept="image/*" onChange="uploadIssueCoverDBCustom(username,currentSeries,currentIssue)">
+                    UPLOAD COVER
+                </label>
             </div>
             <br><br>
 

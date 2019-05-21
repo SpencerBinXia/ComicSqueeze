@@ -11,28 +11,44 @@ $(document).ready(function(){
         }
 
         console.log("2");
-        localStorage.setItem('showLow', 'false');
-        localStorage.setItem('showSearch', 'true');
 
-        document.getElementById('searchContents').value = "";
+        // document.getElementById('searchContents').value = "";
 
         console.log(filterOptionValue);
         var queryMethod = "";
         var methodMapping = "";
         if(filterOptionValue == "username"){
             queryMethod = "queryUsername";
+            localStorage.setItem('showLow', 'false');
+            localStorage.setItem('showSearch', 'false');
+            localStorage.setItem('showUsers', 'true');
+            localStorage.setItem('showHigh', 'false');
+            localStorage.setItem('showRecent', 'false');
+            localStorage.setItem('showPop', 'false');
             methodMapping = "/SearchUsername";
             //$('#seriesResultsList').hide();
             //$('#usersResultsList').show();
         }
         else if(filterOptionValue == "seriestitle"){
             queryMethod = "querySeriesTitle";
+            localStorage.setItem('showLow', 'false');
+            localStorage.setItem('showSearch', 'true');
+            localStorage.setItem('showUsers', 'false');
+            localStorage.setItem('showHigh', 'false');
+            localStorage.setItem('showRecent', 'false');
+            localStorage.setItem('showPop', 'false');
             methodMapping = "/SearchSeriesTitle";
             //$('#seriesResultsList').show();
             //$('#usersResultsList').hide();
         }
         else if(filterOptionValue == "tags"){
             queryMethod = "queryTags";
+            localStorage.setItem('showLow', 'false');
+            localStorage.setItem('showSearch', 'true');
+            localStorage.setItem('showUsers', 'false');
+            localStorage.setItem('showHigh', 'false');
+            localStorage.setItem('showRecent', 'false');
+            localStorage.setItem('showPop', 'false');
             methodMapping = "/SearchTags";
             //$('#seriesResultsList').show();
             //$('#usersResultsList').hide();
@@ -72,10 +88,38 @@ function applyFiltering() {
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
 
     console.log("3");
-    localStorage.setItem('showSearch', 'false');
     if(filterVal == "rating-LOW"){
         console.log("rate-low");
-        localStorage.setItem("showLow", 'true');
+        localStorage.setItem('showLow', 'true');
+        localStorage.setItem('showSearch', 'false');
+        localStorage.setItem('showUsers', 'false');
+        localStorage.setItem('showHigh', 'false');
+        localStorage.setItem('showRecent', 'false');
+        localStorage.setItem('showPop', 'false');
+    } else if(filterVal == "rating-HIGH"){
+        console.log("rate-low");
+        localStorage.setItem('showLow', 'false');
+        localStorage.setItem('showSearch', 'false');
+        localStorage.setItem('showUsers', 'false');
+        localStorage.setItem('showHigh', 'true');
+        localStorage.setItem('showRecent', 'false');
+        localStorage.setItem('showPop', 'false');
+    } else if(filterVal == "recent"){
+        console.log("rate-low");
+        localStorage.setItem('showLow', 'false');
+        localStorage.setItem('showSearch', 'false');
+        localStorage.setItem('showUsers', 'false');
+        localStorage.setItem('showHigh', 'false');
+        localStorage.setItem('showRecent', 'true');
+        localStorage.setItem('showPop', 'false');
+    } else if(filterVal == "popular"){
+        console.log("rate-low");
+        localStorage.setItem('showLow', 'false');
+        localStorage.setItem('showSearch', 'false');
+        localStorage.setItem('showUsers', 'false');
+        localStorage.setItem('showHigh', 'false');
+        localStorage.setItem('showRecent', 'false');
+        localStorage.setItem('showPop', 'true');
     }
 }
 
@@ -83,14 +127,33 @@ window.onload = function(){
     console.log("1");
     var showLow = localStorage.getItem('showLow');
     var showSearch = localStorage.getItem('showSearch');
+    var showUsers = localStorage.getItem('showUsers');
+    var showHigh = localStorage.getItem('showHigh');
+    var showRecent = localStorage.getItem('showRecent');
+    var showPop = localStorage.getItem('showPop');
     if(showLow == 'true'){
-        console.log("showLow - low: " + showLow);
-        console.log("showLow - search: " + showSearch);
+        console.log("showLow: " + showLow);
         document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
         document.getElementById("sortLow").style.display = "block";
+        $(".vertical_slick_Low").slick({
+            dots: true,
+            arrows: false,
+            vertical: true,
+            infinite: false,
+            rows: 3,
+            slidesPerRow: 1,
+            verticalSwiping: true,
+        });
     } else if(showSearch == 'true'){
-        console.log("showSearch - low: " + showLow);
-        console.log("showSearch - search: " + showSearch);
+        console.log("showSearch: " + showSearch);
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
         document.getElementById("sortLow").style.display = "none";
         document.getElementById("seriesResultsList").style.display = "block";
         $(".vertical_slick_search").slick({
@@ -98,8 +161,40 @@ window.onload = function(){
             arrows: false,
             vertical: true,
             infinite: false,
-            // slidesToShow: 8,
-            // slidesToScroll: 8,
+            rows: 3,
+            slidesPerRow: 1,
+            verticalSwiping: true,
+        });
+    } else if(showHigh == 'true'){
+        console.log("showHigh: " + showHigh);
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "block";
+        $(".vertical_slick_high").slick({
+            dots: true,
+            arrows: false,
+            vertical: true,
+            infinite: false,
+            rows: 3,
+            slidesPerRow: 1,
+            verticalSwiping: true,
+        });
+    } else if(showRecent == 'true'){
+        console.log("showRecent: " + showRecent);
+        document.getElementById("usersResultsList").style.display = "none";
+        document.getElementById("sortHigh").style.display = "none";
+        document.getElementById("sortPop").style.display = "none";
+        document.getElementById("sortLow").style.display = "none";
+        document.getElementById("seriesResultsList").style.display = "none";
+        document.getElementById("sortRecent").style.display = "block";
+        $(".vertical_slick_recent").slick({
+            dots: true,
+            arrows: false,
+            vertical: true,
+            infinite: false,
             rows: 3,
             slidesPerRow: 1,
             verticalSwiping: true,
