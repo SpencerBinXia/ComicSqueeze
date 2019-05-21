@@ -48,9 +48,11 @@ $(document).ready(function(){
 
 
     $('.publish-checkbox').checkboxpicker({
+        /*
         html: true,
         offLabel: '<span class="glyphicon glyphicon-remove">',
         onLabel: '<span class="glyphicon glyphicon-ok">'
+        */
     });
 
     for (var i = 0;i < userPageNumber.length;i++)
