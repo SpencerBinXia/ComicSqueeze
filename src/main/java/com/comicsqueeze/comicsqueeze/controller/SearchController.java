@@ -91,8 +91,15 @@ public class SearchController {
 
 
         }
-        else if(session.getAttribute("searchMemberResults") != null){
+        if(session.getAttribute("searchMemberResults") != null){
             ArrayList<Member> mem = (ArrayList<Member>) session.getAttribute("searchMemberResults");
+
+            System.out.println();
+            System.out.println();
+            System.out.println("memList" + mem);
+            System.out.println();
+            System.out.println();
+
             model.addAttribute("memResult", mem);
             session.setAttribute("searchMemberResults", mem);
 

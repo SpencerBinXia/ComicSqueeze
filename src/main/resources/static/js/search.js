@@ -84,8 +84,16 @@ $(document).ready(function(){
 
 
 function applyFiltering() {
+    var searchSelect = document.getElementById('searchBy');
+    var searchSelectVal = searchSelect.options[searchSelect.selectedIndex].value;
     var sortFilter = document.getElementById('sortBy');
     var filterVal = sortFilter.options[sortFilter.selectedIndex].value;
+
+    if (filterVal == "popular") {
+        if()
+        alert("Can only sort users by popular");
+        return false;
+    }
 
     console.log("3");
     if(filterVal == "rating-LOW"){
@@ -121,6 +129,8 @@ function applyFiltering() {
         localStorage.setItem('showRecent', 'false');
         localStorage.setItem('showPop', 'true');
     }
+
+    window.location.reload();
 }
 
 window.onload = function(){
@@ -148,7 +158,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
-        localStorage.setItem('showLow', 'false');
+        localStorage.clear();
     } else if(showSearch == 'true'){
         console.log("showSearch: " + showSearch);
         document.getElementById("usersResultsList").style.display = "none";
@@ -166,7 +176,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
-        localStorage.setItem('showSearch', 'false');
+        localStorage.clear();
     } else if(showHigh == 'true'){
         console.log("showHigh: " + showHigh);
         document.getElementById("usersResultsList").style.display = "none";
@@ -184,7 +194,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
-        localStorage.setItem('showHigh', 'false');
+        localStorage.clear();
     } else if(showRecent == 'true'){
         console.log("showRecent: " + showRecent);
         document.getElementById("usersResultsList").style.display = "none";
@@ -202,7 +212,7 @@ window.onload = function(){
             slidesPerRow: 1,
             verticalSwiping: true,
         });
-        localStorage.setItem('showRecent', 'false');
+        localStorage.clear();
     } else if(showUsers == 'true'){
         console.log("showUsers: " + showUsers);
         document.getElementById("sortHigh").style.display = "none";
@@ -220,7 +230,7 @@ window.onload = function(){
             slidesPerRow: 4,
             verticalSwiping: false,
         });
-        localStorage.setItem('showUsers', 'false');
+        localStorage.clear();
     } else if(showPop == 'true'){
         console.log("showPop: " + showPop);
         document.getElementById("sortHigh").style.display = "none";
@@ -238,7 +248,7 @@ window.onload = function(){
             slidesPerRow: 4,
             verticalSwiping: false,
         });
-        localStorage.setItem('showPop', 'false');
+        localStorage.clear();
     } else {
         console.log("Nothing in local storage");
         document.getElementById("sortHigh").style.display = "none";
