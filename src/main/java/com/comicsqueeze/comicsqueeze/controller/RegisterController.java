@@ -53,7 +53,7 @@ public class RegisterController {
             if(service.registerMember(newMember)){
                 m.addAttribute("userName",userRecord.getDisplayName());
                 session.setAttribute("username", Username);
-                return "redirect:/yourprofile";
+                return "redirect:/signin?userName="+Username;
             }
             /*
                 if the username already exists cancel registration and delete user from firebase

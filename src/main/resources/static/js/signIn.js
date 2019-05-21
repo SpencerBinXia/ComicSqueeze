@@ -91,46 +91,46 @@ function signIn() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("passWord").value;
     // sign in
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password).then(redirectToProfile())
     // catch errors
         .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode === 'auth/wrong-password') {
-                window.location.assign("/");
                 alert('Wrong password.');
             } else {
                 alert(errorMessage);
             }
             console.log(error);
         });
+
+
+}
+
+function redirectToProfile() {
     // if a new user is signed in redirect to profile
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            redirectToProfile(user);
+            return $.ajax({
+                type: "GET",
+                url: "/signin?userName="+user.displayName,
+                cache: false,
+                success: function (response) {
+                    window.location.assign("/yourprofile");
+                    loadProfilePic();
+
+                },
+                error: function (e) {
+                    console.log("Failure", e);
+                }
+            });
         } else {
             // No user is signed in.
         }
     });
 
 }
-
-function redirectToProfile(user) {
-
-    return $.ajax({
-        type: "GET",
-        url: "/signin?userName="+user.displayName,
-        cache: false,
-        success: function (response) {
-            window.location.assign("/yourprofile");
-            loadProfilePic();
-
-        },
-        error: function (e) {
-            console.log("Failure", e);
-        }
-    });}
 
 function updateProfilePic() {
     // get a new file reader
