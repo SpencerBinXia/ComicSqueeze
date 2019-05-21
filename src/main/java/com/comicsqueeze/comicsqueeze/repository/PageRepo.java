@@ -4,7 +4,7 @@ package com.comicsqueeze.comicsqueeze.repository;
 import com.comicsqueeze.comicsqueeze.object.Member;
 import com.comicsqueeze.comicsqueeze.object.Page;
 import com.comicsqueeze.comicsqueeze.object.Series;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+//import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

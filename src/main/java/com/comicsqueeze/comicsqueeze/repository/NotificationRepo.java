@@ -11,10 +11,10 @@ public class NotificationRepo {
     @Autowired
     JdbcTemplate jdbc;
 
-    public void storeNotification(String username, String seriesTitle, String body, String type){
+    public void storeNotification(String username, String body, String link, String type){
         System.out.println("Got to notif repo");
-        jdbc.update("INSERT INTO  \"Notifications\" (username, seriesTitle, reportBody, reportType)"
-                + "VALUES(?,?,?,?,?)", username, seriesTitle, body, type, "link");
+        jdbc.update("INSERT INTO  \"Notifications\" (username, body, link, type)"
+                + "VALUES(?,?,?,?)", username, body, link, type);
     }
 
 

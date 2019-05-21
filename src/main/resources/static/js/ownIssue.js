@@ -9,14 +9,24 @@ function deletePage() {
 }
 
 function deleteIssue() {
+    console.log("In delete issue js");
+    console.log(curIssueTitle);
+    console.log(curSeriesTitle);
+    console.log(curSeriesUsername);
     if (confirm('Are you sure you want to delete this issue?')) {
         // Delete the page
         $.ajax({
             type: "GET",
             url: "/deleteIssue",
             cache: false,
+            data:{
+                issueOfSeries: curIssueTitle,
+                seriesOfIssue: curSeriesTitle,
+                seriesCreator: curSeriesUsername
+            },
             success: function (result) {
                 //reload page
+                console.log("issue successfully deleted");
                 window.location.assign("/series/" + curSeriesUsername + "/" + curSeriesTitle);
             },
             error: function (e) {

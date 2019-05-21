@@ -27,12 +27,22 @@ public class deleteIssueController {
     private ComicPageService pageService;
 
     @RequestMapping(value ="/deleteIssue", method = RequestMethod.GET)
-    public String deleteIssue(Model model, HttpSession session)
+    public String deleteIssue(Model model, HttpSession session, @RequestParam(value = "issueOfSeries") String issueTitle,
+                              @RequestParam(value = "seriesOfIssue") String seriesTitle, @RequestParam(value = "seriesCreator")String username)
     {
         Member member = (Member) session.getAttribute("curMember");
-        System.out.println(member.getCurrentIssue().getTitle());
-        pageService.deletePages(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
-        issueService.deleteIssue(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
-        return "redirect:/series/" + member.getCurrentSeries().getUsername() + "/" + member.getCurrentSeries().getTitle();
+        if(member.getAdminStatus()){
+            System.out.println("in delete issue controller");
+            System.out.println(issueTitle);
+            pageService.deletePages(issueTitle, seriesTitle, username);
+            issueService.deleteIssue(issueTitle, seriesTitle, username);
+            return "redirect:/series/" + username + "/" + seriesTitle;
+        }
+        else{
+            System.out.println(member.getCurrentIssue().getTitle());
+            pageService.deletePages(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
+            issueService.deleteIssue(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
+            return "redirect:/series/" + member.getCurrentSeries().getUsername() + "/" + member.getCurrentSeries().getTitle();
+        }
     }
 }

@@ -81,6 +81,7 @@ function flagSeries() {
             reportBody: body.val(),
             reportSeriesTitle: curSeriesTitle,
             reportSeriesUser: curSeriesUser,
+            link: "series/" + curSeriesUser + "/" + curSeriesTitle,
             type: "report",
         },
         url: "/reportSeries",
