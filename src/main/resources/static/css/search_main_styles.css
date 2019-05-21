@@ -9,7 +9,7 @@
 }
 
 .seriesResultsList{
-    max-height: 600px;
+    max-height: 750px;
     overflow: auto;
     overflow-x: hidden;
 }
