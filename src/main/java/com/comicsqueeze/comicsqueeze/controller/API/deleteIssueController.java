@@ -33,6 +33,6 @@ public class deleteIssueController {
         System.out.println(member.getCurrentIssue().getTitle());
         pageService.deletePages(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
         issueService.deleteIssue(member.getCurrentIssue().getTitle(), member.getCurrentSeries().getTitle(), member.getUsername());
-        return "redirect:/yourprofile";
+        return "redirect:/series/" + member.getCurrentSeries().getUsername() + "/" + member.getCurrentSeries().getTitle();
     }
 }

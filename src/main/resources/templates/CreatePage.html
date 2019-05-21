@@ -19,6 +19,12 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script>
+        // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
+        const curSeriesUsername = "[[${curMember.getCurrentSeries().getUsername()}]]";
+        const curSeriesTitle = "[[${curMember.getCurrentSeries().getTitle()}]]";
+        const curIssueTitle = "[[${curMember.getCurrentIssue().getTitle()}]]";
+    </script>
     <script src="vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script src ="js/signIn.js" th:src="@{/js/signIn.js}"></script>
     <script src = "js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
