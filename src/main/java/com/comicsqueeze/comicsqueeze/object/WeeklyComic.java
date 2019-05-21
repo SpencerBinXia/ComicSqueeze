@@ -5,6 +5,7 @@ public class WeeklyComic {
     private String users;
     private String pages;
     private String description;
+    private String imgUrl;
 
     public String getIssueTitle() {
         return issueTitle;
@@ -36,5 +37,13 @@ public class WeeklyComic {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

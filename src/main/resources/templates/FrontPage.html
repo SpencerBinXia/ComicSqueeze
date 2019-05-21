@@ -48,6 +48,7 @@
     <link href="slick/slick-theme.css" rel="stylesheet">
     <link href="css/slick-override.css" rel="stylesheet">
     <link href="css/lightbox.css" rel="stylesheet">
+    <script src="js/uploadData.js" th:src="@{/js/uploadData.js}"></script>
 
 </head>
 
@@ -81,12 +82,10 @@
             <h1>Weekly Collaborative Comic</h1>
             <div class="flexContainer flexRow">
                 <div class="column-left img">
-                    <img src="images/EXAMPLE.jpg" style="size: auto">
+                    <img th:src="${session.weeklyComic.getImgUrl()}" src="images/EXAMPLE.jpg" style="size: auto">
                 </div>
                 <div class="column-right">
                     <div class="flexContainer flexColumn">
-                        <h3>Guidelines:</h3>
-                        <p>Genre: Action, Superhero</p>
                         <p>Story so far:</p>
                         <p th:text="${session.weeklyComic.getDescription()}">Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
                             She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
@@ -177,7 +176,12 @@
                 <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
                         <th:block th:each="issue:${weeklyIssues}">
                             <div class="flexContainer flexColumn issue" style="align-items: center;">
-                                <a  th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
+                                <div th:if="${issue.getImgurl()}==null">
+                                    <a  th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test" class="issue-page"><img src="images/EXAMPLE_3.jpg"></a>
+                                </div>
+                                <div th:if="${issue.getImgurl()}!=null">
+                                    <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" class="issue-page"><img th:src="${issue.getImgurl()}"></a>
+                                </div>
                                 <th:block th:each="page: ${issue.getPages()}">
 
                                     <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue-page"></a>
@@ -259,11 +263,18 @@
     <div id="new-weekly" class="modal">
         <div id="new-weekly-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
-                <form action="/createWeeklyIssue">
-                   Issue name: <input class="input-small" type="text" name="issueTitle"><br>
-                   Description: <input class="input-small" type="text" name="description">
-                    <input type="submit" class="lime-button-left">
-                </form>
+
+                   Issue name: <input id ="weeklyIssueName" class="input-small" type="text" name="issueTitle"><br>
+                   Description: <input id ="weeklyIssueDescription"class="input-small" type="text" name="description">
+                <label class="lime-button-left"  style="cursor: pointer;">
+                    <input id ="uploadWeeklyCover" type="file" accept="image/*" onchange="uploadWeeklyCoverDB()">
+                    Issue Cover
+                </label>
+                <progress value="0" max="100" id="uploaderWeekly" style="
+                                -webkit-appearance: none;
+                                width: 40%;
+                                margin-top: 3%;
+                            ">0%</progress>
                 <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
                     <button  class="grey-button-left" onclick="closeNewWeekly()">CLOSE</button>
                 <!--</a>-->

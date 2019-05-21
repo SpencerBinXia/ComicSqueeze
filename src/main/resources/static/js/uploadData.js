@@ -295,3 +295,42 @@ function uploadIssueCoverDBCustom(username,currentSeries,currentIssue,img){
         }
     );
 }
+function uploadWeeklyCoverDB(){
+    var reader  = new FileReader();
+    var file    = document.getElementById("uploadWeeklyCover").files[0];
+    var issue = document.getElementById("weeklyIssueName").value;
+    var description = document.getElementById("weeklyIssueDescription").value;
+if (issue!="") {
+    var storageRef = firebase.storage().ref("WeeklyComic/" + issue + "/cover");
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot) {
+            var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            var uploader = document.getElementById("uploaderWeekly");
+            uploader.value = percent;
+        },
+        function error(err) {
+        },
+        function complete() {
+            storageRef = firebase.storage().ref();
+            storageRef.child("WeeklyComic/" + issue + "/cover").getDownloadURL().then(function (url) {
+                url = encodeURIComponent(url);
+                return $.ajax({
+                    type: "GET",
+                    url: "/weeklyCoverDB?issue=" + issue +"&description="+description+"&imgurl=" + url,
+                    cache: false,
+                    success: function (response) {
+                        window.location.assign("/");
+                    },
+                    error: function (e) {
+                        console.log("Failure", e);
+                    }
+                });
+            });
+        }
+    );
+}
+else{
+    alert("Specify new issue name first");
+}
+}
