@@ -101,7 +101,7 @@
                         <h1 style="margin-bottom: 0" th:text="${seriesTitle}"></h1>
                         <a class="subtext" style="margin: 0" th:text ="'by ' + ${profileID}" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"></a>
                         <div th:if="${currentSeries.isCollaborative()}==true">
-                            <p id="curCreators" class="subtext" th:text="'Collaborators: ' + ${currentSeries.getCreators()}"></p>
+                            Collaborators: <p id="curCreators" class="subtext" th:text="${currentSeries.getCreators()}"></p>
                         </div>
                         <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
                             <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
@@ -302,6 +302,17 @@
                     <button class="grey-button-left" style="margin: 0" onclick="deleteTag()">Delete Tag</button>
                     <input id="deleteInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
                 </div><br><br>
+                <div th:if="${currentSeries.isCollaborative()} == true">
+                Collaborators: <textarea disabled th:text="${currentSeries.getCreators()}" id="seriesCreators" class="input-small" style="border: none;"></textarea><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="addCollab()">Add Collaborator</button>
+                    <input id="addCollabInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br>
+                <div class="flexContainer flexRow">
+                    <button class="grey-button-left" style="margin: 0" onclick="deleteCollab()">Delete Collaborator</button>
+                    <input id="deleteCollabInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                </div><br><br>
+                </div>
                 <form id="editSeriesForm">
                     Description: <textarea th:text="${currentSeries.getDescription()}" id="seriesDescField" class="input-large" type="text" name="Description"></textarea><br><br>
                 </form>

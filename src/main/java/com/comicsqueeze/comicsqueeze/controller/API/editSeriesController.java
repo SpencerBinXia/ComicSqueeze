@@ -19,9 +19,14 @@ public class editSeriesController {
     private ComicSeriesService service;
 
     @RequestMapping(value = "/editSeries", method = RequestMethod.GET)
-    public String editSeries(Model model, @RequestParam(value = "description") String description, @RequestParam(value = "tags") String tags, HttpSession session){
+    public String editSeries(Model model, @RequestParam(value = "description") String description, @RequestParam(value = "tags") String tags, @RequestParam(value = "creators") String creators, HttpSession session){
         Member curMember = (Member)session.getAttribute("curMember");
-        service.editSeries(curMember.getCurrentSeries().getTitle(), curMember.getUsername(), description, tags);
+        String [] creatorArray = null;
+        if (!creators.equals("default"))
+        {
+            creatorArray = creators.split(",", -1);
+        }
+        service.editSeries(curMember.getCurrentSeries().getTitle(), curMember.getUsername(), description, tags, creators, creatorArray);
         return "redirect:/series/" + curMember.getUsername() + "/" + curMember.getCurrentSeries().getTitle();
     }
 
