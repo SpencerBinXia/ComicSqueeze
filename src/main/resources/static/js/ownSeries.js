@@ -293,6 +293,8 @@ function editSeries(){
     var tagsVal = $('#seriesTags').val();
     tagsVal = tagsVal.replace(/\s*,\s*/g, ",");
     console.log("Tags:" + tagsVal);
+    var collabVal = $('#seriesCreators').val();
+    collabVal = collabVal.replace(/\s*,\s*/g, ",");
 
     //const description = $('#descID').text(descVal);
     //const tags = $('#curTags').text(tagsVal);
@@ -304,7 +306,8 @@ function editSeries(){
         url: "/editSeries",
         data:{
             description: descVal,
-            tags: tagsVal
+            tags: tagsVal,
+            creators: collabVal
         },
         cache: false,
         success: function (result) {

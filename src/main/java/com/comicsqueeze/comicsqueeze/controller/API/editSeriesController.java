@@ -19,8 +19,17 @@ public class editSeriesController {
     private ComicSeriesService service;
 
     @RequestMapping(value = "/editSeries", method = RequestMethod.GET)
-    public String editSeries(Model model, @RequestParam(value = "description") String description, @RequestParam(value = "tags") String tags, HttpSession session){
+    public String editSeries(Model model, @RequestParam(value = "description") String description, @RequestParam(value = "tags") String tags, @RequestParam(value = "creators") String creators, HttpSession session){
         Member curMember = (Member)session.getAttribute("curMember");
+        if (creators != null)
+        {
+            String[] creatorArray = creators.split(",", -1);
+            System.out.println(creatorArray);
+        }
+        else
+        {
+
+        }
         service.editSeries(curMember.getCurrentSeries().getTitle(), curMember.getUsername(), description, tags);
         return "redirect:/series/" + curMember.getUsername() + "/" + curMember.getCurrentSeries().getTitle();
     }
