@@ -326,37 +326,6 @@
                             </button>
                         </a>
                     </div>
-                    <script type="text/javascript">
-                        (function() {
-                            var counter = 0;
-                            var btn = document.getElementById('inviteBtn');
-                            var form = document.getElementById('inviteForm');
-                            var inviteButton = function() {
-                                var inviteName = document.getElementById('inviteField').value;
-                                if(inviteName == "" || inviteName == null){
-                                    alert("Please enter a user to invite.");
-                                    return false;
-                                }
-                                // done first in case of duplicate tags
-                                if (addInvite(inviteName) == 0){
-                                    alert("There cannot be duplicate users.");
-                                    return false;
-                                }
-                                counter++;
-                                var invButton = document.createElement("button");
-                                invButton.id = 'invite' + counter;
-                                invButton.innerText = inviteName;
-                                invButton.classList.add("tagBtn");
-                                invButton.addEventListener('click', function(){
-                                    deleteInvite(invButton);
-                                });
-                                form.appendChild(invButton);
-                            };
-                            btn.addEventListener('click', function() {
-                                inviteButton();
-                            }.bind(this));
-                        })();
-                    </script>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between;">
                     <!--<a class="button-as-link" style="width: fit-content; margin: 0">-->

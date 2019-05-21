@@ -51,6 +51,11 @@ public class SubscriptionService {
         }
     }
 
+    public void removeSubsFromSeries(String seriesTitle, String seriesCreator)
+    {
+        subRepo.deleteSubscriptionsFromSeries(seriesTitle, seriesCreator);
+    }
+
     public Subscription findSubscription(String subscriber, String seriesTitle, String seriesCreator){
         Subscription existing = subRepo.findSubscription(subscriber, seriesTitle, seriesCreator);
         if (existing == null)

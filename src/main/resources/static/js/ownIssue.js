@@ -17,7 +17,7 @@ function deleteIssue() {
             cache: false,
             success: function (result) {
                 //reload page
-                window.location.assign("/yourprofile");
+                window.location.assign("/series/" + curSeriesUsername + "/" + curSeriesTitle);
             },
             error: function (e) {
                 alert("Delete issue failed!");

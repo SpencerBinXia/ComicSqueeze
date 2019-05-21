@@ -39,6 +39,12 @@ public class SubscriptionRepo {
         jdbc.update(deleteSubscription, subscriber, seriesTitle, seriesCreator);
     }
 
+    public void deleteSubscriptionsFromSeries(String seriesTitle, String seriesCreator)
+    {
+        String deleteSubscription = "DELETE FROM \"Subscription\" WHERE seriestitle= ? AND seriescreator= ?;";
+        jdbc.update(deleteSubscription, seriesTitle, seriesCreator);
+    }
+
     public Subscription findSubscription(String subscriber, String seriesTitle, String seriesCreator)
     {
         String subscribeQuery ="SELECT * FROM \"Subscription\" WHERE subscriber= ? AND seriestitle= ? AND seriescreator= ?;";

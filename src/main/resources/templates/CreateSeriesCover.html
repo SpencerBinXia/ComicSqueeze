@@ -114,17 +114,13 @@
                 //edit was clicked on
                     var localStorageKey = 'drawing';
                     if (localStorage.getItem(localStorageKey)) {
-                        // if (edit !== null) {
-                        //     retrieveJSONFromFirebase(username, currentSeries, currentIssue, edit, lc);
-                        // }
-                        // else {
-                        //     console.log(localStorage.getItem(localStorageKey));
-                        //     lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
-                        // }
+                        retrieveJSONFromFirebaseSeriesCover(username, currentSeries, lc);
                     }
-                    lc.on('drawingChange', function () {
-                        localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
-                    });
+                    else {
+                        lc.on('drawingChange', function () {
+                            localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+                        });
+                    }
 
 
                 // send the json of the cnavas to firebase to be uploaded back on edit
