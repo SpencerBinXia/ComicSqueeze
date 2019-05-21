@@ -133,9 +133,7 @@
                 <a th:if="${session.username == profileID} OR ${creator == true}" class="button-as-link" th:href="@{/createpage}">
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
-                <a th:if="${session.username == profileID}" class="button-as-link" >
-                    <a th:href="@{/createissuecover}" class="lime-button" style="margin-right: 30px">CREATE ISSUE COVER</a>
-                </a>
+                <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE ISSUE COVER</a>
                 <label class="lime-button-file" th:if="${session.username == profileID}" style="cursor: pointer;">
                     <input id ="uploadIssueCover" type="file" accept="image/*" onChange="uploadIssueCoverDBCustom(username,currentSeries,currentIssue)">
                     UPLOAD COVER
