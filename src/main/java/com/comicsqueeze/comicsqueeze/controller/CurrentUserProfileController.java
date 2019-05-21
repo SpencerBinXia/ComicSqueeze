@@ -59,6 +59,7 @@ public class CurrentUserProfileController {
        model.addAttribute("curMember", curMember);
         //load all the series associated with the member
         ArrayList<Series> seriesArrayList = comicSeriesService.queryAllSeries(curMember);
+        ArrayList<Series> groupSeriesList = comicSeriesService.queryforGroupSeries(curMember);
         //load each issue from the user series
         for(int i = 0; i < seriesArrayList.size(); i++){
             seriesArrayList.get(i).setIssueArrayList(comicIssueService.queryAllIssuesFromASeries(curMember, seriesArrayList.get(i)));
@@ -67,6 +68,7 @@ public class CurrentUserProfileController {
         subscriptionCount = subService.sumUserSubscriptions((String)session.getAttribute("username"));
         model.addAttribute("subscriptions", subArrayList);
         model.addAttribute("subscriptionCount", subscriptionCount);
+        model.addAttribute("groupSeries", groupSeriesList);
         //set the series to member variable to be loaded in app
         Member sessionMember = (Member) session.getAttribute("curMember");
         if(!(seriesArrayList.isEmpty())) {
