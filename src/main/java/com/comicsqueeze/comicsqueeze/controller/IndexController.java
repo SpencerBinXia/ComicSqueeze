@@ -45,7 +45,7 @@ public class IndexController {
         model.addAttribute("curMember", curMember);
         model.addAttribute("userName",userName);
         Calendar cal = Calendar.getInstance();
-        TimeZone tz = TimeZone.getTimeZone("EST");
+        TimeZone tz = TimeZone.getTimeZone("America/New_York");
         cal.setTimeZone(tz);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         ArrayList<Page> weeklyContributions;
