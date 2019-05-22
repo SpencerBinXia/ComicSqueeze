@@ -222,6 +222,9 @@ public class WeeklyContributionRepo {
         catch (Exception e){
             return  null;
         }
+        if(pages.size()==0){
+            return null;
+        }
         Page maxVotes = new Page();
         maxVotes.setUsername("max.votes");
         maxVotes.setVotes(0);

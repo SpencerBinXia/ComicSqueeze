@@ -76,4 +76,14 @@ public class NotificationRepo {
             return null;
         }
     }
+
+    public void adminMarkRead(String userFrom, String link, String userTo) {
+        String updateNotif = "UPDATE \"Notifications\" SET adminread='true' WHERE username='"+userFrom+"' AND link='"+link+"' AND usernameto='"+userTo+"';";
+        jdbc.update(updateNotif);
+    }
+
+    public void userMarkRead(String userFrom, String link, String userTo) {
+        String updateNotif = "UPDATE \"Notifications\" SET read='true' WHERE username='"+userFrom+"' AND link='"+link+"' AND usernameto='"+userTo+"';";
+        jdbc.update(updateNotif);
+    }
 }
