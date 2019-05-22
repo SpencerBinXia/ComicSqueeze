@@ -98,7 +98,7 @@
                             <!--<a th:if="${session.username}!=null" id="votePageBtn" class="button-as-link" href="#vote-modal-container" data-reveal-id="exampleModal">-->
                                 <button th:if="${session.username}!=null" class="lime-button" onclick="voteClicked()">VOTE ON PAGE</button>
                             <!--</a>-->
-                            <a th:if="${session.username}!=null and ${session.curMember.isCreatedWeekly()}==false"  class="button-as-link" th:href="@{/createpage}">
+                            <a th:if="${session.username}!=null and ${session.curMember?.isCreatedWeekly()}==false"  class="button-as-link" th:href="@{/createpage}">
                                 <button class="lime-button">CREATE PAGE</button>
                             </a>
                             <!-- eventually, only show when admin -->
