@@ -12,6 +12,8 @@
     background-color: white;
     width: 65%;
     margin: auto;
+    max-height: 80%;
+    overflow-y: auto;
     /*left: 15%;*/
     /*float: left;*/
     -webkit-box-shadow:0 0 10px rgba(0,0,0,0.4);
