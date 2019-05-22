@@ -376,7 +376,7 @@ $(document).ready(function(){
                         var invButton = document.createElement("button");
                         invButton.id = 'invite' + inviteCounter;
                         invButton.innerText = inviteName;
-                        invButton.classList.add("invNameBtn");
+                        invButton.classList.add("tagBtn");
                         invButton.addEventListener('click', function () {
                             deleteInvite(invButton);
                         });
