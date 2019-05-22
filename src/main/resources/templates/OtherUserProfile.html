@@ -47,13 +47,13 @@
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
+                <img src="images/icons/notification_icon.png" title="Notifications" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
+                <img src="images/icons/search_icon.png" title="Browse" th:src="@{/images/icons/search_icon.png}" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
@@ -109,8 +109,8 @@
                     <h2 id="displayName" th:text="${profileID}" th:value="${profileID}" style="text-align: center"></h2>
                     <p style="margin-top: -15px; overflow-wrap: break-word; white-space: pre-wrap" th:text="${viewMember.getBio()}"></p>
                     <h3 th:text="'Follows: ' + ${subscriptionCount}" style="text-align: center"></h3>
-                    <button th:if="${session.username}!=null" class="lime-button-solo" onclick="subscribeAll()">FOLLOW ALL</button><br>
-                    <button th:if="${session.username}!=null" class="grey-button-solo" onclick="unsubscribeAll()">UNFOLLOW ALL</button>
+                    <button th:if="${session.username}!=null" class="lime-button-solo" title="Follow All of This User's Series" onclick="subscribeAll()">FOLLOW ALL</button><br>
+                    <button th:if="${session.username}!=null" class="grey-button-solo" title="Unfollow All of This User's Series" onclick="unsubscribeAll()">UNFOLLOW ALL</button>
                 </div>
             </div>
         </aside>

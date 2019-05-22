@@ -60,13 +60,13 @@
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" class="navIcon">
+                <img src="images/icons/notification_icon.png" title="Notifications" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" class="navIcon">
+                <img src="images/icons/search_icon.png" title="Browse" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
@@ -183,23 +183,25 @@
         <div id="past-comics-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
                 <h2 style="margin: 0">Past Comics</h2><br><br>
-                <div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">
+                <!--<div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">-->
+                <div class="horizontal_slick_past left-align-slick">
                         <th:block th:each="issue:${weeklyIssues}">
                             <div class="flexContainer flexColumn" style="align-items: center;">
                                 <div th:if="${issue.getImgurl()}==null">
-                                    <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test"><img class="issue" src="images/EXAMPLE_3.jpg"></a>
+                                    <a th:href="@{images/EXAMPLE_3.jpg}" data-lightbox="test"><img class="issue" style="margin: auto;" src="images/EXAMPLE_3.jpg"></a>
                                 </div>
                                 <div th:if="${issue.getImgurl()}!=null">
-                                    <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" ><img class="issue" th:src="${issue.getImgurl()}"></a>
+                                    <a  th:href="@{${issue.getImgurl()}}" data-lightbox="test" ><img class="issue" style="margin: auto;" th:src="${issue.getImgurl()}"></a>
                                 </div>
                                 <th:block th:each="page: ${issue.getPages()}">
                                     <a th:href="${page.getImgurl()}" data-lightbox="test" class="issue"></a>
                                 </th:block>
-                                <p style="font-weight: bold; margin-bottom: 0px;" th:text="${issue.getTitle()}">Issue Title</p>
-                                <p style="margin-top: 0px; margin-bottom: 30px;"th:text="${issue.getSeries()}">Series Name</p>
+                                <p style="font-weight: bold; margin-bottom: 0px; text-align: center" th:text="${issue.getTitle()}">Issue Title</p>
+                                <p style="margin-top: 0px; margin-bottom: 30px; text-align: center"th:text="${issue.getSeries()}">Series Name</p>
                             </div>
                         </th:block>
                 </div>
+                <!--</div>-->
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
                         <button class="grey-button-left" onclick="closePastWeekly()">CLOSE</button>
@@ -276,7 +278,7 @@
                    Description: <input id ="weeklyIssueDescription"class="input-small" type="text" name="description">
                 <label class="lime-button-left"  style="cursor: pointer;">
                     <input id ="uploadWeeklyCover" type="file" accept="image/*" onchange="uploadWeeklyCoverDB()">
-                    Issue Cover
+                    ISSUE COVER
                 </label>
                 <progress value="0" max="100" id="uploaderWeekly" style="
                                 -webkit-appearance: none;

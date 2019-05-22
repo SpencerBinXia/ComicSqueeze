@@ -68,12 +68,12 @@ public class SubscriptionService {
         }
     }
 
-//    public void increaseFollows(String seriesCreator){
-//        subRepo.increaseFollows(seriesCreator);
-//    }
-//    public void decreaseFollows(String seriesCreator){
-//        subRepo.decreaseFollows(seriesCreator);
-//    }
+    public void increaseFollows(String seriesCreator){
+        subRepo.increaseFollows(seriesCreator);
+    }
+    public void decreaseFollows(String seriesCreator){
+        subRepo.decreaseFollows(seriesCreator);
+    }
 
     public int sumSeriesSubscriptions(String seriesTitle, String seriesCreator)
     {
