@@ -8,6 +8,42 @@ function deletePage() {
 
 }
 
+// CREATE SERIES MODAL REWORK
+function editIssueClicked() {
+    var modal = document.getElementById('edit-issue');
+    modal.style.display = "block";
+}
+function closeEditIssue() {
+    var modal = document.getElementById('edit-issue');
+    document.getElementById('editIssueForm').reset();
+    modal.style.display = "none";
+}
+window.onclick =function (event) {
+    var modal = document.getElementById('edit-issue');
+    if (event.target == modal) {
+        document.getElementById('editIssueForm').reset();
+        modal.style.display = "none";
+    }
+}
+function editIssue() {
+    var descVal = $('#issueDescField').val();
+    console.log("Desc:" + descVal);
+    $.ajax({
+        type: "GET",
+        url: "/editIssue",
+        data:{
+            description: descVal
+        },
+        cache: false,
+        success: function (result) {
+            location.reload();
+        },
+        error: function (e) {
+            alert("Update issue failed!");
+        }
+    });
+}
+
 function deleteIssue() {
     console.log("In delete issue js");
     console.log(curIssueTitle);

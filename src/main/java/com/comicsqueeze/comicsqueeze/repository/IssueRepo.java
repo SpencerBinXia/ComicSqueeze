@@ -195,5 +195,11 @@ public class IssueRepo {
         String updatedIssue = "UPDATE \"Issue\" SET IMGURL='"+imgurl+"'WHERE username='"+username+"' AND series='"+seriesTitle+"' AND title='"+issueTitle+"';";
         jdbc.update(updatedIssue);
     }
+
+    public void editIssue(String username, String seriesTitle, String issueTitle, String desc) {
+        String updatedIssue = "UPDATE \"Issue\" SET description= ? WHERE username= ? AND series= ? AND title= ?;";
+        jdbc.update(updatedIssue, desc, username, seriesTitle, issueTitle);
+    }
+
 }
 

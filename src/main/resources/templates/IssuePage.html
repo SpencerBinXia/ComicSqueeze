@@ -146,7 +146,7 @@
                 <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
                 <button th:if="${session.curMember != null} and ${session.curMember.getAdminStatus()} == true and ${session.username != profileID}" class = "red-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
-                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px">EDIT</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="editIssueClicked()">EDIT</button>
                 <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 10px;">
@@ -305,6 +305,26 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
+
+    <!--Edit Issue Popup-->
+    <div id="edit-issue" class="modal">
+        <div id="edit-issue-modal" class ="modal-inner">
+            <div class ="flexContainer flexColumn">
+                <h2 style="margin-top: 0">Edit Issue:</h2>
+                <form id="editIssueForm">
+                    Description: <textarea th:text="${issue.getDescription()}" id="issueDescField" class="input-large" type="text" name="Description"></textarea><br><br>
+                </form>
+                <div class ="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
+                    <a class="button-as-link" style="width: fit-content; margin: 0">
+                        <button class="lime-button-left" onclick=editIssue()>SAVE</button>
+                    </a>
+                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
+                    <button class="grey-button-left" onclick=closeEditIssue()>CLOSE</button>
+                    <!--</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--Sign In Popup-->
     <div id="sign-In" class="modal-login">

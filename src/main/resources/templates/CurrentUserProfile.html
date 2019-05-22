@@ -170,10 +170,13 @@
                 <div class="subscriptions_slick">
                     <th:block th:each="subscription: ${subscriptions}">
                         <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
-                            <a style="width: fit-content">
+                            <a th:if="${subscription.getImgUrl()} == null" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" style="width: fit-content">
+                                <div class="issue-blank" style="margin: auto;"></div>
+                            </a>
+                            <a th:if="${subscription.getImgUrl()} != null" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" style="width: fit-content">
                                 <img th:src="${subscription.getImgUrl()}" class="issue" style="margin: auto;">
                             </a>
-                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
+                            <a  class="no-link" style="width: fit-content">
                                 <h4 class="long-span" th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
                             </a>
                             <a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">
