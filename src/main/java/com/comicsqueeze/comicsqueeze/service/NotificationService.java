@@ -25,5 +25,13 @@ public class NotificationService {
     public ArrayList<Notification> queryAdminNotifs() {
        return notificationRepo.queryAdminNotifs();
     }
+
+    public void adimnMarkRead(String userFrom, String link, String userTo) {
+        notificationRepo.adminMarkRead(userFrom,link,userTo);
+    }
+
+    public void userMarkRead(String userFrom, String link, String userTo) {
+        notificationRepo.userMarkRead(userFrom,link,userTo);
+    }
 }
 
