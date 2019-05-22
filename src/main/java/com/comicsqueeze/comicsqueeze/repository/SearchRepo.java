@@ -20,7 +20,9 @@ import java.util.Map;
 public class SearchRepo {
     @Autowired
     JdbcTemplate jdbc;
+    @Autowired
     RateReviewRepo rateReviewRepo;
+    Double avgRating;
 
     public ArrayList<Series> searchAllSeriesByTitle(String searchString) {
         System.out.println("Matching series titles with " + searchString);
@@ -117,6 +119,12 @@ public class SearchRepo {
                 System.out.println("The timestamp : " + tempSeries.getTimestamp());
                 tempSeries.setRateCounter((int)rs.get("ratecounter"));
                 tempSeries.setImgUrl((String)rs.get("imgurl"));
+                try {
+                    avgRating = rateReviewRepo.queryAverageReview(tempSeries.getTitle(), tempSeries.getUsername());
+                    tempSeries.setRating(avgRating);
+                } catch (Exception e) {
+                    tempSeries.setRating(-1.0);
+                }
                 series.add(tempSeries);
             }
         }
@@ -128,9 +136,35 @@ public class SearchRepo {
 
 
 
-
+//  GETS ALL SERIES ON EMPTY SEARCH
+//    public ArrayList<Series> getTopSeries(){
+//        String seriesQuery = "SELECT * FROM \"Series\";";
+//        List<Map<String, Object>> rows = jdbc.queryForList(seriesQuery);
+//        ArrayList<Series> series = new ArrayList<>();
+//        for (Map rs : rows) {
+//            Series tempSeries = new Series();
+//            tempSeries.setTitle((String)rs.get("seriestitle"));
+//            tempSeries.setDescription((String)rs.get("description"));
+//            tempSeries.setUsername((String)rs.get("username"));
+//            tempSeries.setWeekly((boolean)rs.get("weekly"));
+//            tempSeries.setTags((String)rs.get("tags"));
+//            tempSeries.setCreators((String)rs.get("creators"));
+//            Date tempDate = ((Date)rs.get("timestamp"));
+//            tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
+//            System.out.println("The timestamp : " + tempSeries.getTimestamp());
+//            tempSeries.setImgUrl((String)rs.get("imgurl"));
+//            try {
+//                avgRating = rateReviewRepo.queryAverageReview(tempSeries.getTitle(), tempSeries.getUsername());
+//                tempSeries.setRating(avgRating);
+//            } catch (Exception e) {
+//                tempSeries.setRating(-1.0);
+//            }
+//            series.add(tempSeries);
+//        }
+//        return series;
+//    }
     public ArrayList<Series> getTopSeries(){
-        String query = "SELECT avg(rr.rating), seriestitle, username, description, timestamp, tags,creators,weekly FROM \"ratereview\" rr " +
+        String query = "SELECT avg(rr.rating), seriestitle, username, description, timestamp, tags,creators,weekly,imgurl FROM \"ratereview\" rr " +
                 "INNER JOIN \"Series\" USING(seriestitle) WHERE \"Series\".username = rr.seriescreator " +
                 "AND \"Series\".seriestitle = rr.seriestitle GROUP BY seriestitle, username ORDER BY avg(rr.rating) DESC;";
         List<Map<String, Object>> rows = jdbc.queryForList(query);
@@ -147,6 +181,7 @@ public class SearchRepo {
             Date tempDate = ((Date)rs.get("timestamp"));
             tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
+            tempSeries.setImgUrl((String)rs.get("imgurl"));
             series.add(tempSeries);
         }
         return series;
@@ -175,6 +210,7 @@ public class SearchRepo {
         return members;
 
     }
+
 
     public ArrayList<String> getAllTagsstring(){
         String query = "SELECT tags FROM \"Series\" AS document;";

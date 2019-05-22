@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @Controller
 public class RegisterController {
@@ -35,6 +36,10 @@ public class RegisterController {
         /*
             Create User in Firebase
          */
+        Enumeration attrs =  session.getAttributeNames();
+        while(attrs.hasMoreElements()) {
+            session.removeAttribute((String)attrs.nextElement());
+        }
         String message;
         try {
             UserRecord.CreateRequest request =  new UserRecord.CreateRequest()
@@ -51,9 +56,9 @@ public class RegisterController {
                 Check if the username already exists
              */
             if(service.registerMember(newMember)){
-                m.addAttribute("userName",userRecord.getDisplayName());
-                session.setAttribute("username", Username);
-                return "redirect:/signin?userName="+Username;
+//                m.addAttribute("userName",userRecord.getDisplayName());
+//                session.setAttribute("username", Username);
+                return "redirect:/";
             }
             /*
                 if the username already exists cancel registration and delete user from firebase

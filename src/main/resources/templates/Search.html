@@ -98,7 +98,7 @@
                 <div class="vertical_slick_search">
                 <th:block th:if="${theResult != null}" th:each="series: ${theResult}">
                     <div class="test">
-                        <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                        <div class="flexContainer flexRow" style="margin-bottom: 20px; height: 250px">
                                 <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
                                     <div th:if="${series.getImgUrl() == null}">
                                         <div class="issue-blank"></div>
@@ -112,7 +112,8 @@
                                     <a th:href="@{/viewprofile/{profileID}(profileID=${series.getUsername()})}" style="color: #555555; width: fit-content;">
                                         <h4 th:text="${series.getUsername()}" style="margin: 5px 0 0 0"></h4>
                                     </a>
-                                    <h4 th:text="'Rating: ' + ${series.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                    <h4 th:if="${series.getRating()} == -1.0" th:text="'Rating: No Ratings Yet!'" style="margin: 7px 0 15px 0"></h4>
+                                    <h4 th:if="${series.getRating()} != -1.0" th:text="'Rating: ' + ${series.getRating()}" style="margin: 7px 0 15px 0"></h4>
                                     <p style="color: #555555; margin: 0">Description:</p>
                                     <p th:text="${series.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
                                     <p style="color: #555555; margin: 0">Tags:</p>
@@ -144,7 +145,7 @@
                 <div class="vertical_slick_Low">
                 <th:block th:if="${seriesRatingLow != null}" th:each="mapEntry: ${seriesRatingLow}">
                     <div class="test">
-                        <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                        <div class="flexContainer flexRow" style="margin-bottom: 20px; height: 250px">
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
                                 <div th:if="${mapEntry.key.getImgUrl() == null}">
                                     <div class="issue-blank"></div>
@@ -158,7 +159,8 @@
                                 <a th:href="@{/viewprofile/{profileID}(profileID=${mapEntry.key.getUsername()})}" style="color: #555555; width: fit-content;">
                                     <h4 th:text="${mapEntry.key.getUsername()}" style="margin: 5px 0 0 0"></h4>
                                 </a>
-                                <h4 th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${mapEntry.key.getRating()} == -1.0" th:text="'Rating: No Ratings Yet!'" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${mapEntry.key.getRating()} != -1.0" th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
                                 <p style="color: #555555; margin: 0">Description:</p>
                                 <p th:text="${mapEntry.key.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
                                 <p style="color: #555555; margin: 0">Tags:</p>
@@ -175,7 +177,7 @@
                 <div class="vertical_slick_high">
                 <th:block th:if="${seriesRatingHigh != null}" th:each="mapEntry: ${seriesRatingHigh}">
                     <div class="test">
-                        <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                        <div class="flexContainer flexRow" style="margin-bottom: 20px; height: 250px">
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${mapEntry.key.getUsername()}, SeriesTitle=${mapEntry.key.getTitle()})}" class="no-link">
                                 <div th:if="${mapEntry.key.getImgUrl() == null}">
                                     <div class="issue-blank"></div>
@@ -189,7 +191,8 @@
                                 <a th:href="@{/viewprofile/{profileID}(profileID=${mapEntry.key.getUsername()})}" style="color: #555555; width: fit-content;">
                                     <h4 th:text="${mapEntry.key.getUsername()}" style="margin: 5px 0 0 0"></h4>
                                 </a>
-                                <h4 th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${mapEntry.key.getRating()} == -1.0" th:text="'Rating: No Ratings Yet!'" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${mapEntry.key.getRating()} != -1.0" th:text="'Rating: ' + ${mapEntry.key.getRating()}" style="margin: 7px 0 15px 0"></h4>
                                 <p style="color: #555555; margin: 0">Description:</p>
                                 <p th:text="${mapEntry.key.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
                                 <p style="color: #555555; margin: 0">Tags:</p>
@@ -206,7 +209,7 @@
                 <div class="vertical_slick_recent">
                 <th:block th:if="${seriesSortedRecent != null}" th:each="series: ${seriesSortedRecent}">
                     <div class="test">
-                        <div class="flexContainer flexRow" style="margin-bottom: 20px">
+                        <div class="flexContainer flexRow" style="margin-bottom: 20px; height: 250px">
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${series.getUsername()}, SeriesTitle=${series.getTitle()})}" class="no-link">
                                 <div th:if="${series.getImgUrl() == null}">
                                     <div class="issue-blank"></div>
@@ -220,7 +223,8 @@
                                 <a th:href="@{/viewprofile/{profileID}(profileID=${series.getUsername()})}" style="color: #555555; width: fit-content;">
                                     <h4 th:text="${series.getUsername()}" style="margin: 5px 0 0 0"></h4>
                                 </a>
-                                <h4 th:text="'Rating: ' + ${series.getRating()}" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${series.getRating()} == -1.0" th:text="'Rating: No Ratings Yet!'" style="margin: 7px 0 15px 0"></h4>
+                                <h4 th:if="${series.getRating()} != -1.0" th:text="'Rating: ' + ${series.getRating()}" style="margin: 7px 0 15px 0"></h4>
                                 <p style="color: #555555; margin: 0">Description:</p>
                                 <p th:text="${series.getDescription()}" style="margin: 5px 0 15px 0; white-space: pre-wrap"></p>
                                 <p style="color: #555555; margin: 0">Tags:</p>
