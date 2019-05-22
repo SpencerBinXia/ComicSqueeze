@@ -54,15 +54,19 @@ public class CreatePageController {
         page.setVotes(0);
         while (unusedPage = false)
         {
+            System.out.println("unusedPage loop");
             if (comicPageService.findPageByNumber(username, page.getPagenumber(), seriesTitle, issueTitle) != null)
             {
                 page.setPagenumber(pageNumber+1);
+                System.out.println("unusedPage loop page found");
             }
             else
             {
                 unusedPage = true;
+                System.out.println("unusedPage loop page set to true");
             }
         }
+        System.out.println("outside unusedPage loop");
         comicPageService.createPage(page);
         model.addObject("profileID", username);
         model.addObject("seriesTitle", seriesTitle);
