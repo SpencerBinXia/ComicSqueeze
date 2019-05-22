@@ -83,6 +83,8 @@ function flagSeries() {
             type: "report",
             usernameto: usernameto,
             read: false,
+            adminread:false,
+
         },
         url: "/reportSeries",
         cache: false,

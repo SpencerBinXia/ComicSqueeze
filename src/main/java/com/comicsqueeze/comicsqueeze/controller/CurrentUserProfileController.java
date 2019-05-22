@@ -70,8 +70,14 @@ public class CurrentUserProfileController {
         if(!(seriesArrayList.isEmpty())) {
             sessionMember.setSeriesArrayList(seriesArrayList);
         }
+        ArrayList<Notification> notifs = new ArrayList<>();
         //load all the notifications for a user
-        ArrayList<Notification> notifs =notificationService.queryAllNotifications(sessionMember.getUsername());
+        if (sessionMember.getAdminStatus()==false) {
+            notifs = notificationService.queryAllNotifications(sessionMember.getUsername());
+        }
+        if (sessionMember.getAdminStatus()){
+           notifs= notificationService.queryAdminNotifs();
+        }
         session.setAttribute("notifs",notifs);
 
         return "CurrentUserProfile";

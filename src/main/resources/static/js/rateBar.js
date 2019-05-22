@@ -14,7 +14,7 @@ $(document).ready(function(){
                 //on the Java side
             },
             success : function(response) {
-                //location.reload();
+                location.reload();
                 console.log("rated");
             },
             error : function(e) {
@@ -41,7 +41,6 @@ function rateReview()
         },
         success : function(response) {
             location.reload();
-            alert("Successfully reviewed!");
         },
         error : function(e) {
             alert('Error: ' + e);

@@ -21,11 +21,11 @@ public class SubscriptionRepo {
     @Autowired
     JdbcTemplate jdbc;
 
-    public void insertSubscription(String subscriber, String seriesTitle, String seriesCreator){
+    public void insertSubscription(String subscriber, String seriesTitle, String seriesCreator, String imgUrl){
         try
         {
-            jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator)"
-                    + "VALUES(?,?,?)", subscriber, seriesTitle, seriesCreator);
+            jdbc.update("INSERT INTO \"Subscription\"(subscriber,seriestitle,seriescreator, imgurl)"
+                    + "VALUES(?,?,?,?)", subscriber, seriesTitle, seriesCreator, imgUrl);
         }
         catch (Exception e)
         {
@@ -56,6 +56,7 @@ public class SubscriptionRepo {
                     tempSubscript.setSubscriber(rs.getString("subscriber"));
                     tempSubscript.setSeriesCreator(rs.getString("seriescreator"));
                     tempSubscript.setSeriesTitle(rs.getString("seriestitle"));
+                    tempSubscript.setImgUrl(rs.getString("imgurl"));
                     return tempSubscript;
                 }
             });
@@ -65,6 +66,11 @@ public class SubscriptionRepo {
             return null;
         }
         return tempSubscript;
+    }
+
+    public void updateSubImgUrl(String seriesTitle, String seriesCreator, String imgUrl){
+        String updateImgUrlQuery = "UPDATE \"Subscription\" SET imgurl=? WHERE seriestitle= ? AND seriescreator = ?;";
+        jdbc.update(updateImgUrlQuery, imgUrl, seriesTitle, seriesCreator);
     }
 
     public void increaseFollows(String seriesCreator){
@@ -119,6 +125,7 @@ public class SubscriptionRepo {
             tempSub.setSubscriber((String)rs.get("subscriber"));
             tempSub.setSeriesTitle((String)rs.get("seriestitle"));
             tempSub.setSeriesCreator((String)rs.get("seriescreator"));
+            tempSub.setImgUrl((String)rs.get("imgurl"));
             subList.add(tempSub);
         }
         return subList;

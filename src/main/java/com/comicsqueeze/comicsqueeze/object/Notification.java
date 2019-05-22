@@ -7,6 +7,8 @@ public class Notification {
     private String body;
     private String type;
     private boolean read;
+    private boolean adminRead;
+    private String seriesReported;
 
     public String getUsername() {
         return username;
@@ -54,5 +56,21 @@ public class Notification {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public boolean isAdminRead() {
+        return adminRead;
+    }
+
+    public void setAdminRead(boolean adminRead) {
+        this.adminRead = adminRead;
+    }
+
+    public String getSeriesReported() {
+        return seriesReported;
+    }
+
+    public void setSeriesReported(String seriesReported) {
+        this.seriesReported = seriesReported;
     }
 }

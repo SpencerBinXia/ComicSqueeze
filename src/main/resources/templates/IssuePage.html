@@ -5,7 +5,7 @@
 <link>
 
     <meta charset="UTF-8">
-    <title th:text="${issueTitle} + ' of ' + ${seriesTitle} + ' by ' + ${profileID} + '- ComicSqueeze'"></title>
+    <title th:text="${issueTitle} + ' of ' + ${seriesTitle} + ' by ' + ${profileID} + ' - ComicSqueeze'"></title>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -124,6 +124,12 @@
                         <a class="subtext" style="margin: 0" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${profileID}, SeriesTitle=${seriesTitle})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'Series: ' + ${seriesTitle}"></h4></a>
                         <a class="subtext" th:href="@{/viewprofile/{profileID}(profileID=${profileID})}"><h4 class="subtext" style="margin: 0; font-size: 20px" th:text ="'by ' + ${profileID}"></h4></a>
                         <br>
+                        <div th:if="${collaborative == true}">
+                            <p style="margin-bottom:0;">Collaborators: </p>
+                            <th:block th:each="creator: ${creatorList}">
+                                <a class="subtext" th:text ="${creator} + ','" th:href="@{/viewprofile/{profileID}(profileID=${creator})}"></a>
+                            </th:block>
+                        </div>
                         <h2>Description</h2>
                         <p th:text="${issue.getDescription()}" style="font-size: 20px; white-space: pre-wrap"></p>
                     </div>
@@ -252,11 +258,10 @@
             <div class="flexContainer flexRow">
                 <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
                 <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
-                    <p class="notification-item">USERNAME has released a new comic series</p>
-                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
-                    <p class="notification-item">New Follower: USERNAME</p>
-                    <p class="notification-item">SeriesName has been flagged.</p>
-                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <th:block  th:each="notif:${session.notifs}">
+                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                    </th:block>
                 </div>
             </div>
         </div>

@@ -146,11 +146,10 @@
             <div class="flexContainer flexRow">
                 <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
                 <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
-                    <p class="notification-item">USERNAME has released a new comic series</p>
-                    <p class="notification-item">USERNAME has written a review for your series: SERIES NAME</p>
-                    <p class="notification-item">New Follower: USERNAME</p>
-                    <p class="notification-item">SeriesName has been flagged.</p>
-                    <p class="notification-item">USERNAME has released a new comic series</p>
+                    <th:block  th:each="notif:${session.notifs}">
+                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                    </th:block>
                 </div>
             </div>
         </div>
@@ -170,7 +169,7 @@
                     <th:block th:each="subscription: ${subscriptions}">
                         <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
                             <a style="width: fit-content">
-                                <img src="https://via.placeholder.com/140x240" class="issue" style="margin: auto;">
+                                <img th:src="${subscription.getImgUrl()}" class="issue" style="margin: auto;">
                             </a>
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
                                 <h4 class="long-span" th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
