@@ -185,7 +185,10 @@
     <div id="past-comics" class="modal">
         <div id="past-comics-modal" class="modal-inner">
             <div class="flexContainer flexColumn">
-                <h2 style="margin: 0">Past Comics</h2><br><br>
+                <div class="flexContainer flexRow" style="justify-content: space-between">
+                    <h2 style="margin: 0">Past Comics</h2><br><br>
+                    <button class="grey-button-left" style="margin: 0" onclick="closePastWeekly()">CLOSE</button>
+                </div>
                 <!--<div class="flexContainer flexRow" style="flex-wrap: wrap; justify-content: space-around; align-content: flex-start">-->
                 <div class="horizontal_slick_past left-align-slick">
                         <th:block th:each="issue:${weeklyIssues}">
@@ -205,11 +208,11 @@
                         </th:block>
                 </div>
                 <!--</div>-->
-                <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
-                    <!--<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">-->
-                        <button class="grey-button-left" onclick="closePastWeekly()">CLOSE</button>
-                    <!--</a>-->
-                </div>
+                <!--<div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">-->
+                    <!--&lt;!&ndash;<a href="#" class="button-as-link close-reveal-modal" style="width: fit-content; margin: 0">&ndash;&gt;-->
+                        <!--<button class="grey-button-left" onclick="closePastWeekly()">CLOSE</button>-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
             </div>
         </div>
     </div>
