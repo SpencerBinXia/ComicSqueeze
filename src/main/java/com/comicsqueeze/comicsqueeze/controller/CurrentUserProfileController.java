@@ -73,6 +73,10 @@ public class CurrentUserProfileController {
         if(!(seriesArrayList.isEmpty())) {
             sessionMember.setSeriesArrayList(seriesArrayList);
         }
+        else
+        {
+            sessionMember.setSeriesArrayList(null);
+        }
         ArrayList<Notification> notifs = new ArrayList<>();
         //load all the notifications for a user
         if (sessionMember.getAdminStatus()==false) {
