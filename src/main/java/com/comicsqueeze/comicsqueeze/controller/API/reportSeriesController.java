@@ -34,6 +34,7 @@ public class reportSeriesController {
         if(notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle)){
             return null;
         }
+        System.out.println("First time reporting");
         return seriesToReport;
     }
 
