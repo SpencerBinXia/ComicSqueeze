@@ -37,6 +37,10 @@ public class SeriesController {
         int countRating;
         boolean subscribed = false;
         Series series;
+        if (comicSeriesService.findSeriesByTitle(profileID, seriesTitle) == null)
+        {
+            return "redirect:/";
+        }
         System.out.println("series controller" + seriesTitle);
         int totalSubscriptions = subService.sumSeriesSubscriptions(seriesTitle, profileID);
         System.out.println("seriesController totalsub: " + totalSubscriptions);

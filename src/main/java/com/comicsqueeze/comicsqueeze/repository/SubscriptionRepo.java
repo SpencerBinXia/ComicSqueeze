@@ -42,6 +42,9 @@ public class SubscriptionRepo {
     public void deleteSubscriptionsFromSeries(String seriesTitle, String seriesCreator)
     {
         String deleteSubscription = "DELETE FROM \"Subscription\" WHERE seriestitle= ? AND seriescreator= ?;";
+        int count = sumSeriesSubscriptions(seriesTitle, seriesCreator);
+        String decFollowsDeleteQuery = "UPDATE \"Member\" SET follows = follows-" + count + " WHERE username='" + seriesCreator + "';";
+        jdbc.update(decFollowsDeleteQuery);
         jdbc.update(deleteSubscription, seriesTitle, seriesCreator);
     }
 

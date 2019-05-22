@@ -89,9 +89,6 @@ function flagSeries() {
         url: "/reportSeries",
         cache: false,
         success: function (result) {
-            console.log("In success report series");
-            console.log(result.valueOf());
-            console.log(result);
             if(result == false){
                 alert("Cannot report same series twice");
             }
@@ -133,10 +130,8 @@ function createIssue(){
         data: JSON.stringify(newIssue),
         cache: false,
         success: function (result) {
-            console.log(result);
             if (result.status === "OK")
             {
-                console.log("success");
                 var redirectSeries = "/series/" + result.username + "/" + result.seriesTitle;
                 window.location.assign(redirectSeries);
             }
@@ -167,10 +162,8 @@ function resetEditSeriesForm() {
 }
 function addTag() {
     var tag = document.getElementById("addInput").value;
-    console.log("add tag: " + tag);
     document.getElementById("addInput").value = "";
     if(newTagList.includes(tag)){
-        console.log("duplicate");
         alert("Cannot have duplicate tags.")
         return false;
     }
@@ -179,21 +172,18 @@ function addTag() {
         return false;
     } else {
         newTagList.push(tag);
-        console.log("tags list: " + newTagList);
     }
-    document.getElementById("seriesTags").value = newTagList.join(", ");
+    document.getElementById("seriesTags").value = newTagList.join(",");
 }
 
 function deleteTag() {
     var tag = document.getElementById("deleteInput").value;
-    console.log("delete tag: " + tag);
     document.getElementById("deleteInput").value = "";
-    for( var i = 0; i < newTagList.length; i++){
+    for ( var i = 0; i < newTagList.length; i++){
         if ( newTagList[i] == tag) {
             newTagList.splice(i, 1);
             i--;
-            console.log("tags list: " + newTagList);
-            document.getElementById("seriesTags").value = newTagList.join(", ");
+            document.getElementById("seriesTags").value = newTagList.join(",");
             return;
         }
     }
@@ -201,10 +191,8 @@ function deleteTag() {
 
 function addCollab() {
     var collab = document.getElementById("addCollabInput").value;
-    console.log("add collab: " + collab);
     document.getElementById("addCollabInput").value = "";
     if(newCollabList.includes(collab)){
-        console.log("duplicate");
         alert("Cannot have duplicate collaborators.");
         return false;
     }
@@ -221,11 +209,9 @@ function addCollab() {
                         //on the Java side
                     },
                     success : function(response) {
-                        console.log(response);
                         if (response == "OK")
                         {
                             newCollabList.push(collab);
-                            console.log("collab list: " + newCollabList);
                             document.getElementById("seriesCreators").value = newCollabList.join(",");
                         }
                         else
@@ -235,7 +221,6 @@ function addCollab() {
                         }
                     },
                     error : function(e) {
-                        console.log(e);
                         alert('Error: AJAX failed');
                         return 0;
                     }
@@ -245,13 +230,11 @@ function addCollab() {
 
 function deleteCollab() {
     var collab = document.getElementById("deleteCollabInput").value;
-    console.log("delete collab: " + collab);
     document.getElementById("deleteCollabInput").value = "";
     for( var i = 0; i < newCollabList.length; i++){
         if ( newCollabList[i] == collab) {
             newCollabList.splice(i, 1);
             i--;
-            console.log("collab list: " + newCollabList);
             document.getElementById("seriesCreators").value = newCollabList.join(",");
             return;
         }
@@ -308,24 +291,21 @@ function deleteCollab() {
 
 function popEditSeries() {
     var newTags = document.getElementById("curTags").innerText;
-    var newCollabs = document.getElementById("curCreators").innerText;
-    console.log(newTags);
-    console.log(newCollabs);
-    newTagList = newTags.split(', ');
-    newCollabList = newCollabs.split(',');
-    console.log(newTagList);
-    console.log(newCollabList);
+    if ($("#curCreators").length > 0)
+    {
+        var newCollabs = document.getElementById("curCreators").innerText;
+        newCollabList = newCollabs.split(',');
+        document.getElementById("seriesCreators").value = newCollabs;
+    }
+    newTagList = newTags.split(',');
     document.getElementById("seriesTags").value = newTags;
-    document.getElementById("seriesCreators").value = newCollabs;
 }
 
 function editSeries(){
     var descVal = $('#seriesDescField').val();
-    console.log("Desc:" + descVal);
     // var tagListString = newTagList.join(", "); // creates comma separated string of tags
     var tagsVal = $('#seriesTags').val();
     tagsVal = tagsVal.replace(/\s*,\s*/g, ",");
-    console.log("Tags:" + tagsVal);
     var collabVal = $('#seriesCreators').val();
     if (collabVal != undefined && collabVal != null) {
         collabVal = collabVal.replace(/\s*,\s*/g, ",");
