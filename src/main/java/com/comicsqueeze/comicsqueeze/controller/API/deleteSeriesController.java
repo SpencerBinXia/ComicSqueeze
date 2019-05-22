@@ -37,6 +37,7 @@ public class deleteSeriesController {
     {
         Member member = (Member) session.getAttribute("curMember");
         if(member.getAdminStatus()){
+            System.out.println("Current member is an admin");
             pageService.deleteSeriesPages(seriesTitle, username);
             subService.removeSubsFromSeries(seriesTitle, username);
             rateService.deleteRatings(seriesTitle, username);
