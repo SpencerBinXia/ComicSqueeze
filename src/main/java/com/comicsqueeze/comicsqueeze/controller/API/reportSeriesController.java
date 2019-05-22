@@ -26,13 +26,16 @@ public class reportSeriesController {
     private NotificationService notificationService;
 
     @RequestMapping(value = "/reportSeries", method = RequestMethod.GET)
-    public Series reportSeries(Model model, @RequestParam(value = "reportBody") String reportBody,
+    public boolean reportSeries(Model model, @RequestParam(value = "reportBody") String reportBody,
                                @RequestParam(value = "reportSeriesTitle") String seriesTitle, @RequestParam(value = "curUser") String username, @RequestParam(value = "type")
                                String type, @RequestParam(value = "link") String link, @RequestParam("usernameto") String usernameto, @RequestParam("read") Boolean read, @RequestParam("adminread") Boolean adminread){
         System.out.println("Got to report controller");
-        Series seriesToReport = seriesService.findSeriesByTitle(username,seriesTitle);
-        notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle);
-        return seriesToReport;
+        //Series seriesToReport = seriesService.findSeriesByTitle(username,seriesTitle);
+        if(notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle)){
+            return false;
+        }
+        System.out.println("First time reporting");
+        return true;
     }
 
     @RequestMapping(value = "/notifyGroup", method = RequestMethod.GET)

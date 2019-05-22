@@ -89,9 +89,16 @@ function flagSeries() {
         url: "/reportSeries",
         cache: false,
         success: function (result) {
-            alert("successfully reported "+usernameto);
+            console.log("In success report series");
+            console.log(result.valueOf());
+            console.log(result);
+            if(result == false){
+                alert("Cannot report same series twice");
+            }
+            else{
+                alert("successfully reported "+usernameto);
+            }
             closeFlagSeries();
-
         },
         error: function(e){
             console.log("Report failed");
@@ -369,7 +376,7 @@ function deleteSeries() {
             url: "/deleteSeries",
             cache: false,
             data:{
-                seriesOwner: curUser,
+                seriesOwner: curSeriesUser,
                 seriesTitle: curSeriesTitle
             },
             success: function (result) {
