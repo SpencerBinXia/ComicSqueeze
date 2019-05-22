@@ -303,12 +303,32 @@ $(document).ready(function(){
         // slidesPerRow: 4,
         verticalSwiping: false,
     });
+    $("#titleField").keypress(function(e){
+        var regex = new RegExp("^[^$#[';\/\\]]*$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Titles may not contain the following characters: $, #, [, ], \, /, ;, '");
+            e.preventDefault();
+            return false;
+        }
+    });
     $("#tagField").keypress(function(e){
         var regex = new RegExp("^[a-zA-Z0-9]+$");
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         if (regex.test(str)) {
         } else {
-            alert("Username may only contain alphanumeric characters.");
+            alert("Tags may only contain alphanumeric characters.");
+            e.preventDefault();
+            return false;
+        }
+    });
+    $("#inviteField").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Usernames may only contain alphanumeric characters.");
             e.preventDefault();
             return false;
         }

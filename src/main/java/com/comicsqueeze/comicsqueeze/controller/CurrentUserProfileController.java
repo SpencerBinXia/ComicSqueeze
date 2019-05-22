@@ -48,8 +48,11 @@ public class CurrentUserProfileController {
     @RequestMapping(value="/yourprofile", method=RequestMethod.GET)
     public String currentProf(Model model, HttpSession session)
     {
+        if ((String)session.getAttribute("username") == null)
+        {
+            return "redirect:/";
+        }
        int subscriptionCount = 0;
-       System.out.println((String)session.getAttribute("username"));
        Member curMember = service.findMember((String)session.getAttribute("username"));
        System.out.println(curMember.getUsername());
        model.addAttribute("curMember", curMember);
