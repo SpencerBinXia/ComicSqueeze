@@ -68,6 +68,7 @@ function uploadPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
 
 }
 function editPagetoDB(username,currentSeries,currentIssue,pageNumber,img){
+    console.log(currentSeries);
 
     var storageRef = firebase.storage().ref(username+"/"+currentSeries+"/"+currentIssue+"/"+pageNumber);
     var task = storageRef.putString(img,'data_url');
