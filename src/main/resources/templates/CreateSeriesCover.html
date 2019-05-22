@@ -252,9 +252,12 @@
                 <button onclick="closeNotifications()" class="modalCloseBtn">X</button>
                 <div class="flexContainer flexColumn" style="overflow: scroll; overflow-x: hidden; height: 200px;">
                     <th:block  th:each="notif:${session.notifs}">
-                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
-                        <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
-                        <a th:if="${notif.getType()} == 'group' and ${notif.getUsername()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class = "notification-item" th:text="${notif.getUsername()}+ ' added you to Collab Series ' + ${notif.getSeriesReported()}"></a>
+                        <div class="flexContainer flexRow" style="margin: auto">
+                            <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                            <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                            <a th:if="${notif.getType()} == 'group' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class = "notification-item" th:text="${notif.getUsername()}+ ' added you to Collab Series ' + ${notif.getSeriesReported()}"></a>
+                            <a th:href="@{'/removeNotification?usernameFrom='+${notif.getUsername()}+'&link='+${notif.getLink()}+'&usernameTo='+${notif.getUsernameto()}}" class="page-option" style="color: red" th:if="${notif.getType()} == 'report' or ${notif.getType()}=='group' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:text="X"></a>
+                        </div>
                     </th:block>
                 </div>
             </div>
