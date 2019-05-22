@@ -181,19 +181,22 @@ function addTag() {
         newTagList.push(tag);
         console.log("tags list: " + newTagList);
     }
-    document.getElementById("seriesTags").value = newTagList.join(", ");
+    document.getElementById("seriesTags").value = newTagList.join(",");
 }
 
 function deleteTag() {
     var tag = document.getElementById("deleteInput").value;
     console.log("delete tag: " + tag);
     document.getElementById("deleteInput").value = "";
-    for( var i = 0; i < newTagList.length; i++){
+    console.log(newTagList);
+    for ( var i = 0; i < newTagList.length; i++){
+        console.log("inside loop");
+        console.log(newTagList[i]);
         if ( newTagList[i] == tag) {
             newTagList.splice(i, 1);
             i--;
             console.log("tags list: " + newTagList);
-            document.getElementById("seriesTags").value = newTagList.join(", ");
+            document.getElementById("seriesTags").value = newTagList.join(",");
             return;
         }
     }
@@ -311,7 +314,7 @@ function popEditSeries() {
     var newCollabs = document.getElementById("curCreators").innerText;
     console.log(newTags);
     console.log(newCollabs);
-    newTagList = newTags.split(', ');
+    newTagList = newTags.split(',');
     newCollabList = newCollabs.split(',');
     console.log(newTagList);
     console.log(newCollabList);
