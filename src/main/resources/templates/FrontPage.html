@@ -79,7 +79,10 @@
     <div class="flexContainer flexItem">
 
         <main class="flexItem whiteBackground main" style="max-width: 65%">
-            <h1>Weekly Collaborative Comic</h1>
+            <h1 style="margin-bottom: 5px">Weekly Collaborative Comic</h1>
+            <a style="cursor: pointer; color: #555555; margin: 0 0 10px 0" title='Every week is a new weekly issue.
+Users can create one page per day.
+At midnight the page with the most votes is added to the issue.'>Instructions</a>
             <div class="flexContainer flexRow">
                 <div class="column-left img">
                     <img th:src="${session.weeklyComic.getImgUrl()}" src="images/EXAMPLE.jpg" style="size: auto">
