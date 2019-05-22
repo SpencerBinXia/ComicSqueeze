@@ -49,6 +49,7 @@ public class CreatePageController {
         page.setPublished(false);
         page.setSeries(seriesTitle);
         page.setCustom(custom);
+        page.setCreator((String)session.getAttribute("username"));
         page.setVotes(0);
         comicPageService.createPage(page);
         model.addObject("profileID", username);

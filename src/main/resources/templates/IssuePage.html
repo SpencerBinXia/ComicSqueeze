@@ -140,7 +140,7 @@
                     <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
                 <label class="lime-button-file" th:if="${session.username == profileID} OR ${creator == true}" style="cursor: pointer;">
-                    <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(username,currentSeries,currentIssue,pageNumber)">
+                    <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(curSeriesUsername,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
                 </label>
                 <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
@@ -172,13 +172,13 @@
                             <div class="flexContainer flexRow" style="margin: auto">
                                 <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                                 <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>
-                                <a th:if="${session.username == profileID} and ${page.getCustom()}==false" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
+                                <a th:if="${session.username == profileID or session.username == page.getCreator()} and ${page.getCustom()}==false" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
 
-                                <label  class="page-option" th:if="${session.username == profileID} and ${page.getCustom()}!=false" style="cursor: pointer;">
+                                <label  class="page-option" th:if="${session.username == profileID or session.username == page.getCreator()} and ${page.getCustom()}!=false" style="cursor: pointer;">
                                     <img src="images/icons/upload_icon.png" th:src="@{/images/icons/upload_icon.png}">
-                                    <input th:name="${page.getPagenumber()}" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(username,currentSeries,currentIssue,this)">
+                                    <input th:name="${page.getPagenumber()}" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(curSeriesUsername,currentSeries,currentIssue,this)">
                                 </label>
-                                <a th:if="${session.username == profileID}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${curMember.getUsername()}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                                <a th:if="${session.username == profileID or session.username == page.getCreator()}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${profileID}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
                                 <div th:if="${session.username == profileID and page.isPublished() == true}">
                                     <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always checked>
                                 </div>
@@ -194,6 +194,9 @@
                                 <script>
                                     i+=1;
                                 </script>
+                            </div>
+                            <div th:if="${collaborative == true and (session.username == profileID or creator == true)}">
+                                <p class="subtext" th:text="'by: ' + ${page.getCreator()}" style="text-align: center"></p>
                             </div>
                             <!-- <h2 th:if="${session.username == profileID}" class="subtext" style="margin: 0"th:text="'Publish    ed: ' + ${page.isPublished()}"></h2> -->
                         </div>
@@ -261,6 +264,7 @@
                     <th:block  th:each="notif:${session.notifs}">
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                        <a th:if="${notif.getType()} == 'group' and ${notif.getUsername()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class = "notification-item" th:text="${notif.getUsername()}+ ' added you to Collab Series ' + ${notif.getSeriesReported()}"></a>
                     </th:block>
                 </div>
             </div>
