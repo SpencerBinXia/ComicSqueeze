@@ -57,13 +57,13 @@
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" class="navIcon">
+                <img src="images/icons/notification_icon.png" title="Notifications" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" class="navIcon">
+                <img src="images/icons/search_icon.png" title="Browse" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
@@ -123,9 +123,9 @@
                     <!--<a class="button-as-link">-->
                     <h3 th:text="'Follows: ' + ${subscriptionCount}" style="text-align: center"></h3>
                     <!--<a class="button-as-link" href="#subscriptions-modal-container" data-reveal-id="exampleModal">-->
-                    <button class="lime-button-solo" onclick="followingClicked()">FOLLOWING</button>
+                    <button class="lime-button-solo" title="View Followed Series" onclick="followingClicked()">FOLLOWING</button>
                     <br>
-                    <button class="lime-button-solo" onclick="collabSeriesClicked()">COLLAB SERIES</button>
+                    <button class="lime-button-solo" title="View Collaborative Series" onclick="collabSeriesClicked()">COLLAB SERIES</button>
                     <!--</a>-->
                     <br>
                     <!--<a class="button-as-link" href="#create-series-modal-container" data-reveal-id="exampleModal">-->
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <!--<a class="button-as-link" href="#edit-profile-modal-container" data-reveal-id="exampleModal">-->
-                <button class="grey-button-left" onclick="editProfileClicked()">EDIT</button>
+                <button class="grey-button-left" title="Edit Profile Info" onclick="editProfileClicked()">EDIT</button>
             <!--</a>-->
         </aside>
         <aside class="sidebar sidebarRight" style="min-width: 0"></aside>
@@ -232,7 +232,7 @@
                             <p th:text="${curMember.getEmail()}"></p>
                             <br>
                             <a href="javascript:sendPasswordResetFromLink();"> Send Reset Password Email</a><br><br>
-                            BIO: <img src="images/icons/edit_icon.png" style="height: 20px; width: 20px">
+                            BIO:
                             <br>
                             <textarea id="bioField" class="input-large"></textarea>
                             <br><br>
@@ -248,9 +248,10 @@
                                 margin-top: 3%;
                             ">0%</progress>
                             <!--When successful, routes back to FrontPage-->
-
-                            <input id = "file" name = "file" type="file" value="UPLOAD" onchange="updateProfilePic()" class="lime-button-solo" style="margin-top: 30px; float: bottom; display: block;">
-
+                            <label class="lime-button-left"  style="cursor: pointer; margin-top: 30px; float: bottom; display: block;">
+                                <input id ="file" name = "file" type="file" accept="image/*" value="UPLOAD" title="Upload Profile Pic" onchange="updateProfilePic()">
+                                UPLOAD
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -302,6 +303,7 @@
                             var tagButton = document.createElement("button");
                             tagButton.id = 'tag' + counter;
                             tagButton.innerText = tagName;
+                            tagButton.title = "Click to Remove Tag";
                             tagButton.classList.add("tagBtn");
                             tagButton.addEventListener('click', function(){
                                 deleteTag(tagButton);
@@ -326,11 +328,11 @@
                     <h3 id="inviteLabel" style="margin: 10px 0 0 0; padding-right: 20px; display: none">Invite</h3>
                     <div class="flexContainer flexRow" style="align-items: center;">
                         <form style="padding-top: 15px; padding-right: 20px;">
-                            <input class="input-small" id="inviteField" type="text" name="invite" style="display: none"><br><br>
+                            <input class="input-small" id="inviteField" type="text" name="invite" placeholder="Username:" style="display: none"><br><br>
                         </form>
                         <a style="margin: 0">
                             <button id="inviteBtn" type="button" style="display: none">
-                                <img src="images/icons/add_user_icon.png" style="margin: 0; height: 30px; width: 30px">
+                                <img src="images/icons/add_user_icon.png" title="Invite User" style="margin: 0; height: 30px; width: 30px">
                             </button>
                         </a>
                     </div>

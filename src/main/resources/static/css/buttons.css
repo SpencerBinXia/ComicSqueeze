@@ -4,6 +4,7 @@ button {
 
 /*navBar buttons*/
 .navButton {
+    cursor: pointer;
     background-color: transparent;
     color: white;
     border-left: 1px solid #777777;
@@ -29,6 +30,7 @@ button {
     padding-bottom: 7.5px;
     display: inline-block;
     object-fit: cover;
+    cursor: pointer;
     /*background-image: url("../images/icons/default_pro_icon.png");*/
     /*background-position: center;*/
     /*background-size: cover;*/
