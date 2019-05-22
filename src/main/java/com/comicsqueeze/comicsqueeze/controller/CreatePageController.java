@@ -52,10 +52,12 @@ public class CreatePageController {
         page.setCustom(custom);
         page.setCreator((String)session.getAttribute("username"));
         page.setVotes(0);
-        while (unusedPage = false)
+        while (unusedPage == false)
         {
             System.out.println("unusedPage loop");
-            if (comicPageService.findPageByNumber(username, page.getPagenumber(), seriesTitle, issueTitle) != null)
+            System.out.println(username);
+            System.out.println(page.getPagenumber());
+            if (comicPageService.findPageByNumber(page.getUsername(), page.getPagenumber(), page.getSeries(), page.getIssue()) != null)
             {
                 page.setPagenumber(pageNumber+1);
                 System.out.println("unusedPage loop page found");
