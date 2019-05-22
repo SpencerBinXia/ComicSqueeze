@@ -41,6 +41,7 @@ public class CreatePageController {
     {
         ModelAndView model = new ModelAndView("IssuePage");
         System.out.println("pageDB username: " + username + ",issueTitle: " + issueTitle);
+        boolean unusedPage = false;
         Page page = new Page();
         page.setUsername(username);
         page.setPagenumber(pageNumber);
@@ -51,6 +52,17 @@ public class CreatePageController {
         page.setCustom(custom);
         page.setCreator((String)session.getAttribute("username"));
         page.setVotes(0);
+        while (unusedPage = false)
+        {
+            if (comicPageService.findPageByNumber(username, page.getPagenumber(), seriesTitle, issueTitle) != null)
+            {
+                page.setPagenumber(pageNumber+1);
+            }
+            else
+            {
+                unusedPage = true;
+            }
+        }
         comicPageService.createPage(page);
         model.addObject("profileID", username);
         model.addObject("seriesTitle", seriesTitle);
@@ -119,6 +131,7 @@ public class CreatePageController {
     public String addWeeklyPageToDB( Model model,HttpSession session, @RequestParam("username") String username, @RequestParam("seriesTitle") String seriesTitle, @RequestParam("issueTitle") String issueTitle, @RequestParam("pageNumber") int pageNumber, @RequestParam("imgurl") String imgurl)
     {
         //Add page to weeklyDB
+
 
         Page page = new Page();
         page.setUsername(username);
