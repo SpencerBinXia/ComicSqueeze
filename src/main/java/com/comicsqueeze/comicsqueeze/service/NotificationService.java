@@ -22,8 +22,8 @@ public class NotificationService {
         return notificationRepo.queryAllNotifications(usernameTo);
     }
 
-    public ArrayList<Notification> queryAdminNotifs(ArrayList<Notification> notifs) {
-       return notificationRepo.queryAdminNotifs(notifs);
+    public ArrayList<Notification> queryAdminNotifs() {
+       return notificationRepo.queryAdminNotifs();
     }
 }
 
