@@ -23,8 +23,10 @@
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesTags = "[[${currentSeries.getTags()}]]";
         const curSeriesTitle = "[[${currentSeries.getTitle()}]]";
-        const curUser = "[[${session.curMember.getUsername()}]]";
         const usernameto = "[[${profileID}]]";
+    </script>
+    <script th:if="${session.curMember} != null">
+        const curUser = "[[${session.curMember.getUsername()}]]";
     </script>
 
     <link href="css/owl_carousel.css" th:href="@{/css/owl_carousel.css}" rel="stylesheet">
@@ -108,6 +110,8 @@
                         </div>
                         <h3 style="margin: 10px 0 0 0" th:text="'Rating: ' + ${averageRating}"></h3>
                         <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
+                        <h3 style="margin: 35px 0 0 0;">Description</h3>
+                        <p id="descID" th:text="${currentSeries.getDescription()}" style="white-space: pre-wrap"></p>
                     </div>
                 </div>
             </div>
@@ -133,7 +137,7 @@
                 </th:block>
             </div>
             <!-- <a href="#" class="arrow"><img src="images/icons/right_arrow_icon.png" th:src="@{/images/icons/right_arrow_icon.png}"></a> -->
-            <h3 style="margin-top: 5px; margin-bottom: 5px">Tags</h3>
+            <h3 style="margin-top: 15px; margin-bottom: 5px">Tags</h3>
             <p id="curTags" class="subtext" th:text="${currentSeries.getTags()}"></p>
             <div class="flexContainer flexRow">
                 <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">-->
@@ -158,14 +162,6 @@
                 <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="flagSeriesClicked()">REPORT</button>
             </div>
-
-            <br>
-
-            <h1>Description</h1>
-            <p id="descID" th:text="${currentSeries.getDescription()}" style="white-space: pre-wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
             <br>
 
