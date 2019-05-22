@@ -95,6 +95,7 @@ function createSeries(){
     var descVal = $('#descField').val();
     var collabVal = $('#seriesMode').val();
     var collabBool = false;
+    var curUser = curSessionUser;
     console.log(descVal);
     console.log(collabVal);
 
@@ -128,9 +129,14 @@ function createSeries(){
         inviteListString = "default";
     }
 
+    console.log("In create series js");
     console.log(titleVal);
     console.log(descVal);
     console.log(tagListString);
+    console.log(inviteListString);
+    console.log("invitelist");
+    console.log(inviteList);
+
     var newSeries = {username: null, collaborative: collabBool, creators: inviteListString, description: descVal, rating: 0, title: titleVal, tags: tagListString, timestamp: '2011-12-03T10:15:30', views: 0, weekly: false, flag: false, rateCounter: 0};
     return $.ajax({
         type: "POST",
@@ -143,7 +149,9 @@ function createSeries(){
             console.log(result);
             if (result.status === "OK")
             {
+                console.log(inviteListString);
                 console.log("success");
+                alertCollabUsers(inviteListString,curUser,titleVal);
                 var redirectIssue = "/series/" + result.username + "/" + result.seriesTitle;
                 window.location.assign(redirectIssue);
             }
@@ -157,7 +165,29 @@ function createSeries(){
         }
     });
 }
+function alertCollabUsers(group,creator,seriesTitle){
+    console.log("in alert collab");
+    console.log(group);
+    console.log(creator);
+    console.log(seriesTitle);
 
+    $.ajax({
+        type: "GET",
+        url: "/notifyGroup",
+        data:{
+            group: group,
+            seriesCreator: creator,
+            seriesTitle: seriesTitle
+        },
+        cache: false,
+        success: function(result){
+            console.log("Successfully alerted");
+        },
+        error: function (e) {
+            console.log("Alert group failed");
+        }
+    });
+}
 // FOLLOWING MODAL REWORK
 function followingClicked() {
     var modal = document.getElementById('subscriptions');
@@ -273,12 +303,32 @@ $(document).ready(function(){
         // slidesPerRow: 4,
         verticalSwiping: false,
     });
+    $("#titleField").keypress(function(e){
+        var regex = new RegExp("^[^$#[';\/\\]]*$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Titles may not contain the following characters: $, #, [, ], \, /, ;, '");
+            e.preventDefault();
+            return false;
+        }
+    });
     $("#tagField").keypress(function(e){
         var regex = new RegExp("^[a-zA-Z0-9]+$");
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         if (regex.test(str)) {
         } else {
-            alert("Username may only contain alphanumeric characters.");
+            alert("Tags may only contain alphanumeric characters.");
+            e.preventDefault();
+            return false;
+        }
+    });
+    $("#inviteField").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Usernames may only contain alphanumeric characters.");
             e.preventDefault();
             return false;
         }
@@ -302,6 +352,8 @@ $(document).ready(function(){
         // occurs when clicking the add tag button after inputting the tag name.
         var inviteName = document.getElementById("inviteField").value;
         var form = document.getElementById('inviteForm');
+        console.log("in create series");
+        console.log(curSessionUser);
         console.log("add invite: " + inviteName);
         if(inviteName == "" || inviteName == null) {
             alert("Please enter a user to invite.");
@@ -309,7 +361,12 @@ $(document).ready(function(){
         else if(inviteList.includes(inviteName)){
             console.log("invite list: " +inviteList);
             alert("Duplicate invites are invalid.");
-        } else {
+        }
+        else if(inviteName == curSessionUser){
+            console.log("invite list:" + inviteList);
+            alert("Cannot invite yourself.");
+        }
+        else {
             $.ajax({
                 type : "POST",
                 url : "/findInvitedUser",
@@ -326,7 +383,7 @@ $(document).ready(function(){
                         var invButton = document.createElement("button");
                         invButton.id = 'invite' + inviteCounter;
                         invButton.innerText = inviteName;
-                        invButton.classList.add("invNameBtn");
+                        invButton.classList.add("tagBtn");
                         invButton.addEventListener('click', function () {
                             deleteInvite(invButton);
                         });
@@ -349,3 +406,15 @@ $(document).ready(function(){
         }
     });
 });
+
+function in_list(needle, hay)
+{
+    var i, len;
+
+    for (i = 0, len = hay.length; i < len; i++)
+    {
+        if (hay[i] == needle) { return true; }
+    }
+
+    return false;
+}

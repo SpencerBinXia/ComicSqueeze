@@ -21,6 +21,7 @@
     </script>
     <script>
         // <!-- Adds thymeleaf session.username as a global variable to be used in external JS files -->
+        const curSessionUser = "[[${session.username}]]";
     </script>
 
     <link href="css/owl_carousel.css" rel="stylesheet">
@@ -149,6 +150,7 @@
                     <th:block  th:each="notif:${session.notifs}">
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                        <a th:if="${notif.getType()} == 'group' and ${notif.getUsername()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class = "notification-item" th:text="${notif.getUsername()}+ ' added you to Collab Series ' + ${notif.getSeriesReported()}"></a>
                     </th:block>
                 </div>
             </div>
@@ -168,10 +170,13 @@
                 <div class="subscriptions_slick">
                     <th:block th:each="subscription: ${subscriptions}">
                         <div class="flexColumn series-title-link" style="align-items: center; text-align: center;">
-                            <a style="width: fit-content">
+                            <a th:if="${subscription.getImgUrl()} == null" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" style="width: fit-content">
+                                <div class="issue-blank" style="margin: auto;"></div>
+                            </a>
+                            <a th:if="${subscription.getImgUrl()} != null" th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" style="width: fit-content">
                                 <img th:src="${subscription.getImgUrl()}" class="issue" style="margin: auto;">
                             </a>
-                            <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${subscription.getSeriesCreator()}, SeriesTitle=${subscription.getSeriesTitle()})}" class="no-link" style="width: fit-content">
+                            <a  class="no-link" style="width: fit-content">
                                 <h4 class="long-span" th:text="${subscription.getSeriesTitle()}" style="margin: 5px 0 0 0;"></h4>
                             </a>
                             <a th:href="@{/viewprofile/{profile}(profile=${subscription.getSeriesCreator()})}" class="subtext" style="width: fit-content">

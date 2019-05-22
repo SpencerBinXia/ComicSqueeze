@@ -23,6 +23,8 @@
         // <!-- Adds thymeleaf session description as a global variable to be used in external JS files -->
         const curSeriesTags = "[[${currentSeries.getTags()}]]";
         const curSeriesTitle = "[[${currentSeries.getTitle()}]]";
+        const curUser = "[[${session.curMember.getUsername()}]]";
+        const curSeriesUser = "[[${currentSeries.getUsername()}]]";
         const usernameto = "[[${profileID}]]";
     </script>
     <script th:if="${session.curMember} != null">
@@ -258,6 +260,7 @@
                     <th:block  th:each="notif:${session.notifs}">
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} == ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'Your Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
                         <a th:if="${notif.getType()} == 'report' and ${notif.getUsernameto()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class="notification-item" th:text="'A Series: ' + ${notif.getSeriesReported()}+ ' has been reported'"> </a>
+                        <a th:if="${notif.getType()} == 'group' and ${notif.getUsername()} != ${session.curMember.getUsername()}" th:href="@{'/'+${notif.getLink()}}" class = "notification-item" th:text="${notif.getUsername()}+ ' added you to Collab Series ' + ${notif.getSeriesReported()}"></a>
                     </th:block>
                 </div>
             </div>
@@ -305,11 +308,11 @@
                 Collaborators: <textarea disabled th:text="${currentSeries.getCreators()}" id="seriesCreators" class="input-small" style="border: none;"></textarea><br>
                 <div class="flexContainer flexRow">
                     <button class="grey-button-left" style="margin: 0" onclick="addCollab()">Add Collaborator</button>
-                    <input id="addCollabInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                    <input id="addCollabInput" class="input-small" style="width: fit-content" placeholder="Enter user name:">
                 </div><br>
                 <div class="flexContainer flexRow">
                     <button class="grey-button-left" style="margin: 0" onclick="deleteCollab()">Delete Collaborator</button>
-                    <input id="deleteCollabInput" class="input-small" style="width: fit-content" placeholder="Enter tag name:">
+                    <input id="deleteCollabInput" class="input-small" style="width: fit-content" placeholder="Enter user name:">
                 </div><br><br>
                 </div>
                 <form id="editSeriesForm">

@@ -92,6 +92,8 @@ public class SeriesRepo {
     public void deleteSeries(String series, String username)
     {
         String deleteSeries = "DELETE FROM \"Series\" WHERE seriestitle= ? AND username= ?;";
+        System.out.println(deleteSeries);
+        System.out.println(series);
         jdbc.update(deleteSeries, series, username);
     }
 

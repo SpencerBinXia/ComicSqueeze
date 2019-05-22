@@ -116,7 +116,7 @@ public class SearchRepo {
                 tempSeries.setCreators((String)rs.get("creators"));
                 Date tempDate = ((Date)rs.get("timestamp"));
                 tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
-                System.out.println("The timestamp : " + tempSeries.getTimestamp());
+                //System.out.println("The timestamp : " + tempSeries.getTimestamp());
                 tempSeries.setRateCounter((int)rs.get("ratecounter"));
                 tempSeries.setImgUrl((String)rs.get("imgurl"));
                 try {
@@ -174,7 +174,9 @@ public class SearchRepo {
             tempSeries.setTitle((String)rs.get("seriestitle"));
             tempSeries.setDescription((String)rs.get("description"));
             tempSeries.setUsername((String)rs.get("username"));
-            tempSeries.setRating((double)rs.get("avg"));
+            tempSeries.setCollaborative((boolean)rs.get("collaborative"));
+            tempSeries.setFlag((boolean)rs.get("flag"));
+            tempSeries.setRating((double)rs.get("rating"));
             tempSeries.setWeekly((boolean)rs.get("weekly"));
             tempSeries.setTags((String)rs.get("tags"));
             tempSeries.setCreators((String)rs.get("creators"));
@@ -182,6 +184,7 @@ public class SearchRepo {
             tempSeries.setTimestamp(LocalDateTime.ofInstant(tempDate.toInstant(), ZoneId.systemDefault()));
             System.out.println("The timestamp : " + tempSeries.getTimestamp());
             tempSeries.setImgUrl((String)rs.get("imgurl"));
+            tempSeries.setRateCounter((int)rs.get("ratecounter"));
             series.add(tempSeries);
         }
         return series;
@@ -210,7 +213,6 @@ public class SearchRepo {
         return members;
 
     }
-
 
     public ArrayList<String> getAllTagsstring(){
         String query = "SELECT tags FROM \"Series\" AS document;";

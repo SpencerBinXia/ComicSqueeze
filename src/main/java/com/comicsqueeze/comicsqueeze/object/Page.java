@@ -6,6 +6,7 @@ public class Page implements Comparable<Page> {
 
     private String issue;
     private String imgurl;
+    private String creator;
     private int votes;
     private int pagenumber;
     private boolean published;
@@ -15,6 +16,14 @@ public class Page implements Comparable<Page> {
     private int publishedArrayNumber;
     private int dayOfWeekCreated;
     private Boolean custom;
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
     public int compareTo(Page page)
     {

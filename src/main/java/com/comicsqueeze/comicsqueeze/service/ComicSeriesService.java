@@ -44,6 +44,7 @@ public class ComicSeriesService {
     }
 
 
+
     public void addSeriesCover(String username, String seriesTitle, String imgurl) {
         seriesRepo.addSeriesCover(username,seriesTitle,imgurl);
     }

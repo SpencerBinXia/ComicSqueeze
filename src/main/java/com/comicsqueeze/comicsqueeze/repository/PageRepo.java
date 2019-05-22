@@ -37,6 +37,14 @@ public class PageRepo {
                     tempPage.setIssue(rs.getString("issue"));
                     tempPage.setPagenumber(rs.getInt("pagenumber"));
                     tempPage.setCustom(rs.getBoolean("customupload"));
+                    if (rs.getString("creator") == null)
+                    {
+                        tempPage.setCreator(tempPage.getUsername());
+                    }
+                    else
+                    {
+                        tempPage.setCreator(rs.getString("creator"));
+                    }
                     return tempPage;
                 }
             });
@@ -50,9 +58,9 @@ public class PageRepo {
 
     public void createPage(Page newPage){
         System.out.println("THE IMGURL "+ newPage.getImgurl());
-        jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published,customupload)"
-                        + "VALUES(?,?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
-                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished(),newPage.getCustom());
+        jdbc.update("INSERT INTO \"Page\"(username,series,issue,imgurl,pagenumber,votes,published,customupload,creator)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?)", newPage.getUsername(),newPage.getSeries(),newPage.getIssue(),newPage.getImgurl(),
+                newPage.getPagenumber(),newPage.getVotes(),newPage.isPublished(),newPage.getCustom(),newPage.getCreator());
     }
     public void createWeeklyPage(Page newPage,int day){
         System.out.println("THE IMGURL "+ newPage.getImgurl());
@@ -104,6 +112,14 @@ public class PageRepo {
             tempPage.setIssue((String)rs.get("issue"));
             tempPage.setPagenumber((int)rs.get("pagenumber"));
             tempPage.setCustom((Boolean) rs.get("customupload"));
+            if (rs.get("creator") == null)
+            {
+                tempPage.setCreator(tempPage.getUsername());
+            }
+            else
+            {
+                tempPage.setCreator((String) rs.get("creator"));
+            }
             pages.add(tempPage);
         }
         return pages;

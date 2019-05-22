@@ -369,7 +369,7 @@ function deleteSeries() {
             url: "/deleteSeries",
             cache: false,
             data:{
-                seriesOwner: curSeriesUser,
+                seriesOwner: curUser,
                 seriesTitle: curSeriesTitle
             },
             success: function (result) {
@@ -391,6 +391,16 @@ $(document).ready(function(){
         loop: false,
         nav: true
     });
+    $("#issueField").keypress(function(e){
+        var regex = new RegExp("^[^$#[';\/\\]]*$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Titles may not contain the following characters: $, #, [, ], \, /, ;, '");
+            e.preventDefault();
+            return false;
+        }
+    });
     $("#addInput").keypress(function(e){
         var regex = new RegExp("^[a-zA-Z0-9]+$");
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -402,6 +412,26 @@ $(document).ready(function(){
         }
     });
     $("#deleteInput").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Tags may only contain alphanumeric characters.");
+            e.preventDefault();
+            return false;
+        }
+    });
+    $("#addCollabInput").keypress(function(e){
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Tags may only contain alphanumeric characters.");
+            e.preventDefault();
+            return false;
+        }
+    });
+    $("#deleteCollabInput").keypress(function(e){
         var regex = new RegExp("^[a-zA-Z0-9]+$");
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         if (regex.test(str)) {

@@ -42,12 +42,12 @@ public class SearchQueryController {
             }
             //ArrayList<Series> series = searchService.queryAllSeriesByTitle(searchString);
             if(allSeriesResults != null){
-                System.out.println("Results with possible duplicates: ");
+                /*System.out.println("Results with possible duplicates: ");
                 for(int i = 0; i < allSeriesResults.size(); i++){
                     System.out.print("Series ");
                     System.out.print(allSeriesResults.get(i).getTitle());
                     System.out.println(allSeriesResults.get(i).getUsername());
-                }
+                }*/
                 ArrayList<Series> seri = removeDuplicateResultsSeries(allSeriesResults);
                 session.setAttribute("searchResults", seri);
                 //model.addAttribute("seriesTitleResults", series);
