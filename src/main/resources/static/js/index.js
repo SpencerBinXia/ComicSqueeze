@@ -176,3 +176,5 @@ module.exports = {
   renderSnapshotToSVG: renderSnapshotToSVG,
   localize: localize
 };
+
+

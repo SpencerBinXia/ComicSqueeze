@@ -93,4 +93,26 @@ $(document).ready(function(){
         slidesPerRow: 5,
         verticalSwiping: true,
     });
+
+    $("#weeklyIssueName").keypress(function (e) {
+        var regex = new RegExp("^[^$#[';\/\\]]*$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Titles may not contain the following characters: $, #, [, ], \, /, ;, '");
+            e.preventDefault();
+            return false;
+        }
+    });
+    $("#weeklyIssueDescription").keypress(function (e) {
+        var regex = new RegExp("^[^$#[';\/\\]]*$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+        } else {
+            alert("Titles may not contain the following characters: $, #, [, ], \, /, ;, '");
+            e.preventDefault();
+            return false;
+        }
+    });
+
 });
