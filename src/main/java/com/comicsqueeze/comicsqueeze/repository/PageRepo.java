@@ -23,7 +23,7 @@ public class PageRepo {
     JdbcTemplate jdbc;
 
     public Page findByPageNumber(String username, int pageNumber, String seriesTitle, String issueTitle){
-        String findPage = "SELECT * FROM \"Series\" WHERE username = ? AND seriestitle= ? AND issueTitle= ? AND pageNumber= ?;";
+        String findPage = "SELECT * FROM \"Page\" WHERE username = ? AND series= ? AND issue= ? AND pageNumber= ?;";
         Page tempPage = new Page();
         try
         {
