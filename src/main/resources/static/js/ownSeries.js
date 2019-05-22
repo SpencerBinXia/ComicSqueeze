@@ -375,7 +375,7 @@ function deleteSeries() {
             url: "/deleteSeries",
             cache: false,
             data:{
-                seriesOwner: curUser,
+                seriesOwner: curSeriesUser,
                 seriesTitle: curSeriesTitle
             },
             success: function (result) {
