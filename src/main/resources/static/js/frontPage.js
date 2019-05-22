@@ -2,6 +2,17 @@
 function pastWeeklyClicked() {
     var modal = document.getElementById('past-comics');
     modal.style.display = "block";
+    $(".horizontal_slick_past").slick({
+        dots: true,
+        arrows: true,
+        vertical: false,
+        infinite: false,
+        // slidesToShow: 4,
+        // slidesToScroll: 4,
+        rows: 2,
+        slidesPerRow: 4,
+        verticalSwiping: false,
+    });
 }
 function closePastWeekly() {
     var modal = document.getElementById('past-comics');

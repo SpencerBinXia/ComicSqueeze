@@ -71,13 +71,13 @@
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
+                <img src="images/icons/notification_icon.png" title="Notifications" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
+                <img src="images/icons/search_icon.png" title="Browse" th:src="@{/images/icons/search_icon.png}" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
@@ -112,7 +112,7 @@
                             </th:block>
                         </div>
                         <div th:if="${session.username != profileID and session.username != null}" class="flexContainer flexRow limes" style="margin-top: 10px;">
-                            <div class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                            <div title="Rate this Series" class="rateit limeBar" id="limeBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                         </div>
                         <h3 style="margin: 10px 0 0 0" th:text="'Average Rating: ' + ${averageRating}"></h3>
                         <h3 style="margin: 10px 0 0 0" th:text="'Followers: ' + ${totalSubscriptions}"></h3>
@@ -147,26 +147,26 @@
             <p id="curTags" class="subtext" th:text="${currentSeries.getTags()}"></p>
             <div class="flexContainer flexRow">
                 <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#add-issue-modal-container" data-reveal-id="exampleModal">-->
-                    <button th:if="${session.username == profileID}" class="lime-button-left" onclick="addIssueClicked()">ADD ISSUE</button>
+                    <button th:if="${session.username == profileID}" class="lime-button-left" title="Add a New Issue to this Series" onclick="addIssueClicked()">ADD ISSUE</button>
                 <!--</a>-->
                 <div th:if="${session.curMember} != null" >
-                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
-                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
-                    <button th:if="${session.curMember.getAdminStatus()} == true and ${session.username != profileID} " class="red-button-left" style="margin-left: 20px" onclick="deleteSeries()">DELETE</button>
+                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button-left" style="margin-left: 20px" title="Delete the Series" onclick="deleteSeries()">DELETE</button>
+                    <button th:if="${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button-left" style="margin-left: 20px" title="Delete the Series" onclick="deleteSeries()">DELETE</button>
+                    <button th:if="${session.curMember.getAdminStatus()} == true and ${session.username != profileID} " class="red-button-left" style="margin-left: 20px" title="Delete the Series" onclick="deleteSeries()">DELETE</button>
                 </div>
                 <!--<a th:if="${session.username == profileID}" class="button-as-link" href="#edit-series-modal-container" data-reveal-id="exampleModal" style="margin-left: 20px">-->
-                    <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" onclick="editSeriesClicked()">EDIT</button>
+                    <button th:if="${session.username == profileID}" class="lime-button-left" style="margin-left: 20px" title="Edit Series Info" onclick="editSeriesClicked()">EDIT</button>
                 <!--</a>-->
                 <a th:if="${session.username == profileID}" class="button-as-link"  style="margin-left: 20px">
-                    <a class="lime-button-left" th:href="@{/createseriescover}"> CREATE COVER</a>
+                    <a class="lime-button-left" title="Create Series Cover" th:href="@{/createseriescover}"> CREATE COVER</a>
                 </a>
                 <label class="lime-button-left" th:if="${session.username == profileID}" style="cursor: pointer; margin-left: 20px">
-                    <input id ="uploadSeriesCover" type="file" accept="image/*" onChange="uploadSeriesCoverDBCustom(username,currentSeries)">
+                    <input id ="uploadSeriesCover" type="file" accept="image/*" title="Upload Series Cover" onChange="uploadSeriesCoverDBCustom(username,currentSeries)">
                     UPLOAD COVER
                 </label>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == false}" class="lime-button-left" style="margin-left: 20px" onclick="subscribe()">FOLLOW</button>
                 <button th:if="${session.username != profileID and session.username != null and subscribed == true}" class="grey-button-left" style="margin-left: 20px" onclick="unsubscribe()">UNFOLLOW</button>
-                <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" onclick="flagSeriesClicked()">REPORT</button>
+                <button th:if="${session.username != profileID and session.username != null}" class="grey-button-left" style="margin-left: 20px" title="Report this Series" onclick="flagSeriesClicked()">REPORT</button>
             </div>
 
             <br>
@@ -174,7 +174,7 @@
             <div class="flexContainer flexRow" style="align-items: center; margin-bottom: 10px">
                 <h1 style="margin-right: 20px; ">Reviews</h1>
                 <a th:if="${session.username != profileID and session.username != null}" onclick="writeReviewClicked()" class="page-option" style="cursor: pointer">
-                    <img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}">
+                    <img src="images/icons/edit_icon.png" title="Write a Review for this Series" th:src="@{/images/icons/edit_icon.png}">
                 </a>
             </div>
             <!--
@@ -193,7 +193,7 @@
                 -->
             <th:block th:each="review: ${reviewList}">
                 <div class="review">
-                    <h4 style="margin: 0 0 10px 0;"><a th:text="${review.getRater()}" th:href="@{/viewprofile/{profileID}(profileID=${review.getRater()})}"></a></h4>
+                    <h4 style="margin: 0 0 10px 0;"><a class="no-link" th:text="${review.getRater()}" th:href="@{/viewprofile/{profileID}(profileID=${review.getRater()})}"></a></h4>
                     <div class="rateit revBar" th:data-rateit-value="${review.getRating()}" data-rateit-readonly="true" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                     <div style="max-height: 200px; overflow: auto; overflow-x: hidden;">
                         <p th:text="${review.getReview()}" style="white-space: pre-wrap; margin: 10px 0 0 0;"></p>
@@ -218,7 +218,7 @@
                     Write Review: <textarea class="input-large" id="reviewField" type="text" name="Description"></textarea><br><br>
                 </form>
                 <div class="flexContainer flexRow limes">
-                    <div class="rateit limeBar" id="reviewBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                    <div title="Rate this Series" class="rateit limeBar" id="reviewBar" th:data-rateit-value="${userRating}" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                 </div>
                 <div class="flexContainer flexRow" style="justify-content: space-between; margin-top: 10px">
                     <a class="button-as-link" style="width: fit-content; margin: 0">

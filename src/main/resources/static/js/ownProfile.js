@@ -87,7 +87,12 @@ function resetSeriesForm() {
     while (buttons.firstChild) {
         buttons.removeChild(buttons.firstChild);
     }
+    var buttons2 = document.getElementById("inviteForm");
+    while (buttons2.firstChild) {
+        buttons2.removeChild(buttons2.firstChild);
+    }
     tagList.length = 0; // resets the tag list since the form is closed.
+    inviteList.length = 0; // resets invite list when form is closed.
 }
 
 function createSeries(){
@@ -350,7 +355,8 @@ $(document).ready(function(){
 
     $("#inviteBtn").on('click', function () {
         // occurs when clicking the add tag button after inputting the tag name.
-        var inviteName = document.getElementById("inviteField").value;
+        var inviteField = document.getElementById("inviteField");
+        var inviteName = inviteField.value;
         var form = document.getElementById('inviteForm');
         console.log("in create series");
         console.log(curSessionUser);
@@ -380,9 +386,11 @@ $(document).ready(function(){
                     if (response == "OK")
                     {
                         inviteCounter++;
+                        inviteField.value="";
                         var invButton = document.createElement("button");
                         invButton.id = 'invite' + inviteCounter;
                         invButton.innerText = inviteName;
+                        invButton.title = "Click to Remove User";
                         invButton.classList.add("tagBtn");
                         invButton.addEventListener('click', function () {
                             deleteInvite(invButton);
