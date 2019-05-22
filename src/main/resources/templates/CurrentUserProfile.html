@@ -83,6 +83,7 @@
                     <div class="slickElem" style="height: 400px">
                         <div class="flexContainer flexRow">
                             <a th:href="@{/series/{profileID}/{SeriesTitle}(profileID=${session.username}, SeriesTitle=${series.getTitle()})}" class="series-title long-span" th:text="${series.getTitle()}"><h1></h1></a>
+                            <!--<h1 th:text="'Rating: ' + ${series.getRating()}" style="margin-left: 20px"></h1>-->
                         </div>
                         <div class="horizontal_slick left-align-slick">
                             <th:block th:each="issue: ${series.getIssueArrayList()}">
