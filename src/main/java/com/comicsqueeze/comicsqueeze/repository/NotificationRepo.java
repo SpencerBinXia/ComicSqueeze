@@ -16,12 +16,28 @@ public class NotificationRepo {
     @Autowired
     JdbcTemplate jdbc;
 
-    public void storeNotification(String username, String body, String link, String type,String usernameto, Boolean read, Boolean adminRead, String seriesName){
+    public boolean storeNotification(String username, String body, String link, String type,String usernameto, Boolean read, Boolean adminRead, String seriesName){
+        if(notificationExist(username, link, usernameto, type)){
+            return true;
+        }
+
         System.out.println("Got to notif repo");
         jdbc.update("INSERT INTO  \"Notifications\" (username, body, link, type,usernameto,read,adminread,seriesname)"
                 + "VALUES(?,?,?,?,?,?,?,?)", username, body, link, type,usernameto,read,adminRead,seriesName);
+        return false;
     }
 
+    public boolean notificationExist(String username, String link, String usernameto, String type){
+
+        String query = "SELECT * FROM \"Notifications\" WHERE username = '" + username + "'AND link = '" + link + "'AND usernameto ='"
+                + usernameto + "'AND type = '" + type + "';";
+        List<Map<String, Object>> rows = jdbc.queryForList(query);
+        if(rows.size() == 1){
+            System.out.println("Notif already exists ");
+            return true;
+        }
+        return false;
+    }
     public ArrayList<Notification> queryAllNotifications(String usernameTo){
         String findallNotifs ="SELECT * FROM \"Notifications\" WHERE usernameto='"+usernameTo+"' AND read='"+false+"';";
         try {
