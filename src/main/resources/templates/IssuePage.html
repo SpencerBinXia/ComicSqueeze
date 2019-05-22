@@ -88,13 +88,13 @@
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
             <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
+                <img src="images/icons/notification_icon.png" title="Notifications" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
             </a>
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
             <a th:href="@{/search}" style="float: right; display: inline-block">
-                <img src="images/icons/search_icon.png" th:src="@{/images/icons/search_icon.png}" class="navIcon">
+                <img src="images/icons/search_icon.png" title="Browse" th:src="@{/images/icons/search_icon.png}" class="navIcon">
             </a>
             <a th:if="${session.username}==null" th:href="@{/register}" class="navButton" style="float: right; margin-right: 10px">REGISTER</a>
             <a th:if="${session.username}==null" onclick="loginClicked()" class="navButton" style="float: right;">SIGN IN</a>
@@ -137,22 +137,22 @@
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 20px;">
                 <a th:if="${session.username == profileID} OR ${creator == true}" class="button-as-link" th:href="@{/createpage}">
-                    <button class="lime-button" style="margin-right: 30px">CREATE PAGE</button>
+                    <button class="lime-button" title="Create new Page" style="margin-right: 30px">CREATE PAGE</button>
                 </a>
                 <label class="lime-button-file" th:if="${session.username == profileID} OR ${creator == true}" style="cursor: pointer;">
-                    <input id ="uploadPage" type="file" accept="image/*" onChange="uploadPagetoDBCustom(curSeriesUsername,currentSeries,currentIssue,pageNumber)">
+                    <input id ="uploadPage" type="file" accept="image/*" title="Upload new Page" onChange="uploadPagetoDBCustom(curSeriesUsername,currentSeries,currentIssue,pageNumber)">
                     UPLOAD PAGE
                 </label>
-                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
-                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
-                <button th:if="${session.curMember != null} and ${session.curMember.getAdminStatus()} == true and ${session.username != profileID}" class = "red-button" style="margin-right: 30px" onclick="deleteIssue()">DELETE</button>
-                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="editIssueClicked()">EDIT</button>
-                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" onclick="publish()">PUBLISH</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == true" class="lime-button" style="margin-right: 30px" title="Delete this Issue" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID} and ${session.curMember.getAdminStatus()} == false" class="lime-button" style="margin-right: 30px" title="Delete this Issue" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.curMember.getAdminStatus()} == true and ${session.username != profileID}" class = "red-button" style="margin-right: 30px" title="Delete this Issue" onclick="deleteIssue()">DELETE</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" title="Edit Series Info" onclick="editIssueClicked()">EDIT</button>
+                <button th:if="${session.curMember != null} and ${session.username == profileID}" class="lime-button" style="margin-right: 30px" title="Publish this Issue with the Selected Pages" onclick="publish()">PUBLISH</button>
             </div>
             <div class="flexContainer flexRow" style="justify-content: flex-start; padding-top: 10px;">
-                <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE ISSUE COVER</a>
+                <a th:if="${session.username == profileID}" th:href="@{/createissuecover}" title="Create Issue Cover" class="lime-button no-link" style="margin-right: 30px; color: white">CREATE COVER</a>
                 <label class="lime-button-file" th:if="${session.username == profileID}" style="cursor: pointer;">
-                    <input id ="uploadIssueCover" type="file" accept="image/*" onChange="uploadIssueCoverDBCustom(username,currentSeries,currentIssue)">
+                    <input id ="uploadIssueCover" type="file" accept="image/*" title="Upload Issue Cover" onChange="uploadIssueCoverDBCustom(username,currentSeries,currentIssue)">
                     UPLOAD COVER
                 </label>
             </div>
@@ -172,13 +172,16 @@
                             <div class="flexContainer flexRow" style="margin: auto">
                                 <h2 class="subtext" th:if="${session.username == profileID}" style="margin: 0"th:text="${page.getPageArrayNumber()}"></h2>
                                 <h2 class="subtext" th:if="${session.username != profileID and page.isPublished()}" style="margin: 0"th:text="${page.getPublishedArrayNumber()}"></h2>
-                                <a th:if="${session.username == profileID or session.username == page.getCreator()} and ${page.getCustom()}==false" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option"><img src="images/icons/edit_icon.png" th:src="@{/images/icons/edit_icon.png}"></a>
-
+                                <a th:if="${session.username == profileID or session.username == page.getCreator()} and ${page.getCustom()}==false" th:href="@{/editPage/{editNum}(editNum=${page.getPagenumber()})}" class="page-option">
+                                    <img src="images/icons/edit_icon.png" title="Edit page" th:src="@{/images/icons/edit_icon.png}">
+                                </a>
                                 <label  class="page-option" th:if="${session.username == profileID or session.username == page.getCreator()} and ${page.getCustom()}!=false" style="cursor: pointer;">
-                                    <img src="images/icons/upload_icon.png" th:src="@{/images/icons/upload_icon.png}">
+                                    <img src="images/icons/upload_icon.png" title="Re-upload page" th:src="@{/images/icons/upload_icon.png}">
                                     <input th:name="${page.getPagenumber()}" type="file" accept="image/*" onChange="editUploadPagetoDBCustom(curSeriesUsername,currentSeries,currentIssue,this)">
                                 </label>
-                                <a th:if="${session.username == profileID or session.username == page.getCreator()}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${profileID}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}"><img src="images/icons/trash_icon.png" th:src="@{/images/icons/trash_icon.png}"></a>
+                                <a th:if="${session.username == profileID or session.username == page.getCreator()}" href="#" class="page-option" th:href = "@{/deletePage/{username}/{seriesTitle}/{issueTitle}/{pageNumber}(username=${profileID}, seriesTitle=${page.getSeries()},issueTitle=${page.getIssue()}, pageNumber =${page.getPagenumber()})}">
+                                    <img src="images/icons/trash_icon.png" title="Delete page" th:src="@{/images/icons/trash_icon.png}">
+                                </a>
                                 <div th:if="${session.username == profileID and page.isPublished() == true}">
                                     <input class="publish-checkbox" th:value="${page.getPageArrayNumber()}" type="checkbox" data-switch-always checked>
                                 </div>
