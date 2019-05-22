@@ -31,7 +31,9 @@ public class reportSeriesController {
                                String type, @RequestParam(value = "link") String link, @RequestParam("usernameto") String usernameto, @RequestParam("read") Boolean read, @RequestParam("adminread") Boolean adminread){
         System.out.println("Got to report controller");
         Series seriesToReport = seriesService.findSeriesByTitle(username,seriesTitle);
-        notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle);
+        if(notificationService.storeNotification(username, reportBody, link,type,usernameto,read,adminread,seriesTitle)){
+            return null;
+        }
         return seriesToReport;
     }
 

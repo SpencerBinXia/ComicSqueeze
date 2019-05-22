@@ -89,9 +89,15 @@ function flagSeries() {
         url: "/reportSeries",
         cache: false,
         success: function (result) {
-            alert("successfully reported "+usernameto);
+            console.log("In success report series");
+            console.log(result);
+            if(!result){
+                alert("Cannot report same series twice");
+            }
+            else{
+                alert("successfully reported "+usernameto);
+            }
             closeFlagSeries();
-
         },
         error: function(e){
             console.log("Report failed");
