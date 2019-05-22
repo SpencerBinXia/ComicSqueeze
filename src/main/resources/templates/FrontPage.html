@@ -59,9 +59,9 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}" class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" title="Notifications" class="navIcon">
-            </a>
+            <!--<a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">-->
+                <!--<img src="images/icons/notification_icon.png" title="Notifications" class="navIcon">-->
+            <!--</a>-->
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">
@@ -86,9 +86,9 @@
                 </div>
                 <div class="column-right">
                     <div class="flexContainer flexColumn">
-                        <p>Story so far:</p>
+                        <p>Guidelines:</p>
                         <p th:text="${session.weeklyComic.getDescription()}">Bruce Wayne is having dinner with his girlfriend Jezebel Jet. She is beginning to get upset with all his disappearances.
-                            She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p>
+                            She wants to know what he's hiding from her. Their dinner and discussion is interrupted when the Fiend with Nine Eyes arrives...</p><br>
                         <p th:if="${session.username}==null">Log in to:</p>
                         <h4 style="margin-top: 0">Vote on, or submit, a page to continue the story.</h4>
                         <div class="flexContainer flexRow" style="justify-content: space-evenly; padding-top: 20px;">

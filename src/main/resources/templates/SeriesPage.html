@@ -69,9 +69,9 @@
         <a style="float: left; padding-left: 17%; display: inline-block">
             <img th:if="${session.username}!=null" th:src="${curMember.getImgUrl()}"class="navUserIcon" style="border-radius: 50%;">
             <a th:if="${session.username}!=null" th:href="@{/yourprofile}" th:text="${session.username}" class="navButton" style="float: left; margin-left: 15px; display: inline-block"></a>
-            <a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">
-                <img src="images/icons/notification_icon.png" title="Notifications" th:src="@{/images/icons/notification_icon.png}" class="navIcon">
-            </a>
+            <!--<a th:if="${session.username}!=null" onclick="notificationsClicked()" class="navButton" style="float: left; display: inline-block">-->
+                <!--<img src="images/icons/notification_icon.png" title="Notifications" th:src="@{/images/icons/notification_icon.png}" class="navIcon">-->
+            <!--</a>-->
         </a>
         <a th:href="@{/}" class="navLogo"></a>
         <div style="float: right; padding-right: 17%;">

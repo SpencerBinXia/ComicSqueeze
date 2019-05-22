@@ -98,11 +98,11 @@
     overflow-x: hidden;
 }
 .notification-item {
-    border: solid #b9bec5 1px;
-    border-top: none;
+    text-decoration: none;
+    background-color: #ececec;
+    margin: 0 5px 10px 0;
     padding: 10px;
-    color: white;
-    margin: 0;
+    color: black;
 }
 
 img {
