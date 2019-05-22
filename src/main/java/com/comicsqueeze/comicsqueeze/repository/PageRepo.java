@@ -82,7 +82,7 @@ public class PageRepo {
     }
 
     public void setImgUrl(Page page, String username, String url){
-        jdbc.update("UPDATE \"Page\" SET imgurl = ? WHERE username = ? AND pagenumber = ?;", url, username, page.getPagenumber());
+        jdbc.update("UPDATE \"Page\" SET imgurl = ? WHERE username = ? AND pagenumber = ? AND series = ? AND issue = ?;", url, username, page.getPagenumber(),page.getSeries(),page.getIssue());
         System.out.println("Updated User's img in DB");
 
     }

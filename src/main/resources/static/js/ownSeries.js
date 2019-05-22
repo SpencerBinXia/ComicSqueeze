@@ -90,8 +90,9 @@ function flagSeries() {
         cache: false,
         success: function (result) {
             console.log("In success report series");
+            console.log(result.valueOf());
             console.log(result);
-            if(!result){
+            if(result == false){
                 alert("Cannot report same series twice");
             }
             else{
