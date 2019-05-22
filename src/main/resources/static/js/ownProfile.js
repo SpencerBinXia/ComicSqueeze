@@ -352,6 +352,8 @@ $(document).ready(function(){
         // occurs when clicking the add tag button after inputting the tag name.
         var inviteName = document.getElementById("inviteField").value;
         var form = document.getElementById('inviteForm');
+        console.log("in create series");
+        console.log(curSessionUser);
         console.log("add invite: " + inviteName);
         if(inviteName == "" || inviteName == null) {
             alert("Please enter a user to invite.");
@@ -359,7 +361,12 @@ $(document).ready(function(){
         else if(inviteList.includes(inviteName)){
             console.log("invite list: " +inviteList);
             alert("Duplicate invites are invalid.");
-        } else {
+        }
+        else if(inviteName == curSessionUser){
+            console.log("invite list:" + inviteList);
+            alert("Cannot invite yourself.");
+        }
+        else {
             $.ajax({
                 type : "POST",
                 url : "/findInvitedUser",
@@ -399,3 +406,15 @@ $(document).ready(function(){
         }
     });
 });
+
+function in_list(needle, hay)
+{
+    var i, len;
+
+    for (i = 0, len = hay.length; i < len; i++)
+    {
+        if (hay[i] == needle) { return true; }
+    }
+
+    return false;
+}
